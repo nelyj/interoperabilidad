@@ -44,4 +44,4 @@ Putting it all together, after building the image you can run it like this:
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        interoperabilidad
+        egob/interoperabilidad

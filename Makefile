@@ -51,6 +51,6 @@ db: build
 	docker-compose run web rake db:create db:migrate
 
 production-build: Dockerfile.production
-	docker build  -f Dockerfile.production  -t interoperabilidad  .
+	docker build  -f Dockerfile.production  -t egob/interoperabilidad  .
 
 .PHONY: all run build stop restart open clean test logs db production-build
