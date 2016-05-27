@@ -55,4 +55,5 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
+        egob/interoperabilidad
         bundle exec rake db:create db:migrate
