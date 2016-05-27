@@ -1,0 +1,13 @@
+FROM ruby:2.3.1
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+RUN mkdir /app
+WORKDIR /app
+# For development we do NOT run bundle here, to avoid rebuilding every time
+# we change the Gemfile (which would lead to a full download of every gem in
+# the project again)
+#
+# Our Makefile drives the (re)bundling when necessary. We do not bust Bundler's
+# cache (thanks to the bundle_cache container defined on docker-compose.yml)
+# and therefore only download new gems.
+# 
+ADD . /app

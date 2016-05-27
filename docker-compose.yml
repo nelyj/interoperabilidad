@@ -1,0 +1,21 @@
+version: '2'
+services:
+  postgres:
+    image: postgres:9.5.3
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes_from:
+      - bundle_cache      
+  bundle_cache:
+    image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
+    volumes:
+      - /usr/local/bundle
