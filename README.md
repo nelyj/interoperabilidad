@@ -45,3 +45,14 @@ Putting it all together, after building the image you can run it like this:
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
         egob/interoperabilidad
+
+
+## Deployment
+
+In addition to pulling the latest `egob/interoperabilidad` image from dockerhub and pointing the web load balancer to containers running the new image (as described above), a new release might include database changes. Those changes must be executed before spinning the new containers, and you can do that using the same new image but with a explicit `bundle exec rake db:create db:migrate` command. Here is a full command line example:
+
+    $ docker run \
+        -p 8888:80 \
+        -e SECRET_KEY_BASE=myprecioussecret \
+        -e DATABASE_URL=postgres://user:password@host/database \
+        bundle exec rake db:create db:migrate
