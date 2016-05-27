@@ -41,7 +41,7 @@ clean: stop
 
 test: build db
 	docker-compose up -d postgres
-	docker-compose run web rake spec
+	docker-compose run web rails test
 
 logs:
 	docker-compose logs
