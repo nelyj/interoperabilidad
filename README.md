@@ -30,7 +30,7 @@ Usually the Rails web server will still be booting when the last step of the lis
 
 # Production setup
 
-Building the `Dockerfile.production` image (via `make production-build`) is a first stab at production deployment. It gives you a self-contained stateless web application that requires only a some environment variables to run:
+Production should run the latest [`egob/interoperabilidad`](https://hub.docker.com/r/egob/interoperabilidad/) image from DockerHub. It is built as part of the continuous integration process (via `make production-build` plus some tagging). The image gives you a self-contained stateless web application that requires only some environment variables to run:
 
 - `SECRET_KEY_BASE`: A random string that can be generated via `rails secret`. It should be the *same* for *every* instance running in production.
 
