@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-all: build db run open
+all: build db run
 
 run: build
 	docker-compose up -d
@@ -21,7 +21,7 @@ stop:
 restart: build
 	docker-compose restart web
 
-open:
+mac-open:
 	$(shell \
 				IP=`docker-machine ip default` ;\
 				PORT=`docker-compose port web 3000 | cut -d: -f2` ;\
@@ -53,4 +53,4 @@ db: build
 production-build: Dockerfile.production
 	docker build  -f Dockerfile.production  -t egob/interoperabilidad  .
 
-.PHONY: all run build stop restart open clean test logs db production-build
+.PHONY: all run build stop restart mac-open clean test logs db production-build

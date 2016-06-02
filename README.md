@@ -23,11 +23,7 @@ Assuming you have a functional make and docker on your system, just go to the pr
 
 3. Run all docker containers.
 
-4. Open the application home page in your browser.
-
-Usually the Rails web server will still be booting when the last step of the list above is executed. So you might get an error page opened on your browser. Just reload the page and it should work.
-
-(If it doesn't, take a look at the output of make and if everything looks OK then check `log/development.log` to debug the web application itself)
+If you are on Mac OS X, you can now run `make mac-open` to auto-discover the IP of your docker machine and open a browser pointing to the web server. (If it doesn't work, take a look at the output of make and if everything looks OK then check `log/development.log` and `docker-compose logs` to debug the web application itself)
 
 # Production setup
 
