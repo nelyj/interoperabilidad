@@ -12,6 +12,7 @@ Note: Only tested on Mac OS X so far.
 
 Assuming you have a functional make and docker on your system, just go to the project root and type:
 
+    $ export OP_CLIENT_ID=<our-clave-unica-secret-id> OP_SECRET_KEY=<our-clave-unica-secret>
     $ make
 
 ...and go for coffee — it will take a while unless you have the right docker images cached. It will:
@@ -35,6 +36,10 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 - `SECRET_KEY_BASE`: A random string that can be generated via `rails secret`. It should be the *same* for *every* instance running in production.
 
 - `DATABASE_URL`: A pointer to the database (e.g: `postgres://myuser:mypass@localhost/somedatabase`).
+
+- `OP_CLIENT_ID`: Client ID to authenticate with https://www.claveunica.gob.cl/
+
+- `OP_SECRET_KEY`: Client Secret to authenticate with https://www.claveunica.gob.cl/
 
 You can also set the `PORT` environment variable to change the port where the web server will listen (defaults to 80). See `config/puma.rb` for more options you can tune/override via environment variables.
 
