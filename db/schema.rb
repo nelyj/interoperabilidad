@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602151652) do
+ActiveRecord::Schema.define(version: 20160602152349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 20160602151652) do
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "schema_versions", force: :cascade do |t|
+    t.integer  "schema_id",      null: false
+    t.integer  "version_number", null: false
+    t.jsonb    "spec",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "schemas", force: :cascade do |t|
@@ -47,5 +55,6 @@ ActiveRecord::Schema.define(version: 20160602151652) do
     t.index ["sub"], name: "index_users_on_sub", unique: true, using: :btree
   end
 
+  add_foreign_key "schema_versions", "schemas"
   add_foreign_key "schemas", "schema_categories"
 end
