@@ -11,9 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160602014443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "rut",                            null: false
+    t.string   "sub",                            null: false
+    t.string   "id_token",                       null: false
+    t.string   "name"
+    t.string   "email"
+    t.integer  "sign_in_count",      default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["rut"], name: "index_users_on_rut", unique: true, using: :btree
+    t.index ["sub"], name: "index_users_on_sub", unique: true, using: :btree
+  end
 
 end
