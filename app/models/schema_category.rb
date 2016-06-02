@@ -1,0 +1,2 @@
+class SchemaCategory < ApplicationRecord
+end
