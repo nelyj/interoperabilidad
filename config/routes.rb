@@ -7,4 +7,10 @@ Rails.application.routes.draw do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
+
+  resources :schemas, only: [:index, :new, :create, :edit, :update], param: :name do
+      resources :schema_versions,
+        only: [:index, :new, :create, :show], param: :version_number,
+        path: 'versions'
+  end
 end
