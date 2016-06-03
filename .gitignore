@@ -19,3 +19,6 @@
 # Ignore Makefile's temporary artifacts
 .built
 .bundled
+
+*.sublime-project
+*.sublime-workspace
