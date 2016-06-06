@@ -1,0 +1,14 @@
+= form_for([@schema,schema_version]) do |f|
+  - if schema_version.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(schema_version.errors.count, "error")
+        prohibited this schema_version from being saved:
+      %ul
+        - schema_version.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :spec
+    = f.text_area :spec
+  .actions
+    = f.submit

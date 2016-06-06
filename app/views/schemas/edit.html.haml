@@ -1,0 +1,15 @@
+%h1 Editing Schema
+= form_for(@schema) do |f|
+  - if @schema.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@schema.errors.count, "error")
+        prohibited this schema from being saved:
+      %ul
+        - @schema.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :schema_category_id
+    = f.select :schema_category_id, @categories
+  .actions
+    = f.submit

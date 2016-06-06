@@ -1,0 +1,17 @@
+%p#notice
+%h1 Schemas
+%table
+  %thead
+    %tr
+      %th Nombre
+      %th Categoria
+      %th{:colspan => "3"}
+  %tbody
+    - @schemas.each do |schema|
+      %tr
+        %td= schema.name
+        %td= @categories.select {|category| category[1] == schema.schema_category_id }[0][0]
+        %td= link_to 'Editar', edit_schema_path(schema)
+        %td= link_to 'Versiones', schema_schema_versions_path(schema)
+%br
+  = link_to 'Nuevo Schema', new_schema_path

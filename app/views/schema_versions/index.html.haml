@@ -1,0 +1,18 @@
+%p#notice
+%h1 SchemaVersion
+%table
+  %thead
+    %tr
+      %th Schema ID
+      %th Version
+      %th Spec
+      %th{:colspan => "3"}
+  %tbody
+    - @schema_versions.each do |schema_version|
+      %tr
+        %td= schema_version.schema_id
+        %td= schema_version.version_number
+        %td= schema_version.spec
+        %td= link_to 'Ver', [@schema,schema_version]
+%br
+  = link_to 'New Version', new_schema_schema_version_path
