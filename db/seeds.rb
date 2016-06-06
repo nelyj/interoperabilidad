@@ -11,3 +11,22 @@ SchemaCategory.delete_all
 ].each do |category_name|
   SchemaCategory.create!(name: category_name)
 end
+
+puts 'Seeding Organizations'
+Organization.delete_all
+[
+  {
+    name: 'Gobierdo Digital',
+    initials: 'GOBD'
+  },
+  {
+    name: 'Servicio Impuestos Internos',
+    initials:'SII'
+  },
+  {
+    name: 'Ministerio de Salud',
+    initials: 'MINSAL'
+  }
+].each do |org|
+  Organization.create!(org)
+end
