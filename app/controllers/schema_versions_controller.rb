@@ -1,6 +1,7 @@
 class SchemaVersionsController < ApplicationController
 
   def show
+    set_schema
     @schema_version = SchemaVersion.find(params[:version_number])
     respond_to do |format|
       format.html
