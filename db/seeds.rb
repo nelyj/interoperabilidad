@@ -16,11 +16,11 @@ puts 'Seeding Organizations'
 Organization.delete_all
 [
   {
-    name: 'Gobierdo Digital',
-    initials: 'GOBD'
+    name: 'Secretaría General de la Presidencia',
+    initials: 'SEGPRES'
   },
   {
-    name: 'Servicio Impuestos Internos',
+    name: 'Servicio de Impuestos Internos',
     initials:'SII'
   },
   {
