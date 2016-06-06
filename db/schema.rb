@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160607190728) do
   create_table "roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "organization_id"
+    t.string  "name",            null: false
     t.index ["organization_id"], name: "index_roles_on_organization_id", using: :btree
     t.index ["user_id"], name: "index_roles_on_user_id", using: :btree
   end
