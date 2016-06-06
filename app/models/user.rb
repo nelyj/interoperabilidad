@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  # One user may belong to many organizations,
+  # and have many roles.
+  has_many :roles
+  has_many :organizations, through: :roles
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable, omniauth_providers: [:clave_unica]
