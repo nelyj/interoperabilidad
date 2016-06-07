@@ -3,9 +3,6 @@ class SchemaVersionsController < ApplicationController
   def show
     set_schema
     @schema_version = SchemaVersion.find(params[:version_number])
-    respond_to do |format|
-      format.html
-    end
   end
 
   def index
@@ -29,10 +26,6 @@ class SchemaVersionsController < ApplicationController
   end
 
   private
-
-  def set_schema_version
-    @schema_version = SchemaVersion.find(params[:id])
-  end
 
   def set_schema
     @schema = Schema.find_by(name: params[:schema_name])
