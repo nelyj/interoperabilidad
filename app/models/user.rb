@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # One user may belong to many organizations,
-  # and have many roles.
   has_many :roles
   has_many :organizations, through: :roles
 
