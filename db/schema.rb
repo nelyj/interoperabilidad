@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606214923) do
+ActiveRecord::Schema.define(version: 20160607190728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,21 @@ ActiveRecord::Schema.define(version: 20160606214923) do
     t.index ["name"], name: "index_schemas_on_name", using: :btree
   end
 
+  create_table "service_versions", force: :cascade do |t|
+    t.integer  "service_id",     null: false
+    t.integer  "version_number", null: false
+    t.jsonb    "spec",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string   "name",            null: false
+    t.integer  "organization_id", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "rut",                                null: false
     t.string   "sub",                                null: false
@@ -71,4 +86,6 @@ ActiveRecord::Schema.define(version: 20160606214923) do
 
   add_foreign_key "schema_versions", "schemas"
   add_foreign_key "schemas", "schema_categories"
+  add_foreign_key "service_versions", "services"
+  add_foreign_key "services", "organizations"
 end
