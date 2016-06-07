@@ -9,8 +9,14 @@ Rails.application.routes.draw do
   end
 
   resources :schemas, only: [:index, :new, :create, :edit, :update], param: :name do
-      resources :schema_versions,
-        only: [:index, :new, :create, :show], param: :version_number,
-        path: 'versions'
+    resources :schema_versions,
+      only: [:index, :new, :create, :show], param: :version_number,
+      path: 'versions'
+  end
+
+  resources :services, only: [:index, :new, :create, :edit, :update], param: :name do
+    resources :service_verions,
+      only: [:index, :new, :create, :show], param: :version_number,
+      path: 'versions'
   end
 end
