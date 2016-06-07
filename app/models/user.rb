@@ -13,6 +13,17 @@ class User < ApplicationRecord
     where(rut: auth.info.rut).first_or_create! do |user|
       user.sub = auth.info.sub
       user.id_token = auth.info.id_token
+      add_role_from_service!(user)
     end
   end
+
+  def add_role_from_service!(user)
+    user.can_create_schemas = true
+    org = Organization.find_by_initials("SEGPRES")
+    rol = Role.first_or_create(user_id: user.id,
+                               organization_id: org.id,
+                               name: "Schema Admin")
+    user.save
+  end
+
 end
