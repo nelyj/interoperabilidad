@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :services, only: [:index, :new, :create, :edit, :update], param: :name do
-    resources :service_verions,
+    resources :service_versions,
       only: [:index, :new, :create, :show], param: :version_number,
       path: 'versions'
   end
