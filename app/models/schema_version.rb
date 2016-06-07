@@ -8,7 +8,10 @@ class SchemaVersion < ApplicationRecord
   end
 
   def set_version_number
-    last_version = schema.schema_versions.maximum(:version_number) || 0
-    self.version_number = last_version.to_i + 1
+    self.version_number = last_version_number + 1
+  end
+
+  def last_version_number
+    schema.schema_versions.maximum(:version_number) || 0
   end
 end
