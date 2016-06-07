@@ -1,4 +1,4 @@
-= form_for([@schema,schema_version]) do |f|
+= form_tag [@schema, schema_version], multipart: true do
   - if schema_version.errors.any?
     #error_explanation
       %h2
@@ -7,8 +7,7 @@
       %ul
         - schema_version.errors.full_messages.each do |message|
           %li= message
+  %label{:for => "spec_file"} Spec to Upload
+  = file_field_tag "spec_file"
   .field
-    = f.label :spec
-    = f.text_area :spec
-  .actions
-    = f.submit
+  = submit_tag("Crear")
