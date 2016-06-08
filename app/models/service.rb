@@ -6,14 +6,14 @@ class Service < ApplicationRecord
 
   after_create :create_first_version
 
-  attr_accessor :spec
+  attr_accessor :spec_file
 
   def to_param
     name
   end
 
   def create_first_version
-    service_versions.create(spec: self.spec)
+    service_versions.create(spec_file: self.spec_file)
   end
 
   def last_version_number
