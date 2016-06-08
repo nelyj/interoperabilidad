@@ -1,0 +1,21 @@
+%h1 Nuevo Servicio
+= form_for(@service) do |f|
+  - if @service.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@service.errors.count, "error")
+        prohibited this service from being saved:
+      %ul
+        - @service.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :organization_id
+    = f.collection_select(:organization_id, @organizations, :id, :name)
+  .field
+    = f.label :spec_file
+    = f.file_field :spec_file
+  .actions
+    = f.submit

@@ -1,0 +1,15 @@
+%h1 Editing Service
+= form_for(@service) do |f|
+  - if @service.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@service.errors.count, "error")
+        prohibited this service from being saved:
+      %ul
+        - @service.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :organization_id
+    = f.collection_select(:organization_id, @organizations, :id, :name)
+  .actions
+    = f.submit

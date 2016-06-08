@@ -1,0 +1,14 @@
+= form_for ([@service, service_version]) do |f|
+  - if service_version.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(service_version.errors.count, "error")
+        prohibited this service_version from being saved:
+      %ul
+        - service_version.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :spec_file
+    = f.file_field :spec_file
+  .actions
+    = f.submit

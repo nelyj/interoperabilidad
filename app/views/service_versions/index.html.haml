@@ -1,0 +1,17 @@
+%p#notice
+%h1 ServiceVersion
+%table
+  %thead
+    %tr
+      %th Service ID
+      %th Version
+      %th Spec
+      %th{:colspan => "3"}
+  %tbody
+    - @service_versions.each do |service_version|
+      %tr
+        %td= service_version.service_id
+        %td= service_version.version_number
+        %td= link_to 'Ver', [@service,service_version]
+%br
+  = link_to 'New Version', new_service_service_version_path
