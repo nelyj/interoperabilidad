@@ -17,7 +17,7 @@ class SchemaVersionsController < ApplicationController
 
   def create
     set_schema
-    @schema_version = @schema.schema_versions.build(spec: params[:spec_file].read)
+    @schema_version = @schema.schema_versions.build(schema_version_params)
     if @schema_version.save
       redirect_to [@schema, @schema_version], notice: 'schema_version was successfully created.'
     else
@@ -26,6 +26,10 @@ class SchemaVersionsController < ApplicationController
   end
 
   private
+
+  def schema_version_params
+    params.require(:schema_version).permit(:spec_file)
+  end
 
   def set_schema
     @schema = Schema.find_by(name: params[:schema_name])

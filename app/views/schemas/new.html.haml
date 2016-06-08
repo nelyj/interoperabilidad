@@ -13,9 +13,9 @@
     = f.text_field :name
   .field
     = f.label :schema_category_id
-    = f.select :schema_category_id, @categories
+    = f.collection_select(:schema_category_id, @categories, :id, :name)
   .field
-    = f.label :spec
-    = f.text_area :spec
+    = f.label :spec_file
+    = f.file_field :spec_file
   .actions
     = f.submit

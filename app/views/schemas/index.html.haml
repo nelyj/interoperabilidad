@@ -10,7 +10,7 @@
     - @schemas.each do |schema|
       %tr
         %td= schema.name
-        %td= @categories.select {|category| category[1] == schema.schema_category_id }[0][0]
+        %td= @categories.find(schema.schema_category_id).name
         %td= link_to 'Editar', edit_schema_path(schema)
         %td= link_to 'Versiones', schema_schema_versions_path(schema)
 %br

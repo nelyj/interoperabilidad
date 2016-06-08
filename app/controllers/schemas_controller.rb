@@ -11,7 +11,7 @@ class SchemasController < ApplicationController
   end
 
   def create
-    @schema = Schema.new(params.require(:schema).permit(:schema_category_id, :name, :spec))
+    @schema = Schema.new(schema_params)
     if @schema.save
       redirect_to [@schema, @schema.schema_versions.first], notice: 'schema was successfully created.'
     else
@@ -21,12 +21,12 @@ class SchemasController < ApplicationController
   end
 
   def edit
-    @schema = Schema.find_by(name: params[:name])
+    set_schema
     set_categories
   end
 
   def update
-    @schema = Schema.find_by(name: params[:name])
+    set_schema
     if @schema.update(params.require(:schema).permit(:schema_category_id))
       redirect_to schemas_path, notice: 'schema was successfully updated.'
     else
@@ -36,11 +36,15 @@ class SchemasController < ApplicationController
 
   private
 
-    def set_schema
-      @schema = Schema.find(params[:id])
-    end
+  def schema_params
+    params.require(:schema).permit(:schema_category_id, :name, :spec_file)
+  end
 
-    def set_categories
-      @categories = SchemaCategory.all.map { |category| [category.name, category.id] }
-    end
+  def set_schema
+    @schema = Schema.find_by(name: params[:name])
+  end
+
+  def set_categories
+    @categories = SchemaCategory.all
+  end
 end

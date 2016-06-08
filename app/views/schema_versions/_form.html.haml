@@ -1,13 +1,14 @@
-= form_tag [@schema, schema_version], multipart: true do
-  - if schema_version.errors.any?
+= form_for([@schema, schema_version]) do |f|
+  - if @schema.errors.any?
     #error_explanation
       %h2
-        = pluralize(schema_version.errors.count, "error")
-        prohibited this schema_version from being saved:
+        = pluralize(@schema.errors.count, "error")
+        prohibited this schema from being saved:
       %ul
-        - schema_version.errors.full_messages.each do |message|
+        - @schema.errors.full_messages.each do |message|
           %li= message
-  %label{:for => "spec_file"} Spec to Upload
-  = file_field_tag "spec_file"
   .field
-  = submit_tag("Crear")
+    = f.label :spec_file
+    = f.file_field :spec_file
+  .actions
+    = f.submit
