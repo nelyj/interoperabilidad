@@ -1,11 +1,11 @@
 = form_for([@schema, schema_version]) do |f|
-  - if @schema.errors.any?
+  - if schema_version.errors.any?
     #error_explanation
       %h2
-        = pluralize(@schema.errors.count, "error")
+        = pluralize(schema_version.errors.count, "error")
         prohibited this schema from being saved:
       %ul
-        - @schema.errors.full_messages.each do |message|
+        - schema_version.errors.full_messages.each do |message|
           %li= message
   .field
     = f.label :spec_file

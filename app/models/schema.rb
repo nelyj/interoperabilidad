@@ -19,6 +19,4 @@ class Schema < ApplicationRecord
   def last_version_number
     schema_versions.maximum(:version_number) || 0
   end
-
-
 end
