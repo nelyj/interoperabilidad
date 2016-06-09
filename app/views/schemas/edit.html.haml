@@ -10,6 +10,6 @@
           %li= message
   .field
     = f.label :schema_category_id
-    = f.collection_select(:schema_category_id, @categories, :id, :name)
+    = f.collection_select(:schema_category_id, SchemaCategory.all, :id, :name)
   .actions
     = f.submit

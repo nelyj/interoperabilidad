@@ -13,7 +13,7 @@
     = f.text_field :name
   .field
     = f.label :schema_category_id
-    = f.collection_select(:schema_category_id, @categories, :id, :name)
+    = f.collection_select(:schema_category_id, SchemaCategory.all, :id, :name)
   .field
     = f.label :spec_file
     = f.file_field :spec_file

@@ -2,12 +2,10 @@ class SchemasController < ApplicationController
 
   def index
     @schemas = Schema.all
-    set_categories
   end
 
   def new
     @schema = Schema.new
-    set_categories
   end
 
   def create
@@ -22,7 +20,6 @@ class SchemasController < ApplicationController
 
   def edit
     set_schema
-    set_categories
   end
 
   def update
@@ -42,9 +39,5 @@ class SchemasController < ApplicationController
 
   def set_schema
     @schema = Schema.find_by(name: params[:name])
-  end
-
-  def set_categories
-    @categories = SchemaCategory.all
   end
 end
