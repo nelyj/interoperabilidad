@@ -33,7 +33,7 @@ class ServicesController < ApplicationController
 
   private
     def service_params
-      params.require(:service).permit(:organization_id, :name, :spec_file)
+      params.require(:service).permit(:organization_id, :name, :spec_file, :public)
     end
     def set_service
       @service = Service.find_by(name: params[:name])
