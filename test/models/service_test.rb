@@ -4,7 +4,7 @@ class ServiceTest < ActiveSupport::TestCase
 
   test '#last_version returns the version number of the last service version' do
     service = Service.create(
-      organization: organizations(:SEGPRES),
+      organization: organizations(:segpres),
       name: 'test-service',
       spec_file: StringIO.new(VALID_SPEC)
     )
