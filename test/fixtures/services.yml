@@ -1,1 +1,7 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+servicio_1:
+  name: servicio_1
+  organization: SEGPRES
+
+servicio_2:
+  name: servicio_2
+  organization: MINSAL

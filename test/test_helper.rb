@@ -36,7 +36,87 @@ INVALID_SCHEMA_OBJECT = '{
   }
 }'
 
+VALID_SPEC = '{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Swagger Test"
+    },
+    "paths": {
+        "/persons": {
+            "get": {
+                "description": "Gets `Person` objects.\nOptional query param of **size** determines\nsize of returned array\n",
+                "parameters": [
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "Size of array",
+                        "required": true,
+                        "type": "number",
+                        "format": "double"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfPersons",
+                            "type": "array",
+                            "items": {
+                                "title": "Person",
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "single": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}'
 
+INVALID_SPEC ='{
+    "swagger": "2.0",
+    "inffo": {
+        "version": "0.0.0",
+        "title": "Swagger Test"
+    },
+    "paths": {
+        "/persons": {
+            "get": {
+                "description": "Gets `Person` objects.\nOptional query param of **size** determines\nsize of returned array\n",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "title": "ArrayOfPersons",
+                            "type": "array",
+                            "items": {
+                                "title": "Person",
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "single": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}'
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

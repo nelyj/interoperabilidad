@@ -1,0 +1,11 @@
+SEGPRES:
+  name: 'Secretaría General de la Presidencia'
+  initials: 'SEGPRES'
+
+SII:
+  name: 'Servicio de Impuestos Internos'
+  initials: 'SII'
+
+MINSAL:
+  name: 'Ministerio de Salud'
+  initials: 'MINSAL'

@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class SchemaVersionTest < ActiveSupport::TestCase
+
   test 'validations' do
     # VALID_SCHEMA_OBJECT and INVALID_SCHEMA_OBJECT are loaded by test_helper
     valid_schema_version = SchemaVersion.new(
