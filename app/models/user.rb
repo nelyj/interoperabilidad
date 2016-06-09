@@ -11,12 +11,14 @@ class User < ApplicationRecord
       user.sub = auth.info.sub
       user.id_token = auth.info.id_token
     end
+    new_user.update(sub: auth.info.sub, id_token: auth.info.id_token)
     new_user.refresh_user_roles_and_email!
   end
 
   # TODO: need to be changed later, to use the provided service to get the roles.
   def refresh_user_roles_and_email!
     self.can_create_schemas = true
+    self.name = "Perico"
     self.email = "mail@example.org"
     # Organization has to be updated if it changes
     org = Organization.find_by_initials("SEGPRES")
