@@ -11,7 +11,7 @@ class User < ApplicationRecord
       user.sub = auth.info.sub
       user.id_token = auth.info.id_token
     end
-    new_user.add_role_from_service!
+    new_user.refresh_user_roles_and_email!
   end
 
   # TODO: need to be changed later, to use the provided service to get the roles.
