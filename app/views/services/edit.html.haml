@@ -10,6 +10,6 @@
           %li= message
   .field
     = f.label :organization_id
-    = f.collection_select(:organization_id, @organizations, :id, :name)
+    = f.collection_select(:organization_id, Organization.all, :id, :name)
   .actions
     = f.submit

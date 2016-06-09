@@ -10,7 +10,7 @@
     - @services.each do |s|
       %tr
         %td= s.name
-        %td= @organizations.find(s.organization_id).name
+        %td= Organization.find(s.organization_id).name
         %td= link_to 'Editar', edit_service_path(s)
         %td= link_to 'Versiones', service_service_versions_path(s)
 %br

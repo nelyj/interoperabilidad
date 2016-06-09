@@ -2,12 +2,10 @@ class ServicesController < ApplicationController
 
   def index
     @services = Service.all
-    set_organizations
   end
 
   def new
     @service = Service.new
-    set_organizations
   end
 
   def create
@@ -22,7 +20,6 @@ class ServicesController < ApplicationController
 
   def edit
     set_service
-    set_organizations
   end
 
   def update
@@ -40,9 +37,5 @@ class ServicesController < ApplicationController
     end
     def set_service
       @service = Service.find_by(name: params[:name])
-    end
-
-    def set_organizations
-      @organizations = Organization.all
     end
 end

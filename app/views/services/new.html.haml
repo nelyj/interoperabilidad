@@ -13,7 +13,7 @@
     = f.text_field :name
   .field
     = f.label :organization_id
-    = f.collection_select(:organization_id, @organizations, :id, :name)
+    = f.collection_select(:organization_id, Organization.all, :id, :name)
   .field
     = f.label :spec_file
     = f.file_field :spec_file
