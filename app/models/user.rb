@@ -23,6 +23,7 @@ class User < ApplicationRecord
     self.email = "mail@example.org"
     # Organization has to be updated if it changes
     org = Organization.find_by_initials("SEGPRES")
+    self.roles.where(organization: org).delete_all
     self.roles.first_or_create!(organization: org, name: "Service Provider")
     save!
   end
