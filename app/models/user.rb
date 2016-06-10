@@ -13,6 +13,7 @@ class User < ApplicationRecord
     end
     new_user.update(sub: auth.info.sub, id_token: auth.info.id_token)
     new_user.refresh_user_roles_and_email!
+    new_user
   end
 
   # TODO: need to be changed later, to use the provided service to get the roles.
