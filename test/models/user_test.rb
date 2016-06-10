@@ -20,7 +20,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "mail@example.org", user.email
     assert_equal segpres, user.organizations.first
     assert user.can_create_schemas
-    assert "Schema Admin", user.roles.where(organization: segpres).first.name
+    assert "Service Provider", user.roles.where(organization: segpres).first.name
   end
 
   test '.from_omniauth set Auth params to new user' do
@@ -40,7 +40,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "mail@example.org", user.email
     assert_equal segpres, user.organizations.first
     assert user.can_create_schemas
-    assert "Schema Admin", user.roles.where(organization: segpres).first.name
+    assert "Service Provider", user.roles.where(organization: segpres).first.name
   end
 
   test '.from_omniauth set Auth params to existing user' do
@@ -66,7 +66,7 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "mail@example.org", user.email
     assert_equal segpres, user.organizations.first
     assert user.can_create_schemas
-    assert "Schema Admin", user.roles.where(organization: segpres).first.name
+    assert "Service Provider", user.roles.where(organization: segpres).first.name
   end
 
 end
