@@ -1,11 +1,17 @@
 class ServicesController < ApplicationController
+  before_action :set_service, only: [:edit, :update]
 
   def index
     @services = Service.all
   end
 
   def new
-    @service = Service.new
+   if user_signed_in? &&
+    current_user.roles.where(name: "Service Provider").length >= 1
+       @service = Service.new
+    else
+      redirect_to services_path, notice: 'no tiene permisos suficientes'
+    end
   end
 
   def create
@@ -19,11 +25,14 @@ class ServicesController < ApplicationController
   end
 
   def edit
-    set_service
+    if user_signed_in? &&
+      current_user.organizations.where(id: @service.organization.id).length > 0
+    else
+      redirect_to services_path, notice: 'no tiene permisos suficientes'
+    end
   end
 
   def update
-    set_service
     if @service.update(params.require(:service).permit(:organization_id))
       redirect_to services_path, notice: 'service was successfully updated.'
     else
