@@ -14,12 +14,15 @@
  *= require_self
  */
 
-/* Generic Bootstrap */
+//Generic Bootstrap
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* E-gob Bootstrap theme */
-@import "includes/e-gob-theme";
+//Variables
+@import "includes/variables";
 
-/* Project Components and Layout */
-@import "includes/layout";
+//e-gob Bootstrap theme
+@import "includes/theme/e-gob-theme";
+
+//Project Components and Layout
+@import "includes/layout/layout";
