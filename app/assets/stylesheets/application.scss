@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+/* Generic Bootstrap */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* E-gob Bootstrap theme */
+@import "includes/e-gob-theme";
+
+/* Project Components and Layout */
+@import "includes/layout";
