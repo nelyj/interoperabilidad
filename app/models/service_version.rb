@@ -1,8 +1,11 @@
 class ServiceVersion < ApplicationRecord
   belongs_to :service
+  belongs_to :user
   validates :spec, swagger_spec: true
   before_create :set_version_number
   before_validation :read_spec
+
+  enum status: {pending: 0, approved: 1, rejected: -1}
 
   attr_accessor :spec_file
 
