@@ -94,6 +94,5 @@ ActiveRecord::Schema.define(version: 20160613144325) do
   add_foreign_key "schema_versions", "schemas"
   add_foreign_key "schemas", "schema_categories"
   add_foreign_key "service_versions", "services"
-  add_foreign_key "service_versions", "users"
   add_foreign_key "services", "organizations"
 end
