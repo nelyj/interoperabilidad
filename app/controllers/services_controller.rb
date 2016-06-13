@@ -17,6 +17,7 @@ class ServicesController < ApplicationController
   def create
     @service = Service.new(service_params)
     if @service.save
+      @service.create_first_version(current_user)
       redirect_to [@service, @service.service_versions.first], notice: 'service was successfully created.'
     else
       flash.now[:error] = "Could not save service"
