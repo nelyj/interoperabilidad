@@ -17,7 +17,7 @@ class SwayValidator <  ActiveModel::EachValidator
   end
 
   def run_validation(spec)
-    output, _ = Open3.capture2(validation_command, :stdin_data=> spec)
+    output, _ = Open3.capture2(validation_command, :stdin_data=> spec.to_json)
     parsed_output = JSON.parse(output)
     return parsed_output['warnings'], parsed_output['errors']
   end

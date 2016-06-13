@@ -15,6 +15,6 @@ class ServiceVersion < ApplicationRecord
   end
 
   def read_spec
-    self.spec = self.spec_file.read
+    self.spec = JSON.parse(self.spec_file.read)
   end
 end
