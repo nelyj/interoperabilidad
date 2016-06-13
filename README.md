@@ -8,7 +8,7 @@
 
 ## First run
 
-Note: Only tested on Mac OS X so far.
+Note: Only tested on Mac OS X and Linux so far.
 
 Assuming you have a functional make and docker on your system, just go to the project root and type:
 
@@ -22,6 +22,8 @@ Assuming you have a functional make and docker on your system, just go to the pr
 2. Create the PostgreSQL database and run database migrations.
 
 3. Run all docker containers.
+
+Note: The database migrations assumes that your postgres image have installed the "unaccent" extension, if you don't have it, install the postgresql-contrib package.
 
 If you are on Mac OS X, you can now run `make mac-open` to auto-discover the IP of your docker machine and open a browser pointing to the web server. (If it doesn't work, take a look at the output of make and if everything looks OK then check `log/development.log` and `docker-compose logs` to debug the web application itself)
 

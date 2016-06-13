@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613144454) do
+ActiveRecord::Schema.define(version: 20160613144325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "organizations", force: :cascade do |t|
     t.string "name",     null: false
@@ -52,13 +53,13 @@ ActiveRecord::Schema.define(version: 20160613144454) do
   end
 
   create_table "service_versions", force: :cascade do |t|
-    t.integer  "service_id",                 null: false
-    t.integer  "version_number",             null: false
-    t.jsonb    "spec",                       null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "status",         default: 0
-    t.integer  "user_id",                    null: false
+    t.integer  "service_id",     null: false
+    t.integer  "version_number", null: false
+    t.jsonb    "spec",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.tsvector "tsv"
+    t.index ["tsv"], name: "tsv_idx", using: :gin
   end
 
   create_table "services", force: :cascade do |t|
@@ -67,6 +68,8 @@ ActiveRecord::Schema.define(version: 20160613144454) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.boolean  "public",          default: false
+    t.tsvector "tsv"
+    t.index ["tsv"], name: "name_idx", using: :gin
   end
 
   create_table "users", force: :cascade do |t|
