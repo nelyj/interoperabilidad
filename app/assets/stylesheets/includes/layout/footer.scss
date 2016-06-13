@@ -1,10 +1,24 @@
-.page-footer {
-    padding: 40px 0;
+@import "../../includes/_variables.scss";
+
+footer {
+    background: white;
+    padding: 0px;
     color: #999;
     text-align: center;
-    background-color: #f9f9f9;
     border-top: 1px solid #e5e5e5;
-    p:last-child {
-        margin-bottom: 0;
+    .footer-col {
+        margin: 0px;
+        height: 85px;
+        line-height: 85px;
+        padding-left: 15px;
+        padding-right: 15px;
+        background-color: white;
+        border-top: 4px solid black;
+        &.blue {
+            border-color: $official-blue;
+        }
+        &.red {
+            border-color: $official-red;
+        }
     }
 }

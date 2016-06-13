@@ -1,0 +1,10 @@
+@import "../../includes/_variables.scss";
+
+body {
+    background-color: $gray-background;
+    color: $gray-fonts;
+}
+
+.main-container {
+    min-height: 560px;
+}

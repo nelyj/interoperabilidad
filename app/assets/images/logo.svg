@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200px" height="88px" viewBox="0 0 200 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>logo provisorio</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="header-esquemas" transform="translate(-124.000000, 0.000000)">
+            <g id="header">
+                <g id="logo-provisorio" transform="translate(124.000000, 0.000000)">
+                    <g>
+                        <rect id="Rectangle-66" fill="#0069B4" x="0" y="0" width="91.5254237" height="7.65420561"></rect>
+                        <rect id="Rectangle-66-Copy" fill="#EC4244" x="91.5254237" y="0" width="108.474576" height="7.65420561"></rect>
+                        <text id="Plat{REST}" font-family="gobCL" font-size="34.7457627" font-weight="normal" fill="#717B7F">
+                            <tspan x="42.790678" y="60.2149533">Plat{</tspan>
+                            <tspan x="110.683898" y="60.2149533" font-family="gobCL-Heavy, gobCL" font-weight="600">REST</tspan>
+                            <tspan x="186.777119" y="60.2149533">}</tspan>
+                        </text>
+                        <text id="Gobierno-de-Chile" font-family="gobCL-Bold, gobCL" font-size="16.9491525" font-weight="bold" fill="#AAB1B5">
+                            <tspan x="66.3644068" y="86.588785">Gobierno de Chile</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

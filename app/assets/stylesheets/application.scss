@@ -15,14 +15,14 @@
  */
 
 //Generic Bootstrap
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import "bootstrap-sprockets.scss";
+@import "bootstrap.scss";
 
 //Variables
-@import "includes/variables";
+@import "includes/_variables";
 
 //e-gob Bootstrap theme
-@import "includes/theme/e-gob-theme";
+@import "includes/theme/_e-gob-theme";
 
 //Project Components and Layout
-@import "includes/layout/layout";
+@import "includes/layout/_layout";

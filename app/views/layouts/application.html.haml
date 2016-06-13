@@ -17,16 +17,20 @@
     .blog-masthead
       .container
         %nav.blog-nav
-          %a.blog-nav-item.active{:href => "#"} Item1
-          %a.blog-nav-item{:href => "#"} Item1
-          %a.blog-nav-item{:href => "#"} Item2
-          %a.blog-nav-item{:href => "#"} Item3
-          %a.blog-nav-item{:href => "#"} Item4
-    .container
-      %p test
+          / %a.blog-nav-item.active{:href => "#"} Item1
+          / %a.blog-nav-item{:href => "#"} Item1
+    .container{:class => "main-container"}
       - if user_signed_in?
         = link_to('Logout', destroy_user_session_path, method: :delete)
       = yield
-    %footer.page-footer
-      %p interoperabilidad
+    .container
+      %footer
+        .container
+          .row
+            .col-md-5{:class=> "footer-col blue text-left"}
+              %p
+                Gobierno de Chile
+            .col-md-7{:class=> "footer-col red text-right"}
+              %p
+                Políticas de Privacidad | CC
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
