@@ -20,6 +20,7 @@ services:
     environment:
       - OP_CLIENT_ID
       - OP_SECRET_KEY
+      - OP_CALLBACK_URL=http://dev.interoperabilidad.digital.gob.cl
   bundle_cache:
     image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
     volumes:
