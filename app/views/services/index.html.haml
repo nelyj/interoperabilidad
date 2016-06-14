@@ -16,17 +16,17 @@
 %br
   = link_to 'Nuevo Servicio', new_service_path
 
-
-%h2 Servicios por aprobar.
-%table
-  %thead
-    %tr
-      %th Nombre
-      %th Organizacion
-      %th{:colspan => "3"}
-  %tbody
-    - @pending_services_version.each do |s|
+-if current_user.can_create_schemas?
+  %h2 Servicios por aprobar.
+  %table
+    %thead
       %tr
-        %td= s.service.name
-        %td= s.service.organization.name
-        %td= link_to 'Revisar', [s.service, s]
+        %th Nombre
+        %th Organizacion
+        %th{:colspan => "3"}
+    %tbody
+      - @pending_services_version.each do |s|
+        %tr
+          %td= s.service.name
+          %td= s.service.organization.name
+          %td= link_to 'Revisar', [s.service, s]
