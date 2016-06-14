@@ -2,7 +2,7 @@ class AddSearchToServiceVersion < ActiveRecord::Migration[5.0]
 
   def up
     execute <<-SQL
-      CREATE EXTENSION unaccent;
+      CREATE EXTENSION IF NOT EXISTS unaccent;
       CREATE TEXT SEARCH CONFIGURATION es ( COPY = spanish );
       ALTER TEXT SEARCH CONFIGURATION es ALTER MAPPING FOR hword, hword_part, word WITH unaccent, spanish_stem;
       ALTER TABLE service_versions ADD COLUMN tsv tsvector;
