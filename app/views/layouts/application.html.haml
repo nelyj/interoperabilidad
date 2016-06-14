@@ -18,13 +18,14 @@
       .container
         .header-container.clearfix
           .logo
-            =image_tag "logo.svg"
+            = link_to "/schemas" do
+              = image_tag "logo.svg"
           %nav
             %ul.nav.nav-pills
               %li{:role => "presentation"}
-                = active_link_to 'Servicios', '/services', :active => :inclusive
+                =active_link_to 'Servicios', '/services', :active => :inclusive
               %li{:role => "presentation"}
-                = active_link_to 'Esquemas', '/schemas', :active => :inclusive
+                =active_link_to 'Esquemas', '/schemas', :active => :inclusive
               %li{:role => "presentation"}
                 %a{:href => "#"} Convenios
     .container{:class => "main-container"}
