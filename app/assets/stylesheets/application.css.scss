@@ -1,0 +1,12 @@
+//Generic Bootstrap
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+//Variables
+@import "partials/_variables";
+
+//e-gob Bootstrap theme
+@import "partials/theme/e-gob-theme";
+
+//Project Components and Layout
+@import "partials/layout/_layout";

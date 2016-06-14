@@ -1,0 +1,40 @@
+//fonts
+@font-face {
+    font-family: gobCL;
+    font-weight: 300;
+    font-style: normal;
+    src: font-path('gobcl_light.eot?') format('eot'), font-path('gobcl_light.woff') format('woff'), font-path('gobcl_light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: gobCL;
+    font-weight: 500;
+    font-style: normal;
+    src: font-path('gobcl_regular.eot?') format('eot'), font-path('gobcl_regular.woff') format('woff'), font-path('gobcl_regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: gobCL;
+    font-weight: 700;
+    font-style: normal;
+    src: font-path('gobcl_bold.eot?') format('eot'), font-path('gobcl_bold.woff') format('woff'), font-path('gobcl_bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: gobCL;
+    font-weight: 900;
+    font-style: normal;
+    src: font-path('gobcl_heavy.eot?') format('eot'), font-path('gobcl_heavy.woff') format('woff'), font-path('gobcl_heavy.ttf') format('truetype');
+}
+
+body {
+    background-color: $gray-background;
+    font-family: gobCL, Tahoma, Verdana, Segoe, sans-serif;
+    font-weight: 300;
+    color: $gray-text;
+    font-size: 16px;
+}
+
+.main-container {
+    min-height: 560px;
+}

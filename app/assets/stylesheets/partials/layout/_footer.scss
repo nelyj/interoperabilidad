@@ -1,11 +1,11 @@
-@import "../../includes/_variables.scss";
-
 footer {
-    background: white;
-    padding: 0px;
-    color: #999;
-    text-align: center;
-    border-top: 1px solid #e5e5e5;
+    .footer-container {
+        background: white;
+        padding: 0px;
+        color: #999;
+        text-align: center;
+        border-top: 1px solid #e5e5e5;
+    }
     .footer-col {
         margin: 0px;
         height: 85px;
@@ -13,7 +13,7 @@ footer {
         padding-left: 15px;
         padding-right: 15px;
         background-color: white;
-        border-top: 4px solid black;
+        border-top: 4px solid grey;
         &.blue {
             border-color: $official-blue;
         }
