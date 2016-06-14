@@ -52,7 +52,7 @@ Putting it all together, after building the image you can run it like this:
 
 ## Deployment
 
-In addition to pulling the latest `egob/interoperabilidad` image from dockerhub and pointing the web load balancer to containers running the new image (as described above), a new release might include database changes. Those changes must be executed before spinning the new containers, and you can do that using the same new image but with a explicit `bundle exec rake db:create db:migrate` command. Here is a full command line example:
+In addition to pulling the latest `egob/interoperabilidad` image from dockerhub and pointing the web load balancer to containers running the new image (as described above), a new release might include database changes. Those changes must be executed **before** spinning the new containers, and you can do that using the same new image but with a explicit `bundle exec rake db:create db:migrate` command. Here is a full command line example:
 
     $ docker run \
         -p 8888:80 \
@@ -60,3 +60,5 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -e DATABASE_URL=postgres://user:password@host/database \
         egob/interoperabilidad
         bundle exec rake db:create db:migrate
+
+You can also add the `--rm` flag to this command to remove this disposable container right after it executes.
