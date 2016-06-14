@@ -20,5 +20,15 @@ footer {
         &.red {
             border-color: $official-red;
         }
+        .box-logo-footer {
+            height: 100px;
+            display: block;
+            position: relative;
+            img {
+                bottom: 0px;
+                position: absolute;
+                display: inline-block;
+            }
+        }
     }
 }
