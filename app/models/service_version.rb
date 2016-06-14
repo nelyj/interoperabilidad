@@ -5,7 +5,9 @@ class ServiceVersion < ApplicationRecord
   before_create :set_version_number
   before_validation :read_spec
 
-  enum status: {pending: 0, approved: 1, rejected: -1}
+  # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
+  # Always add new states at the end.
+  enum status: [:proposed, :current, :rejected, :retracted, :outdated, :retired]
 
   attr_accessor :spec_file
 
