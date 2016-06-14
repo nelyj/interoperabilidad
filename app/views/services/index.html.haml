@@ -10,8 +10,23 @@
     - @services.each do |s|
       %tr
         %td= s.name
-        %td= Organization.find(s.organization_id).name
+        %td= s.organization.name
         %td= link_to 'Editar', edit_service_path(s)
         %td= link_to 'Versiones', service_service_versions_path(s)
 %br
   = link_to 'Nuevo Servicio', new_service_path
+
+
+%h2 Servicios por aprobar.
+%table
+  %thead
+    %tr
+      %th Nombre
+      %th Organizacion
+      %th{:colspan => "3"}
+  %tbody
+    - @pending_services_version.each do |s|
+      %tr
+        %td= s.service.name
+        %td= s.service.organization.name
+        %td= link_to 'Revisar', [s.service, s]

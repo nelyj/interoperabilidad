@@ -3,6 +3,7 @@ class ServicesController < ApplicationController
 
   def index
     @services = Service.all
+    @pending_services_version = ServiceVersion.proposed
   end
 
   def new
