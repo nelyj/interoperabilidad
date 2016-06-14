@@ -295,7 +295,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  OmniAuth.config.full_host = 'http://catalogo.interoperabilidad.gob.cl'
+  OmniAuth.config.full_host = 'http://dev.interoperabilidad.digital.gob.cl'
   config.omniauth :clave_unica, ENV["OP_CLIENT_ID"], ENV["OP_SECRET_KEY"]
 
 
