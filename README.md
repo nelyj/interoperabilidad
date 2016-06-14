@@ -39,6 +39,8 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `OP_SECRET_KEY`: Client Secret to authenticate with https://www.claveunica.gob.cl/
 
+- `OP_CALLBACK_URL`: URL for https://www.claveunica.gob.cl/ callback
+
 You can also set the `PORT` environment variable to change the port where the web server will listen (defaults to 80). See `config/puma.rb` for more options you can tune/override via environment variables.
 
 Putting it all together, after building the image you can run it like this:
