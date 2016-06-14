@@ -8,11 +8,12 @@ class ServiceTest < ActiveSupport::TestCase
       name: 'test-service',
       spec_file: StringIO.new(VALID_SPEC)
     )
+    service.create_first_version(users(:perico))
     assert_equal 1, service.last_version_number
     # VALID_SPEC is loaded by test_helper
-    service.service_versions.create(spec_file: StringIO.new(VALID_SPEC))
+    service.service_versions.create(spec_file: StringIO.new(VALID_SPEC), user: users(:perico))
     assert_equal 2, service.last_version_number
-    service.service_versions.create(spec_file: StringIO.new(VALID_SPEC))
+    service.service_versions.create(spec_file: StringIO.new(VALID_SPEC), user: users(:perico))
     assert_equal 3, service.last_version_number
   end
 end

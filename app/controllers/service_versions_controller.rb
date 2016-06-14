@@ -2,7 +2,7 @@ class ServiceVersionsController < ApplicationController
   before_action :set_service
 
   def show
-    @service_version = ServiceVersion.find(params[:version_number])
+    @service_version = ServiceVersion.find_by(version_number: params[:version_number])
   end
 
   def index
@@ -20,6 +20,7 @@ class ServiceVersionsController < ApplicationController
 
   def create
     @service_version = @service.service_versions.build(service_version_params)
+    @service_version.user = current_user
     if @service_version.save
       redirect_to [@service, @service_version], notice: 'service_version was successfully created.'
     else

@@ -4,16 +4,14 @@ class Service < ApplicationRecord
 
   validates :name, uniqueness: true
 
-  after_create :create_first_version
-
   attr_accessor :spec_file
 
   def to_param
     name
   end
 
-  def create_first_version
-    service_versions.create(spec_file: self.spec_file)
+  def create_first_version(user)
+    service_versions.create(spec_file: self.spec_file, user: user)
   end
 
   def last_version_number

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613144325) do
+ActiveRecord::Schema.define(version: 20160613144454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160613144325) do
   end
 
   create_table "service_versions", force: :cascade do |t|
+<<<<<<< HEAD
     t.integer  "service_id",     null: false
     t.integer  "version_number", null: false
     t.jsonb    "spec",           null: false
@@ -60,6 +61,15 @@ ActiveRecord::Schema.define(version: 20160613144325) do
     t.datetime "updated_at",     null: false
     t.tsvector "tsv"
     t.index ["tsv"], name: "tsv_idx", using: :gin
+=======
+    t.integer  "service_id",                 null: false
+    t.integer  "version_number",             null: false
+    t.jsonb    "spec",                       null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "status",         default: 0
+    t.integer  "user_id",                    null: false
+>>>>>>> service_approval_wokrflow_wip
   end
 
   create_table "services", force: :cascade do |t|
@@ -94,5 +104,6 @@ ActiveRecord::Schema.define(version: 20160613144325) do
   add_foreign_key "schema_versions", "schemas"
   add_foreign_key "schemas", "schema_categories"
   add_foreign_key "service_versions", "services"
+  add_foreign_key "service_versions", "users"
   add_foreign_key "services", "organizations"
 end
