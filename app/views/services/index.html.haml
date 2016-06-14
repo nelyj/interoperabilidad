@@ -16,7 +16,7 @@
 %br
   = link_to 'Nuevo Servicio', new_service_path
 
--if current_user.can_create_schemas?
+-if user_signed_in? && current_user.can_create_schemas?
   %h2 Servicios por aprobar.
   %table
     %thead
