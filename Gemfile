@@ -54,3 +54,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Gem 'Link_To', add active class to menu links
+gem 'active_link_to'
+
