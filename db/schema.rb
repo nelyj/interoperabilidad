@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613144325) do
+ActiveRecord::Schema.define(version: 20160615212357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,10 +58,8 @@ ActiveRecord::Schema.define(version: 20160613144325) do
     t.jsonb    "spec",                       null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.tsvector "tsv"
     t.integer  "status",         default: 0
     t.integer  "user_id",                    null: false
-    t.index ["tsv"], name: "tsv_idx", using: :gin
   end
 
   create_table "services", force: :cascade do |t|
@@ -70,8 +68,8 @@ ActiveRecord::Schema.define(version: 20160613144325) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.boolean  "public",          default: false
-    t.tsvector "tsv"
-    t.index ["tsv"], name: "name_idx", using: :gin
+    t.tsvector "lexemes"
+    t.index ["lexemes"], name: "lexemes_idx", using: :gin
   end
 
   create_table "users", force: :cascade do |t|
