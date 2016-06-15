@@ -1,18 +1,27 @@
 %p#notice
 %h1 Servicios
-%table
-  %thead
-    %tr
-      %th Nombre
-      %th Organizacion
-      %th{:colspan => "3"}
-  %tbody
-    - @services.each do |s|
+= form_tag(services_path, :method => "get", id: "search-form") do
+  = text_field_tag :search, params[:search], placeholder: "Búsqueda de Servicios"
+  = submit_tag "Buscar"
+
+- if @services.present?
+  %table
+    %thead
       %tr
-        %td= s.name
-        %td= s.organization.name
-        %td= link_to 'Editar', edit_service_path(s)
-        %td= link_to 'Versiones', service_service_versions_path(s)
+        %th Nombre
+        %th Organizacion
+        %th{:colspan => "3"}
+    %tbody
+      - @services.each do |s|
+        %tr
+          %td= s.name
+          %td= s.organization.name
+          %td= link_to 'Editar', edit_service_path(s)
+          %td= link_to 'Versiones', service_service_versions_path(s)
+  %br
+- else
+  %p There are no posts containing the term(s)
+  = params[:search]
 %br
   = link_to 'Nuevo Servicio', new_service_path
 

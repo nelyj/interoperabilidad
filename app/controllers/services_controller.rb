@@ -2,8 +2,12 @@ class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update]
 
   def index
-    @services = Service.all
     @pending_services_version = ServiceVersion.proposed
+    if params[:search]
+      @services = Service.search(params[:search])
+    else
+      @services = Service.all
+    end
   end
 
   def new
