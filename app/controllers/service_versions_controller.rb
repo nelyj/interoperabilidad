@@ -10,8 +10,7 @@ class ServiceVersionsController < ApplicationController
   end
 
   def new
-    if user_signed_in? &&
-      current_user.organizations.where(id: @service.organization.id).length > 0
+    if user_signed_in? && @service.can_be_updated_by?(current_uesr)
        @service_version = ServiceVersion.new
     else
       redirect_to service_service_versions_path(@service), notice: 'no tiene permisos suficientes'
