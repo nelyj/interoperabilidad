@@ -2,9 +2,15 @@ class SchemaVersion < ApplicationRecord
   belongs_to :schema
   validates :spec, swagger_schema_object: true
   before_create :set_version_number
-  before_validation :read_spec
 
-  attr_accessor :spec_file
+  def spec_file
+    @spec_file
+  end
+
+  def spec_file=(spec_file)
+    @spec_file = spec_file
+    self.spec = JSON.parse(self.spec_file.read)
+  end
 
   def to_param
     version_number.to_s
