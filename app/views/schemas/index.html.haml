@@ -1,7 +1,37 @@
+.row
+  .col-md-12
+    .box-search-schemas
+      .container
+        .col-md-12{:class => "text-center"}
+          buscar..
 .container
   .row
-    .col-md-3
-    .col-md-6
+    .col-md-3.box-col-categories
+      %h3
+        Categorías
+      %ul
+        %li 
+          %a Categoría 1        
+        %li 
+          %a Categoría 2        
+        %li 
+          %a Categoría 3        
+        %li 
+          %a Categoría 4        
+        %li 
+          %a Categoría 5        
+        %li 
+          %a Categoría 6        
+        %li 
+          %a Categoría 7
+    .col-md-9
+      .box-schema
+        .title
+          Datos de información Personal
+        .body
+          %span 
+            Descripción: 
+          Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
       %p#notice
       %h1 Schemas
       %table
@@ -19,4 +49,3 @@
               %td= link_to 'Versiones', schema_schema_versions_path(schema)
       %br
         = link_to 'Nuevo Schema', new_schema_path
-    .col-md-3
