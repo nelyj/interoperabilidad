@@ -1,12 +1,9 @@
-//buttons mixins
-
-
-//Border bottom
+//Btn Border
 @mixin bootstrap-btns($brand-color, $color-percent) {
 	border-bottom: 2px solid darken($brand-color, $color-percent);
 }
 
-//Gradient
+//Btn Gradient
 @mixin bootstrap-btns-gradient($color) {
 	background-image: -webkit-linear-gradient(top, lighten($color, 18%) 0%, $color 100%);
 	background-image: linear-gradient(-180deg, lighten($color, 18%) 0%, $color 100%);

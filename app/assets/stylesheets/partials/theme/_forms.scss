@@ -1,0 +1,41 @@
+input.form-control,
+select.form-control {
+    border-color: #979797;
+    color: #666666;
+}
+
+.input-group-btn {
+    .btn-default {
+        border-color: #ccc;
+    }
+    .btn-primary {
+        border-color: $brand-primary;
+    }
+    .btn-success {
+        border-color: $brand-success;
+    }
+    .btn-info {
+        border-color: $brand-info;
+    }
+    .btn-warning {
+        border-color: $brand-warning;
+    }
+    .btn-danger {
+        border-color: $brand-danger;
+    }
+    .btn-static {
+        border-color: $btn-static-color;
+    }
+    .btn-action-red {
+        border-color: $official-red;
+    }
+    .btn-action-blue {
+        border-color: $official-blue;
+    }
+}
+
+.input-group-btn .btn,
+span.input-group-addon {
+    border-bottom-width: 1px;
+    border-color: #979797;
+}
