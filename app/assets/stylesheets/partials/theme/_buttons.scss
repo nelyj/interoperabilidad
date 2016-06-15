@@ -47,44 +47,26 @@
 }
 
 .btn-action-red {
-    color: white;
+    @extend .btn-static;
     background-color: $official-red;
     @include bootstrap-btns($official-red, 18%);
     &:hover {
         background-color: darken($official-red, 10%);
-        color: white;
-    }
-    &:active,
-    &:focus {
-        color: white;
     }
     &.gradient {
         @include bootstrap-btns-gradient($official-red);
-        color: white;
-        &:hover {
-            color: white;
-        }
     }
 }
 
 .btn-action-blue {
-    color: white;
+    @extend .btn-static;
     background-color: $official-blue;
     @include bootstrap-btns($official-blue, 18%);
     &:hover {
         background-color: darken($official-blue, 10%);
-        color: white;
-    }
-    &:active,
-    &:focus {
-        color: white;
     }
     &.gradient {
         @include bootstrap-btns-gradient($official-blue);
-        color: white;
-        &:hover {
-            color: white;
-        }
     }
 }
 
