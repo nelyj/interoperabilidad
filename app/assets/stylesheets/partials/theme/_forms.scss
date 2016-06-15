@@ -32,9 +32,10 @@
 span.input-group-addon,
 input.form-control,
 select.form-control,
-.input-group .input-group-addon {
+.input-group .input-group-addon,
+.select2-selection--single.input-lg {
     border-bottom-width: 1px;
-    border-color: #979797;
+    border-color: $border-input-color;
     border-radius: 0px;
 }
 
@@ -47,7 +48,8 @@ select.form-control,
     margin-right: -2px;
 }
 
-//select2
-.select2-selection__choice {
-    padding: 5px 6px;
+.select2-selection--single.input-lg,
+span.select2-selection.select2-selection--multiple.form-control,
+span.select2-selection.select2-selection--multiple.select2 {
+    border-color: $border-input-color;
 }
