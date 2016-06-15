@@ -1,9 +1,7 @@
 class Service < ApplicationRecord
   belongs_to :organization
   has_many :service_versions
-
   validates :name, uniqueness: true
-
   attr_accessor :spec_file
   after_save :update_search_metadata
 
@@ -92,8 +90,9 @@ class Service < ApplicationRecord
     search_vector_sql = text_search_vectors.map do |search_vector|
       "setweight(to_tsvector(
         #{ActiveRecord::Base.sanitize(Service.search_configuration)},
-        coalesce(#{ActiveRecord::Base.sanitize(search_vector.document)}, ' ')
-      ), #{ActiveRecord::Base.sanitize(search_vector.weight)}) "
+        #{ActiveRecord::Base.sanitize(search_vector.document)}),
+        #{ActiveRecord::Base.sanitize(search_vector.weight)}
+      )"
     end.join("||")
     ActiveRecord::Base.connection.execute <<-SQL
       UPDATE services SET tsv = #{search_vector_sql}
@@ -102,19 +101,12 @@ class Service < ApplicationRecord
   end
 
   def self.search(text)
-    Service.find_by_sql(
-      "SELECT id, name, organization_id, public, document
-        FROM(
-          SELECT  service_versions.service_id as id,
-            services.name,
-            services.organization_id,
-            services.public,
-            service_versions.tsv ||
-            services.tsv AS document
-          FROM service_versions
-          JOIN services ON service_versions.service_id = services.id
-        ) s_search
-      WHERE s_search.document @@ plainto_tsquery('es', '#{text}')
-      ORDER BY ts_rank(s_search.document, plainto_tsquery('es', '#{text}')) DESC;")
+    Service.find_by_sql( <<-SQL
+      SELECT id, name, organization_id, public
+      FROM services, plainto_tsquery('es', '#{text}') as q
+      WHERE (tsv @@ q)
+      ORDER BY ts_rank(tsv, q) DESC;
+      SQL
+    )
   end
 end
