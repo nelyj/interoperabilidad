@@ -1,5 +1,6 @@
 %p#notice
-%h1 ServiceVersion
+%h1= @service_version.service.name + " V. " + @service_version.version_number.to_s
+%h2= @service_version.status
 .field
 = @service_version.spec
 .actions
