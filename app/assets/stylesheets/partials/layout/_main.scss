@@ -1,36 +1,58 @@
-//fonts
 @font-face {
-    font-family: gobCL;
-    font-weight: 300;
+    font-family: 'gobclregular';
+    src: font-url('gobcl_regular-webfont.eot');
+    src: local('gobclregular'),
+         font-url('gobcl_regular-webfont.eot?#iefix') format('embedded-opentype'), 
+         font-url('gobcl_regular-webfont.woff2') format('woff2'), 
+         font-url('gobcl_regular-webfont.woff') format('woff'), 
+         font-url('gobcl_regular-webfont.ttf') format('truetype'), 
+         font-url('gobcl_regular-webfont.svg#gobclregular') format('svg');
+    font-weight: normal;
     font-style: normal;
-    src: font-path('gobcl_light.eot?') format('eot'), font-path('gobcl_light.woff') format('woff'), font-path('gobcl_light.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: gobCL;
-    font-weight: 500;
+    font-family: 'gobcllight';
+    src: font-url('gobcl_light-webfont.eot');
+    src: local('gobcllight'),
+         font-url('gobcl_light-webfont.eot?#iefix') format('embedded-opentype'), 
+         font-url('gobcl_light-webfont.woff2') format('woff2'), 
+         font-url('gobcl_light-webfont.woff') format('woff'), 
+         font-url('gobcl_light-webfont.ttf') format('truetype'), 
+         font-url('gobcl_light-webfont.svg#gobcllight') format('svg');
+    font-weight: normal;
     font-style: normal;
-    src: font-path('gobcl_regular.eot?') format('eot'), font-path('gobcl_regular.woff') format('woff'), font-path('gobcl_regular.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: gobCL;
-    font-weight: 700;
+    font-family: 'gobclheavy';
+    src: font-url('gobcl_heavy-webfont.eot');
+    src: local('gobclheavy'),
+         font-url('gobcl_heavy-webfont.eot?#iefix') format('embedded-opentype'), 
+         font-url('gobcl_heavy-webfont.woff2') format('woff2'), 
+         font-url('gobcl_heavy-webfont.woff') format('woff'), 
+         font-url('gobcl_heavy-webfont.ttf') format('truetype'), 
+         font-url('gobcl_heavy-webfont.svg#gobclheavy') format('svg');
+    font-weight: normal;
     font-style: normal;
-    src: font-path('gobcl_bold.eot?') format('eot'), font-path('gobcl_bold.woff') format('woff'), font-path('gobcl_bold.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: gobCL;
-    font-weight: 900;
+    font-family: 'gobclbold';
+    src: font-url('gobcl_bold-webfont.eot');
+    src: local('gobclbold'),
+         font-url('gobcl_bold-webfont.eot?#iefix') format('embedded-opentype'), 
+         font-url('gobcl_bold-webfont.woff2') format('woff2'), 
+         font-url('gobcl_bold-webfont.woff') format('woff'), 
+         font-url('gobcl_bold-webfont.ttf') format('truetype'), 
+         font-url('gobcl_bold-webfont.svg#gobclbold') format('svg');
+    font-weight: normal;
     font-style: normal;
-    src: font-path('gobcl_heavy.eot?') format('eot'), font-path('gobcl_heavy.woff') format('woff'), font-path('gobcl_heavy.ttf') format('truetype');
 }
 
 body {
     background-color: $gray-background;
-    font-family: 'gobCL', 'Tahoma', 'Verdana', 'Segoe', sans-serif;
-    font-weight: 300;
+    font-family: 'gobclregular';
     color: $gray-text;
     font-size: 16px;
 }
