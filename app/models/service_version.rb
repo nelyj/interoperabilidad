@@ -7,7 +7,19 @@ class ServiceVersion < ApplicationRecord
   after_create :retract_proposed
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
-  # Always add new states at the end.
+  #
+  # The lifecycle is a follows:
+  #
+  # A new service version is born "proposed".
+  # Until it is approved by GobiernoDigital, where it becomes "current".
+  # Unless it is NOT approved, and it turns "rejected".
+  # Or, the author decides to upload a new version before the approval or
+  # rejection, in which case it becomes "retracted"
+  # Also, once a subsequent version is accepted and becomes "current", the
+  # previously current version becomes "outdated" if the change is backwards
+  # compatible. If the change is NOT backwards compatible, it becomes "retired"
+  #
+  # ALWAYS add new states at the end.
   enum status: [:proposed, :current, :rejected, :retracted, :outdated, :retired]
 
   def spec_file
