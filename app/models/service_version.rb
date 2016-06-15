@@ -4,6 +4,7 @@ class ServiceVersion < ApplicationRecord
   validates :spec, swagger_spec: true
   before_create :set_version_number
   after_save :update_search_metadata
+  after_create :retract_proposed
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   # Always add new states at the end.
@@ -30,4 +31,8 @@ class ServiceVersion < ApplicationRecord
     service.update_search_metadata if status == "current"
   end
 
+  def retract_proposed
+    service.service_versions.proposed.each do |version|
+      version.retracted! unless version.version_number == self.version_number
+    end
 end
