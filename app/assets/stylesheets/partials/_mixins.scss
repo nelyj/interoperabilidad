@@ -1,0 +1,5 @@
+//buttons mixins
+
+@mixin bootstrap-btns($brand-color, $color-percent) {
+	border-bottom: 2px solid darken($brand-color, $color-percent);
+}
