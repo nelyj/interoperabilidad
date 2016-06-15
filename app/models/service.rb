@@ -19,6 +19,6 @@ class Service < ApplicationRecord
   end
 
   def can_be_updated_by?(user)
-    current_user.organizations.exists?(id: organization.id)
+    user.organizations.exists?(id: organization.id)
   end
 end
