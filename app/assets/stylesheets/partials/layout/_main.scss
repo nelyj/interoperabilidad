@@ -51,6 +51,7 @@ body {
 
 //schemas
 .box-schema {
+    margin: 0px 7px 20px 7px;
     border-radius: 6px;
     background: white;
     display: inline-block;
@@ -65,6 +66,12 @@ body {
         font-family: $font-regular;
         border-radius: 6px 6px 0px 0px;
         background-color: $schemas-background-color;
+        a {
+            color: white;
+            &:hover{
+                text-decoration: none;
+            }
+        }
     }
     .body {
         padding: 10px;

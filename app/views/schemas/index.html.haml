@@ -3,10 +3,9 @@
     .box-search-schemas
       .container
         .col-md-12{:class => "text-center"}
-          buscar..
 .container
   .row
-    .col-md-3.box-col-categories
+    .col-md-2.box-col-categories
       %h3
         Categorías
       %ul
@@ -24,28 +23,16 @@
           %a Categoría 6        
         %li 
           %a Categoría 7
-    .col-md-9
-      .box-schema
-        .title
-          Datos de información Personal
-        .body
-          %span 
-            Descripción: 
-          Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
-      %p#notice
-      %h1 Schemas
-      %table
-        %thead
-          %tr
-            %th Nombre
-            %th Categoria
-            %th{:colspan => "3"}
-        %tbody
-          - @schemas.each do |schema|
-            %tr
-              %td= schema.name
-              %td= SchemaCategory.find(schema.schema_category_id).name
-              %td= link_to 'Editar', edit_schema_path(schema)
-              %td= link_to 'Versiones', schema_schema_versions_path(schema)
-      %br
+      %br 
         = link_to 'Nuevo Schema', new_schema_path
+    .col-md-10
+      - @schemas.each do |schema|
+        .box-schema
+          .title
+            %a{href: "#"}
+              = schema.name
+          .body
+            %span 
+              Descripción: 
+            Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
+         
