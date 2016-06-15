@@ -17,4 +17,8 @@ class Service < ApplicationRecord
   def last_version_number
     service_versions.maximum(:version_number) || 0
   end
+
+  def can_be_updated_by?(user)
+    current_user.organizations.exists?(id: organization.id)
+  end
 end
