@@ -1,5 +1,9 @@
 .btn {
     border-radius: 0px;
+    &:focus {
+        //chrome outline hack
+        outline: none !important;
+    }
 }
 
 //default bootstrap colors
@@ -42,16 +46,48 @@
     }
 }
 
-.btn-action {
+.btn-action-red {
     color: white;
-    background-color: $btn-action-color;
-    @include bootstrap-btns($btn-action-color, 18%);
+    background-color: $official-red;
+    @include bootstrap-btns($official-red, 18%);
     &:hover {
-        background-color: darken($btn-action-color, 10%);
+        background-color: darken($official-red, 10%);
         color: white;
     }
     &:active,
     &:focus {
         color: white;
     }
+    &.gradient {
+        @include bootstrap-btns-gradient($official-red);
+        color: white;
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+.btn-action-blue {
+    color: white;
+    background-color: $official-blue;
+    @include bootstrap-btns($official-blue, 18%);
+    &:hover {
+        background-color: darken($official-blue, 10%);
+        color: white;
+    }
+    &:active,
+    &:focus {
+        color: white;
+    }
+    &.gradient {
+        @include bootstrap-btns-gradient($official-blue);
+        color: white;
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+.round {
+    border-radius: 24px;
 }

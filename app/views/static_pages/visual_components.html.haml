@@ -13,11 +13,11 @@
 %br
 %br
 %a.btn.btn-static{:href => "#", :role => "button"} VERSIÓN SIGUIENTE
-%a.btn.btn-action{:href => "#", :role => "button"} Ver OAS
+%a.btn.btn-action-red{:href => "#", :role => "button"} Ver OAS
 %br
 %br
 %a.btn.btn-static.btn-lg{:href => "#", :role => "button"} VERSIÓN SIGUIENTE
-%a.btn.btn-action.btn-lg{:href => "#", :role => "button"} Ver OAS
+%a.btn.btn-action-red.btn-lg{:href => "#", :role => "button"} Ver OAS
 %br
 %br
 %h3 Single button dropdowns
@@ -126,7 +126,7 @@
       %li
         %a{:href => "#"} Separated link
   .btn-group
-    %button.btn.btn-action.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+    %button.btn.btn-action-red.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       Ver OAS
       %span.caret
     %ul.dropdown-menu
@@ -156,7 +156,7 @@
       %li
         %a{:href => "#"} Separated link
   .btn-group
-    %button.btn.btn-action.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+    %button.btn.btn-action-red.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       Ver OAS
       %span.caret
     %ul.dropdown-menu
@@ -169,8 +169,53 @@
       %li.divider{:role => "separator"}
       %li
         %a{:href => "#"} Separated link
-
 %br
+  %h2
+    %small Button Previews
+    %hr
+    %p
+      %button.btn.btn-action-red.btn-lg Large Button
+      %button.btn.btn-action-red.btn-lg.active Active
+      %button.btn.btn-action-red.btn-lg.disabled Disabled
+    %p
+      %button.btn.btn-action-red Default Button
+      %button.btn.btn-action-red.active Active
+      %button.btn.btn-action-red.disabled Disabled
+    %p
+      %button.btn.btn-action-red.btn-sm Small Button
+      %button.btn.btn-action-red.btn-sm.active Active
+      %button.btn.btn-action-red.btn-sm.disabled Disabled
+    %p
+      %button.btn.btn-action-red.btn-xs Mini Button
+      %button.btn.btn-action-red.btn-xs.active Active
+      %button.btn.btn-action-red.btn-xs.disabled Disabled
+  %h2
+    %small Rounded Buttons
+    %hr
+    %p
+      %button.btn.btn-action-red.btn-lg.round Large Button
+      %button.btn.btn-action-red.btn-lg.active.round Active
+      %button.btn.btn-action-red.btn-lg.disabled.round Disabled
+    %p
+      %button.btn.btn-succes.round Default Button
+      %button.btn.btn-succes.active.round Active
+      %button.btn.btn-succes.disabled.round Disabled
+    %p
+      %button.btn.btn-info.btn-sm.round Small Button
+      %button.btn.btn-info.btn-sm.active.round Active
+      %button.btn.btn-info.btn-sm.disabled.round Disabled
+    %p
+      %button.btn.btn-warning.btn-xs.round Mini Button
+      %button.btn.btn-warning.btn-xs.active.round Active
+      %button.btn.btn-warning.btn-xs.disabled.round Disabled
+%h2
+  %small Color Gradient
+  %hr
+  %button.btn.btn-action-blue.btn-lg.gradient Default Large
+  %button.btn.btn-action-red.gradient Default Button
+%br
+  %button.btn.btn-action-blue.btn-lg.round.gradient Default Large
+  %button.btn.btn-action-red.round.gradient Default Button
 %br
 %br
 %br
