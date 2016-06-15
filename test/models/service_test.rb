@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ServiceTest < ActiveSupport::TestCase
 
-  def create_valid_service
+  def create_valid_service!
     Service.create!(
       organization: organizations(:segpres),
       name: 'test-service',
