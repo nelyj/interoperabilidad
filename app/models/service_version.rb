@@ -35,4 +35,5 @@ class ServiceVersion < ApplicationRecord
     service.service_versions.proposed.each do |version|
       version.retracted! unless version.version_number == self.version_number
     end
+  end
 end
