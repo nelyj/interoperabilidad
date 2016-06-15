@@ -219,14 +219,192 @@
 %button.btn.btn-action-blue.btn-lg.round.gradient Default Large
 %button.btn.btn-action-red.round.gradient Default Button
 %br
+%h2 Split button dropdowns
+%hr
+.bs-example{"data-example-id" => "split-button-dropdown"}
+  .btn-group
+    %button.btn.btn-default{:type => "button"} Default
+    %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %span.caret
+      %span.sr-only Toggle Dropdown
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"} Action
+      %li
+        %a{:href => "#"} Another action
+      %li
+        %a{:href => "#"} Something else here
+      %li.divider{:role => "separator"}
+      %li
+        %a{:href => "#"} Separated link
+  .btn-group
+    %button.btn.btn-primary{:type => "button"} Primary
+    %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %span.caret
+      %span.sr-only Toggle Dropdown
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"} Action
+      %li
+        %a{:href => "#"} Another action
+      %li
+        %a{:href => "#"} Something else here
+      %li.divider{:role => "separator"}
+      %li
+        %a{:href => "#"} Separated link
+  .btn-group
+    %button.btn.btn-success{:type => "button"} Success
+    %button.btn.btn-success.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %span.caret
+      %span.sr-only Toggle Dropdown
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"} Action
+      %li
+        %a{:href => "#"} Another action
+      %li
+        %a{:href => "#"} Something else here
+      %li.divider{:role => "separator"}
+      %li
+        %a{:href => "#"} Separated link
+  .btn-group
+    %button.btn.btn-info{:type => "button"} Info
+    %button.btn.btn-info.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %span.caret
+      %span.sr-only Toggle Dropdown
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"} Action
+      %li
+        %a{:href => "#"} Another action
+      %li
+        %a{:href => "#"} Something else here
+      %li.divider{:role => "separator"}
+      %li
+        %a{:href => "#"} Separated link
+  .btn-group
+    %button.btn.btn-warning{:type => "button"} Warning
+    %button.btn.btn-warning.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %span.caret
+      %span.sr-only Toggle Dropdown
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"} Action
+      %li
+        %a{:href => "#"} Another action
+      %li
+        %a{:href => "#"} Something else here
+      %li.divider{:role => "separator"}
+      %li
+        %a{:href => "#"} Separated link
+  .btn-group
+    %button.btn.btn-danger{:type => "button"} Danger
+    %button.btn.btn-danger.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %span.caret
+      %span.sr-only Toggle Dropdown
+    %ul.dropdown-menu
+      %li
+        %a{:href => "#"} Action
+      %li
+        %a{:href => "#"} Another action
+      %li
+        %a{:href => "#"} Something else here
+      %li.divider{:role => "separator"}
+      %li
+        %a{:href => "#"} Separated link
 %br
-%br
+%h2 Sizing
+%hr
+.bs-example{"data-example-id" => "button-dropdown-sizing"}
+  .btn-toolbar{:role => "toolbar"}
+    .btn-group
+      %button.btn.btn-default.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Large button
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+  %br
+  .btn-toolbar{:role => "toolbar"}
+    .btn-group
+      %button.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Small button
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+  %br
+  .btn-toolbar{:role => "toolbar"}
+    .btn-group
+      %button.btn.btn-default.btn-xs.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Extra small button
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+%h2 Dropup Variation
+%hr
+.bs-example{"data-example-id" => "button-dropdown-dropup"}
+  .btn-toolbar{:role => "toolbar"}
+    .btn-group.dropup
+      %button.btn.btn-action-blue{:type => "button"} Official Blue Color
+      %button.btn.btn-action-blue.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %span.caret
+        %span.sr-only Toggle Dropdown
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group.dropup
+    .btn-group.dropup
+      %button.btn.btn-action-red{:type => "button"} Official Red Color
+      %button.btn.btn-action-red.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %span.caret
+        %span.sr-only Toggle Dropdown
+      %ul.dropdown-menu.dropdown-menu-right
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
 
 %h1 Forms
 %hr
 .container.form-container
   .row
     .col-md-6
+      %h3 Inputs
       .input-group.input-group-lg
         %span#sizing-addon1.input-group-addon @
         %input.form-control{"aria-describedby" => "sizing-addon1", :placeholder => "Username", :type => "text"}
@@ -236,7 +414,6 @@
       .input-group.input-group-sm
         %span#sizing-addon3.input-group-addon @
         %input.form-control{"aria-describedby" => "sizing-addon3", :placeholder => "Username", :type => "text"}
-
 
       .input-group
         %span.input-group-btn
@@ -296,8 +473,97 @@
       .input-group
         %span#basic-addon3.input-group-addon https://example.com/users/
         %input#basic-url.form-control{"aria-describedby" => "basic-addon3", :type => "text"}
-
-
+    .col-md-6
+      .form-group
+        %h3 Select
+        %select.form-control.input-lg
+          %option{:value => "AL"} Alabama
+          %option{:value => "WY"} Wyoming
+          %optgroup{:label => "Alaskan/Hawaiian Time Zone"}
+            %option{:value => "AK"} Alaska
+            %option{:disabled => "disabled", :value => "HI"} Hawaii
+          %optgroup{:label => "Pacific Time Zone"}
+            %option{:value => "CA"} California
+            %option{:value => "NV"} Nevada
+            %option{:value => "OR"} Oregon
+            %option{:value => "WA"} Washington
+          %optgroup{:label => "Mountain Time Zone"}
+            %option{:value => "AZ"} Arizona
+            %option{:value => "CO"} Colorado
+            %option{:value => "ID"} Idaho
+            %option{:value => "MT"} Montana
+            %option{:value => "NE"} Nebraska
+            %option{:value => "NM"} New Mexico
+            %option{:value => "ND"} North Dakota
+            %option{:value => "UT"} Utah
+            %option{:value => "WY"} Wyoming
+          %optgroup{:label => "Central Time Zone"}
+            %option{:value => "AL"} Alabama
+            %option{:value => "AR"} Arkansas
+            %option{:value => "IL"} Illinois
+            %option{:value => "IA"} Iowa
+            %option{:value => "KS"} Kansas
+            %option{:value => "KY"} Kentucky
+            %option{:value => "LA"} Louisiana
+            %option{:value => "MN"} Minnesota
+            %option{:value => "MS"} Mississippi
+            %option{:value => "MO"} Missouri
+            %option{:value => "OK"} Oklahoma
+            %option{:value => "SD"} South Dakota
+            %option{:value => "TX"} Texas
+            %option{:value => "TN"} Tennessee
+            %option{:value => "WI"} Wisconsin
+          %optgroup{:label => "Eastern Time Zone"}
+            %option{:value => "CT"} Connecticut
+            %option{:value => "DE"} Delaware
+            %option{:value => "FL"} Florida
+            %option{:value => "GA"} Georgia
+            %option{:value => "IN"} Indiana
+            %option{:value => "ME"} Maine
+            %option{:value => "MD"} Maryland
+            %option{:value => "MA"} Massachusetts
+            %option{:value => "MI"} Michigan
+            %option{:value => "NH"} New Hampshire
+            %option{:value => "NJ"} New Jersey
+            %option{:value => "NY"} New York
+            %option{:value => "NC"} North Carolina
+            %option{:value => "OH"} Ohio
+            %option{:value => "PA"} Pennsylvania
+            %option{:value => "RI"} Rhode Island
+            %option{:value => "SC"} South Carolina
+            %option{:value => "VT"} Vermont
+            %option{:value => "VA"} Virginia
+            %option{:value => "WV"} West Virginia
+        %h3 Tag Picker
+        %select#tagPicker.form-control{:multiple => "multiple"}
+          %option{:value => "1"} Cats
+          %option{:value => "2"} Dogs
+          %option{:selected => "selected", :value => "3"} Fish
+          %option{:value => "4"} Reptiles
+          %option{:selected => "selected", :value => "5"} Equine
+          %option{:value => "6"} Aviary
+          %option{:value => "7"} Insects
+        %h3 Multiple Select
+        %select#mySel2.select2{:multiple => "multiple", :style => "width:400px;"}
+          %option One
+          %option Two
+          %option Three
+          %option Four
+          %option Five
+          %option Six
+        %h3 Multiple Select by OptGroup
+        %select#mySel3.select2{:multiple => "multiple", :style => "width:400px;"}
+          %optgroup{:label => "Select multiple"}
+            %option One
+            %option Two
+            %option Three
+            %option Siz
+            %option Seven
+            %option Nine
+          %optgroup.single{:label => "Select one"}
+            %option Four
+            %option Five
+            %option Six
 %br
 %br
 %br

@@ -38,11 +38,16 @@ select.form-control,
     border-radius: 0px;
 }
 
-.input-group input{
+.input-group input {
     border-radius: 6px;
 }
 
 .input-group-btn:first-child > .btn,
 .input-group-btn:first-child > .btn-group {
     margin-right: -2px;
+}
+
+//select2
+.select2-selection__choice {
+    padding: 5px 6px;
 }
