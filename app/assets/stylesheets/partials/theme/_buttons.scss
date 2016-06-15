@@ -4,46 +4,54 @@
 
 //default bootstrap colors
 .btn-default {
-    border-bottom: 2px solid darken(#ccc, 18%);
+    @include bootstrap-btns(#ccc, 18%);
 }
 
 .btn-primary {
-    border-bottom: 2px solid darken($brand-primary, 18%);
+    @include bootstrap-btns($brand-primary, 18%);
 }
 
 .btn-success {
-    border-bottom: 2px solid darken($brand-success, 18%);
+    @include bootstrap-btns($brand-success, 18%);
 }
 
 .btn-info {
-    border-bottom: 2px solid darken($brand-info, 18%);
+    @include bootstrap-btns($brand-info, 18%);
 }
 
 .btn-warning {
-    border-bottom: 2px solid darken($brand-warning, 18%);
+    @include bootstrap-btns($brand-warning, 18%);
 }
 
 .btn-danger {
-    border-bottom: 2px solid darken($brand-danger, 18%);
+    @include bootstrap-btns($brand-danger, 18%)
 }
 
 //e-gob buttons
 .btn-static {
     color: white;
-    background-color: rgba(147, 147, 147, 1);
-    border-bottom: 2px solid darken(rgba(147, 147, 147, 1), 18%);
+    background-color: $btn-static-color;
+    @include bootstrap-btns($btn-static-color, 18%);
     &:hover {
-        background-color: darken(rgba(147, 147, 147, 1), 10%);
+        background-color: darken($btn-static-color, 10%);
+        color: white;
+    }
+    &:active,
+    &:focus {
         color: white;
     }
 }
 
 .btn-action {
     color: white;
-    background-color: rgba(240, 65, 67, 1);
-    border-bottom: 2px solid darken(rgba(240, 65, 67, 1), 18%);
+    background-color: $btn-action-color;
+    @include bootstrap-btns($btn-action-color, 18%);
     &:hover {
-        background-color: darken(rgba(240, 65, 67, 1), 10%);
+        background-color: darken($btn-action-color, 10%);
+        color: white;
+    }
+    &:active,
+    &:focus {
         color: white;
     }
 }
