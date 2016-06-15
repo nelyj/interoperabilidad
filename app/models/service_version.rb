@@ -3,6 +3,7 @@ class ServiceVersion < ApplicationRecord
   belongs_to :user
   validates :spec, swagger_spec: true
   before_create :set_version_number
+  after_save :update_search_metadata
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   # Always add new states at the end.
@@ -23,6 +24,10 @@ class ServiceVersion < ApplicationRecord
 
   def set_version_number
     self.version_number = service.last_version_number + 1
+  end
+
+  def update_search_metadata
+    service.update_search_metadata if status == "current"
   end
 
 end

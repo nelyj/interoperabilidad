@@ -40,7 +40,8 @@ VALID_SPEC = '{
     "swagger": "2.0",
     "info": {
         "version": "0.0.0",
-        "title": "Swagger Test"
+        "title": "Swagger Test",
+        "description": "A short test description"
     },
     "paths": {
         "/persons": {
@@ -62,12 +63,14 @@ VALID_SPEC = '{
                         "schema": {
                             "title": "ArrayOfPersons",
                             "type": "array",
+                            "description": "Some description for this array",
                             "items": {
                                 "title": "Person",
                                 "type": "object",
                                 "properties": {
                                     "name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "this is a property description"
                                     },
                                     "single": {
                                         "type": "boolean"
