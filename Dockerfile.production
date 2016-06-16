@@ -40,5 +40,6 @@ ADD Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 ADD . /app
 ENV RAILS_ENV="production" PORT=80
-RUN bundle exec rake assets:precompile
+RUN SECRET_KEY_BASE=notusedforassetprecompileherebutmustbepresentoritbreaks \
+    bundle exec rake assets:precompile
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
