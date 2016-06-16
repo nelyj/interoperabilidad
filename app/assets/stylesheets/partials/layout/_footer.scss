@@ -9,7 +9,7 @@ footer {
     }
     .footer-col {
         margin: 0px;
-        height: 100px;
+        height: 104px;
         line-height: 100px;
         padding-left: 15px;
         padding-right: 15px;
@@ -29,6 +29,10 @@ footer {
                 bottom: 0px;
                 position: absolute;
                 display: inline-block;
+            }
+            p {
+                padding: 0px;
+                margin: 0px;
             }
         }
     }

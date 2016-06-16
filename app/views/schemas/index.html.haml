@@ -1,8 +1,6 @@
-.row
-  .col-md-12
-    .box-search-schemas
-      .container
-        .col-md-12{:class => "text-center"}
+.box-search-schemas
+  .container
+    .col-md-12{:class => "text-center"}
 .container
   .row
     .col-md-2.box-col-categories
@@ -25,7 +23,7 @@
           %a Categoría 7
       %br 
         = link_to 'Nuevo Schema', new_schema_path
-    .col-md-10
+    .col-md-10.schema-container
       - @schemas.each do |schema|
         .box-schema
           .title
