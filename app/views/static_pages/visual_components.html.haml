@@ -1,325 +1,103 @@
-%h1 StaticPages#visual_components
-%p Bootstrap components 
+.container
+  %h1 StaticPages#visual_components
+  %p Bootstrap components 
 
-%h1 Buttons
-%hr
-
-%a.btn.btn-default{:href => "#", :role => "button"} Button Default
-%a.btn.btn-primary{:href => "#", :role => "button"} Button Primary
-%a.btn.btn-success{:href => "#", :role => "button"} Button Success
-%a.btn.btn-info{:href => "#", :role => "button"} Button Info
-%a.btn.btn-warning{:href => "#", :role => "button"} Button Warning
-%a.btn.btn-danger{:href => "#", :role => "button"} Button Danger
-%br
-%br
-%a.btn.btn-static{:href => "#", :role => "button"} VERSIÓN SIGUIENTE
-%a.btn.btn-action-red{:href => "#", :role => "button"} Ver OAS
-%br
-%br
-%a.btn.btn-static.btn-lg{:href => "#", :role => "button"} VERSIÓN SIGUIENTE
-%a.btn.btn-action-red.btn-lg{:href => "#", :role => "button"} Ver OAS
-%br
-%br
-%h3 Single button dropdowns
-%hr
-
-.bs-example{"data-example-id" => "single-button-dropdown"}
-  .btn-group
-    %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Default
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Primary
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-success.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Success
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-info.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Info
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-warning.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Warning
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-danger.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Danger
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-%br
-
-.bs-example{"data-example-id" => "single-button-dropdown"}
-  .btn-group
-    %button.btn.btn-static.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Versión Siguiente
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-action-red.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Ver OAS
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  %br
-  %br
-  .btn-group
-    %button.btn.btn-static.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Versión Siguiente
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-action-red.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      Ver OAS
-      %span.caret
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-%br
-  %h2 Button Previews
+  %h1 Buttons
   %hr
-  %p
-    %button.btn.btn-action-red.btn-lg Large Button
-    %button.btn.btn-action-red.btn-lg.active Active
-    %button.btn.btn-action-red.btn-lg.disabled Disabled
-  %p
-    %button.btn.btn-action-red Default Button
-    %button.btn.btn-action-red.active Active
-    %button.btn.btn-action-red.disabled Disabled
-  %p
-    %button.btn.btn-action-red.btn-sm Small Button
-    %button.btn.btn-action-red.btn-sm.active Active
-    %button.btn.btn-action-red.btn-sm.disabled Disabled
-  %p
-    %button.btn.btn-action-red.btn-xs Mini Button
-    %button.btn.btn-action-red.btn-xs.active Active
-    %button.btn.btn-action-red.btn-xs.disabled Disabled
-  %h2 Rounded Buttons
+
+  %a.btn.btn-default{:href => "#", :role => "button"} Button Default
+  %a.btn.btn-primary{:href => "#", :role => "button"} Button Primary
+  %a.btn.btn-success{:href => "#", :role => "button"} Button Success
+  %a.btn.btn-info{:href => "#", :role => "button"} Button Info
+  %a.btn.btn-warning{:href => "#", :role => "button"} Button Warning
+  %a.btn.btn-danger{:href => "#", :role => "button"} Button Danger
+  %br
+  %br
+  %a.btn.btn-static{:href => "#", :role => "button"} VERSIÓN SIGUIENTE
+  %a.btn.btn-action-red{:href => "#", :role => "button"} Ver OAS
+  %br
+  %br
+  %a.btn.btn-static.btn-lg{:href => "#", :role => "button"} VERSIÓN SIGUIENTE
+  %a.btn.btn-action-red.btn-lg{:href => "#", :role => "button"} Ver OAS
+  %br
+  %br
+  %h3 Single button dropdowns
   %hr
-  %p
-    %button.btn.btn-action-red.btn-lg.round Action red Button
-    %button.btn.btn-action-red.btn-lg.active.round Active
-    %button.btn.btn-action-red.btn-lg.disabled.round Disabled
-  %p
-    %button.btn.btn-action-blue.round Action blue Button
-    %button.btn.btn-action-blue.active.round Active
-    %button.btn.btn-action-blue.disabled.round Disabled
-  %p
-    %button.btn.btn-succes.round Default Button
-    %button.btn.btn-succes.active.round Active
-    %button.btn.btn-succes.disabled.round Disabled
-  %p
-    %button.btn.btn-info.btn-sm.round Small Button
-    %button.btn.btn-info.btn-sm.active.round Active
-    %button.btn.btn-info.btn-sm.disabled.round Disabled
-  %p
-    %button.btn.btn-warning.btn-xs.round Mini Button
-    %button.btn.btn-warning.btn-xs.active.round Active
-    %button.btn.btn-warning.btn-xs.disabled.round Disabled
-%h2 Color Gradient
-%hr
-%button.btn.btn-action-blue.btn-lg.gradient Default Large
-%button.btn.btn-action-red.gradient Default Button
-%br
-%br
-%button.btn.btn-action-blue.btn-lg.round.gradient Default Large
-%button.btn.btn-action-red.round.gradient Default Button
-%br
-%h2 Split button dropdowns
-%hr
-.bs-example{"data-example-id" => "split-button-dropdown"}
-  .btn-group
-    %button.btn.btn-default{:type => "button"} Default
-    %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %span.caret
-      %span.sr-only Toggle Dropdown
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-primary{:type => "button"} Primary
-    %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %span.caret
-      %span.sr-only Toggle Dropdown
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-success{:type => "button"} Success
-    %button.btn.btn-success.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %span.caret
-      %span.sr-only Toggle Dropdown
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-info{:type => "button"} Info
-    %button.btn.btn-info.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %span.caret
-      %span.sr-only Toggle Dropdown
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-warning{:type => "button"} Warning
-    %button.btn.btn-warning.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %span.caret
-      %span.sr-only Toggle Dropdown
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-  .btn-group
-    %button.btn.btn-danger{:type => "button"} Danger
-    %button.btn.btn-danger.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-      %span.caret
-      %span.sr-only Toggle Dropdown
-    %ul.dropdown-menu
-      %li
-        %a{:href => "#"} Action
-      %li
-        %a{:href => "#"} Another action
-      %li
-        %a{:href => "#"} Something else here
-      %li.divider{:role => "separator"}
-      %li
-        %a{:href => "#"} Separated link
-%br
-%h2 Sizing
-%hr
-.bs-example{"data-example-id" => "button-dropdown-sizing"}
-  .btn-toolbar{:role => "toolbar"}
+
+  .bs-example{"data-example-id" => "single-button-dropdown"}
     .btn-group
-      %button.btn.btn-default.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-        Large button
+      %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Default
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Primary
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-success.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Success
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-info.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Info
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-warning.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Warning
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-danger.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Danger
         %span.caret
       %ul.dropdown-menu
         %li
@@ -332,10 +110,55 @@
         %li
           %a{:href => "#"} Separated link
   %br
-  .btn-toolbar{:role => "toolbar"}
+
+  .bs-example{"data-example-id" => "single-button-dropdown"}
     .btn-group
-      %button.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-        Small button
+      %button.btn.btn-static.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Versión Siguiente
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-action-red.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Ver OAS
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    %br
+    %br
+    .btn-group
+      %button.btn.btn-static.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Versión Siguiente
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-action-red.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        Ver OAS
         %span.caret
       %ul.dropdown-menu
         %li
@@ -348,11 +171,63 @@
         %li
           %a{:href => "#"} Separated link
   %br
-  .btn-toolbar{:role => "toolbar"}
+    %h2 Button Previews
+    %hr
+    %p
+      %button.btn.btn-action-red.btn-lg Large Button
+      %button.btn.btn-action-red.btn-lg.active Active
+      %button.btn.btn-action-red.btn-lg.disabled Disabled
+    %p
+      %button.btn.btn-action-red Default Button
+      %button.btn.btn-action-red.active Active
+      %button.btn.btn-action-red.disabled Disabled
+    %p
+      %button.btn.btn-action-red.btn-sm Small Button
+      %button.btn.btn-action-red.btn-sm.active Active
+      %button.btn.btn-action-red.btn-sm.disabled Disabled
+    %p
+      %button.btn.btn-action-red.btn-xs Mini Button
+      %button.btn.btn-action-red.btn-xs.active Active
+      %button.btn.btn-action-red.btn-xs.disabled Disabled
+    %h2 Rounded Buttons
+    %hr
+    %p
+      %button.btn.btn-action-red.btn-lg.round Action red Button
+      %button.btn.btn-action-red.btn-lg.active.round Active
+      %button.btn.btn-action-red.btn-lg.disabled.round Disabled
+    %p
+      %button.btn.btn-action-blue.round Action blue Button
+      %button.btn.btn-action-blue.active.round Active
+      %button.btn.btn-action-blue.disabled.round Disabled
+    %p
+      %button.btn.btn-succes.round Default Button
+      %button.btn.btn-succes.active.round Active
+      %button.btn.btn-succes.disabled.round Disabled
+    %p
+      %button.btn.btn-info.btn-sm.round Small Button
+      %button.btn.btn-info.btn-sm.active.round Active
+      %button.btn.btn-info.btn-sm.disabled.round Disabled
+    %p
+      %button.btn.btn-warning.btn-xs.round Mini Button
+      %button.btn.btn-warning.btn-xs.active.round Active
+      %button.btn.btn-warning.btn-xs.disabled.round Disabled
+  %h2 Color Gradient
+  %hr
+  %button.btn.btn-action-blue.btn-lg.gradient Default Large
+  %button.btn.btn-action-red.gradient Default Button
+  %br
+  %br
+  %button.btn.btn-action-blue.btn-lg.round.gradient Default Large
+  %button.btn.btn-action-red.round.gradient Default Button
+  %br
+  %h2 Split button dropdowns
+  %hr
+  .bs-example{"data-example-id" => "split-button-dropdown"}
     .btn-group
-      %button.btn.btn-default.btn-xs.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-        Extra small button
+      %button.btn.btn-default{:type => "button"} Default
+      %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
         %span.caret
+        %span.sr-only Toggle Dropdown
       %ul.dropdown-menu
         %li
           %a{:href => "#"} Action
@@ -363,12 +238,170 @@
         %li.divider{:role => "separator"}
         %li
           %a{:href => "#"} Separated link
-%h2 Dropup Variation
-%hr
-.bs-example{"data-example-id" => "button-dropdown-dropup"}
-  .btn-toolbar{:role => "toolbar"}
-    .btn-group.dropup
-      %button.btn.btn-action-blue{:type => "button"} Official Blue Color
+    .btn-group
+      %button.btn.btn-primary{:type => "button"} Primary
+      %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %span.caret
+        %span.sr-only Toggle Dropdown
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-success{:type => "button"} Success
+      %button.btn.btn-success.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %span.caret
+        %span.sr-only Toggle Dropdown
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-info{:type => "button"} Info
+      %button.btn.btn-info.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %span.caret
+        %span.sr-only Toggle Dropdown
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-warning{:type => "button"} Warning
+      %button.btn.btn-warning.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %span.caret
+        %span.sr-only Toggle Dropdown
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+    .btn-group
+      %button.btn.btn-danger{:type => "button"} Danger
+      %button.btn.btn-danger.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %span.caret
+        %span.sr-only Toggle Dropdown
+      %ul.dropdown-menu
+        %li
+          %a{:href => "#"} Action
+        %li
+          %a{:href => "#"} Another action
+        %li
+          %a{:href => "#"} Something else here
+        %li.divider{:role => "separator"}
+        %li
+          %a{:href => "#"} Separated link
+  %br
+  %h2 Sizing
+  %hr
+  .bs-example{"data-example-id" => "button-dropdown-sizing"}
+    .btn-toolbar{:role => "toolbar"}
+      .btn-group
+        %button.btn.btn-default.btn-lg.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Large button
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#"} Action
+          %li
+            %a{:href => "#"} Another action
+          %li
+            %a{:href => "#"} Something else here
+          %li.divider{:role => "separator"}
+          %li
+            %a{:href => "#"} Separated link
+    %br
+    .btn-toolbar{:role => "toolbar"}
+      .btn-group
+        %button.btn.btn-default.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Small button
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#"} Action
+          %li
+            %a{:href => "#"} Another action
+          %li
+            %a{:href => "#"} Something else here
+          %li.divider{:role => "separator"}
+          %li
+            %a{:href => "#"} Separated link
+    %br
+    .btn-toolbar{:role => "toolbar"}
+      .btn-group
+        %button.btn.btn-default.btn-xs.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Extra small button
+          %span.caret
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#"} Action
+          %li
+            %a{:href => "#"} Another action
+          %li
+            %a{:href => "#"} Something else here
+          %li.divider{:role => "separator"}
+          %li
+            %a{:href => "#"} Separated link
+  %h2 Dropup Variation
+  %hr
+  .bs-example{"data-example-id" => "button-dropdown-dropup"}
+    .btn-toolbar{:role => "toolbar"}
+      .btn-group.dropup
+        %button.btn.btn-action-blue{:type => "button"} Official Blue Color Up
+        %button.btn.btn-action-blue.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          %span.caret
+          %span.sr-only Toggle Dropdown
+        %ul.dropdown-menu
+          %li
+            %a{:href => "#"} Action
+          %li
+            %a{:href => "#"} Another action
+          %li
+            %a{:href => "#"} Something else here
+          %li.divider{:role => "separator"}
+          %li
+            %a{:href => "#"} Separated link
+      .btn-group.dropup
+      .btn-group.dropup
+        %button.btn.btn-action-red{:type => "button"} Official Red Color Up
+        %button.btn.btn-action-red.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          %span.caret
+          %span.sr-only Toggle Dropdown
+        %ul.dropdown-menu.dropdown-menu-right
+          %li
+            %a{:href => "#"} Action
+          %li
+            %a{:href => "#"} Another action
+          %li
+            %a{:href => "#"} Something else here
+          %li.divider{:role => "separator"}
+          %li
+            %a{:href => "#"} Separated link
+    %br
+    .btn-group
+      %button.btn.btn-action-blue{:type => "button"} Official Blue Color Down
       %button.btn.btn-action-blue.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
         %span.caret
         %span.sr-only Toggle Dropdown
@@ -382,13 +415,12 @@
         %li.divider{:role => "separator"}
         %li
           %a{:href => "#"} Separated link
-    .btn-group.dropup
-    .btn-group.dropup
-      %button.btn.btn-action-red{:type => "button"} Official Red Color
+    .btn-group
+      %button.btn.btn-action-red{:type => "button"} Official Red Color Down
       %button.btn.btn-action-red.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
         %span.caret
         %span.sr-only Toggle Dropdown
-      %ul.dropdown-menu.dropdown-menu-right
+      %ul.dropdown-menu
         %li
           %a{:href => "#"} Action
         %li
@@ -399,9 +431,10 @@
         %li
           %a{:href => "#"} Separated link
 
-%h1 Forms
-%hr
+%br
 .container.form-container
+  %h1 Forms
+  %hr
   .row
     .col-md-6
       %h3 Inputs

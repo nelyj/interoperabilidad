@@ -40,6 +40,7 @@ body {
 .main-container {
     min-height: 560px;
     margin-bottom: 60px;
+    padding: 0px;
 }
 
 .form-container {
@@ -52,23 +53,23 @@ body {
 //schemas
 .box-schema {
     margin: 0px 7px 20px 7px;
-    border-radius: 6px;
+    border-radius: 4px;
     background: white;
     display: inline-block;
     max-width: 280px;
-    -webkit-box-shadow: 0px 3px 14px -2px rgba(0, 0, 0, 0.59);
-    -moz-box-shadow: 0px 3px 14px -2px rgba(0, 0, 0, 0.59);
-    box-shadow: 0px 3px 14px -2px rgba(0, 0, 0, 0.59);
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+    -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
     .title {
         color: white;
         padding: 10px;
         font-size: 2rem;
         font-family: $font-regular;
-        border-radius: 6px 6px 0px 0px;
+        border-radius: 4px 4px 0px 0px;
         background-color: $schemas-background-color;
         a {
             color: white;
-            &:hover{
+            &:hover {
                 text-decoration: none;
             }
         }
@@ -92,7 +93,7 @@ body {
     #search-schemas {
         max-width: 560px;
         background: white;
-        .input-group{
+        .input-group {
             width: 100%;
         }
     }
@@ -101,11 +102,11 @@ body {
 .box-col-categories {
     h3 {
         font-family: $font-bold;
+        margin: 0px 0px 5px 0px;
     }
     ul {
         list-style: none;
         padding: 5px 5px 15px 3px;
-        max-width: 70%;
         li {
             font-family: $font-regular;
             padding-bottom: 5px;
@@ -115,12 +116,14 @@ body {
                 color: $gray-text;
                 &:hover {
                     text-decoration: none;
-                    color: rgba(10, 105, 180, 10);
                     background-color: none;
+                    color: $gray-text;
                 }
             }
             &:hover {
-                background-color: none;
+                background: rgba(0, 105, 180, 0.10);
+                border: 1px solid rgba(0, 105, 179, 0.10);
+                border-radius: 6px;
             }
         }
     }

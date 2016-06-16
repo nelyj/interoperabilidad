@@ -28,6 +28,7 @@
     }
 }
 
+// bootstrap select2
 .input-group-btn .btn,
 span.input-group-addon,
 input.form-control,
@@ -52,4 +53,9 @@ select.form-control,
 span.select2-selection.select2-selection--multiple.form-control,
 span.select2-selection.select2-selection--multiple.select2 {
     border-color: $border-input-color;
+}
+
+.select2-container--bootstrap .select2-selection {
+    color: $gray-text;
+    font-family: inherit;
 }
