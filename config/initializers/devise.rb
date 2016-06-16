@@ -14,7 +14,8 @@ module OmniAuth
         response_type: 'code',
       }
 
-      option :scope, 'openid sandbox'
+      #Use 'openid sandbox' for development or 'openid nombre' for production
+      option :scope, 'openid nombre'
 
       def token_params
         super.merge(state: request.params["state"])
