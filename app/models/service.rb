@@ -52,7 +52,7 @@ class Service < ApplicationRecord
       /^paths > [^>]* > [^>]* > responses > [^>]* > description$/ => 'C',
     } # anything not matched by a pattern but in a search key will get a 'D'
     matches = deep_find_strings(version.spec, keys_to_search_for)
-    vectors + matches.map do |path, text|
+    return vectors + matches.map do |path, text|
       match_weight = 'D' # default
       string_path = path.join(" > ")
       weight_by_path_pattern.each do |pattern, weight|
