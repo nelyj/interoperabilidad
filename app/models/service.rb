@@ -2,8 +2,9 @@ class Service < ApplicationRecord
   belongs_to :organization
   has_many :service_versions
   validates :name, uniqueness: true
-  attr_accessor :spec_file
+  before_save :update_humanized_name
   after_save :update_search_metadata
+  attr_accessor :spec_file
 
   def self.search_configuration
     if Rails.env.test? # Migrations don't run on test database :(
@@ -41,7 +42,7 @@ class Service < ApplicationRecord
   end
 
   def text_search_vectors
-    vectors = [SearchVector.new(name, 'A')]
+    vectors = [SearchVector.new(name, 'A'), SearchVector.new(humanized_name, 'A')]
     version = current_version || last_version
     return vectors if version.nil?
     keys_to_search_for = %w(title description name)
@@ -98,6 +99,10 @@ class Service < ApplicationRecord
       UPDATE services SET lexemes = #{search_vector_sql}
       WHERE services.id = #{self.id}
     SQL
+  end
+
+  def update_humanized_name
+    self.humanized_name = self.name.underscore.humanize
   end
 
   def self.search(text)
