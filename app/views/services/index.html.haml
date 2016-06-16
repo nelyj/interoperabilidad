@@ -14,10 +14,9 @@
     %tbody
       - @services.each do |s|
         %tr
-          %td= s.name
+          %td= link_to s.name, service_service_version_path(service_name: s.name,
+            version_number: s.last_version_number)
           %td= s.organization.name
-          %td= link_to 'Editar', edit_service_path(s)
-          %td= link_to 'Versiones', service_service_versions_path(s)
   %br
 - else
   %p There are no posts containing the term(s)
