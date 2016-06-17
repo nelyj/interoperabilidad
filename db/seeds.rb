@@ -104,12 +104,12 @@ puts 'Seeding Users...'
 ].each do |user|
   u = User.new(user)
   u.can_create_schemas = false
-  o = Organization.find_by(initials: "MINSAL")
+  o = Organization.where(initials: "MINSAL").take
   u.roles.new(organization: o, name: "Schema Admin")
   if '1'.equal?(u.sub)
     u.roles.new(organization: o, name: "Agreement Signer")
   else
-    o = Organization.find_by(initials: "SII")
+    o = Organization.where(initials: "SII").take
     u.roles.new(organization: o, name: "Agreement Checker")
   end
   u.save!
@@ -128,22 +128,22 @@ end
 puts 'Seeding Schemas...'
 [
   {
-      schema_category: SchemaCategory.find_by(name: "Datos Personales"),
+      schema_category: SchemaCategory.where(name: "Datos Personales").take,
       name: 'Schema 1',
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
   },
   {
-      schema_category: SchemaCategory.find_by(name: "Vehiculos"),
+      schema_category: SchemaCategory.where(name: "Vehiculos").take,
       name: 'Schema 2',
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
     },
     {
-      schema_category: SchemaCategory.find_by(name: "Propiedades"),
+      schema_category: SchemaCategory.where(name: "Propiedades").take,
       name: 'Schema 3',
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
     },
     {
-      schema_category: SchemaCategory.find_by(name: "Propiedades"),
+      schema_category: SchemaCategory.where(name: "Propiedades").take,
       name: 'Schema 3 Registro Nacional de Esquemas definición basal número 40 articulo 29',
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
     }
@@ -154,7 +154,7 @@ puts 'Generate 40 Schemas...'
 (1..40).each do |i|
   name = 'Schema Numero ' + i.to_s
   Schema.create!(
-      schema_category: SchemaCategory.find_by(name: "Vehiculos"),
+      schema_category: SchemaCategory.where(name: "Vehiculos").take,
       name: name,
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
     )
@@ -164,15 +164,15 @@ puts 'Seeding SchemaVersions...'
 [
   {
     spec_file: StringIO.new(VALID_SCHEMA_OBJECT),
-    schema: Schema.find_by(name: 'Schema 1'),
+    schema: Schema.where(name: 'Schema 1').take
   },
   {
     spec_file: StringIO.new(VALID_SCHEMA_OBJECT),
-    schema: Schema.find_by(name: 'Schema 1')
+    schema: Schema.where(name: 'Schema 1').take
   },
   {
     spec_file: StringIO.new(VALID_SCHEMA_OBJECT),
-    schema: Schema.find_by(name: 'Schema 3')
+    schema: Schema.where(name: 'Schema 3').take
   }
 ].each do |version|
   SchemaVersion.create!(version)
@@ -181,29 +181,29 @@ end
 puts 'Generate 30 SchemaVersions for First Schema...'
 (1..30).each do |i|
   SchemaVersion.create!(spec_file: StringIO.new(VALID_SCHEMA_OBJECT),
-    schema: Schema.find_by(name: 'Schema 1'))
+    schema: Schema.where(name: 'Schema 1').take)
 end
 
 puts 'Seeding Services'
 [
   {
     name: 'Service 1',
-    organization: Organization.find_by(initials:'SII'),
+    organization: Organization.where(initials:'SII').take,
     public: true
   },
   {
     name: 'Service 2',
-    organization: Organization.find_by(initials:'SII'),
+    organization: Organization.where(initials:'SII').take,
     public: true
   },
   {
     name: 'Service 3',
-    organization: Organization.find_by(initials:'MINSAL'),
+    organization: Organization.where(initials:'MINSAL').take,
     public: true
   },
   {
     name: 'Servicio especial de interoperabilidad del Estado de Chile Decreto 158.950 del 29 de mayo',
-    organization: Organization.find_by(initials:'MINSAL'),
+    organization: Organization.where(initials:'MINSAL').take,
     public: true
   }
 ].each do |service|
@@ -213,7 +213,7 @@ end
 puts 'Create 25 Services...'
 (1..25).each do |i|
   name= 'Servicio Nuevo Nº' + i.to_s
-  Service.create!(name: name, organization: Organization.find_by(initials:'MINSAL'),
+  Service.create!(name: name, organization: Organization.where(initials:'MINSAL').take,
     public: true)
 end
 
@@ -221,34 +221,34 @@ puts 'Seeding ServiceVersions...'
 [
   {
     spec_file: StringIO.new(VALID_SPEC),
-    service: Service.find_by(name: 'Service 1'),
-    user: User.find_by(name: 'Catalo')
+    service: Service.where(name: 'Service 1').take,
+    user: User.where(name: 'Catalo').take
   },
   {
     spec_file: StringIO.new(VALID_SPEC),
-    service: Service.find_by(name: 'Service 1'),
-    user: User.find_by(name: 'Catalo')
+    service: Service.where(name: 'Service 1').take,
+    user: User.where(name: 'Catalo').take
   },
   {
     spec_file: StringIO.new(VALID_SPEC),
-    service: Service.find_by(name: 'Service 1'),
-    user: User.find_by(name: 'Catalo')
+    service: Service.where(name: 'Service 1').take,
+    user: User.where(name: 'Catalo').take
   },
   {
     spec_file: StringIO.new(VALID_SPEC),
-    service: Service.find_by(name: 'Service 2'),
+    service: Service.where(name: 'Service 2').take,
     status: ServiceVersion.statuses[:rejected],
-    user: User.find_by(name: 'Catalo')
+    user: User.where(name: 'Catalo').take
   },
   {
     spec_file: StringIO.new(VALID_SPEC),
-    service: Service.find_by(name: 'Service 2'),
-    user: User.find_by(name: 'Catalo')
+    service: Service.where(name: 'Service 2').take,
+    user: User.where(name: 'Catalo').take
   },
   {
     spec_file: StringIO.new(VALID_SPEC),
-    service: Service.find_by(name: 'Service 3'),
-    user: User.find_by(name: 'Perico')
+    service: Service.where(name: 'Service 3').take,
+    user: User.where(name: 'Perico').take
   }
 ].each do |version|
   ServiceVersion.create!(version)
@@ -258,7 +258,7 @@ puts 'Create 60 Service Versions for first Service...'
 (1..60).each do |i|
   ServiceVersion.create!(
     spec_file: StringIO.new(VALID_SPEC),
-    service: Service.find_by(name: 'Service 1'),
-    user: User.find_by(name: 'Catalo')
+    service: Service.where(name: 'Service 1').take,
+    user: User.where(name: 'Catalo').take
     )
 end

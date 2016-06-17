@@ -4,7 +4,17 @@ class Service < ApplicationRecord
   validates :name, uniqueness: true
   before_save :update_humanized_name
   after_save :update_search_metadata
-  attr_accessor :spec_file
+  attr_accessor :spec
+  validates :spec, swagger_spec: true
+
+  def spec_file
+    @spec_file
+  end
+
+  def spec_file=(spec_file)
+    @spec_file = spec_file
+    self.spec = JSON.parse(spec_file.read)
+  end
 
   def self.search_configuration
     if Rails.env.test? # Migrations don't run on test database :(
@@ -19,7 +29,7 @@ class Service < ApplicationRecord
   end
 
   def create_first_version(user)
-    service_versions.create(spec_file: self.spec_file, user: user)
+    service_versions.create(spec: self.spec, user: user)
   end
 
   def last_version_number

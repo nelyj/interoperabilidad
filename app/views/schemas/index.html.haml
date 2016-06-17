@@ -1,6 +1,12 @@
 .box-search-schemas
   .container
     .col-md-12{:class => "text-center"}
+      %h1
+        Directorio de Esquemas
+      .form-group.col-md-6.container-form
+        .inner-addon.left-addon
+          %i.glyphicon.glyphicon-search
+          %input#search-schema.form-control{:placeholder => "Ingresa nombre de Esquema", :type => "text"}/
 .container
   .row
     .col-md-2.box-col-categories
@@ -14,7 +20,7 @@
         %li 
           %a Categoría 3        
         %li 
-          %a Categoría 4        
+          %a Categoría 4
         %li 
           %a Categoría 5        
         %li 
@@ -23,14 +29,14 @@
           %a Categoría 7
       %br 
         = link_to 'Nuevo Schema', new_schema_path
-    .col-md-10.schema-container
-      - @schemas.each do |schema|
-        .box-schema
-          .title
-            %a{href: "#"}
-              = schema.name
-          .body
-            %span 
-              Descripción: 
-            Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
-         
+    .col-md-10.schema-wrapper
+      .schema-box-container
+        - @schemas.each do |schema|
+          .box-schema
+            .title
+              %a{href: "#"}
+                = schema.name
+            .body
+              %span 
+                Descripción: 
+              Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.

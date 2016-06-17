@@ -2,7 +2,7 @@ class SchemaVersionsController < ApplicationController
 
   def show
     set_schema
-    @schema_version = SchemaVersion.find_by(version_number: params[:version_number])
+    @schema_version = SchemaVersion.where(version_number: params[:version_number]).take
   end
 
   def index
@@ -32,6 +32,6 @@ class SchemaVersionsController < ApplicationController
   end
 
   def set_schema
-    @schema = Schema.find_by(name: params[:schema_name])
+    @schema = Schema.where(name: params[:schema_name]).take
   end
 end

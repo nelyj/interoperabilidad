@@ -12,6 +12,19 @@ class ServiceTest < ActiveSupport::TestCase
     service
   end
 
+  test 'validations' do
+    # VALID_SCHEMA_OBJECT and INVALID_SCHEMA_OBJECT are loaded by test_helper
+    valid_service = create_valid_service!
+    invalid_service = Service.new(
+      organization: organizations(:segpres),
+      name: 'test-service2',
+      spec_file: StringIO.new(INVALID_SPEC)
+    )
+    assert valid_service.valid?
+    assert_not invalid_service.valid?
+    assert_not invalid_service.errors[:spec].blank?
+  end
+
   test '#last_version returns the version number of the last service version' do
     service = create_valid_service!
     assert_equal 1, service.last_version_number

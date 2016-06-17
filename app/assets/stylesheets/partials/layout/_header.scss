@@ -10,10 +10,10 @@ header {
     .logo {
         display: inline-block;
         float: left;
+        margin-right: 36px;
     }
     nav {
         display: inline-block;
-        margin-left: 85px;
         ul {
             li {
                 height: 118px;
@@ -44,5 +44,21 @@ header {
     }
     .nav-pills > li + li {
         margin: 0px;
+    }
+}
+
+#btn-clave-unica {
+    width: 224px;
+    margin-top: 40px;
+    float: right;
+    margin-right: 115px;
+    font-size: 22px;
+    font-family: $font-light;
+    img {
+        margin-right: 5px;
+        margin-top: -2px;
+    }
+    span {
+        color: rgba(255, 255, 255, 0.6);
     }
 }
