@@ -31,6 +31,9 @@ class SchemasController < ApplicationController
     end
   end
 
+  def search
+  end
+
   private
 
   def schema_params
