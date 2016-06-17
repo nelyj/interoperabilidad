@@ -19,4 +19,8 @@ class SchemaVersion < ApplicationRecord
   def set_version_number
     self.version_number = schema.last_version_number + 1
   end
+
+  def description
+    spec['description']
+  end
 end

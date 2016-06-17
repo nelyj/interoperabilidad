@@ -33,4 +33,15 @@ class SchemaTest < ActiveSupport::TestCase
     assert_not invalid_schema.errors[:spec].blank?
   end
 
+  test '#last_version returns the latest schema version' do
+    # TODO
+  end
+
+  test "#description returns the description inside the latest schema version's spec" do
+  end
+
+  test "#description returns nil if the latest schema version's spec is not present" do
+  end
+
+
 end

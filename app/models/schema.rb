@@ -7,6 +7,8 @@ class Schema < ApplicationRecord
   validates :spec, swagger_schema_object: true
   after_create :create_first_version
 
+  delegate :description, to: :last_version
+
   def spec_file
     @spec_file
   end
@@ -27,4 +29,9 @@ class Schema < ApplicationRecord
   def last_version_number
     schema_versions.maximum(:version_number) || 0
   end
+
+  def last_version
+    schema_versions.order('version_number desc').first
+  end
+
 end
