@@ -1,16 +1,12 @@
 //= require select2.min.css
 //= require select2-bootstrap.min.css
-
 //Generic Bootstrap
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
 //Variables
 @import "partials/_variables";
 @import "partials/_mixins";
-
 //e-gob Bootstrap theme
 @import "partials/theme/e-gob-theme";
-
 //Project Components and Layout
 @import "partials/layout/_layout";
