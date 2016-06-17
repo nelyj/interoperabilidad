@@ -4,6 +4,7 @@ require 'rails/test_help'
 
 VALID_SCHEMA_OBJECT = '{
   "type": "object",
+  "description": "Some object",
   "required": [
     "name"
   ],
