@@ -2,7 +2,7 @@ class ServiceVersionsController < ApplicationController
   before_action :set_service
 
   def show
-    @service_version = ServiceVersion.find_by(version_number: params[:version_number])
+    @service_version = ServiceVersion.where(version_number: params[:version_number]).take
   end
 
   def index
@@ -34,6 +34,6 @@ class ServiceVersionsController < ApplicationController
   end
 
   def set_service
-    @service = Service.find_by(name: params[:service_name])
+    @service = Service.where(name: params[:service_name]).take
   end
 end

@@ -38,6 +38,6 @@ class SchemasController < ApplicationController
   end
 
   def set_schema
-    @schema = Schema.find_by(name: params[:name])
+    @schema = Schema.where(name: params[:name]).take
   end
 end
