@@ -44,8 +44,8 @@ class ServiceVersion < ApplicationRecord
   end
 
   def retract_proposed
-    service.service_versions.proposed.each do |version|
-      version.retracted! unless version.version_number == self.version_number
-    end
+    service.service_versions.proposed.where(
+      "version_number != ?", self.version_number).update_all(
+      status: ServiceVersion.statuses[:retracted])
   end
 end
