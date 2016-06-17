@@ -2,7 +2,6 @@ footer {
     font-family: $font-regular;
     .footer-container {
         background: white;
-        padding: 0px;
         color: #999;
         text-align: center;
         border-top: 1px solid #e5e5e5;
@@ -10,7 +9,7 @@ footer {
     .footer-col {
         margin: 0px;
         height: 104px;
-        line-height: 100px;
+        line-height: 58px;
         padding-left: 15px;
         padding-right: 15px;
         background-color: white;
@@ -20,6 +19,9 @@ footer {
         }
         &.red {
             border-color: $official-red;
+            p {
+                padding-right: 70px;
+            }
         }
         .box-logo-footer {
             height: 100px;
