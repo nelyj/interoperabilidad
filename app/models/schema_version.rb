@@ -9,7 +9,7 @@ class SchemaVersion < ApplicationRecord
 
   def spec_file=(spec_file)
     @spec_file = spec_file
-    self.spec = JSON.parse(self.spec_file.read)
+    self.spec = JSON.parse(spec_file.read)
   end
 
   def to_param
@@ -18,9 +18,5 @@ class SchemaVersion < ApplicationRecord
 
   def set_version_number
     self.version_number = schema.last_version_number + 1
-  end
-
-  def read_spec
-    self.spec = JSON.parse(self.spec_file.read)
   end
 end
