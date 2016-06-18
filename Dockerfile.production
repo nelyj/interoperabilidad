@@ -37,7 +37,7 @@ WORKDIR /app
 # the image:
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle install
+RUN bundle install --deployment --without development test
 ADD . /app
 ENV RAILS_ENV="production" PORT=80
 RUN SECRET_KEY_BASE=notusedforassetprecompileherebutmustbepresentoritbreaks \
