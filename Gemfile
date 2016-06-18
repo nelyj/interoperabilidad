@@ -37,6 +37,7 @@ gem 'omniauth'
 gem 'omniauth-oauth2'
 gem 'haml'
 gem 'haml-rails'
+gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -57,4 +58,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Gem 'Link_To', add active class to menu links
 gem 'active_link_to'
-
