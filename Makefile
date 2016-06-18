@@ -40,14 +40,12 @@ clean: stop
 	rm -f .built
 
 test: build db
-	docker-compose up -d postgres
 	docker-compose run web rails test
 
 logs:
 	docker-compose logs
 
 db: build
-	docker-compose up -d postgres
 	docker-compose run web rake db:create db:migrate
 
 production-build: Dockerfile.production
