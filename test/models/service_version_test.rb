@@ -61,14 +61,6 @@ class ServiceVersionTest < ActiveSupport::TestCase
                                      service: service,
                                      user: users(:perico))
 
-    puts service.service_versions.length
-    puts service.service_versions.rejected.length
-    puts service.service_versions.retired.length
-    puts service.service_versions.outdated.length
-    puts service.service_versions.current.length
-    puts service.service_versions.retracted.length
-    puts service.service_versions.proposed.length
-
     assert_equal 6, service.service_versions.length
     assert_equal 1, service.service_versions.rejected.length
     assert_equal 1, service.service_versions.retired.length
