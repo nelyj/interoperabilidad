@@ -10,9 +10,8 @@ Rails.application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  get 'schemas/search', :to => 'schemas#search'
-
   resources :schemas, only: [:index, :new, :create, :edit, :update], param: :name do
+    collection { get 'search' }
     resources :schema_versions,
       only: [:index, :new, :create, :show], param: :version_number,
       path: 'versions'
