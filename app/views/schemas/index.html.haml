@@ -4,9 +4,10 @@
       %h1
         Directorio de Esquemas
       .form-group.col-md-6.container-form
-        .inner-addon.left-addon
-          %i.glyphicon.glyphicon-search
-          %input#search-schema.form-control{:placeholder => "Ingresa nombre de Esquema", :type => "text"}/
+        = form_tag(search_schemas_path, method: "get") do
+          .inner-addon.left-addon
+            %i.glyphicon.glyphicon-search
+            %input#search-schema.form-control{:placeholder => "Ingresa nombre de Esquema", :type => "text", :name => "schema"}/
 .container
   .row
     .col-md-2.box-col-categories
