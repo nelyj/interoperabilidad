@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620185629) do
+ActiveRecord::Schema.define(version: 20160620205220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160620185629) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.tsvector "lexemes"
+    t.string   "humanized_name"
     t.index ["lexemes"], name: "schemas_lexemes_idx", using: :gin
     t.index ["name"], name: "index_schemas_on_name", using: :btree
   end
