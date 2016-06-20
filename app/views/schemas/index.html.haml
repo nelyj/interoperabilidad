@@ -13,21 +13,10 @@
       %h3
         Categorías
       %ul
-        %li 
-          %a Categoría 1        
-        %li 
-          %a Categoría 2        
-        %li 
-          %a Categoría 3        
-        %li 
-          %a Categoría 4
-        %li 
-          %a Categoría 5        
-        %li 
-          %a Categoría 6        
-        %li 
-          %a Categoría 7
-      %br 
+        - @categories.each do |category|
+          %li
+            = category.name
+      %br
         = link_to 'Nuevo Schema', new_schema_path
     .col-md-10.schema-wrapper
       .schema-box-container
@@ -37,6 +26,6 @@
               %a{href: "#"}
                 = schema.name
             .body
-              %span 
-                Descripción: 
+              %span
+                Descripción:
               Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.

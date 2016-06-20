@@ -2,6 +2,7 @@ class SchemasController < ApplicationController
 
   def index
     @schemas = Schema.all
+    @categories = SchemaCategory.all
   end
 
   def new
