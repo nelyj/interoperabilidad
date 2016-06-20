@@ -68,12 +68,12 @@ class ServiceTest < ActiveSupport::TestCase
 
   test '#text_search_vectors returns a vector for searching on the name field' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new('test-service', 'A')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new('test-service', 'A')
   end
 
   test '#text_search_vectors returns a vector for searching on the spec title' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new('Swagger Test', 'A')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new('Swagger Test', 'A')
   end
 
   test '#text_search_vectors works if there is no info description in the spec file' do
@@ -85,41 +85,41 @@ class ServiceTest < ActiveSupport::TestCase
 
   test '#text_search_vectors returns a vector for searching on the spec description' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new("A short test description", 'B')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new("A short test description", 'B')
   end
 
   test '#text_search_vectors returns a vector for searching on an operation description' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new("Gets `Person` objects.\nOptional query param of **size** determines\nsize of returned array\n", 'C')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new("Gets `Person` objects.\nOptional query param of **size** determines\nsize of returned array\n", 'C')
   end
 
   test '#text_search_vectors returns a vector for searching on an parameter name' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new("size", 'D')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new("size", 'D')
   end
 
   test '#text_search_vectors returns a vector for searching on an parameter description' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new("Size of array", 'D')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new("Size of array", 'D')
   end
 
   test '#text_search_vectors returns a vector for searching on an response description' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new("Successful response", 'C')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new("Successful response", 'C')
   end
 
   test '#text_search_vectors returns a vector for searching on an schema title' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new("ArrayOfPersons", 'D')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new("ArrayOfPersons", 'D')
   end
 
   test '#text_search_vectors returns a vector for searching on an schema description' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new("Some description for this array", 'D')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new("Some description for this array", 'D')
   end
 
   test '#text_search_vectors returns a vector for searching on an property description' do
     service = create_valid_service!
-    assert_includes service.text_search_vectors, Service::SearchVector.new("this is a property description", 'D')
+    assert_includes service.text_search_vectors, Searchable::SearchVector.new("this is a property description", 'D')
   end
 end
