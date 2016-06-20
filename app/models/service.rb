@@ -107,7 +107,7 @@ class Service < ApplicationRecord
     end.join("||")
     ActiveRecord::Base.connection.execute <<-SQL
       UPDATE services SET lexemes = #{search_vector_sql}
-      WHERE services.id = #{self.id}
+      WHERE services.id = #{ActiveRecord::Base.sanitize(self.id)}
     SQL
   end
 
@@ -116,12 +116,12 @@ class Service < ApplicationRecord
   end
 
   def self.search(text)
-    Service.find_by_sql( <<-SQL
-      SELECT id, name, organization_id, public
-      FROM services, plainto_tsquery('es', '#{text}') as search_text
+     query = <<-SQL
+      SELECT *
+      FROM services, plainto_tsquery(?, ?) as search_text
       WHERE (lexemes @@ search_text)
       ORDER BY ts_rank(lexemes, search_text) DESC;
-      SQL
-    )
+    SQL
+    Service.find_by_sql [query, Service.search_configuration, text]
   end
 end

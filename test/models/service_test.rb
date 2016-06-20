@@ -12,6 +12,22 @@ class ServiceTest < ActiveSupport::TestCase
     service
   end
 
+  test '#search returns services based on an existing text' do
+    valid_service = create_valid_service!
+    service = Service.create!(
+      organization: organizations(:segpres),
+      name: 'Datos',
+      spec_file: StringIO.new(VALID_SPEC)
+    )
+    service.create_first_version(users(:perico))
+    assert_equal service, Service.search("Datos").first
+  end
+
+  test '#search returns no services based on non existing text' do
+    valid_service = create_valid_service!
+    assert Service.search("Datos").blank?
+  end
+
   test '#spec validation is correct' do
     valid_service = create_valid_service!
     assert valid_service.valid?
