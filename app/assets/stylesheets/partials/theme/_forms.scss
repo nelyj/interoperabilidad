@@ -40,7 +40,8 @@ select.form-control,
     border-radius: 0px;
 }
 
-.input-group input {
+.input-group input,
+input.form-control {
     border-radius: 6px;
 }
 
