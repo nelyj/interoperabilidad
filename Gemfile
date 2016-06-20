@@ -32,6 +32,9 @@ gem 'jbuilder', '~> 2.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use rollbar for error traking
+gem 'rollbar'
+
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-oauth2'
