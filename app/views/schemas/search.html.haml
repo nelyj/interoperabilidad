@@ -19,4 +19,4 @@
           .body
             %span 
               Descripción: 
-            = schema.description
+            = truncate(schema.description, :length => 183)

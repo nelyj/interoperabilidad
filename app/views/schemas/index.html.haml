@@ -25,8 +25,8 @@
           .box-schema
             .title
               %a{href: "#"}
-                = schema.name
+                = truncate(schema.name, :length => 56)
             .body
-              %span
-                Descripción:
-              Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
+              %span 
+                Descripción: 
+              = truncate(schema.description, :length => 183)
