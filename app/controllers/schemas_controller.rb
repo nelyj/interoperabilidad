@@ -33,6 +33,7 @@ class SchemasController < ApplicationController
   end
 
   def search
+    @schemas = Schema.all
   end
 
   private
