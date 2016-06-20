@@ -6,13 +6,15 @@ require 'rails/test_help'
 
 VALID_SCHEMA_OBJECT = '{
   "type": "object",
+  "title": "Valid",
   "description": "Some object",
   "required": [
     "name"
   ],
   "properties": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Second description"
     },
     "age": {
       "type": "integer",

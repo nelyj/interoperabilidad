@@ -2,6 +2,7 @@ class SchemaVersion < ApplicationRecord
   belongs_to :schema
   validates :spec, swagger_schema_object: true
   before_create :set_version_number
+  after_save :update_search_metadata
 
   def spec_file
     @spec_file
@@ -22,5 +23,9 @@ class SchemaVersion < ApplicationRecord
 
   def description
     spec['description']
+  end
+
+  def update_search_metadata
+    schema.update_search_metadata if self.version_number == schema.last_version_number
   end
 end

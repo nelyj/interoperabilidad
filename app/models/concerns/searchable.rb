@@ -54,7 +54,7 @@ module Searchable
     ActiveRecord::Base.connection.execute <<-SQL
      UPDATE #{self.class.table_name}
      SET lexemes = #{search_vector_sql}
-     WHERE services.id = #{ActiveRecord::Base.sanitize(self.id)}
+     WHERE #{self.class.table_name}.id = #{ActiveRecord::Base.sanitize(self.id)}
     SQL
   end
 end

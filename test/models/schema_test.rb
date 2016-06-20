@@ -11,6 +11,21 @@ class SchemaTest < ActiveSupport::TestCase
     )
   end
 
+  test '#search returns schemas based on an existing text' do
+    valid_schema = create_valid_schema!
+    schema = Schema.create!(
+      schema_category: schema_categories(:informacion_de_personas),
+      name: 'Persona',
+      spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
+    )
+    assert_equal schema, Schema.search("Persona").first
+  end
+
+  test '#search returns no schemas based on non existing text' do
+    valid_schema = create_valid_schema!
+    assert Schema.search("Persona").blank?
+  end
+
   test '#last_version returns the version number of the last schema version' do
     schema = create_valid_schema!
     assert_equal 1, schema.last_version_number
@@ -59,5 +74,32 @@ class SchemaTest < ActiveSupport::TestCase
     version.spec = version.spec.except!('description')
     version.save!
     assert_equal nil, schema.description
+  end
+
+  test '#text_search_vectors returns a vector for searching on the name field' do
+    schema = create_valid_schema!
+    assert_includes schema.text_search_vectors, Searchable::SearchVector.new('test-schema', 'A')
+  end
+
+  test '#text_search_vectors returns a vector for searching on the spec title' do
+    schema = create_valid_schema!
+    assert_includes schema.text_search_vectors, Searchable::SearchVector.new('Valid', 'A')
+  end
+
+  test '#text_search_vectors works if there is no info description in the spec file' do
+    schema = create_valid_schema!
+    schema.last_version.spec['description'] = nil
+    schema.save!
+    assert_nothing_raised { schema.text_search_vectors }
+  end
+
+  test '#text_search_vectors returns a vector for searching on the spec description' do
+    schema = create_valid_schema!
+    assert_includes schema.text_search_vectors, Searchable::SearchVector.new("Some object", 'B')
+  end
+
+  test '#text_search_vectors returns a vector for searching on a property description' do
+    schema = create_valid_schema!
+    assert_includes schema.text_search_vectors, Searchable::SearchVector.new("Second description", 'C')
   end
 end
