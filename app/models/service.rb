@@ -117,7 +117,7 @@ class Service < ApplicationRecord
 
   def self.search(text)
      query = <<-SQL
-      SELECT *
+      SELECT services.*
       FROM services, plainto_tsquery(?, ?) as search_text
       WHERE (lexemes @@ search_text)
       ORDER BY ts_rank(lexemes, search_text) DESC;
