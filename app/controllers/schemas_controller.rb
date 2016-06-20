@@ -7,6 +7,7 @@ class SchemasController < ApplicationController
 
   def new
     @schema = Schema.new
+    @categories = SchemaCategory.all
   end
 
   def create
