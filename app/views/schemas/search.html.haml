@@ -1,0 +1,22 @@
+.box-search-schemas
+  .container
+    .col-md-12{:class => "text-center"}
+      %h1
+        Directorio de Esquemas
+      .form-group.col-md-6.container-form
+        = form_tag(search_schemas_path, method: "get") do
+          .inner-addon.left-addon
+            %i.glyphicon.glyphicon-search
+            %input#search-schema.form-control{:placeholder => "Ingresa nombre de Esquema", :type => "text", :name => "schema"}/
+.container.no-gutter
+  .row.no-gutter
+    .col-md-12.schema-wrapper
+      - @schemas.each do |schema|
+        .box-schema
+          .title
+            %a{href: "#"}
+              = truncate(schema.name, :length => 56)
+          .body
+            %span 
+              Descripción: 
+            = schema.description
