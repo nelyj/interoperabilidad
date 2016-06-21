@@ -18,8 +18,9 @@
             %label#label-file.input-group-btn
               %span#select-file.btn.btn-action-red.btn-lg
                 Seleccionar Archivo
-                %input{:multiple => "", :style => "display: none;", :type => "file"}
-            %input#input-file.form-control{:readonly => "", :type => "text", :name => "schema[spec_file]"}
+              %input{:multiple => "", :style => "display: none;", :type => "file"}
+            .field
+              = f.file_field :spec_file, class: 'form-control', type: 'text', readonly: 'readonly'
             %span#remove-file
               %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
   .container.new-schemas-container
@@ -32,4 +33,5 @@
         = f.collection_select :schema_category_id, SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
         %br
         .text-right
-          %a.btn.btn-action-red.btn-lg{:href => "#", :role => "button", :type => "submit"} Crear Esquema
+          = f.submit 'Crear Esquema', class: 'btn btn-action-red btn-lg', role: 'button', type:'submit'
+
