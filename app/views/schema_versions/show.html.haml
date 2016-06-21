@@ -1,7 +1,9 @@
 %p#notice
 %h1 SchemaVersion
 .field
-= @schema_version.spec
+= schema_markup(@schema_version)
+%br
+= JSON.pretty_generate(@schema_version.spec)
 .actions
 = link_to 'New Version', new_schema_schema_version_path
 = link_to 'Index', schema_schema_versions_path
