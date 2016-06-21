@@ -192,7 +192,9 @@ body {
     }
 }
 
+
 /* File Schema Upload*/
+
 .box-new-schema-file {
     height: 120px;
     margin: 15px auto 0px auto;
@@ -246,7 +248,7 @@ body {
         text-align: right;
         padding-right: 25px;
     }
-    #input-file {
+    #schema_spec_file {
         display: none;
         border-radius: 6px;
         width: 280px;
@@ -294,6 +296,14 @@ body {
                 background: rgba(0, 105, 180, 0.10);
                 border: 1px solid rgba(0, 105, 179, 0.10);
                 border-radius: 6px;
+            }
+            &.active {
+                background: rgba(106, 193, 255, 1);
+                border: 1px solid rgba(0, 105, 179, 0.10);
+                border-radius: 6px;
+                a {
+                    color: white;
+                }
             }
         }
     }
