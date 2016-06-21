@@ -1,5 +1,4 @@
-%h1 New Schema
-= form_for(@schema) do |f|
+= form_for @schema, :html => { :multipart => true } do |f|
   - if @schema.errors.any?
     #error_explanation
       %h2
@@ -8,14 +7,29 @@
       %ul
         - @schema.errors.full_messages.each do |message|
           %li= message
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :schema_category_id
-    = f.collection_select(:schema_category_id, SchemaCategory.all, :id, :name)
-  .field
-    = f.label :spec_file
-    = f.file_field :spec_file
-  .actions
-    = f.submit
+  .box-search-schemas
+    .container
+      .col-md-12{:class => "text-center"}
+        .box-new-schema-file
+          .box-title
+            %span +
+            %p Crear Esquema
+          .input-group.box-input-file
+            %label#label-file.input-group-btn
+              %span#select-file.btn.btn-action-red.btn-lg
+                Seleccionar Archivo
+                %input{:multiple => "", :style => "display: none;", :type => "file"}
+            %input#input-file.form-control{:readonly => "", :type => "text", :name => "schema[spec_file]"}
+            %span#remove-file
+              %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
+  .container.new-schemas-container
+    .row
+      .col-md-6
+        %h3 Indica nombre para el esquema
+        = f.text_field :name, { :class => "form-control input-lg", :placeholder => "Ex. Patente Comercial"}
+      .col-md-6
+        %h3 Indica Categoría
+        = f.collection_select :schema_category_id, SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
+        %br
+        .text-right
+          %a.btn.btn-action-red.btn-lg{:href => "#", :role => "button", :type => "submit"} Crear Esquema
