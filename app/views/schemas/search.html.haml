@@ -10,7 +10,7 @@
             %input#search-schema.form-control{:value => @text_search, :type => "text", :name => "text_search"}/
 .container.no-gutter
   .row.no-gutter
-    .col-md-12.schema-wrapper
+    .col-md-12.schema-wrapper.text-left
       ="No se han encontrado resultados" if @text_search.blank?
       - @schemas.each do |schema|
         .box-schema(data-category="#{schema.schema_category.id}")

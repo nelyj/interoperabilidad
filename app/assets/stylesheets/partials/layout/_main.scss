@@ -53,6 +53,9 @@ body {
 //schemas
 .schema-wrapper {
     text-align: center;
+    &.text-left {
+        text-align: left;
+    }
 }
 
 .schema-box-container {
