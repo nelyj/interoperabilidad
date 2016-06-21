@@ -16,14 +16,14 @@
       %ul
         - @categories.each do |category|
           %li
-            %a(data-filter="#{category.id}")
+            %a(data-category="category-#{category.id}")
               = category.name
       %br
         = link_to 'Nuevo Schema', new_schema_path
     .col-md-10.schema-wrapper
       .schema-box-container
         - @schemas.each do |schema|
-          .box-schema(data-category="#{schema.schema_category.id}")
+          .box-schema(data-categories="category-#{schema.schema_category.id}")
             .title
               %a{href: "#"}
                 = truncate(schema.name, :length => 56)
