@@ -13,7 +13,7 @@
     .col-md-2.box-col-categories
       %h3
         Categorías
-      %ul
+      %ul#categories-list
         - @categories.each do |category|
           %li
             %a(data-category="category-#{category.id}")
