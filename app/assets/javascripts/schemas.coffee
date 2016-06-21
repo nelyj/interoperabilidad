@@ -3,23 +3,18 @@ document.addEventListener 'turbolinks:load', ->
     theme: 'bootstrap'
     containerCssClass: ':all:'
 
-filterSchemas = (category) ->
-  dataCategory = '[data-categories*="' + category + '"]'
-  $('.box-schema').hide().filter(dataCategory).show()
-  return
-
-$(document).on 'click', '.box-col-categories ul li a', (e) ->
-  selectCategory = $(this).data('category')
-  filterSchemas(selectCategory)
+$(document).on 'click', '#categories-list li a', (e) ->
   e.preventDefault()
-  return
+  $parent = $(this).parent()
+  filterSchemas($(this).data('category'))
+  addClassToList($parent)
 
 $(document).on 'fileselect', ':file', (event, numFiles, label) ->
   input = $(this).parents('.input-group').find(':text')
   log = if numFiles > 1 then numFiles + ' files selected' else label
   if input.length
     input.val log
-    $('#input-file, #remove-file').show()
+    $('#schema_spec_file, #remove-file').show()
     $('#label-file').hide()
     return
 
@@ -34,6 +29,17 @@ $(document).on 'change', ':file', ->
   return
 
 $(document).on 'click', '#remove-file', ->
-  $('#input-file, #remove-file').hide()
+  $('#schema_spec_file, #remove-file').hide()
   $('#label-file').show()
   $("input").val ""
+
+filterSchemas = (category) ->
+  dataCategory = '[data-categories*="' + category + '"]'
+  $('.box-schema').hide().filter(dataCategory).show()
+  return
+
+addClassToList = (element) ->
+  $('#categories-list li').removeClass()
+  if !$element.hasClass('active')
+    $element.addClass('active');
+    return
