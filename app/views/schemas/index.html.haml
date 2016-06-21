@@ -16,7 +16,7 @@
       %ul
         - @categories.each do |category|
           %li
-            %a(data-category-id="#{category.id}")
+            %a(data-filter="#{category.id}")
               = category.name
       %br
         = link_to 'Nuevo Schema', new_schema_path
