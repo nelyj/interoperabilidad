@@ -3,6 +3,17 @@ document.addEventListener 'turbolinks:load', ->
     theme: 'bootstrap'
     containerCssClass: ':all:'
 
+filterSchemas = (category) ->
+  dataCategory = '[data-categories*="' + category + '"]'
+  $('.box-schema').hide().filter(dataCategory).show()
+  return
+
+$(document).on 'click', '.box-col-categories ul li a', (e) ->
+  selectCategory = $(this).data('category')
+  filterSchemas(selectCategory)
+  e.preventDefault()
+  return
+
 $(document).on 'fileselect', ':file', (event, numFiles, label) ->
   input = $(this).parents('.input-group').find(':text')
   log = if numFiles > 1 then numFiles + ' files selected' else label
