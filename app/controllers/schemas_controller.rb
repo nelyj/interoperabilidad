@@ -33,7 +33,8 @@ class SchemasController < ApplicationController
   end
 
   def search
-    @schemas = Schema.all
+    @text_search = params[:text_search]
+    @schemas = Schema.search(params[:text_search])
   end
 
   private
