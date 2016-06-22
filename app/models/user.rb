@@ -73,10 +73,20 @@ class User < ApplicationRecord
   end
 
   def refresh_name(full_name)
-    # Do we need to consider al the names of a person?
-    first_name =  full_name['nombres'].first || 'Perico'
-    second_name = full_name['apellidos'].first || 'de los Palotes'
-    name = first_name + ' ' + second_name
+    first_name = ''
+    full_name['nombres'].each do |name|
+      first_name += name + ' '
+    end
+
+    second_name = ''
+    full_name['apellidos'].each do |name|
+      second_name += name + ' '
+    end
+
+    first_name = 'Perico' unless first_name.length >= 1
+    second_name = 'de los Palotes' unless second_name.length >= 1
+
+    name = first_name.strip + ' ' + second_name.strip
   end
 
   def call_roles_service
