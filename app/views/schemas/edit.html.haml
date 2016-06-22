@@ -3,116 +3,133 @@
     .col-md-2.container-schema-list.no-gutter
       %h1 COL 1
     .col-md-8.container-schema-detail
-      %h1 Editing Schema
-      = form_for(@schema) do |f|
-        - if @schema.errors.any?
-          #error_explanation
-            %h2
-              = pluralize(@schema.errors.count, "error")
-              prohibited this schema from being saved:
-            %ul
-              - @schema.errors.full_messages.each do |message|
-                %li= message
-        .field
-          = f.label :schema_category_id
-          = f.collection_select(:schema_category_id, SchemaCategory.all, :id, :name)
-        .actions
-          = f.submit
-
-      .panel-group
-        .panel.panel-schema.level-1
-          .panel-heading
-            .panel-title.required
-              %a{"data-toggle" => "collapse-next"}
-                %span.dot
-                panel 1
-          .panel-collapse.collapse
-            .panel-body
-              .panel-group
-                .panel.panel-schema.level-2
-                  .panel-heading
-                    .panel-title.optional
-                      %a{"data-toggle" => "collapse-next"}
-                        %span.dot
-                        nombre
-                  .panel-collapse.collapse
-                    .panel-body .
-                .panel.panel-schema.level-3
-                  .panel-heading
-                    .panel-title.optional
-                      %a{"data-toggle" => "collapse-next"}
-                        %span.dot
-                        contenido
-                  .panel-collapse.collapse
-                    .panel-body 
-                      contenido
-                      .panel-group
-                        .panel.panel-schema.level-4
-                          .panel-heading
-                            .panel-title.optional
-                              %a{"data-toggle" => "collapse-next"}
-                                %span.dot
-                                nombre
-                          .panel-collapse.collapse
-                            .panel-body Panel 3.1
-                        .panel.panel-schema.level-5
-                          .panel-heading
-                            .panel-title.optional
-                              %a{"data-toggle" => "collapse-next"}
-                                %span.dot
-                                nombre
-                          .panel-collapse.collapse
-                            .panel-body 
-                              contenido
-                              .panel.panel-schema.level-6
-                                .panel-heading
-                                  .panel-title.optional
-                                    %a{"data-toggle" => "collapse-next"}
-                                      %span.dot
-                                      contenido
-                                .panel-collapse.collapse
-                                  .panel-body 
-                                    contenido
-                                    .panel.panel-schema.level-7
-                                      .panel-heading
-                                        .panel-title.optional
-                                          %a{"data-toggle" => "collapse-next"}
-                                            %span.dot
-                                            nombre
-                                      .panel-collapse.collapse
-                                        .panel-body 
-                                          contenido
-                                          .panel.panel-schema.level-8
-                                            .panel-heading
-                                              .panel-title.optional
-                                                %a{"data-toggle" => "collapse-next"}
-                                                  %span.dot
-                                                  nombre
-                                            .panel-collapse.collapse
-                                              .panel-body contenido
-      .panel-group
-        .panel.panel-schema.level-1
-          .panel-heading
-            .panel-title.required
-              %a{"data-toggle" => "collapse-next"}
-                %span.dot
-                nombre
-      .panel-group
-        .panel.panel-schema.level-1
-          .panel-heading
-            .panel-title.required
-              %a{"data-toggle" => "collapse-next"}
-                %span.dot
-                nombre
-          .panel-collapse.collapse
-            .panel-body
-              .panel-group
-                .panel.panel-schema.level-2
-                  .panel-heading
-                    .panel-title.optional
-                      %a{"data-toggle" => "collapse-next"}
-                        %span.dot
-                        nombre
+      %h1 Nombre de Esquema
+      %p <strong>Descripción:</strong> Estructura de la información para la respuesta a la consulta<br>"información personal" realizada al SRCel.
+      .schema-panel-set
+        .panel-group
+          .panel.panel-schema
+            .panel-heading
+              .panel-title.required
+                %a{"data-toggle" => "collapse-next"}
+                  %span.dot
+                  panel 1
+            .panel-collapse.collapse
+              .panel-body
+                .panel-group
+                  .panel.panel-schema
+                    .panel-heading
+                      .panel-title.optional
+                        %a{"data-toggle" => "collapse-next"}
+                          %span.dot
+                          nombre
+                  .panel.panel-schema
+                    .panel-heading
+                      .panel-title.optional
+                        %a{"data-toggle" => "collapse-next"}
+                          %span.dot
+                          nombre
+                    .panel-collapse.collapse
+                      .panel-body 
+                        .panel-group
+                          .panel.panel-schema
+                            .panel-heading
+                              .panel-title.optional
+                                %a{"data-toggle" => "collapse-next"}
+                                  %span.dot
+                                  nombre
+                          .panel.panel-schema
+                            .panel-heading
+                              .panel-title.optional
+                                %a{"data-toggle" => "collapse-next"}
+                                  %span.dot
+                                  nombre
+                            .panel-collapse.collapse
+                              .panel-body 
+                                .panel.panel-schema
+                                  .panel-heading
+                                    .panel-title.optional
+                                      %a{"data-toggle" => "collapse-next"}
+                                        %span.dot
+                                        nombre
+                                  .panel-collapse.collapse
+                                    .panel-body
+                                      .panel.panel-schema
+                                        .panel-heading
+                                          .panel-title.optional
+                                            %a{"data-toggle" => "collapse-next"}
+                                              %span.dot
+                                              nombre
+                                        .panel-collapse.collapse
+                                          .panel-body 
+                                            .panel.panel-schema
+                                              .panel-heading
+                                                .panel-title.optional
+                                                  %a{"data-toggle" => "collapse-next"}
+                                                    %span.dot
+                                                    nombre - nivel 8
+                                              .panel-collapse.collapse
+                                                .panel-body 
+                                                  .panel.panel-schema
+                                                    .panel-heading
+                                                      .panel-title.optional
+                                                        %a{"data-toggle" => "collapse-next"}
+                                                          %span.dot
+                                                          nombre - nivel 9 - extra
+                                                    .panel-collapse.collapse
+                                                      .panel-body 
+                                                        .panel.panel-schema
+                                                          .panel-heading
+                                                            .panel-title.optional
+                                                              %a{"data-toggle" => "collapse-next"}
+                                                                %span.dot
+                                                                nombre - nivel 10 - extra
+                                                          .panel-collapse.collapse
+                                                            .panel-body 
+                                                              .panel.panel-schema
+                                                                .panel-heading
+                                                                  .panel-title.optional
+                                                                    %a{"data-toggle" => "collapse-next"}
+                                                                      %span.dot
+                                                                      nombre - nivel 11 - extra
+                                                              .panel-collapse.collapse
+                                                                .panel-body 
+                                                                  .panel.panel-schema
+                                                                    .panel-heading
+                                                                      .panel-title.optional
+                                                                        %a{"data-toggle" => "collapse-next"}
+                                                                          %span.dot
+                                                                          nombre - nivel 12 - extra
+                                                                    .panel-collapse.collapse
+                                                                      .panel-body 
+                                                                        .panel.panel-schema
+                                                                          .panel-heading
+                                                                            .panel-title.optional
+                                                                              %a
+                                                                                %span.dot
+                                                                                nombre - nivel 13 - extra - final
+        .panel-group
+          .panel.panel-schema
+            .panel-heading
+              .panel-title.required
+                %a{"data-toggle" => "collapse-next"}
+                  %span.dot
+                  nombre
+        .panel-group
+          .panel.panel-schema
+            .panel-heading
+              .panel-title.required
+                %a{"data-toggle" => "collapse-next"}
+                  %span.dot
+                  nombre
+            .panel-collapse.collapse
+              .panel-body
+                .panel-group
+                  .panel.panel-schema
+                    .panel-heading
+                      .panel-title.optional
+                        %a{"data-toggle" => "collapse-next"}
+                          %span.dot
+                          nombre
 
     .col-md-2.container-schema-action.no-gutter
       %a.btn.btn-action-red{:href => "#", :role => "button"} Ver OAS
