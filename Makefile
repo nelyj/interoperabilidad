@@ -3,7 +3,7 @@ SHELL := /bin/bash
 all: build db run
 
 run: build
-	docker-compose up -d
+	docker-compose up
 
 build: .built .bundled
 
