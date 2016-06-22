@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
     user = users(:perico)
     segpres = organizations(:segpres)
     user.refresh_user_roles_and_email!
-    assert_equal "mail@example.org", user.email
+    assert_equal "mail@example.org", user.roles.first.email
     assert_equal segpres, user.organizations.first
     assert user.can_create_schemas
     assert "Service Provider", user.roles.where(organization: segpres).first.name
@@ -22,10 +22,10 @@ class UserTest < ActiveSupport::TestCase
     segpres = organizations(:segpres)
 
     assert_equal "22.222.222-2", user.rut
-    assert_equal "Perico", user.name
+    assert_equal "Perico de los Palotes", user.name
     assert_equal "8", user.sub
     assert_equal "ASDF", user.id_token
-    assert_equal "mail@example.org", user.email
+    assert_equal "mail@example.org", user.roles.first.email
     assert_equal segpres, user.organizations.first
     assert user.can_create_schemas
     assert "Service Provider", user.roles.where(organization: segpres).first.name
@@ -47,10 +47,10 @@ class UserTest < ActiveSupport::TestCase
     segpres = organizations(:segpres)
 
     assert_equal "11.111.111-1", user.rut
-    assert_equal "Perico", user.name
+    assert_equal "Perico de los Palotes", user.name
     assert_equal "8", user.sub
     assert_equal "ASDF", user.id_token
-    assert_equal "mail@example.org", user.email
+    assert_equal "mail@example.org", user.roles.first.email
     assert_equal segpres, user.organizations.first
     assert user.can_create_schemas
     assert "Service Provider", user.roles.where(organization: segpres).first.name

@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.0'
 # Use rollbar for error traking
 gem 'rollbar'
 
+gem 'rest-client'
+
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-openid-connect'
