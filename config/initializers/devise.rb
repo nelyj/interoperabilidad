@@ -250,7 +250,7 @@ Devise.setup do |config|
     client_options: {
       identifier: ENV["OP_CLIENT_ID"],
       secret: ENV["OP_SECRET_KEY"],
-      redirect_uri: ENV["OP_CALLBACK_URL"] + "/users/auth/clave_unica/callback",
+      redirect_uri: "#{ENV['OP_CALLBACK_URL']}/users/auth/clave_unica/callback",
     },
   }
 
