@@ -35,11 +35,15 @@ gem 'jbuilder', '~> 2.0'
 # Use rollbar for error traking
 gem 'rollbar'
 
+gem 'rest-client'
+
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-oauth2'
+gem 'omniauth-openid-connect'
 gem 'haml'
 gem 'haml-rails'
+gem 'hashie'
+
 gem "codeclimate-test-reporter", group: :test, require: nil
 
 group :development, :test do

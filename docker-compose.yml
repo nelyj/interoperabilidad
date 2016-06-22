@@ -5,6 +5,8 @@ services:
     ports:
       - "5432"
   web:
+    tty: true
+    stdin_open: true
     build:
       context: .
       dockerfile: Dockerfile.development

@@ -53,6 +53,9 @@ body {
 //schemas
 .schema-wrapper {
     text-align: center;
+    &.text-left {
+        text-align: left;
+    }
 }
 
 .schema-box-container {
@@ -61,6 +64,7 @@ body {
     display: inline-block;
     overflow: hidden;
     max-width: 880px;
+    width: 880px;
 }
 
 .box-schema {
@@ -165,6 +169,7 @@ body {
     font-size: 22px;
     &::-webkit-input-placeholder {
         color: rgba(197, 197, 197, 1);
+        /* Webkit */
     }
     &:-moz-placeholder {
         color: rgba(197, 197, 197, 1);
@@ -176,6 +181,89 @@ body {
     }
     &:-ms-input-placeholder {
         color: rgba(197, 197, 197, 1);
+        /* IE */
+    }
+}
+
+.new-schemas-container {
+    padding: 0px 90px;
+    input {
+        max-width: 473px;
+    }
+}
+
+
+/* File Schema Upload*/
+
+.box-new-schema-file {
+    height: 120px;
+    margin: 15px auto 0px auto;
+    color: #FFFFFF;
+    max-width: 690px;
+    border-radius: 13px;
+    letter-spacing: 0px;
+    border: 1px solid #FFFFFF;
+    font-family: $font-regular;
+    background: rgba(255, 255, 255, 0.10);
+    box-shadow: 2px 2px 17px 0px rgba(0, 0, 0, 0.20);
+    .box-title {
+        display: inline-block;
+        font-size: 3rem;
+        padding: 43px 34px;
+        float: left;
+        width: 49%;
+        line-height: 3rem;
+        span {
+            float: left;
+            font-size: 7rem;
+            font-family: $font-light;
+        }
+        p {
+            padding: 0px 0px 0px 23px;
+            margin: 0px;
+            text-align: left;
+            margin-left: 23px;
+        }
+    }
+    span#select-file {
+        border: none;
+        @include bootstrap-btns($official-red,
+        18%);
+    }
+    .box-input-file {
+        width: 48%;
+        max-width: 48%;
+        display: block;
+        overflow: hidden;
+        text-align: left;
+        padding: 40px 0px 36px 20px;
+    }
+    input.form-control {
+        border: none;
+        color: white;
+        font-size: 2rem;
+        background-color: rgba(255, 255, 255, 0.20);
+    }
+    label.input-group-btn {
+        text-align: right;
+        padding-right: 25px;
+    }
+    #schema_spec_file {
+        display: none;
+        border-radius: 6px;
+        width: 280px;
+        max-width: 280px;
+        padding-top: 7px;
+        vertical-align: middle;
+    }
+    #remove-file {
+        display: none;
+        float: right;
+        margin: 0px;
+        padding: 0px;
+        font-size: 2rem;
+        line-height: 42px;
+        cursor: pointer;
     }
 }
 
@@ -208,6 +296,14 @@ body {
                 background: rgba(0, 105, 180, 0.10);
                 border: 1px solid rgba(0, 105, 179, 0.10);
                 border-radius: 6px;
+            }
+            &.active {
+                background: rgba(106, 193, 255, 1);
+                border: 1px solid rgba(0, 105, 179, 0.10);
+                border-radius: 6px;
+                a {
+                    color: white;
+                }
             }
         }
     }

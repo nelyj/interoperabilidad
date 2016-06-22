@@ -1,11 +1,14 @@
 segpres:
   name: Secretaría General de la Presidencia
   initials: SEGPRES
+  dipres_id: 31
 
 sii:
   name: 'Servicio de Impuestos Internos'
   initials: 'SII'
+  dipres_id: 13
 
 minsal:
   name: 'Ministerio de Salud'
   initials: 'MINSAL'
+  dipres_id: 22
