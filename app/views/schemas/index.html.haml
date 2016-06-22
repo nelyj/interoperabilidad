@@ -16,7 +16,7 @@
       %ul#categories-list
         - @categories.each do |category|
           %li
-            %a(data-category="category-#{category.id}")
+            %a(data-category="category-#{category.id}") 
               = category.name
       %br
         = link_to 'Nuevo Schema', new_schema_path
@@ -25,7 +25,7 @@
         - @schemas.each do |schema|
           .box-schema(data-categories="category-#{schema.schema_category.id}")
             .title
-              %a{href: "#"}
+              = link_to edit_schema_path(schema) do
                 = truncate(schema.name, :length => 56)
             .body
               %span 

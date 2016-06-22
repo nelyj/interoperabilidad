@@ -248,7 +248,7 @@ body {
         text-align: right;
         padding-right: 25px;
     }
-    #schema_spec_file {
+    #input-file {
         display: none;
         border-radius: 6px;
         width: 280px;
@@ -313,4 +313,111 @@ body {
 .no-gutter > [class*='col-'] {
     padding-right: 0;
     padding-left: 0;
+}
+
+//schema detail
+.container-schema-list {}
+
+.container-schema-detail {
+    padding: 0px 25px;
+}
+
+.container-schema-action {
+    .btn {
+        width: 100%;
+        font-size: 1.8rem;
+    }
+}
+
+//panels
+.panel-schema {
+    border: none;
+    background: none;
+    > .panel-heading {
+        border-radius: 5px;
+        height: 75px;
+        color: white;
+        font-family: Courier;
+        a {
+            text-decoration: none;
+        }
+        .panel-title {
+            .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 10px;
+                display: inline-block;
+            }
+            &.required {
+                .dot {
+                    background: rgba(100, 230, 80, 1);
+                }
+            }
+            &.optional {
+                .dot {
+                    border: 1px solid white;
+                    background-color: none;
+                }
+            }
+        }
+    }
+    > .panel-heading + .panel-collapse {
+        > .panel-body {
+            border: none;
+        }
+    }
+    > .panel-collapse {
+        border: none;
+        .panel-body {
+            border: none;
+        }
+    }
+    &.level-1 {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(85, 93, 115, 1);
+        }
+    }
+    &.level-2 {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(107, 118, 146, 1);
+        }
+    }
+    &.level-3 {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(131, 144, 176, 1);
+        }
+    }
+    &.level-4 {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(164, 175, 211, 1);
+        }
+    }
+    &.level-5 {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(203, 212, 239, 1);
+        }
+    }
+    &.level-6 {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(223, 229, 248, 1);
+        }
+    }
+    &.level-7 {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(237, 240, 252, 1);
+        }
+    }
+    &.level-8 {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(247, 248, 250, 1);
+        }
+    }
 }

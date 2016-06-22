@@ -14,7 +14,7 @@ $(document).on 'fileselect', ':file', (event, numFiles, label) ->
   log = if numFiles > 1 then numFiles + ' files selected' else label
   if input.length
     input.val log
-    $('#schema_spec_file, #remove-file').show()
+    $('#input-file, #remove-file').show()
     $('#label-file').hide()
     return
 
@@ -29,17 +29,30 @@ $(document).on 'change', ':file', ->
   return
 
 $(document).on 'click', '#remove-file', ->
-  $('#schema_spec_file, #remove-file').hide()
+  $('#input-file, #remove-file').hide()
   $('#label-file').show()
-  $("input").val ""
+  $("#input-file").val ""
 
 filterSchemas = (category) ->
-  dataCategory = '[data-categories*="' + category + '"]'
+  dataCategory = '[data-categories="' + category + '"]'
   $('.box-schema').hide().filter(dataCategory).show()
   return
 
 addClassToList = (element) ->
   $('#categories-list li').removeClass()
-  if !$element.hasClass('active')
-    $element.addClass('active');
+  if !element.hasClass('active')
+    element.addClass('active');
     return
+
+$('.panel-collapse').collapse toggle: false
+$(document).on 'click', '[data-toggle=collapse-next]', (e) ->
+  e.preventDefault()
+  $(this)
+    .closest('.panel')
+    .find('.panel-collapse')
+    .collapse 'hide'
+  $(this)
+    .parentsUntil('.panel-group', '.panel')
+    .children('.panel-collapse:first')
+    .collapse 'toggle'
+  return
