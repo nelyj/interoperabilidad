@@ -1,4 +1,4 @@
-= form_for @schema, :html => { :multipart => true } do |f|
+= form_for @schema do |f|
   - if @schema.errors.any?
     #error_explanation
       %h2
@@ -18,9 +18,9 @@
             %label#label-file.input-group-btn
               %span#select-file.btn.btn-action-red.btn-lg
                 Seleccionar Archivo
-              %input{:multiple => "", :style => "display: none;", :type => "file"}
+              = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
             .field
-              = f.file_field :spec_file, class: 'form-control', type: 'text', readonly: 'readonly'
+              %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
             %span#remove-file
               %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
   .container.new-schemas-container
@@ -33,5 +33,4 @@
         = f.collection_select :schema_category_id, SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
         %br
         .text-right
-          = f.submit 'Crear Esquema', class: 'btn btn-action-red btn-lg', role: 'button', type:'submit'
-
+          = f.submit 'Crear Esquema', class: 'btn btn-action-red btn-lg'
