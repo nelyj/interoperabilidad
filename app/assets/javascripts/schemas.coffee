@@ -56,3 +56,6 @@ $(document).on 'click', '[data-toggle=collapse-next]', (e) ->
     .children('.panel-collapse:first')
     .collapse 'toggle'
   return
+
+
+
