@@ -44,7 +44,6 @@ addClassToList = (element) ->
     element.addClass('active');
     return
 
-$('.panel-collapse').collapse toggle: false
 $(document).on 'click', '[data-toggle=collapse-next]', (e) ->
   e.preventDefault()
   $(this)

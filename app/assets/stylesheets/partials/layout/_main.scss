@@ -329,17 +329,116 @@ body {
     }
 }
 
+//schema panel set component
+.schema-panel-set {
+    .panel-group {
+        margin-bottom: 3px;
+    }
+}
+
 //panels
 .panel-schema {
     border: none;
     background: none;
+    .panel-heading,
+    .panel-body {
+        background-color: rgba(85, 93, 115, 1);
+        color: rgba(227, 227, 227, 1);
+        font-size: 1.6rem;
+        font-family: Menlo;
+        .description {
+            color: rgba(173, 173, 173, 1);
+            font-size: 1.3rem;
+            font-family: Courier;
+        }
+    }
+    .panel-schema {
+        .panel-heading,
+        .panel-body {
+            background-color: rgba(107, 118, 146, 1);
+            color: rgba(220, 220, 220, 1);
+            .description {
+                color: rgba(201, 206, 215, 1);
+            }
+        }
+        .panel-schema {
+            .panel-heading,
+            .panel-body {
+                background-color: rgba(131, 144, 176, 1);
+                color: rgba(220, 220, 220, 1);
+                .description {
+                    color: rgba(201, 206, 215, 1);
+                }
+            }
+            .panel-schema {
+                .panel-heading,
+                .panel-body {
+                    background-color: rgba(164, 175, 211, 1);
+                    color: rgba(82, 91, 114, 1);
+                    .description {
+                        color: rgba(127, 140, 176, 1);
+                    }
+                }
+                .panel-schema {
+                    .panel-heading,
+                    .panel-body {
+                        background-color: rgba(203, 212, 239, 1);
+                        color: rgba(82, 91, 114, 1);
+                        .description {
+                            color: rgba(127, 140, 176, 1);
+                        }
+                    }
+                    .panel-schema {
+                        .panel-heading,
+                        .panel-body {
+                            background-color: rgba(223, 229, 248, 1);
+                            color: rgba(82, 91, 114, 1);
+                            .description {
+                                color: rgba(127, 140, 176, 1);
+                            }
+                        }
+                        .panel-schema {
+                            .panel-heading,
+                            .panel-body {
+                                background-color: rgba(237, 240, 252, 1);
+                                color: rgba(82, 91, 114, 1);
+                                .description {
+                                    color: rgba(127, 140, 176, 1);
+                                }
+                            }
+                            .panel-schema {
+                                .panel-heading,
+                                .panel-body {
+                                    background-color: rgba(247, 248, 250, 1);
+                                    color: rgba(82, 91, 114, 1);
+                                    .description {
+                                        color: rgba(127, 140, 176, 1);
+                                    }
+                                }
+                                .panel-schema {
+                                    .panel-heading,
+                                    .panel-body {
+                                        background-color: rgba(247, 248, 250, 1);
+                                        color: pink;
+                                        .description {
+                                            color: pink;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     > .panel-heading {
         border-radius: 5px;
         height: 75px;
         color: white;
-        font-family: Courier;
         a {
             text-decoration: none;
+            cursor: pointer;
         }
         .panel-title {
             .dot {
@@ -368,56 +467,10 @@ body {
     }
     > .panel-collapse {
         border: none;
+        margin-top: -3px;
         .panel-body {
             border: none;
-        }
-    }
-    &.level-1 {
-        .panel-heading,
-        .panel-body {
-            background-color: rgba(85, 93, 115, 1);
-        }
-    }
-    &.level-2 {
-        .panel-heading,
-        .panel-body {
-            background-color: rgba(107, 118, 146, 1);
-        }
-    }
-    &.level-3 {
-        .panel-heading,
-        .panel-body {
-            background-color: rgba(131, 144, 176, 1);
-        }
-    }
-    &.level-4 {
-        .panel-heading,
-        .panel-body {
-            background-color: rgba(164, 175, 211, 1);
-        }
-    }
-    &.level-5 {
-        .panel-heading,
-        .panel-body {
-            background-color: rgba(203, 212, 239, 1);
-        }
-    }
-    &.level-6 {
-        .panel-heading,
-        .panel-body {
-            background-color: rgba(223, 229, 248, 1);
-        }
-    }
-    &.level-7 {
-        .panel-heading,
-        .panel-body {
-            background-color: rgba(237, 240, 252, 1);
-        }
-    }
-    &.level-8 {
-        .panel-heading,
-        .panel-body {
-            background-color: rgba(247, 248, 250, 1);
+            border-radius: 0px 0px 5px 5px;
         }
     }
 }
