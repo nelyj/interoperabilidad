@@ -43,6 +43,26 @@ class ServiceVersion < ApplicationRecord
     service.update_search_metadata if status == "current"
   end
 
+  def make_current_version
+    self.current!
+    update_old_versions_statuses
+  end
+
+  def reject_version
+    self.rejected!
+  end
+
+  def update_old_versions_statuses
+    if self.backward_compatibility?
+      new_status = ServiceVersion.statuses[:outdated]
+    else
+      new_status = ServiceVersion.statuses[:retired]
+    end
+    service.service_versions.current.where(
+      "version_number != ?", self.version_number).update_all(
+      status: new_status)
+  end
+
   def retract_proposed
     service.service_versions.proposed.where(
       "version_number != ?", self.version_number).update_all(

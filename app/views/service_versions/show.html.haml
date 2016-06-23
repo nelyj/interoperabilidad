@@ -6,3 +6,6 @@
 .actions
 = link_to 'New Version', new_service_service_version_path
 = link_to 'Index', service_service_versions_path
+- if user_signed_in? && current_user.organizations.exists?(Organization.where(initials: "SEGPRES")) && @service_version.proposed?
+  = button_to 'Aprobar', state_service_service_version_path(state: 'current'), method: :put
+  = button_to 'Rechazar', state_service_service_version_path(state: 'rejected'), method: :put

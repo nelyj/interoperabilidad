@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   resources :services, only: [:index, :new, :create, :edit, :update], param: :name do
     resources :service_versions,
       only: [:index, :new, :create, :show], param: :version_number,
-      path: 'versions'
+      path: 'versions' do
+        member { put 'state' }
+      end
+
   end
 end
