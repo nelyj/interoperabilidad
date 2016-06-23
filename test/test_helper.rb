@@ -3,6 +3,9 @@ require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require "minitest/rails/capybara"
+require 'capybara/poltergeist'
+Capybara.default_driver = :poltergeist
 
 VALID_SCHEMA_OBJECT = '{
   "type": "object",

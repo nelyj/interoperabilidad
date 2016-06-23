@@ -30,13 +30,15 @@
               %li{:role => "presentation"}
                 %a{:href => "#"} Convenios
 
-          %a#btn-clave-unica.btn.btn-action-blue.round.gradient{href: user_clave_unica_omniauth_authorize_path}
+          %a#btn-login.btn.btn-action-blue.round.gradient{href: user_clave_unica_omniauth_authorize_path}
             = image_tag "clave-unica.svg", size: "28"
             Clave<span>única</span>
 
     .container-fluid.main-container
       - if user_signed_in?
-        = link_to('Logout', destroy_user_session_path, method: :delete)
+        #btn-logout
+          = link_to('Logout', destroy_user_session_path, method: :delete)
+
       = yield
     %footer
       .container{:class => "footer-container"}

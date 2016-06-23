@@ -1,0 +1,28 @@
+fecha_iso_v1:
+    schema: fecha_iso
+    version_number: 1
+    spec:
+        title: Fecha ISO
+        description: Fecha en formato ISO
+        type: string
+        format: date
+
+
+rut_v1:
+    schema: rut
+    version_number: 1
+    spec:
+        title: RUT
+        description: RUT de una persona o empresa
+        type: object
+        required:
+            - número
+            - dv
+        properties:
+            numero:
+                type: integer
+                description: Numero de RUT sin digito verificador
+            dv:
+                type: string
+                pattern: \[0-9]{1}|K
+                description: Digito verificador como string de largo 1
