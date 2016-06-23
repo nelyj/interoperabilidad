@@ -51,6 +51,7 @@ $(document).on 'click', '[data-toggle=collapse-next]', (e) ->
     .find('.panel-collapse')
     .collapse 'hide'
   $(this)
+    .toggleClass('down')
     .parentsUntil('.panel-group', '.panel')
     .children('.panel-collapse:first')
     .collapse 'toggle'
