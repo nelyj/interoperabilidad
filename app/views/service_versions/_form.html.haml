@@ -8,7 +8,14 @@
         - service_version.errors.full_messages.each do |message|
           %li= message
   .field
+    = f.label @service.name
+  .field
+    = f.label @service.organization.name
+  .field
     = f.label :spec_file
     = f.file_field :spec_file
+  .field
+    = f.label :backward_compatibility
+    = f.check_box :backward_compatibility
   .actions
     = f.submit

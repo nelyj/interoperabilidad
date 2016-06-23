@@ -30,7 +30,7 @@ class ServiceVersionsController < ApplicationController
   private
 
   def service_version_params
-    params.require(:service_version).permit(:spec_file)
+    params.require(:service_version).permit(:spec_file, :backward_compatibility)
   end
 
   def set_service
