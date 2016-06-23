@@ -30,14 +30,18 @@ module HomeHelper
           content_tag(:div, nil, class: "panel-title required") do #required
             content_tag(:div, nil, class: "col-md-6") do
               content_tag(:a, nil, data: {toggle: "collapse-next"}) do
-                content_tag(:span, nil, class: "dot")
-                name
+                content_tag(:span, name, class: "name")
               end +
               content_tag(:p, property_definition['type'] || '', class: "data-type") +
               content_tag(:p, property_definition['description'] || '', class: "description")
             end +
             content_tag(:div, nil, class: "col-md-6 text-right") do
-              content_tag(:a, nil, class: "btn btn-static link-schema")
+              content_tag(:a, class: "btn btn-static link-schema") do
+                content_tag(:span, "schema")
+              end +
+              content_tag(:ul) do
+                schema_object_specific_markup(property_definition)
+              end
             end
           end
         end +
@@ -51,19 +55,25 @@ module HomeHelper
   end
 
   def schema_object_complex_property_markup(name, property_definition, required_properties)
-    content_tag(:div, nil, class: "panel-group", id: "#{name}" ) do
-      content_tag(:div, nil, class: "panel panel-schema level-x") do
-        content_tag(:div, nil, class: "panel-heading") do
-          content_tag(:div, nil, class: "panel-title required") do
-            content_tag(:p, name) +
-            content_tag(:a, nil, data: {parent: "#{name}"}) do
-              content_tag(:span, nil, class: "dot")
+    content_tag(:div, nil, class: "panel-group") do
+      content_tag(:div, nil, class: "panel panel-schema") do
+        content_tag(:div, nil, class: "panel-heading clearfix") do
+          content_tag(:div, nil, class: "panel-title required") do #required
+            content_tag(:div, nil, class: "col-md-6") do
+              content_tag(:a, nil, data: {toggle: "collapse-next"}) do
+                content_tag(:span, name, class: "dot")
+              end +
+              content_tag(:p, property_definition['type'] || '', class: "data-type") +
+              content_tag(:p, property_definition['description'] || '', class: "description")
             end +
-            content_tag(:h3, property_definition['type'] || '') +
-            content_tag(:p, property_definition['description'] || '')
+            content_tag(:div, nil, class: "col-md-6 text-right") do
+              content_tag(:a, class: "btn btn-static link-schema") do
+                content_tag(:span, "schema")
+              end
+            end
           end
         end +
-        content_tag(:div, nil, class: "panel-collapse collapse", id: "#{name}") do
+        content_tag(:div, nil, class: "panel-collapse collapse") do
           content_tag(:div, nil, class: "panel-body") do
             schema_object_spec_markup(property_definition)
           end
@@ -73,18 +83,22 @@ module HomeHelper
   end
 
   def schema_object_primitive_property_markup(name, primitive_property_definition, required_properties)
-    content_tag(:div, nil, class: "panel-group", id: "#{name}" ) do
-      content_tag(:div, nil, class: "panel panel-schema level-x") do
-        content_tag(:div, nil, class: "panel-heading") do
-          content_tag(:div, nil, class: "panel-title required") do
-            content_tag(:p, name) +
-            content_tag(:a, nil, data: {parent: "#{name}"}) do
-              content_tag(:span, nil, class: "dot")
+    content_tag(:div, nil, class: "panel-group") do
+      content_tag(:div, nil, class: "panel panel-schema") do
+        content_tag(:div, nil, class: "panel-heading clearfix") do
+          content_tag(:div, nil, class: "panel-title required") do #required
+            content_tag(:div, nil, class: "col-md-6") do
+              content_tag(:span, name, class: "name") +
+              content_tag(:p, primitive_property_definition['type'] || '', class: "data-type") +
+              content_tag(:p, primitive_property_definition['description'] || '', class: "description")
             end +
-            content_tag(:h3, primitive_property_definition['type'] || '') +
-            content_tag(:p, primitive_property_definition['description'] || '') +
-            content_tag(:ul) do
-              schema_object_primitive_specific_markup(primitive_property_definition)
+            content_tag(:div, nil, class: "col-md-6 text-right") do
+              content_tag(:a, class: "btn btn-static link-schema") do
+                content_tag(:span, "schema")
+              end +
+              content_tag(:ul) do
+                schema_object_specific_markup(primitive_property_definition)
+              end
             end
           end
         end
@@ -92,10 +106,51 @@ module HomeHelper
     end
   end
 
-  def schema_object_primitive_specific_markup(primitive_property_definition)
-    case primitive_property_definition['type']
+  def schema_object_specific_markup(property_definition)
+    case property_definition['type']
     when "string"
-      string_primitive_markup(primitive_property_definition)
+      string_primitive_markup(property_definition)
+    when "integer"
+      numeric_primitive_markup(property_definition)
+    when "number"
+      numeric_primitive_markup(property_definition)
+    when "array"
+      array_specific_markup(property_definition)
+    end
+  end
+
+  def array_specific_markup(property_definition)
+    max = property_definition['maxItems']
+    min = property_definition['minItems']
+    if property_definition['uniqueItems'].present?
+      concat(content_tag(:li, "items únicos"))
+    end
+    if max.present? && min.present?
+      if max == min
+        concat(content_tag(:li, "largo #{max} elemento" + (max!=1 ? "s" : "")))
+      else
+        concat(content_tag(:li, "rango #{min}-#{max}"))
+      end
+    else
+      concat(content_tag(:li, "máximo #{max} elemento" + (max!=1 ? "s" : ""))) if max.present?
+      concat(content_tag(:li, "mínimo #{min} elemento" + (min!=1 ? "s" : ""))) if min.present?
+    end
+  end
+
+  def numeric_primitive_markup(primitive)
+    max = primitive['maximum']
+    min = primitive['minimum']
+    exclusiveMax = primitive['exclusiveMaximum']
+    exclusiveMin = primitive['exclusiveMinimum']
+    if primitive['multipleOf'].present?
+      concat(content_tag(:li, "múltiplo de #{primitive['multipleOf']}"))
+    end
+    if max.present? && min.present?
+      concat(content_tag(:li, "#{min} " + (exclusiveMin ? "<" : "≤") + " x " +
+        (exclusiveMax ? "<" : "≤") + " #{max}"))
+    else
+      concat(content_tag(:li, "x " + (exclusiveMin ? ">" : "≥") + " #{min}")) if min.present?
+      concat(content_tag(:li, "x " + (exclusiveMax ? "<" : "≤") + " #{max}")) if max.present?
     end
   end
 
@@ -109,13 +164,13 @@ module HomeHelper
     end
     if max.present? && min.present?
       if max == min
-        concat(content_tag(:p, "largo #{max}", class: "primitive-specific"))
+        concat(content_tag(:li, "largo #{max}"))
       else
-        concat(content_tag(:p, "rango #{min}-#{max}", class: "primitive-specific"))
+        concat(content_tag(:li, "rango #{min}-#{max}"))
       end
     else
-      concat(content_tag(:p, "máximo #{max}", class: "primitive-specific")) if max.present?
-      concat(content_tag(:p, "mínimo #{min}", class: "primitive-specific")) if min.present?
+      concat(content_tag(:li, "máximo #{max}")) if max.present?
+      concat(content_tag(:li, "mínimo #{min}")) if min.present?
     end
   end
 end
