@@ -25,7 +25,7 @@
         - @schemas.each do |schema|
           .box-schema(data-categories="category-#{schema.schema_category.id}")
             .title
-              = link_to edit_schema_path(schema) do
+              = link_to [schema, schema.last_version] do
                 = truncate(schema.name, :length => 56)
             .body
               %span 

@@ -453,7 +453,7 @@ body {
     > .panel-heading {
         border-radius: 5px;
         min-height: 75px;
-        color: white;
+        //color: white;
         [class*='col-'] {
             padding: 0px;
             margin: 0px;
@@ -520,21 +520,24 @@ body {
             padding-left: 30px;
             font-size: 16px;
             color: inherit;
-            .dot {
-                width: 10px;
-                height: 10px;
-                border-radius: 10px;
-                display: inline-block;
-            }
-            &.required {
-                .dot {
-                    background: rgba(100, 230, 80, 1);
+            .name {
+                &:before {
+                    content: "";
+                    width: 10px;
+                    height: 10px;
+                    margin-right: 10px;
+                    border-radius: 10px;
+                    display: inline-block;
+                    background-color: none;
+                    border: 1px solid rgba(255, 255, 255, 1);
                 }
             }
-            &.optional {
-                .dot {
-                    border: 1px solid white;
-                    background-color: none;
+            &.required {
+                .name {
+                    &:before {
+                        background: rgba(100, 230, 80, 1);
+                        border: 1px solid rgba(100, 230, 80, 1);
+                    }
                 }
             }
         }
@@ -543,6 +546,7 @@ body {
             list-style: none;
             li {
                 &.reg-exp {
+                    margin: 2px 0px;
                     span {
                         color: #cb1654;
                         background: rgba(255, 255, 255, 0.8);
