@@ -9,3 +9,41 @@
     background-image: linear-gradient($deg, $color $percent * 1%, $sec-color $sec-percent * 1%);
     border: none;
 }
+
+//Schema component panel
+@mixin schema-component-panel($background, $color-name, $color-text) {
+    background-color: $background;
+    .panel-heading,
+    .panel-body {
+        background-color: $background;
+        color: $color-name;
+        a {
+            color: $color-name;
+            &:hover {
+                color: $color-name;
+            }
+            &:before {
+                color: $color-text;
+            }
+        }
+        .description {
+            color: $color-text;
+        }
+        .name {
+            &:before {
+                border: 1px solid $color-text;
+            }
+        }
+    }
+    .panel-heading {
+        .panel-title {
+            &.required {
+                .name {
+                    &:before {
+                        border: 1px solid $dot-required-color;
+                    }
+                }
+            }
+        }
+    }
+}
