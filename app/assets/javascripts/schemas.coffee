@@ -2,6 +2,7 @@ document.addEventListener 'turbolinks:load', ->
   $('select').select2
     theme: 'bootstrap'
     containerCssClass: ':all:'
+  hljs.initHighlightingOnLoad();
 
 $(document).on 'click', '#categories-list li a', (e) ->
   e.preventDefault()

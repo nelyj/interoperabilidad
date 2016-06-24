@@ -1,9 +1,322 @@
-%p#notice
-%h1 SchemaVersion
-.field
-= schema_markup(@schema_version)
-%br
-= JSON.pretty_generate(@schema_version.spec)
-.actions
-= link_to 'New Version', new_schema_schema_version_path
-= link_to 'Index', schema_schema_versions_path
+/ %p#notice
+/ %h1 SchemaVersion
+/ .field
+/ = schema_markup(@schema_version)
+/ %br
+/ = JSON.pretty_generate(@schema_version.spec)
+/ .actions
+/ = link_to 'New Version', new_schema_schema_version_path
+/ = link_to 'Index', schema_schema_versions_path
+.instance-panel.schema-detail
+  .container
+    .col-md-3.text-right
+      .category-icon
+        = image_tag "category-icon.svg"
+    .col-md-9.text-left
+      %h3 Categoria
+      %h2 Datos Personales
+      %p <strong>Descripción:</strong> Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
+
+.container
+  .row
+    .col-md-2.container-schema-list.no-gutter
+      %h3.col-title Esquemas:
+      %h4.col-title Datos Personales
+      %ul.list-categories
+        %li.active
+          %a Esquema 0
+        %li
+          %a{:href => "#"} Esquema 1
+        %li
+          %a{:href => "#"} Esquema 2
+        %li
+          %a{:href => "#"} Esquema 3
+        %li
+          %a{:href => "#"} Esquema 4
+        / - @categories.each do |category|
+        /   %li
+        /     %a(data-category="category-#{category.id}") 
+        /       = category.name
+
+    .col-md-8.col-md-8.container-schema-detail
+      %h1 
+        Nombre Esquema
+        %a.btn
+          V1
+      %p <strong>Descripción:</strong> Estructura de la información para la respuesta a la consulta<br>"información personal" realizada al SRCel.
+      %p.url-canonica 
+        URL Canónica:
+        %a http://caem.modernizacion.gob.cl/datosPersona.schema.json
+      .history-version
+        %a Versión Anterior
+        %a Versión Siguiente
+        %a.btn.btn-action-red Historial
+      .schema-panel-set.detail
+        .panel-group
+          .panel.panel-schema
+            .panel-heading.clearfix
+              .panel-title.required
+                .col-md-6
+                  %a{"data-toggle" => "collapse-next"}
+                    %span.name nivel 1
+                  %p.data-type string
+                  %p.description Descripción descrita...
+                .col-md-6.text-right
+                  %a.btn.btn-static.link-schema{:href => "#"}
+                    %span schema
+                  %ul
+                    %li 0-999999
+                    %li largo 1
+                    %li default 0
+                    %li.reg-exp 
+                      %span /d\+(m|h|d)/
+                    %li enum TXT<br>HTML<br>PDF<br>NADA
+            .panel-collapse.collapse
+              .panel-body
+                .panel-group
+                  .panel.panel-schema
+                    .panel-heading.clearfix
+                      .panel-title
+                        .col-md-6
+                          %span.name nivel 2
+                          %p.data-type string
+                          %p.description Descripción descrita...
+                        .col-md-6.text-right
+                          %a.btn.btn-static.link-schema{:href => "#"}
+                            %span schema
+                          %ul
+                            %li 0-999999
+                  .panel.panel-schema
+                    .panel-heading.clearfix
+                      .panel-title
+                        .col-md-6
+                          %a{"data-toggle" => "collapse-next"}
+                            %span.name nivel 2
+                          %p.data-type string
+                          %p.description Descripción descrita...
+                        .col-md-6.text-right
+                          %ul
+                            %li 0-999999
+                            %li.reg-exp 
+                              %span /d\+(m|h|d)/
+                    .panel-collapse.collapse
+                      .panel-body 
+                        .panel-group
+                          .panel.panel-schema
+                            .panel-heading.clearfix
+                              .panel-title
+                                %span.name nivel 3
+                                %p.data-type string
+                                %p.description Descripción descrita...
+                          .panel.panel-schema
+                            .panel-heading.clearfix
+                              .panel-title
+                                %a{"data-toggle" => "collapse-next"}
+                                  %span.name nivel 3
+                                %p.data-type string
+                                %p.description Descripción descrita...
+                            .panel-collapse.collapse
+                              .panel-body 
+                                .panel.panel-schema
+                                  .panel-heading.clearfix
+                                    .panel-title.required
+                                      %a{"data-toggle" => "collapse-next"}
+                                        %span.name nivel 4
+                                      %p.data-type string
+                                      %p.description Descripción descrita...
+                                  .panel-collapse.collapse
+                                    .panel-body
+                                      .panel.panel-schema
+                                        .panel-heading.clearfix
+                                          .panel-title
+                                            %a{"data-toggle" => "collapse-next"}
+                                              %span.name nivel 5
+                                            %p.data-type string
+                                            %p.description Descripción descrita...
+                                        .panel-collapse.collapse
+                                          .panel-body 
+                                            .panel.panel-schema
+                                              .panel-heading.clearfix
+                                                .panel-title.required
+                                                  %a{"data-toggle" => "collapse-next"}
+                                                    %span.name nivel 6
+                                                  %p.data-type string
+                                                  %p.description Descripción descrita...
+                                              .panel-collapse.collapse
+                                                .panel-body 
+                                                  .panel.panel-schema
+                                                    .panel-heading.clearfix
+                                                      .panel-title
+                                                        %a{"data-toggle" => "collapse-next"}
+                                                          %span.name nivel 7
+                                                        %p.data-type string
+                                                        %p.description Descripción descrita...
+                                                    .panel-collapse.collapse
+                                                      .panel-body 
+                                                        .panel.panel-schema
+                                                          .panel-heading.clearfix
+                                                            .panel-title.required
+                                                              %a{"data-toggle" => "collapse-next"}
+                                                                %span.name nivel 8
+                                                              %p.data-type string
+                                                              %p.description Descripción descrita...
+                                                          .panel-collapse.collapse
+                                                            .panel-body 
+                                                              .panel.panel-schema
+                                                                .panel-heading.clearfix
+                                                                  .panel-title.required
+                                                                    %a{"data-toggle" => "collapse-next"}
+                                                                      %span.name nivel 9
+                                                                    %p.data-type string
+                                                                    %p.description Descripción descrita...
+                                                                .panel-collapse.collapse
+                                                                  .panel-body 
+                                                                    .panel.panel-schema
+                                                                      .panel-heading.clearfix
+                                                                        .panel-title
+                                                                          %a{"data-toggle" => "collapse-next"}
+                                                                            %span.name nivel 10
+                                                                          %p.data-type string
+                                                                          %p.description Descripción descrita...
+                                                                      .panel-collapse.collapse
+                                                                        .panel-body 
+                                                                          .panel.panel-schema
+                                                                            .panel-heading.clearfix
+                                                                              .panel-title
+                                                                                %a{"data-toggle" => "collapse-next"}
+                                                                                  %span.name nivel 11
+                                                                                %p.data-type string
+                                                                                %p.description Descripción descrita...
+                                                                            .panel-collapse.collapse
+                                                                              .panel-body 
+                                                                                .panel.panel-schema
+                                                                                  .panel-heading.clearfix
+                                                                                    .panel-title
+                                                                                      %a{"data-toggle" => "collapse-next"}
+                                                                                        %span.name nivel 12
+                                                                                      %p.data-type string
+                                                                                      %p.description Descripción descrita...
+                                                                                  .panel-collapse.collapse
+                                                                                    .panel-body 
+                                                                                      .panel.panel-schema
+                                                                                        .panel-heading.clearfix
+                                                                                          .panel-title
+                                                                                            %a{"data-toggle" => "collapse-next"}
+                                                                                              %span.name nivel 13
+                                                                                            %p.data-type string
+                                                                                            %p.description Descripción descrita...
+                                                                                        .panel-collapse.collapse
+                                                                                          .panel-body 
+                                                                                            .panel.panel-schema
+                                                                                              .panel-heading.clearfix
+                                                                                                .panel-title
+                                                                                                  %a{"data-toggle" => "collapse-next"}
+                                                                                                    %span.name nivel 14
+                                                                                                  %p.data-type string
+                                                                                                  %p.description Descripción descrita...
+                                                                                              .panel-collapse.collapse
+                                                                                                .panel-body 
+                                                                                                  .panel.panel-schema
+                                                                                                    .panel-heading.clearfix
+                                                                                                      .panel-title
+                                                                                                        %a{"data-toggle" => "collapse-next"}
+                                                                                                          %span.name nivel 15
+                                                                                                        %p.data-type string
+                                                                                                        %p.description Descripción descrita...
+                                                                                                    .panel-collapse.collapse
+                                                                                                      .panel-body 
+                                                                                                        .panel.panel-schema
+                                                                                                          .panel-heading.clearfix
+                                                                                                            .panel-title
+                                                                                                              %a{"data-toggle" => "collapse-next"}
+                                                                                                                %span.name nivel 16
+                                                                                                              %p.data-type string
+                                                                                                              %p.description Descripción descrita...
+                                                                                                          .panel-collapse.collapse
+                                                                                                            .panel-body 
+                                                                                                              .panel.panel-schema
+                                                                                                                .panel-heading.clearfix
+                                                                                                                  .panel-title
+                                                                                                                    %a{"data-toggle" => "collapse-next"}
+                                                                                                                      %span.name nivel 17
+                                                                                                                    %p.data-type string
+                                                                                                                    %p.description Descripción descrita...
+                                                                                                                .panel-collapse.collapse
+                                                                                                                  .panel-body 
+                                                                                                                    .panel.panel-schema
+                                                                                                                      .panel-heading.clearfix
+                                                                                                                        .panel-title
+                                                                                                                          %a{"data-toggle" => "collapse-next"}
+                                                                                                                            %span.name nivel 18
+                                                                                                                          %p.data-type string
+                                                                                                                          %p.description Descripción descrita...
+                                                                                                                      .panel-collapse.collapse
+                                                                                                                        .panel-body 
+                                                                                                                          .panel.panel-schema
+                                                                                                                            .panel-heading.clearfix
+                                                                                                                              .panel-title
+                                                                                                                                %a{"data-toggle" => "collapse-next"}
+                                                                                                                                  %span.name nivel 19
+                                                                                                                                %p.data-type string
+                                                                                                                                %p.description Descripción descrita...
+                                                                                                                            .panel-collapse.collapse
+                                                                                                                              .panel-body 
+                                                                                                                                .panel.panel-schema
+                                                                                                                                  .panel-heading.clearfix
+                                                                                                                                    .panel-title
+                                                                                                                                      %span.name nivel 20
+                                                                                                                                      %p.data-type string
+                                                                                                                                      %p.description Descripción descrita...
+        .panel-group
+          .panel.panel-schema
+            .panel-heading.clearfix
+              .panel-title.required
+                %span.name nombre
+                %p.data-type string
+                %p.description Descripción descrita...
+        .panel-group
+          .panel.panel-schema
+            .panel-heading.clearfix
+              .panel-title.required
+                %a{"data-toggle" => "collapse-next"}
+                  %span.name nombre
+                %p.data-type string
+                %p.description Descripción descrita...
+            .panel-collapse.collapse
+              .panel-body
+                .panel-group
+                  .panel.panel-schema
+                    .panel-heading.clearfix
+                      .panel-title
+                        %span.name nombre
+                        %p.data-type string
+                        %p.description Descripción descrita...
+
+    .col-md-2.container-schema-action.no-gutter
+      %a.btn.btn-action-red.btn-lg{:href => "#", :role => "button"} Ver OAS
+      %br
+      %h3 Ejemplo
+      .box-code-example
+        %pre
+          %code.json
+            [{"title": "apples","count": [12000, 20000],"description": {"text": "...", "sensitive": false}},{"title": "oranges","count": [17500, null],"description": {"text": "...", "sensitive": false}}]
+
+
+/ %p#notice
+/ %h1 SchemaVersion
+/ %table
+/   %thead
+/     %tr
+/       %th Schema ID
+/       %th Version
+/       %th Spec
+/       %th{:colspan => "3"}
+/   %tbody
+/     - @schema_versions.each do |schema_version|
+/       %tr
+/         %td= schema_version.schema_id
+/         %td= schema_version.version_number
+/         %td= schema_version.spec
+/         %td= link_to 'Ver', [@schema,schema_version]
+/ %br
+/   = link_to 'New Version', new_schema_schema_version_path

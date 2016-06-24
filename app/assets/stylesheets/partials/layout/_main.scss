@@ -158,6 +158,27 @@ body {
         float: none;
         margin: 0 auto;
     }
+    &.schema-detail {
+        background-color: rgba(161, 216, 255, 1);
+        color: rgba(113, 123, 127, 1);
+        font-family: $font-regular;
+        .category-icon {
+            background-color: transparent;
+            box-shadow: 2px 2px 17px 0px rgba(0, 0, 0, 0.20);
+            border-radius: 13px;
+            padding: 25px;
+            display: inline-block;
+            margin-right: 60px;
+        }
+        h2,
+        h3,
+        h4 {
+            margin-top: 0px;
+        }
+        p {
+            max-width: 495px;
+        }
+    }
 }
 
 #search-schema {
@@ -267,43 +288,45 @@ body {
     }
 }
 
-.box-col-categories {
-    h3 {
+h3,
+h4 {
+    &.col-title {
         font-family: $font-bold;
         margin: 0px 0px 5px 0px;
     }
-    ul {
-        list-style: none;
-        padding: 5px 0px 15px 0px;
-        li {
-            font-family: $font-regular;
-            font-size: 2rem;
-            line-height: 2rem;
-            padding: 8px;
-            margin-bottom: 1px;
+}
+
+ul.list-categories {
+    list-style: none;
+    padding: 5px 0px 15px 0px;
+    li {
+        font-family: $font-regular;
+        font-size: 2rem;
+        line-height: 2rem;
+        padding: 8px;
+        margin-bottom: 1px;
+        color: $gray-text;
+        a {
+            display: block;
+            cursor: pointer;
             color: $gray-text;
-            a {
-                display: block;
-                cursor: pointer;
-                color: $gray-text;
-                &:hover {
-                    text-decoration: none;
-                    background-color: none;
-                    color: $gray-text;
-                }
-            }
             &:hover {
-                background: rgba(0, 105, 180, 0.10);
-                border: 1px solid rgba(0, 105, 179, 0.10);
-                border-radius: 6px;
+                text-decoration: none;
+                background-color: transparent;
+                color: $gray-text;
             }
-            &.active {
-                background: rgba(106, 193, 255, 1);
-                border: 1px solid rgba(0, 105, 179, 0.10);
-                border-radius: 6px;
-                a {
-                    color: white;
-                }
+        }
+        &:hover {
+            background: rgba(0, 105, 180, 0.10);
+            border: 1px solid rgba(0, 105, 179, 0.10);
+            border-radius: 6px;
+        }
+        &.active {
+            background: rgba(106, 193, 255, 1);
+            border: 1px solid rgba(0, 105, 179, 0.10);
+            border-radius: 6px;
+            a {
+                color: white;
             }
         }
     }
@@ -319,7 +342,7 @@ body {
 .container-schema-list {}
 
 .container-schema-detail {
-    padding: 0px 25px;
+    padding: 0px 30px;
 }
 
 .container-schema-action {
@@ -331,4 +354,3 @@ body {
 
 //schema panel set component
 @import "components/_schemas-component.scss";
-
