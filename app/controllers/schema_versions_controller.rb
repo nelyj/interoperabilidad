@@ -3,7 +3,7 @@ class SchemaVersionsController < ApplicationController
   def show
     set_schema
     @schema_version = SchemaVersion.where(version_number: params[:version_number]).take
-    @same_category_schemas = @schema_version.schema.schema_category.schemas
+    @same_category_schemas = @schema.schema_category.schemas
   end
 
   def index
