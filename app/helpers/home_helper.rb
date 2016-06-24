@@ -1,8 +1,8 @@
 module HomeHelper
 
   def schema_markup(schema_version)
-    content_tag(:div, class: "schema-panel-set") do #ID unico, el de schema
-      content_tag(:h1, schema_version.schema.name) +  #Remover, el nombre va fuera del colapsable
+    content_tag(:div, class: "schema-panel-set detail") do
+      content_tag(:h1, schema_version.schema.name) +
       schema_object_spec_markup(schema_version.spec)
     end
   end
@@ -23,15 +23,13 @@ module HomeHelper
     end
   end
 
-  def schema_object_array_property_markup(name, property_definition, required_properties)
-    content_tag(:div, nil, class: "panel-group") do
+  def dinamic_component_structure(name, property_definition, required_properties)
+  content_tag(:div, nil, class: "panel-group") do
       content_tag(:div, nil, class: "panel panel-schema") do
         content_tag(:div, nil, class: "panel-heading clearfix") do
           content_tag(:div, nil, class: "panel-title required") do #required
             content_tag(:div, nil, class: "col-md-6") do
-              content_tag(:a, nil, data: {toggle: "collapse-next"}) do
-                content_tag(:span, name, class: "name")
-              end +
+              name +
               content_tag(:p, property_definition['type'] || '', class: "data-type") +
               content_tag(:p, property_definition['description'] || '', class: "description")
             end +
@@ -46,64 +44,37 @@ module HomeHelper
           end
         end +
         content_tag(:div, nil, class: "panel-collapse collapse") do
-          content_tag(:div, nil, class: "panel-body") do
-            schema_object_property_markup("(elementos)", property_definition["items"], required_properties)
-          end
-        end
-      end
-    end
-  end
-
-  def schema_object_complex_property_markup(name, property_definition, required_properties)
-    content_tag(:div, nil, class: "panel-group") do
-      content_tag(:div, nil, class: "panel panel-schema") do
-        content_tag(:div, nil, class: "panel-heading clearfix") do
-          content_tag(:div, nil, class: "panel-title required") do #required
-            content_tag(:div, nil, class: "col-md-6") do
-              content_tag(:a, nil, data: {toggle: "collapse-next"}) do
-                content_tag(:span, name, class: "dot")
-              end +
-              content_tag(:p, property_definition['type'] || '', class: "data-type") +
-              content_tag(:p, property_definition['description'] || '', class: "description")
-            end +
-            content_tag(:div, nil, class: "col-md-6 text-right") do
-              content_tag(:a, class: "btn btn-static link-schema") do
-                content_tag(:span, "schema")
-              end
-            end
-          end
-        end +
-        content_tag(:div, nil, class: "panel-collapse collapse") do
-          content_tag(:div, nil, class: "panel-body") do
-            schema_object_spec_markup(property_definition)
-          end
+          yield if block_given?
         end
       end
     end
   end
 
   def schema_object_primitive_property_markup(name, primitive_property_definition, required_properties)
-    content_tag(:div, nil, class: "panel-group") do
-      content_tag(:div, nil, class: "panel panel-schema") do
-        content_tag(:div, nil, class: "panel-heading clearfix") do
-          content_tag(:div, nil, class: "panel-title required") do #required
-            content_tag(:div, nil, class: "col-md-6") do
-              content_tag(:span, name, class: "name") +
-              content_tag(:p, primitive_property_definition['type'] || '', class: "data-type") +
-              content_tag(:p, primitive_property_definition['description'] || '', class: "description")
-            end +
-            content_tag(:div, nil, class: "col-md-6 text-right") do
-              content_tag(:a, class: "btn btn-static link-schema") do
-                content_tag(:span, "schema")
-              end +
-              content_tag(:ul) do
-                schema_object_specific_markup(primitive_property_definition)
-              end
-            end
-          end
-        end
-      end
+    customized_name = content_tag(:span, name, class: "name")
+    dinamic_component_structure(customized_name, primitive_property_definition, required_properties)
+  end
+
+  def schema_object_complex_property_markup(name, property_definition, required_properties)
+    customized_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
+      content_tag(:span, name, class: "name")
     end
+    dinamic_component_structure(customized_name, property_definition, required_properties){
+      content_tag(:div, nil, class: "panel-body") do
+        schema_object_spec_markup(property_definition)
+      end
+    }
+  end
+
+  def schema_object_array_property_markup(name, property_definition, required_properties)
+    customized_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
+      content_tag(:span, name, class: "name")
+    end
+    dinamic_component_structure(customized_name, property_definition, required_properties){
+      content_tag(:div, nil, class: "panel-body") do
+         schema_object_property_markup("(elementos)", property_definition["items"], required_properties)
+      end
+    }
   end
 
   def schema_object_specific_markup(property_definition)
@@ -116,7 +87,28 @@ module HomeHelper
       numeric_primitive_markup(property_definition)
     when "array"
       array_specific_markup(property_definition)
+    when "object"
+      object_specific_markup(property_definition)
     end
+  end
+
+  def markup_humanizer(name = '', suffix = '', max, min)
+    if max.present? && min.present?
+      if max == min
+        concat(content_tag(:li, "largo #{max} #{name}" + (max!=1 ? "#{suffix}" : "")))
+      else
+        concat(content_tag(:li, "rango #{min}-#{max} #{name}" + (max!=1 ? "#{suffix}" : "")))
+      end
+    else
+      concat(content_tag(:li, "máximo #{max} #{name}" + (max!=1 ? "#{suffix}" : ""))) if max.present?
+      concat(content_tag(:li, "mínimo #{min} #{name}" + (min!=1 ? "#{suffix}" : ""))) if min.present?
+    end
+  end
+
+  def object_specific_markup(property_definition)
+    max = property_definition['maxProperties']
+    min = property_definition['minProperties']
+    markup_humanizer("propiedad", "es", max, min)
   end
 
   def array_specific_markup(property_definition)
@@ -125,16 +117,7 @@ module HomeHelper
     if property_definition['uniqueItems'].present?
       concat(content_tag(:li, "items únicos"))
     end
-    if max.present? && min.present?
-      if max == min
-        concat(content_tag(:li, "largo #{max} elemento" + (max!=1 ? "s" : "")))
-      else
-        concat(content_tag(:li, "rango #{min}-#{max}"))
-      end
-    else
-      concat(content_tag(:li, "máximo #{max} elemento" + (max!=1 ? "s" : ""))) if max.present?
-      concat(content_tag(:li, "mínimo #{min} elemento" + (min!=1 ? "s" : ""))) if min.present?
-    end
+    markup_humanizer("elemento", "s", max, min)
   end
 
   def numeric_primitive_markup(primitive)
@@ -162,15 +145,6 @@ module HomeHelper
         content_tag(:span, "#{primitive['pattern']}")
       end)
     end
-    if max.present? && min.present?
-      if max == min
-        concat(content_tag(:li, "largo #{max}"))
-      else
-        concat(content_tag(:li, "rango #{min}-#{max}"))
-      end
-    else
-      concat(content_tag(:li, "máximo #{max}")) if max.present?
-      concat(content_tag(:li, "mínimo #{min}")) if min.present?
-    end
+    markup_humanizer(max, min)
   end
 end
