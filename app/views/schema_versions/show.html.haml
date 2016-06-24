@@ -1,12 +1,3 @@
-/ %p#notice
-/ %h1 SchemaVersion
-/ .field
-/ = schema_markup(@schema_version)
-/ %br
-/ = JSON.pretty_generate(@schema_version.spec)
-/ .actions
-/ = link_to 'New Version', new_schema_schema_version_path
-/ = link_to 'Index', schema_schema_versions_path
 .instance-panel.schema-detail
   .container
     .col-md-3.text-right
@@ -33,12 +24,7 @@
           %a{:href => "#"} Esquema 3
         %li
           %a{:href => "#"} Esquema 4
-        / - @categories.each do |category|
-        /   %li
-        /     %a(data-category="category-#{category.id}") 
-        /       = category.name
-
-    .col-md-8.col-md-8.container-schema-detail
+    .col-md-7.container-schema-detail
       %h1 
         Nombre Esquema
         %a.btn
@@ -291,8 +277,16 @@
                         %span.name nombre
                         %p.data-type string
                         %p.description Descripción descrita...
-
-    .col-md-2.container-schema-action.no-gutter
+      %p#notice
+      %h1 SchemaVersion
+      .field
+      = schema_markup(@schema_version)
+      %br
+      = JSON.pretty_generate(@schema_version.spec)
+      .actions
+      = link_to 'New Version', new_schema_schema_version_path
+      = link_to 'Index', schema_schema_versions_path
+    .col-md-3.container-schema-action.no-gutter
       %a.btn.btn-action-red.btn-lg{:href => "#", :role => "button"} Ver OAS
       %br
       %h3 Ejemplo
@@ -300,23 +294,3 @@
         %pre
           %code.json
             [{"title": "apples","count": [12000, 20000],"description": {"text": "...", "sensitive": false}},{"title": "oranges","count": [17500, null],"description": {"text": "...", "sensitive": false}}]
-
-
-/ %p#notice
-/ %h1 SchemaVersion
-/ %table
-/   %thead
-/     %tr
-/       %th Schema ID
-/       %th Version
-/       %th Spec
-/       %th{:colspan => "3"}
-/   %tbody
-/     - @schema_versions.each do |schema_version|
-/       %tr
-/         %td= schema_version.schema_id
-/         %td= schema_version.version_number
-/         %td= schema_version.spec
-/         %td= link_to 'Ver', [@schema,schema_version]
-/ %br
-/   = link_to 'New Version', new_schema_schema_version_path
