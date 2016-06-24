@@ -70,4 +70,100 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 1, service.service_versions.proposed.length
   end
 
+  test '#make_current_version create 3 versions with backward_compatibility'\
+        'and make each one current only one current must exist and the other'\
+        'two must be outdated' do
+    org = Organization.create!(
+      name: "Secretaría General de la Presidencia",
+      initials: "ASDR",
+      dipres_id: "ASDF31"
+      )
+    service = Service.create!(
+      name: "Test Servicio 1",
+      organization: org,
+      spec_file: StringIO.new(VALID_SPEC)
+      )
+    user = User.create!(
+      name: 'Perico de los Palotes',
+      rut: "33.333.333-3",
+      sub: "9",
+      id_token: "some-token"
+      )
+    version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                     user: user,
+                                     backward_compatibility: true)
+    version.make_current_version
+    version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                     user: user,
+                                     backward_compatibility: true)
+    version.make_current_version
+    version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                     user: user,
+                                     backward_compatibility: true)
+    version.make_current_version
+
+    assert_equal 2, service.service_versions.outdated.length
+    assert_equal 1, service.service_versions.current.length
+  end
+
+  test '#make_current_version create 3 versions without backward_compatibility'\
+        'and make each one current only one current must exist and the other'\
+        'two must be retired' do
+    org = Organization.create!(
+      name: "Secretaría General de la Presidencia",
+      initials: "ASDR",
+      dipres_id: "ASDF31"
+      )
+    service = Service.create!(
+      name: "Test Servicio 1",
+      organization: org,
+      spec_file: StringIO.new(VALID_SPEC)
+      )
+    user = User.create!(
+      name: 'Perico de los Palotes',
+      rut: "33.333.333-3",
+      sub: "9",
+      id_token: "some-token"
+      )
+
+    version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                     user: users(:perico))
+    version.make_current_version
+    version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                    user: users(:perico))
+    version.make_current_version
+    version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                    user: users(:perico))
+    version.make_current_version
+    assert_equal 2, service.service_versions.retired.length
+    assert_equal 1, service.service_versions.current.length
+  end
+
+  test '#reject_version create 3 versions and reject them'\
+        'all 3 must be rejected' do
+    service = services(:servicio_1)
+    service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                    user: users(:perico),
+                                    backward_compatibility: true)
+    service.service_versions.last.reject_version
+    service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                    user: users(:perico),
+                                    backward_compatibility: true)
+    service.service_versions.last.reject_version
+    service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
+                                     service: service,
+                                    user: users(:perico),
+                                    backward_compatibility: true)
+    service.service_versions.last.reject_version
+    assert_equal 3, service.service_versions.rejected.length
+  end
+
 end

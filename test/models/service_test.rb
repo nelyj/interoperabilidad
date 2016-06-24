@@ -6,7 +6,8 @@ class ServiceTest < ActiveSupport::TestCase
     service = Service.create!(
       organization: organizations(:segpres),
       name: 'test-service',
-      spec_file: StringIO.new(VALID_SPEC)
+      spec_file: StringIO.new(VALID_SPEC),
+      backward_compatibility: true
     )
     service.create_first_version(users(:perico))
     service
@@ -17,7 +18,8 @@ class ServiceTest < ActiveSupport::TestCase
     service = Service.create!(
       organization: organizations(:segpres),
       name: 'Datos',
-      spec_file: StringIO.new(VALID_SPEC)
+      spec_file: StringIO.new(VALID_SPEC),
+      backward_compatibility: true
     )
     service.create_first_version(users(:perico))
     assert_equal service, Service.search("Datos").first
@@ -46,9 +48,9 @@ class ServiceTest < ActiveSupport::TestCase
   test '#last_version returns the version number of the last service version' do
     service = create_valid_service!
     assert_equal 1, service.last_version_number
-    service.service_versions.create(spec_file: StringIO.new(VALID_SPEC), user: users(:perico))
+    service.service_versions.create(spec_file: StringIO.new(VALID_SPEC), user: users(:perico), backward_compatibility: true)
     assert_equal 2, service.last_version_number
-    service.service_versions.create(spec_file: StringIO.new(VALID_SPEC), user: users(:perico))
+    service.service_versions.create(spec_file: StringIO.new(VALID_SPEC), user: users(:perico), backward_compatibility: true)
     assert_equal 3, service.last_version_number
   end
 
