@@ -1,11 +1,12 @@
 //panels wrapper
 .schema-panel-set {
+    background-color: rgba(246, 246, 246, 1);
+    padding: 20px;
     .panel-group {
         margin: 3px 0px;
     }
-    //detail version (without margin) - child of standard version
+    //detail version (without margin) child of standard version
     &.detail {
-        background-color: transparent;
         .panel-heading,
         .panel-body,
         .panel-schema,
