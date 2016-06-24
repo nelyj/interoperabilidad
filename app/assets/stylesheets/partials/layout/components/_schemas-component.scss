@@ -2,119 +2,129 @@
 .schema-panel-set {
     .panel-group {
         margin: 3px 0px;
-        // .panel + .panel {
-        //     margin-top: 3px;
-        // }
     }
-    .panel-schema {
-        //detail version (whitout margin)
-        &.detail {
-            background-color: transparent;
-            .panel-heading.clearfix {
-                margin-bottom: 3px;
+    //detail version (without margin) - child of standard version
+    &.detail {
+        background-color: transparent;
+        .panel-heading,
+        .panel-body,
+        .panel-schema,
+        .panel-group {
+            padding: 0px;
+            margin: 0px;
+        }
+        div {
+            border: none !important;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+        }
+        div.panel-body,
+        div.panel-schema {
+            background-color: transparent !important;
+            margin-top: 0px !important;
+        }
+        div.panel-heading,
+        div.panel-body {
+            border: none;
+        }
+        .panel-schema {
+            //level 1
+            .panel-heading {
+                margin: 3px 0px 0px 0px;
+                padding: 10px 15px;
             }
             .panel-schema {
-                background-color: transparent;
-            }
-            .panel-body {
-                padding: 0px;
-                background-color: transparent;
-                & ~ .panel-body {
-                    background-color: green !important;
+                //level 2
+                .panel-heading {
+                    padding-left: 30px;
+                }
+                .panel-schema {
+                    //level 3
+                    .panel-heading {
+                        padding-left: 45px;
+                    }
+                    .panel-schema {
+                        //level 4
+                        .panel-heading {
+                            padding-left: 60px;
+                        }
+                        .panel-schema {
+                            //level 5
+                            .panel-heading {
+                                padding-left: 75px;
+                            }
+                            .panel-schema {
+                                //level 6
+                                .panel-heading {
+                                    padding-left: 90px;
+                                }
+                                .panel-schema {
+                                    //level 7
+                                    .panel-heading {
+                                        padding-left: 105px;
+                                    }
+                                    .panel-schema {
+                                        //level 8
+                                        .panel-heading {
+                                            padding-left: 120px;
+                                        }
+                                        div.panel-schema {
+                                            //level 9+ (n > 8)
+                                            div.panel-heading {
+                                                padding-left: 135px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
+        }
+        .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-heading,
+        .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-body {
+            border-radius: 5px;
+        }
+        div.panel-collapse {
+            background-color: transparent !important;
         }
     }
 }
 
-//panels item group
+//standard nested panels version
 .panel-schema {
+    //level 1
+    @include schema-component-panel( rgba(85, 93, 115, 1), rgba(227, 227, 227, 1), rgba(173, 173, 173, 1));
     border: none;
-    background-color: rgba(85, 93, 115, 1);
-    .panel-heading, //nivel 1
-    .panel-body {
-        background-color: rgba(85, 93, 115, 1);
-        color: rgba(227, 227, 227, 1);
-        font-size: 1.6rem;
-        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-        .description {
-            color: rgba(173, 173, 173, 1);
-        }
-    }
+    font-size: 1.6rem;
+    font-family: $font-menlo;
     .panel-schema {
-        background-color: rgba(107, 118, 146, 1);
-        .panel-heading, //nivel 2
-        .panel-body {
-            background-color: rgba(107, 118, 146, 1);
-            color: rgba(220, 220, 220, 1);
-            .description {
-                color: rgba(201, 206, 215, 1);
-            }
-        }
+        //level 2
+        @include schema-component-panel( rgba(107, 118, 146, 1), rgba(220, 220, 220, 1), rgba(201, 206, 215, 1));
         .panel-schema {
-            background-color: rgba(131, 144, 176, 1);
-            .panel-heading, //nivel 3
-            .panel-body {
-                background-color: rgba(131, 144, 176, 1);
-                color: rgba(220, 220, 220, 1);
-                .description {
-                    color: rgba(201, 206, 215, 1);
-                }
-            }
+            //level 3
+            @include schema-component-panel( rgba(131, 144, 176, 1), rgba(220, 220, 220, 1), rgba(201, 206, 215, 1));
             .panel-schema {
-                background-color: rgba(164, 175, 211, 1);
-                .panel-heading, //nivel 4
-                .panel-body {
-                    background-color: rgba(164, 175, 211, 1);
-                    color: rgba(82, 91, 114, 1);
-                    .description {
-                        color: rgba(127, 140, 176, 1);
-                    }
-                }
+                //level 4
+                @include schema-component-panel( rgba(164, 175, 211, 1), rgba(82, 91, 114, 1), rgba(127, 140, 176, 1));
                 .panel-schema {
-                    background-color: rgba(203, 212, 239, 1);
-                    .panel-heading, //nivel 5
-                    .panel-body {
-                        background-color: rgba(203, 212, 239, 1);
-                        color: rgba(82, 91, 114, 1);
-                        .description {
-                            color: rgba(127, 140, 176, 1);
-                        }
-                    }
+                    //level 5
+                    @include schema-component-panel( rgba(203, 212, 239, 1), rgba(82, 91, 114, 1), rgba(127, 140, 176, 1));
                     .panel-schema {
-                        background-color: rgba(223, 229, 248, 1);
-                        .panel-heading, //nivel 6
-                        .panel-body {
-                            background-color: rgba(223, 229, 248, 1);
-                            color: rgba(82, 91, 114, 1);
-                            .description {
-                                color: rgba(127, 140, 176, 1);
-                            }
-                        }
+                        //level 6
+                        @include schema-component-panel( rgba(223, 229, 248, 1), rgba(82, 91, 114, 1), rgba(127, 140, 176, 1));
                         .panel-schema {
-                            background-color: rgba(237, 240, 252, 1);
-                            .panel-heading, //nivel 7
-                            .panel-body {
-                                background-color: rgba(237, 240, 252, 1);
-                                color: rgba(82, 91, 114, 1);
-                                .description {
-                                    color: rgba(127, 140, 176, 1);
-                                }
-                            }
+                            //level 7
+                            @include schema-component-panel( rgba(237, 240, 252, 1), rgba(82, 91, 114, 1), rgba(127, 140, 176, 1));
                             .panel-schema {
-                                background-color: rgba(247, 248, 250, 1);
-                                .panel-heading, //nivel 8
-                                .panel-body {
-                                    background-color: rgba(247, 248, 250, 1);
-                                    color: rgba(82, 91, 114, 1);
-                                    .description {
-                                        color: rgba(127, 140, 176, 1);
-                                    }
-                                }
-                                .panel-schema {
+                                //level 8
+                                @include schema-component-panel( rgba(247, 248, 250, 1), rgba(82, 91, 114, 1), rgba(127, 140, 176, 1));
+                                div.panel-schema {
+                                    //level 9+ (n > 8)
                                     background-color: rgba(255, 255, 255, 1);
-                                    .panel-heading, //nivel 9+ (n > 8) 
-                                    .panel-body {
+                                    div.panel-heading {
                                         background-color: rgba(255, 255, 255, 1);
                                         border: 1px solid rgba(201, 212, 238, 1);
                                         color: rgba(82, 91, 114, 1);
@@ -123,14 +133,18 @@
                                             color: rgba(127, 140, 176, 1);
                                         }
                                     }
-                                    .panel-collapse.collapse,
-                                    .panel-collapse.collapse.in,
-                                    .panel-collapse.collapsing {
-                                        //border: none;
-                                        .panel-body {
+                                    div.panel-collapse.collapse,
+                                    div.panel-collapse.collapse.in,
+                                    div.panel-collapse.collapsing {
+                                        border: 1px solid rgba(201, 212, 238, 1);
+                                        background-color: rgba(255, 255, 255, 1);
+                                        border-top: none;
+                                        border-radius: 0px 0px 5px 5px;
+                                        div.panel-body {
+                                            background-color: rgba(255, 255, 255, 1);
+                                            border-radius: 0px 0px 5px 5px;
                                             border-top: none;
                                             margin-top: -3px;
-                                            border-radius: 0px 0px 5px 5px;
                                         }
                                     }
                                 }
@@ -144,7 +158,6 @@
     > .panel-heading {
         border-radius: 5px;
         min-height: 75px;
-        //color: white;
         [class*='col-'] {
             padding: 0px;
             margin: 0px;
@@ -203,11 +216,13 @@
         .description {
             font-size: 1.3rem;
             text-indent: 18px;
-            font-family: "Courier New", Menlo, Monaco, Consolas, monospace;
+            margin: 0px;
+            padding: 0px;
+            font-family: $font-courier;
         }
         .panel-title {
-            margin-top: 0;
-            margin-bottom: 0;
+            margin-top: 0px;
+            margin-bottom: 0px;
             padding-left: 30px;
             font-size: 16px;
             color: inherit;
@@ -219,15 +234,15 @@
                     margin-right: 10px;
                     border-radius: 10px;
                     display: inline-block;
-                    background-color: none;
+                    background-color: transparent;
                     border: 1px solid rgba(255, 255, 255, 1);
                 }
             }
             &.required {
                 .name {
                     &:before {
-                        background: rgba(100, 230, 80, 1);
-                        border: 1px solid rgba(100, 230, 80, 1);
+                        background: $dot-required-color;
+                        border: 1px solid $dot-required-color;
                     }
                 }
             }
@@ -235,6 +250,7 @@
         ul {
             text-align: right;
             list-style: none;
+            font-size: 1.4rem;
             li {
                 &.reg-exp {
                     margin: 2px 0px;
@@ -242,7 +258,7 @@
                         color: #cb1654;
                         background: rgba(255, 255, 255, 0.8);
                         border-radius: 3px;
-                        font-family: Monospace;
+                        font-family: $font-menlo;
                         padding: 3px;
                         font-size: 1.4rem;
                     }
