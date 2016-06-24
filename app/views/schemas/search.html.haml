@@ -11,7 +11,7 @@
 .container.no-gutter
   .row.no-gutter
     .col-md-12.schema-wrapper.text-left
-      ="No se han encontrado resultados" if @text_search.blank?
+      ="No se han encontrado resultados" if @schemas.blank?
       - @schemas.each do |schema|
         .box-schema(data-categories="category-#{schema.schema_category.id}")
           .title
