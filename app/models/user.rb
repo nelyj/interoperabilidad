@@ -73,18 +73,11 @@ class User < ApplicationRecord
   end
 
   def refresh_name(full_name)
-    first_name = ''
-    full_name['nombres'].each do |name|
-      first_name += name + ' '
-    end
+    first_name = full_name['nombres'].join(' ')
+    second_name = full_name['apellidos'].join(' ')
 
-    second_name = ''
-    full_name['apellidos'].each do |name|
-      second_name += name + ' '
-    end
-
-    first_name = 'Perico' unless first_name.length >= 1
-    second_name = 'de los Palotes' unless second_name.length >= 1
+    first_name = 'Perico' if first_name.empty?
+    second_name = 'de los Palotes' if second_name.empty?
 
     name = first_name.strip + ' ' + second_name.strip
   end
