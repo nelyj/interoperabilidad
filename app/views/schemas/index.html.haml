@@ -1,4 +1,4 @@
-.box-search-schemas
+.instance-panel
   .container
     .col-md-12{:class => "text-center"}
       %h1
@@ -10,10 +10,10 @@
             %input#search-schema.form-control{:placeholder => "Ingresa nombre de Esquema", :type => "text", :name => "text_search"}/
 .container
   .row
-    .col-md-2.box-col-categories
-      %h3
+    .col-md-2
+      %h3.col-title
         Categorías
-      %ul#categories-list
+      %ul#categories-list.list-categories
         - @categories.each do |category|
           %li
             %a(data-category="category-#{category.id}") 
