@@ -31,11 +31,13 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 RUN npm install -g git+https://github.com/continuum/sway.git#12f0cb7
 
 # PhantomJS for Capybara/Poltergeist
-RUN \
-    curl -L -O https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
-    tar xvfj phantomjs-2.1.1-linux-x86_64.tar.bz2 && \
-    cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin && \
-    rm -rf phantomjs-2.1.1-linux-x86_64
+ENV PHANTOMJS_VERSION 2.1.1
+RUN curl -L -O https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 \
+  && (while ! tar xvfj phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; do \
+       curl -L -O https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2; \
+     done) \
+  && cp phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin \
+  && rm -rf phantomjs-$PHANTOMJS_VERSION-linux-x86_64
 
 # Our app:
 RUN mkdir /app
