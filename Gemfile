@@ -43,6 +43,7 @@ gem 'omniauth-openid-connect'
 gem 'haml'
 gem 'haml-rails'
 gem 'hashie'
+gem 'redcarpet'
 
 gem 'minitest-rails', '~> 3.0.0.rc1'
 gem 'poltergeist'

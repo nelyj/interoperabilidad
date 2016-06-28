@@ -24,7 +24,9 @@
         =@schema.name
         %a.btn
           ="V" + @schema_version.version_number.to_s
-      %p <strong>Descripción:</strong> Estructura de la información para la respuesta a la consulta<br>"información personal" realizada al SRCel.
+      %p
+        %strong Descripción
+        = markdown.render(@schema_version.description).html_safe
       %p.url-canonica
         URL Canónica:
         %a http://caem.modernizacion.gob.cl/datosPersona.schema.json
