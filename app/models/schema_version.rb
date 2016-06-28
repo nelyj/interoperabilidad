@@ -28,4 +28,8 @@ class SchemaVersion < ApplicationRecord
   def update_search_metadata
     schema.update_search_metadata if self.version_number == schema.last_version_number
   end
+
+  def example
+    self.spec['example']
+  end
 end
