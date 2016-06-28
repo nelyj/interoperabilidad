@@ -198,6 +198,7 @@
                 span {
                     line-height: 1.1rem;
                     padding: 0px;
+                    color: rgba(255,255,255,1);
                     &:before {
                         margin-right: 6px;
                         font-family: 'Glyphicons Halflings';
@@ -216,9 +217,8 @@
         }
         .description {
             font-size: 1.3rem;
-            text-indent: 18px;
             margin: 0px;
-            padding: 0px;
+            padding: 0px 0px 0px 18px;
             font-family: $font-courier;
         }
         .panel-title {
