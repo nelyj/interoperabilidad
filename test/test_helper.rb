@@ -6,6 +6,7 @@ require 'rails/test_help'
 require "minitest/rails/capybara"
 require 'capybara/poltergeist'
 Capybara.default_driver = :poltergeist
+require 'capybara-screenshot/minitest'
 
 VALID_SCHEMA_OBJECT = '{
   "type": "object",

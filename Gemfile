@@ -52,6 +52,7 @@ gem 'poltergeist'
 group :test do
   gem 'minitest-rails-capybara', '~> 3.0.0.rc1'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'capybara-screenshot'
 end
 
 group :development, :test do
