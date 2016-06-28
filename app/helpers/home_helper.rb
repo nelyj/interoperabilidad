@@ -9,28 +9,31 @@ module HomeHelper
 
   def schema_object_spec_markup(schema_object)
     schema_object['properties'].map do |name, property_definition|
-      schema_object_property_markup(name, property_definition,  schema_object["required"] || [])
+      required = schema_object["required"].include?(name) if schema_object["required"].present?
+      schema_object_property_markup(name, property_definition, required)
     end.join("").html_safe
   end
 
-  def schema_object_property_markup(name, property_definition, required_properties)
+  def schema_object_property_markup(name, property_definition, required)
     if property_definition["type"] == "object"
-      schema_object_complex_property_markup(name, property_definition, required_properties)
+      schema_object_complex_property_markup(name, property_definition, required)
     elsif property_definition["type"] == "array"
-      schema_object_array_property_markup(name, property_definition, required_properties)
+      schema_object_array_property_markup(name, property_definition, required)
     else
-      schema_object_primitive_property_markup(name, property_definition, required_properties)
+      schema_object_primitive_property_markup(name, property_definition, required)
     end
   end
 
-  def dinamic_component_structure(name, property_definition, required_properties)
+  def dinamic_component_structure(name, property_definition, required)
+  type_and_format = property_definition['type'] || ''
+  type_and_format += ' (' + property_definition['format'] + ')' if property_definition['format'].present?
   content_tag(:div, nil, class: "panel-group") do
       content_tag(:div, nil, class: "panel panel-schema") do
         content_tag(:div, nil, class: "panel-heading clearfix") do
-          content_tag(:div, nil, class: "panel-title required") do #required
+          content_tag(:div, nil, class: "panel-title " + (required ? "required" : "")) do
             content_tag(:div, nil, class: "col-md-6") do
               name +
-              content_tag(:p, property_definition['type'] || '', class: "data-type") +
+              content_tag(:p, type_and_format, class: "data-type") +
               content_tag(:p, property_definition['description'] || '', class: "description")
             end +
             content_tag(:div, nil, class: "col-md-6 text-right") do
@@ -39,6 +42,7 @@ module HomeHelper
               end +
               content_tag(:ul) do
                 schema_object_specific_markup(property_definition)
+                schema_object_common_markup(property_definition)
               end
             end
           end
@@ -50,29 +54,29 @@ module HomeHelper
     end
   end
 
-  def schema_object_primitive_property_markup(name, primitive_property_definition, required_properties)
+  def schema_object_primitive_property_markup(name, primitive_property_definition, required)
     customized_name = content_tag(:span, name, class: "name")
-    dinamic_component_structure(customized_name, primitive_property_definition, required_properties)
+    dinamic_component_structure(customized_name, primitive_property_definition, required)
   end
 
-  def schema_object_complex_property_markup(name, property_definition, required_properties)
+  def schema_object_complex_property_markup(name, property_definition, required)
     customized_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, name, class: "name")
     end
-    dinamic_component_structure(customized_name, property_definition, required_properties){
+    dinamic_component_structure(customized_name, property_definition, required){
       content_tag(:div, nil, class: "panel-body") do
         schema_object_spec_markup(property_definition)
       end
     }
   end
 
-  def schema_object_array_property_markup(name, property_definition, required_properties)
+  def schema_object_array_property_markup(name, property_definition, required)
     customized_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, name, class: "name")
     end
-    dinamic_component_structure(customized_name, property_definition, required_properties){
+    dinamic_component_structure(customized_name, property_definition, required){
       content_tag(:div, nil, class: "panel-body") do
-         schema_object_property_markup("(elementos)", property_definition["items"], required_properties)
+         schema_object_property_markup("(elementos)", property_definition["items"], false)
       end
     }
   end
@@ -89,6 +93,19 @@ module HomeHelper
       array_specific_markup(property_definition)
     when "object"
       object_specific_markup(property_definition)
+    end
+  end
+
+  def schema_object_common_markup(property_definition)
+    if property_definition['default'].present?
+      concat(content_tag(:li, 'por defecto ' + property_definition['default'].to_s))
+    end
+    if property_definition['enum'].present?
+      elements = "enum: "
+      property_definition['enum'].each do |element|
+         elements += element + '<br>'
+      end
+      concat(content_tag(:li, elements.html_safe))
     end
   end
 
