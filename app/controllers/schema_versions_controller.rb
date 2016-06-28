@@ -2,8 +2,8 @@ class SchemaVersionsController < ApplicationController
 
   def show
     set_schema
-    @schema_version = SchemaVersion.where(version_number: params[:version_number]).take
-      respond_to do |format|
+    @schema_version = @schema.schema_versions.where(version_number: params[:version_number]).take
+    respond_to do |format|
       format.html do
         @same_category_schemas = @schema.schema_category.schemas
         # Fall into view rendering.
