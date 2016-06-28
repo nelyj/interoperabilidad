@@ -3,7 +3,15 @@ class SchemaVersionsController < ApplicationController
   def show
     set_schema
     @schema_version = SchemaVersion.where(version_number: params[:version_number]).take
-    @same_category_schemas = @schema.schema_category.schemas
+      respond_to do |format|
+      format.html do
+        @same_category_schemas = @schema.schema_category.schemas
+        # Fall into view rendering.
+      end
+      format.json do
+        render json: @schema_version.spec
+      end
+    end
   end
 
   def index

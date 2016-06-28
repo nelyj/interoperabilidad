@@ -29,7 +29,8 @@
         = markdown.render(@schema_version.description).html_safe
       %p.url-canonica
         URL Canónica:
-        %a http://caem.modernizacion.gob.cl/datosPersona.schema.json
+        %a{href: schema_schema_version_url(@schema_version.schema, @schema_version, format: :json)}
+          = schema_schema_version_url(@schema_version.schema, @schema_version, format: :json)
       .history-version
         %a Versión Anterior
         %a Versión Siguiente
@@ -288,7 +289,7 @@
       = link_to 'New Version', new_schema_schema_version_path
       = link_to 'Index', schema_schema_versions_path
     .col-md-3.container-schema-action.no-gutter
-      %a.btn.btn-action-red.btn-lg{:href => "#", :role => "button"} Ver OAS
+      %a.btn.btn-action-red.btn-lg{:href => schema_schema_version_url(@schema_version.schema, @schema_version, format: :json), :role => "button", :target => '_blank'} Ver OAS
       %br
       %h3 Ejemplo
       .box-code-example
