@@ -1,36 +1,40 @@
-= form_for @schema do |f|
-  - if @schema.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@schema.errors.count, "error")
-        prohibited this schema from being saved:
-      %ul
-        - @schema.errors.full_messages.each do |message|
-          %li= message
-  .instance-panel
-    .container
-      .col-md-12{:class => "text-center"}
-        .box-new-schema-file
-          .box-title
-            %span +
-            %p Crear Esquema
-          .input-group.box-input-file
-            %label#label-file.input-group-btn
-              %span#select-file.btn.btn-action-red.btn-lg
-                Seleccionar Archivo
-              = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
-            .field
-              %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
-            %span#remove-file
-              %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
-  .container.new-schemas-container
-    .row
-      .col-md-6
-        %h3 Indica nombre para el esquema
-        = f.text_field :name, { :class => "form-control input-lg", :placeholder => "Ex. Patente Comercial"}
-      .col-md-6
-        %h3 Indica Categoría
-        = f.collection_select :schema_category_id, SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
-        %br
-        .text-right
-          = f.submit 'Crear Esquema', class: 'btn btn-action-red btn-lg'
+- if !user_signed_in? && !user.can_create_schemas
+  Para subir un esquema por favor
+  = link_to 'identifíquese con su clave única', new_user_session_path
+- else
+  = form_for @schema do |f|
+    - if @schema.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@schema.errors.count, "error")
+          prohibited this schema from being saved:
+        %ul
+          - @schema.errors.full_messages.each do |message|
+            %li= message
+    .instance-panel
+      .container
+        .col-md-12{:class => "text-center"}
+          .box-new-schema-file
+            .box-title
+              %span +
+              %p Crear Esquema
+            .input-group.box-input-file
+              %label#label-file.input-group-btn
+                %span#select-file.btn.btn-action-red.btn-lg
+                  Seleccionar Archivo
+                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
+              .field
+                %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
+              %span#remove-file
+                %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
+    .container.new-schemas-container
+      .row
+        .col-md-6
+          %h3 Indica nombre para el esquema
+          = f.text_field :name, { :class => "form-control input-lg", :placeholder => "Ex. Patente Comercial"}
+        .col-md-6
+          %h3 Indica Categoría
+          = f.collection_select :schema_category_id, SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
+          %br
+          .text-right
+            = f.submit 'Crear Esquema', class: 'btn btn-action-red btn-lg'

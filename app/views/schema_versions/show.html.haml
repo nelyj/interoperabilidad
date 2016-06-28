@@ -29,22 +29,21 @@
         = markdown.render(@schema_version.description).html_safe
       %p.url-canonica
         URL Canónica:
-        %a{href: schema_schema_version_url(@schema_version.schema, @schema_version, format: :json)}
-          = schema_schema_version_url(@schema_version.schema, @schema_version, format: :json)
+        %a{href: schema_schema_version_url(@schema, @schema_version, format: :json)}
+          = schema_schema_version_url(@schema, @schema_version, format: :json)
       .history-version
         %a Versión Anterior
         %a Versión Siguiente
-        %a.btn.btn-action-red Historial
+        %a.btn.btn-static{href: schema_schema_versions_path} Historial
+        - if user_signed_in? && current_user.can_create_schemas
+          %a.btn.btn-action-red{href: new_schema_schema_version_path(@schema)}
+            Nueva Versión
       %h2 Esquema
       .field
       = schema_markup(@schema_version)
-      %br
-      = JSON.pretty_generate(@schema_version.spec)
-      .actions
-      = link_to 'New Version', new_schema_schema_version_path
-      = link_to 'Index', schema_schema_versions_path
+
     .col-md-3.container-schema-action.no-gutter
-      %a.btn.btn-action-red.btn-lg{:href => schema_schema_version_url(@schema_version.schema, @schema_version, format: :json), :role => "button", :target => '_blank'} Ver OAS
+      %a.btn.btn-action-red.btn-lg{:href => schema_schema_version_url(@schema, @schema_version, format: :json), :role => "button", :target => '_blank'} Ver OAS
       %br
       %h3 Ejemplo
       .box-code-example
