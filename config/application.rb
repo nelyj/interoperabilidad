@@ -13,5 +13,13 @@ module App
     config.autoload_paths += %W["#{config.root}/app/validators/"]
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     config.assets.precompile += %w( .svg .eot .woff .woff2 .ttf )
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource %r"/schemas/.*/versions/\d+\.json",
+          credentials: false, headers: :any, methods: [:get, :options]
+      end
+    end
   end
 end
