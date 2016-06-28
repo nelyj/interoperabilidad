@@ -7,8 +7,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable, omniauth_providers: [:clave_unica]
 
-  URL = ENV['ROLE_URL'] || 'http://private-5f0326-microserviciosderolesv4.apiary-mock.com/v1/'
-  APP_ID = ENV['ROLE_APP_ID'] || 0
+  URL = ENV['ROLE_SERVICE_URL'] || 'http://private-5f0326-microserviciosderolesv4.apiary-mock.com/v1/'
+  APP_ID = ENV['ROLE_APP_ID'] || 'AB01'
 
   def self.from_omniauth(auth)
     rut = auth.extra.raw_info.RUT
@@ -52,12 +52,14 @@ class User < ApplicationRecord
               organization['sigla'] : 'SEGPRES')
 
     self.roles.where(organization: org).delete_all
-    self.roles.first_or_create!(organization: org, name: parse_role(role), email: email)
+    self.roles.first_or_create!(organization: org,
+                                name: parse_role(role),
+                                email: parse_email(email))
   end
 
   def parse_role(role)
     case role
-      when "0"
+      when "Validador"
         "Service Provider"
       when "1"
         "Can Check Agreement"
@@ -83,8 +85,15 @@ class User < ApplicationRecord
   end
 
   def call_roles_service
-    path = 'personas/' + self.rut.to_s + '/apps/' + APP_ID.to_s
+    puts APP_ID.to_s
+    puts URL
+    path = 'personas/' + rut_number +
+      '/instituciones/segpres/aplicaciones/' + APP_ID.to_s
     response = RestClient.get(URL + path)
+  end
+
+  def rut_number
+    return self.rut[0..-3].tr('.','')
   end
 
 end

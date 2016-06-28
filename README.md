@@ -41,6 +41,10 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `OP_CALLBACK_URL`: URL for https://www.claveunica.gob.cl/ callback
 
+- `ROLE_SERVICE_URL`: URL for the Role Service.
+
+- `APP_ID`: APP_ID in the Role Service.
+
 - `ROLLBAR_ACCESS_TOKEN`: Rollbar token, needed to log errors in production.
 
 You can also set the `PORT` environment variable to change the port where the web server will listen (defaults to 80). See `config/puma.rb` for more options you can tune/override via environment variables.
