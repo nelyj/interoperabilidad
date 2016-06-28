@@ -15,7 +15,7 @@ class Service < ApplicationRecord
 
   def spec_file=(spec_file)
     @spec_file = spec_file
-    self.spec = JSON.parse(spec_file.read)
+    self.spec = YAML.safe_load(spec_file.read)
   end
 
   def to_param
