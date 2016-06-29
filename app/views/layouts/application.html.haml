@@ -32,6 +32,8 @@
 
           - if user_signed_in?
             = current_user.name
+            \-
+            = current_user.organizations.take.initials
             |
             -if current_user.can_create_schemas
               = link_to 'Nuevo Esquema', new_schema_path
