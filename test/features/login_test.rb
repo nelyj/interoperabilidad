@@ -9,6 +9,7 @@ class LoginTest < Capybara::Rails::TestCase
     assert page.has_css?('#btn-login')
     login_as users(:perico), scope: :user
     visit root_path
+    assert page.has_no_css?('#btn-login')
     assert page.has_css?('#btn-logout')
   end
 

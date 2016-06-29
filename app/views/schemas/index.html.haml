@@ -16,10 +16,9 @@
       %ul#categories-list.list-categories
         - @categories.each do |category|
           %li
-            %a(data-category="category-#{category.id}") 
+            %a(data-category="category-#{category.id}")
               = category.name
-      %br
-        = link_to 'Nuevo Schema', new_schema_path
+
     .col-md-10.schema-wrapper
       .schema-box-container
         - @schemas.each do |schema|
@@ -28,6 +27,6 @@
               = link_to [schema, schema.last_version] do
                 = truncate(schema.name, :length => 56)
             .body
-              %span 
-                Descripción: 
+              %span
+                Descripción:
               = truncate(schema.description, :length => 183)
