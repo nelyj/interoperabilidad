@@ -7,7 +7,7 @@ class Service < ApplicationRecord
   attr_accessor :spec
   validates :spec, swagger_spec: true
 
-  attr_accessor :backward_compatibility
+  attr_accessor :backwards_compatible
 
   def spec_file
     @spec_file
@@ -24,7 +24,7 @@ class Service < ApplicationRecord
 
   def create_first_version(user)
     service_versions.create(spec: self.spec, user: user,
-      backward_compatibility: self.backward_compatibility)
+      backwards_compatible: self.backwards_compatible)
   end
 
   def last_version_number

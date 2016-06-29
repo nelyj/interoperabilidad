@@ -48,7 +48,7 @@ class ServicesController < ApplicationController
 
   private
     def service_params
-      params.require(:service).permit(:organization_id, :name, :spec_file, :public, :backward_compatibility)
+      params.require(:service).permit(:organization_id, :name, :spec_file, :public, :backwards_compatible)
     end
     def set_service
       @service = Service.where(name: params[:name]).take

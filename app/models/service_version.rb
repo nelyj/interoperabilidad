@@ -53,7 +53,7 @@ class ServiceVersion < ApplicationRecord
   end
 
   def update_old_versions_statuses
-    if self.backward_compatibility?
+    if self.backwards_compatible?
       new_status = ServiceVersion.statuses[:outdated]
     else
       new_status = ServiceVersion.statuses[:retired]

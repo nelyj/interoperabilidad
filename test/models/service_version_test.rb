@@ -70,7 +70,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 1, service.service_versions.proposed.length
   end
 
-  test '#make_current_version create 3 versions with backward_compatibility'\
+  test '#make_current_version create 3 versions backwards_compatible'\
         'and make each one current only one current must exist and the other'\
         'two must be outdated' do
     org = Organization.create!(
@@ -92,24 +92,24 @@ class ServiceVersionTest < ActiveSupport::TestCase
     version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                      user: user,
-                                     backward_compatibility: true)
+                                     backwards_compatible: true)
     version.make_current_version
     version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                      user: user,
-                                     backward_compatibility: true)
+                                     backwards_compatible: true)
     version.make_current_version
     version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                      user: user,
-                                     backward_compatibility: true)
+                                     backwards_compatible: true)
     version.make_current_version
 
     assert_equal 2, service.service_versions.outdated.length
     assert_equal 1, service.service_versions.current.length
   end
 
-  test '#make_current_version create 3 versions without backward_compatibility'\
+  test '#make_current_version create 3 versions without backwards_compatible'\
         'and make each one current only one current must exist and the other'\
         'two must be retired' do
     org = Organization.create!(
@@ -151,17 +151,17 @@ class ServiceVersionTest < ActiveSupport::TestCase
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                     user: users(:perico),
-                                    backward_compatibility: true)
+                                    backwards_compatible: true)
     service.service_versions.last.reject_version
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                     user: users(:perico),
-                                    backward_compatibility: true)
+                                    backwards_compatible: true)
     service.service_versions.last.reject_version
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                     user: users(:perico),
-                                    backward_compatibility: true)
+                                    backwards_compatible: true)
     service.service_versions.last.reject_version
     assert_equal 3, service.service_versions.rejected.length
   end
