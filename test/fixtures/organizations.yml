@@ -1,7 +1,7 @@
 segpres:
   name: Secretaría General de la Presidencia
   initials: SEGPRES
-  dipres_id: 31
+  dipres_id: AB01
 
 sii:
   name: 'Servicio de Impuestos Internos'

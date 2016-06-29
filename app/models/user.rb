@@ -38,23 +38,23 @@ class User < ApplicationRecord
     organizations.each do |organization|
       org = organization['institucion']
       role = organization['rol']
-      email = parse_email(organization['email']['email'])
+      email = parse_email(organization['email'])
       parse_organization_role(org, role, email)
     end
   end
 
   def parse_organization_role(organization, role, email)
-    org_id = organization['id'].length > 0 ? organization['id'] : "31"
+    org_id = organization['id'].empty? ? "AB01" : organization['id']
     org = Organization.where(dipres_id: org_id ).first_or_create!(
-      name: organization['nombre'].length > 0 ?
-              organization['nombre'] : 'Secretaría General de la Presidencia',
-      initials: organization['sigla'].length > 0 ?
-              organization['sigla'] : 'SEGPRES')
+      name: organization['nombre'].empty? ?
+              'Secretaría General de la Presidencia' : organization['nombre'],
+      initials: organization['sigla'].empty? ?
+              'SEGPRES' : organization['sigla'])
 
     self.roles.where(organization: org).delete_all
     self.roles.first_or_create!(organization: org,
                                 name: parse_role(role),
-                                email: parse_email(email))
+                                email: email)
   end
 
   def parse_role(role)
@@ -71,7 +71,7 @@ class User < ApplicationRecord
   end
 
   def parse_email(email)
-    email = email.length > 1 ? email : "mail@example.org"
+    email = email.empty? ? "mail@example.org" : email
   end
 
   def refresh_name(full_name)
