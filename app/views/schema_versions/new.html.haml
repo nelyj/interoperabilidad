@@ -1,5 +1,5 @@
 %h1 Nueva versión para #{@schema.name}
-- if user_signed_in? && user.can_create_schemas
+- if user_signed_in? && current_user.can_create_schemas
   = render 'form', schema_version: @schema_version
 - else
   Para subir un esquema por favor

@@ -6,8 +6,10 @@ class SchemasController < ApplicationController
   end
 
   def new
-    @schema = Schema.new
-    @categories = SchemaCategory.all
+    if user_signed_in? && current_user.can_create_schemas
+      @schema = Schema.new
+      @categories = SchemaCategory.all
+    end
   end
 
   def create
@@ -21,7 +23,9 @@ class SchemasController < ApplicationController
   end
 
   def edit
-    set_schema
+    if user_signed_in? && current_user.can_create_schemas
+      set_schema
+    end
   end
 
   def update

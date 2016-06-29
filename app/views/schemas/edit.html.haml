@@ -1,11 +1,15 @@
-.container
-  .row
-    .col-md-2.container-schema-list.no-gutter
-      %h1 COL 1
-    .col-md-8.container-schema-detail
-      %h1 Nombre de Esquema
-    .col-md-2.container-schema-action.no-gutter
-      %a.btn.btn-action-red{:href => "#", :role => "button"} Ver OAS
-      .box-code-example
-        %h3 Ejemplo
-        .code-example
+- if !user_signed_in?
+  Para editar un esquema por favor
+  = link_to 'identifíquese con su clave única', user_clave_unica_omniauth_authorize_path
+- else
+  .container
+    .row
+      .col-md-2.container-schema-list.no-gutter
+        %h1 COL 1
+      .col-md-8.container-schema-detail
+        %h1 Nombre de Esquema
+      .col-md-2.container-schema-action.no-gutter
+        %a.btn.btn-action-red{:href => "#", :role => "button"} Ver OAS
+        .box-code-example
+          %h3 Ejemplo
+          .code-example
