@@ -2,7 +2,7 @@ module HomeHelper
 
   def schema_markup(schema_version)
     content_tag(:div, class: "schema-panel-set detail") do
-      content_tag(:h3, schema_version.schema.name) +
+      content_tag(:h3, s(schema_version.schema.name)) +
       if schema_version.spec["type"] == "object"
         schema_object_spec_markup(schema_version.spec)
       else
@@ -13,7 +13,8 @@ module HomeHelper
 
   def schema_object_spec_markup(schema_object)
     schema_object['properties'].map do |name, property_definition|
-      required = schema_object["required"].include?(name) if schema_object["required"].present?
+      required = schema_object["required"].
+        include?(name) if schema_object["required"].present?
       schema_object_property_markup(name, property_definition, required)
     end.join("").html_safe
   end
@@ -29,8 +30,9 @@ module HomeHelper
   end
 
   def dinamic_component_structure(name, property_definition, required)
-  type_and_format = property_definition['type'] || ''
-  type_and_format += ' (' + property_definition['format'] + ')' if property_definition['format'].present?
+  type_and_format = s(property_definition['type']) || ''
+  type_and_format += ' (' + s(property_definition['format']) +
+    ')' if property_definition['format'].present?
   content_tag(:div, nil, class: "panel-group") do
       content_tag(:div, nil, class: "panel panel-schema") do
         content_tag(:div, nil, class: "panel-heading clearfix") do
@@ -38,7 +40,8 @@ module HomeHelper
             content_tag(:div, nil, class: "col-md-6") do
               name +
               content_tag(:p, type_and_format, class: "data-type") +
-              content_tag(:p, property_definition['description'] || '', class: "description")
+              content_tag(:p, s(property_definition['description']) || '', 
+                class: "description")
             end +
             content_tag(:div, nil, class: "col-md-6 text-right") do
               content_tag(:a, class: "btn btn-static link-schema") do
@@ -59,13 +62,13 @@ module HomeHelper
   end
 
   def schema_object_primitive_property_markup(name, primitive_property_definition, required)
-    customized_name = content_tag(:span, name, class: "name")
+    customized_name = content_tag(:span, s(name), class: "name")
     dinamic_component_structure(customized_name, primitive_property_definition, required)
   end
 
   def schema_object_complex_property_markup(name, property_definition, required)
     customized_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
-      content_tag(:span, name, class: "name")
+      content_tag(:span, s(name), class: "name")
     end
     dinamic_component_structure(customized_name, property_definition, required){
       content_tag(:div, nil, class: "panel-body") do
@@ -76,7 +79,7 @@ module HomeHelper
 
   def schema_object_array_property_markup(name, property_definition, required)
     customized_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
-      content_tag(:span, name, class: "name")
+      content_tag(:span, s(name), class: "name")
     end
     dinamic_component_structure(customized_name, property_definition, required){
       content_tag(:div, nil, class: "panel-body") do
@@ -86,7 +89,7 @@ module HomeHelper
   end
 
   def schema_object_specific_markup(property_definition)
-    case property_definition['type']
+    case s(property_definition['type'])
     when "string"
       string_primitive_markup(property_definition)
     when "integer"
@@ -102,12 +105,12 @@ module HomeHelper
 
   def schema_object_common_markup(property_definition)
     if property_definition['default'].present?
-      concat(content_tag(:li, 'por defecto ' + property_definition['default'].to_s))
+      concat(content_tag(:li, 'por defecto ' + s(property_definition['default'].to_s)))
     end
     if property_definition['enum'].present?
       elements = "enum: "
       property_definition['enum'].each do |element|
-         elements += element + '<br>'
+         elements += s(element) + '<br>'.html_safe
       end
       concat(content_tag(:li, elements.html_safe))
     end
@@ -116,13 +119,17 @@ module HomeHelper
   def markup_humanizer(name = '', suffix = '', max, min)
     if max.present? && min.present?
       if max == min
-        concat(content_tag(:li, "largo #{max} #{name}" + (max!=1 ? "#{suffix}" : "")))
+        concat(content_tag(:li, "largo #{s(max.to_s)} #{name}" +
+          (max!=1 ? "#{suffix}" : "")))
       else
-        concat(content_tag(:li, "rango #{min}-#{max} #{name}" + (max!=1 ? "#{suffix}" : "")))
+        concat(content_tag(:li, "rango #{s(min.to_s)}-#{s(max.to_s)} #{name}" +
+          (max!=1 ? "#{suffix}" : "")))
       end
     else
-      concat(content_tag(:li, "máximo #{max} #{name}" + (max!=1 ? "#{suffix}" : ""))) if max.present?
-      concat(content_tag(:li, "mínimo #{min} #{name}" + (min!=1 ? "#{suffix}" : ""))) if min.present?
+      concat(content_tag(:li, "máximo #{s(max.to_s)} #{name}" +
+        (max!=1 ? "#{suffix}" : ""))) if max.present?
+      concat(content_tag(:li, "mínimo #{s(min.to_s)} #{name}" +
+        (min!=1 ? "#{suffix}" : ""))) if min.present?
     end
   end
 
@@ -147,14 +154,16 @@ module HomeHelper
     exclusiveMax = primitive['exclusiveMaximum']
     exclusiveMin = primitive['exclusiveMinimum']
     if primitive['multipleOf'].present?
-      concat(content_tag(:li, "múltiplo de #{primitive['multipleOf']}"))
+      concat(content_tag(:li, "múltiplo de #{s(primitive['multipleOf'].to_s)}"))
     end
     if max.present? && min.present?
-      concat(content_tag(:li, "#{min} " + (exclusiveMin ? "<" : "≤") + " x " +
-        (exclusiveMax ? "<" : "≤") + " #{max}"))
+      concat(content_tag(:li, "#{s(min.to_s)} " + (exclusiveMin ? "<" : "≤") +
+        " x " + (exclusiveMax ? "<" : "≤") + " #{s(max.to_s)}"))
     else
-      concat(content_tag(:li, "x " + (exclusiveMin ? ">" : "≥") + " #{min}")) if min.present?
-      concat(content_tag(:li, "x " + (exclusiveMax ? "<" : "≤") + " #{max}")) if max.present?
+      concat(content_tag(:li, "x " + (exclusiveMin ? ">" : "≥") +
+        " #{s(min.to_s)}")) if min.present?
+      concat(content_tag(:li, "x " + (exclusiveMax ? "<" : "≤") +
+        " #{s(max.to_s)}")) if max.present?
     end
   end
 
@@ -163,9 +172,13 @@ module HomeHelper
     min = primitive['minLength']
     if primitive['pattern'].present?
       concat(content_tag(:li, class: "reg-exp") do
-        content_tag(:span, "#{primitive['pattern']}")
+        content_tag(:span, "#{s(primitive['pattern'])}")
       end)
     end
     markup_humanizer(max, min)
+  end
+
+  def s(content)
+    sanitize(content)
   end
 end
