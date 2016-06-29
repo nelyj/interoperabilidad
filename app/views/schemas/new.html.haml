@@ -1,4 +1,4 @@
-- if !user_signed_in? && !user.can_create_schemas
+- if !user_signed_in? && !current_user.can_create_schemas
   Para subir un esquema por favor
   = link_to 'identifíquese con su clave única', new_user_session_path
 - else
