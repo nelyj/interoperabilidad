@@ -12,9 +12,6 @@ module HomeHelper
   end
 
   def schema_object_spec_markup(schema_object)
-    # TODO: Handle primitives on the root of the schema object. The following
-    #       line only sidelines the problem not rendering anything at all.
-    return "" unless schema_object.has_key? 'properties'
     schema_object['properties'].map do |name, property_definition|
       required = schema_object["required"].include?(name) if schema_object["required"].present?
       schema_object_property_markup(name, property_definition, required)
@@ -139,7 +136,7 @@ module HomeHelper
     max = property_definition['maxItems']
     min = property_definition['minItems']
     if property_definition['uniqueItems'].present?
-      concat(content_tag(:li, "items únicos"))
+      concat(content_tag(:li, "elementos únicos"))
     end
     markup_humanizer("elemento", "s", max, min)
   end

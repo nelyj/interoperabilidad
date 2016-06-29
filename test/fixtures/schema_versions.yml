@@ -26,3 +26,120 @@ rut_v1:
                 type: string
                 pattern: \[0-9]{1}|K
                 description: Digito verificador como string de largo 1
+
+complex_v1:
+    schema: complex
+    version_number: 1
+    spec:
+        type: object
+        description: Nested schema objects
+        required:
+        - numero
+        - integro
+        - fecha
+        example:
+          nombre: pepe
+          numero: 5
+          integro: 6
+          fecha: 25/10/1990
+        properties:
+          nombre:
+            title: nombre
+            type: string
+            enum:
+            - pepe
+            - juan
+            description: Descripción descrita
+          numero:
+            title: numero
+            type: number
+            default: 5
+            minimum: 3
+            maximum: 7
+            description: Descripción descrita
+          integro:
+            title: integro
+            type: integer
+            minimum: 4
+            maximum: 16
+            multipleOf: 5
+            exclusiveMinimum: true
+            exclusiveMaximum: true
+            description: Descripción descrita
+          numero2:
+            title: numero2
+            type: number
+            minimum: 3
+            exclusiveMinimum: false
+            description: Descripción descrita
+          integro2:
+            title: integro
+            type: integer
+            maximum: 7
+            exclusiveMaximum: true
+            description: Descripción descrita
+          fecha:
+            type: string
+            format: dateTime
+            description: Descripción descrita
+          hora:
+            type: string
+            pattern: "/[0-9] {2}/"
+            description: Descripción descrita
+          estadosMensajes:
+            type: array
+            minItems: 2
+            uniqueItems: true
+            description: Descripción descrita
+            items:
+              type: object
+              required:
+              - id
+              - titulo
+              - tipoContenido
+              properties:
+                id:
+                  type: number
+                  description: Descripción descrita
+                tipo:
+                  type: string
+                  description: Descripción descrita
+                titulo:
+                  type: string
+                  description: Descripción descrita
+                tipoContenido:
+                  type: string
+                  description: Descripción descrita
+                  enum:
+                  - TXT
+                  - HTML
+                  - PDF
+                  - NADA
+                contenido:
+                  type: string
+                  description: Descripción descrita
+                notificacionPorEmail:
+                  type: boolean
+                  description: Descripción descrita
+          estadosSiguientes:
+            type: array
+            minItems: 1
+            description: Descripción descrita
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Descripción descrita
+                nombre:
+                  type: string
+                  description: Descripción descrita
+                Cosas:
+                  type: array
+                  description: Descripción descrita
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: Descripción descrita

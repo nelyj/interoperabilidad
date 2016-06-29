@@ -7,3 +7,7 @@ rut:
 fecha_iso:
   name: fecha_iso
   schema_category: formatos_de_fechas_y_horas
+
+complex:
+  name: complex
+  schema_category: informacion_de_personas
