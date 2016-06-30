@@ -34,7 +34,7 @@
             .btn-group
               %button.btn.btn-default{:type => "button"} 
                 = current_user.name
-              %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+              %button#btn-user-menu.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                 %span.caret
                 %span.sr-only Toggle Dropdown
               %ul.dropdown-menu

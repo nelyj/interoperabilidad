@@ -8,32 +8,35 @@ class NonGobiernoDigitalUserCanOnlyViewSchemasTestTest < Capybara::Rails::TestCa
     login_as users(:pedro), scope: :user
     schema_version = schema_versions(:rut_v1)
     visit schema_schema_version_path(schema_version.schema, schema_version)
-    assert page.has_content?(users(:pedro).name)
-    assert page.has_content?(users(:pedro).organizations.take.name)
-    assert page.has_content?("RUT de una persona o empresa")
-    assert page.has_no_content?("Nueva Versión")
-    assert page.has_no_content?("Nuevo Esquema")
+    click_button 'btn-user-menu'
+    assert_content page, users(:pedro).name
+    assert_content page, users(:pedro).organizations.take.name
+    assert_content page, "RUT de una persona o empresa"
+    refute_content page, "Nueva Versión"
+    refute_content page, "Nuevo Esquema"
   end
 
   test "non gobierno digital user can't upload new schema version" do
     login_as users(:pedro), scope: :user
     schema_version = schema_versions(:rut_v1)
     visit new_schema_schema_version_path(schema_version.schema, schema_version)
-    assert page.has_content?(users(:pedro).name)
-    assert page.has_content?(users(:pedro).organizations.take.name)
-    assert page.has_content?("no tiene permisos suficientes")
-    assert page.has_no_content?("Nueva Versión")
-    assert page.has_no_content?("Nuevo Esquema")
+    click_button 'btn-user-menu'
+    assert_content page, users(:pedro).name
+    assert_content page, users(:pedro).organizations.take.name
+    assert_content page,"no tiene permisos suficientes"
+    refute_content page, "Nueva Versión"
+    refute_content page, "Nuevo Esquema"
   end
 
   test "non gobierno digital user can't create new schemas" do
     login_as users(:pedro), scope: :user
     schema_version = schema_versions(:rut_v1)
     visit new_schema_path(schema_version.schema, schema_version)
-    assert page.has_content?(users(:pedro).name)
-    assert page.has_content?(users(:pedro).organizations.take.name)
-    assert page.has_content?("no tiene permisos suficientes")
-    assert page.has_no_content?("Nueva Versión")
-    assert page.has_no_content?("Nuevo Esquema")
+    click_button 'btn-user-menu'
+    assert_content page, users(:pedro).name
+    assert_content page, users(:pedro).organizations.take.name
+    assert_content page,"no tiene permisos suficientes"
+    refute_content page, "Nueva Versión"
+    refute_content page, "Nuevo Esquema"
   end
 end

@@ -6,11 +6,12 @@ class LoginTest < Capybara::Rails::TestCase
 
   test "login" do
     visit root_path
-    assert page.has_css?('#btn-login')
+    assert_css page, '#btn-login'
     login_as users(:pedro), scope: :user
     visit root_path
-    assert page.has_no_css?('#btn-login')
-    assert page.has_css?('#btn-logout')
+    assert_no_css page, '#btn-login'
+    click_button 'btn-user-menu'
+    assert_css page, '#btn-logout'
   end
 
 end
