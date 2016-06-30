@@ -1,6 +1,10 @@
-%h1 Nueva versión para #{@schema.name}
-- if user_signed_in? && current_user.can_create_schemas
-  = render 'form', schema_version: @schema_version
-- else
+- if !user_signed_in?
   Para subir un esquema por favor
-  = link_to 'identifíquese con su clave única', new_user_session_path
+  = link_to 'identifíquese con su clave única', user_clave_unica_omniauth_authorize_path
+- else
+  %h1 Nueva versión para #{@schema.name}
+  - if user_signed_in? && current_user.can_create_schemas
+    = render 'form', schema_version: @schema_version
+  - else
+    Para subir un esquema por favor
+    = link_to 'identifíquese con su clave única', new_user_session_path

@@ -20,8 +20,13 @@ class SchemaVersionsController < ApplicationController
   end
 
   def new
-    @schema_version = SchemaVersion.new
+    return unless user_signed_in?
     set_schema
+    if current_user.can_create_schemas
+      @schema_version = SchemaVersion.new
+    else
+      redirect_to [@schema, @schema.last_version], notice: 'no tiene permisos suficientes'
+    end
   end
 
   def create

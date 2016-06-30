@@ -1,5 +1,19 @@
 perico:
-  name: 'Perico de los Palotes'
-  rut: "11.111.111-1"
-  sub: "2"
-  id_token: "some-token"
+    name: 'Perico de los Palotes'
+    rut: "11.111.111-1"
+    sub: "2"
+    id_token: "some-token"
+
+pablito:
+    name: 'Pablito Marmol'
+    rut: "22.222.222-2"
+    sub: "3"
+    id_token: "some-other-token"
+    can_create_schemas: "true"
+
+pedro:
+    name: 'Pedro Pica Piedra'
+    rut: "44.444.444-4"
+    sub: "4"
+    id_token: "another-some-other-token"
+    can_create_schemas: "false"

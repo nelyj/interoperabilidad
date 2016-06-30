@@ -6,9 +6,12 @@ class SchemasController < ApplicationController
   end
 
   def new
-    if user_signed_in? && current_user.can_create_schemas
+    return unless user_signed_in?
+    if current_user.can_create_schemas
       @schema = Schema.new
       @categories = SchemaCategory.all
+    else
+      redirect_to schemas_path, notice: 'no tiene permisos suficientes'
     end
   end
 
@@ -23,8 +26,11 @@ class SchemasController < ApplicationController
   end
 
   def edit
-    if user_signed_in? && current_user.can_create_schemas
+    return unless user_signed_in?
+    if current_user.can_create_schemas
       set_schema
+    else
+      redirect_to schemas_path, notice: 'no tiene permisos suficientes'
     end
   end
 
