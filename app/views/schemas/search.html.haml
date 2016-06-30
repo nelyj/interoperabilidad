@@ -11,7 +11,8 @@
 .container.no-gutter
   .row.no-gutter
     .col-md-12.schema-wrapper.text-left
-      ="No se han encontrado resultados" if @schemas.empty?
+      = content_tag(:p, "No se han encontrado resultados", 
+        class:"text-center") if @schemas.empty?
       - @schemas.each do |schema|
         .box-schema(data-categories="category-#{schema.schema_category.id}")
           .title
