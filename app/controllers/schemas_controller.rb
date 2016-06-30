@@ -1,8 +1,8 @@
 class SchemasController < ApplicationController
 
   def index
+    @categories = SchemaCategory.all.order('name ASC')
     @schemas = Schema.all
-    @categories = SchemaCategory.all
   end
 
   def new

@@ -3,6 +3,8 @@ document.addEventListener 'turbolinks:load', ->
     theme: 'bootstrap'
     containerCssClass: ':all:'
   hljs.initHighlightingOnLoad();
+  $('#categories-list li:first').addClass("active")
+  filterSchemas($('#categories-list li:first a').attr("data-category"))
 
 $(document).on 'click', '#categories-list li a', (e) ->
   e.preventDefault()
@@ -36,7 +38,7 @@ $(document).on 'click', '#remove-file', ->
 
 filterSchemas = (category) ->
   dataCategory = '[data-categories="' + category + '"]'
-  $('.box-schema').hide().filter(dataCategory).show()
+  $('.box-schema.filtered').hide().filter(dataCategory).css("display","inline-block")
   return
 
 addClassToList = (element) ->
@@ -57,6 +59,3 @@ $(document).on 'click', '[data-toggle=collapse-next]', (e) ->
     .children('.panel-collapse:first')
     .collapse 'toggle'
   return
-
-
-

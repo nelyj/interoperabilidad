@@ -112,6 +112,9 @@ body {
             font-family: $font-bold;
         }
     }
+    &.filtered {
+      display: none;
+    }
 }
 
 .instance-panel {
