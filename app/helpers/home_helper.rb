@@ -30,10 +30,10 @@ module HomeHelper
   end
 
   def dinamic_component_structure(name, property_definition, required)
-  type_and_format = s(property_definition['type']) || ''
-  type_and_format += ' (' + s(property_definition['format']) +
-    ')' if property_definition['format'].present?
-  content_tag(:div, nil, class: "panel-group") do
+    type_and_format = s(property_definition['type']) || ''
+    type_and_format += ' (' + s(property_definition['format']) +
+      ')' if property_definition['format'].present?
+    content_tag(:div, nil, class: "panel-group") do
       content_tag(:div, nil, class: "panel panel-schema") do
         content_tag(:div, nil, class: "panel-heading clearfix") do
           content_tag(:div, nil, class: "panel-title " + (required ? "required" : "")) do
