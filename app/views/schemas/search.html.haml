@@ -11,11 +11,11 @@
 .container.no-gutter
   .row.no-gutter
     .col-md-12.schema-wrapper.text-left
-      ="No se han encontrado resultados" if @schemas.blank?
+      ="No se han encontrado resultados" if @schemas.empty?
       - @schemas.each do |schema|
         .box-schema(data-categories="category-#{schema.schema_category.id}")
           .title
-            %a{href: "#"}
+            = link_to [schema, schema.last_version] do
               = truncate(schema.name, :length => 56)
           .body
             %span 
