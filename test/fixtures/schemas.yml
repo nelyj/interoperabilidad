@@ -3,7 +3,7 @@
 rut:
   name: rut
   schema_category: informacion_de_personas
-  lexemes: "'rut':1A 'empresa':6B"
+  lexemes: "'1':10C 'digit':4C,15C 'empres':22B 'larg':9C 'numer':11C 'person':20B 'rut':1A,2A,3A,13C,17B 'string':7C 'verif':5C,16C"
 
 fecha_iso:
   name: fecha_iso

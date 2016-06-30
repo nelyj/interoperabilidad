@@ -23,7 +23,7 @@ class SchemaTest < ActiveSupport::TestCase
 
   test '#search returns no schemas based on non existing text' do
     valid_schema = create_valid_schema!
-    assert Schema.search("Persona").blank?
+    assert Schema.search("Patente").blank?
   end
 
   test '#last_version returns the version number of the last schema version' do

@@ -16,7 +16,7 @@ rut_v1:
         description: RUT de una persona o empresa
         type: object
         required:
-            - número
+            - numero
             - dv
         properties:
             numero:
