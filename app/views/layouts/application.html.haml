@@ -49,14 +49,18 @@
         - if msg.is_a?(String)
           = content_tag :div, msg, :class => "flash_#{name}"
       = yield
-    %footer
-      .container{:class => "footer-container"}
+    %footer.no-gutter
+      .container-fluid.footer-container
         .row
-          .col-md-6{:class=> "col-xs-6 footer-col blue text-left"}
-            .box-logo-footer
-              %p
-                Gobierno de Chile
-              =image_tag "gobcl-brand.svg", :class => "img-responsive"
-          .col-md-6{:class=> "col-xs-6 footer-col red text-right"}
-            %p
-              Políticas de Privacidad | CC
+          .col-md-6{:class => "col-xs-6 footer-col blue text-left"}
+          .col-md-6{:class => "col-xs-6 footer-col red text-right"}
+          .clearfix
+          .container
+            .col-md-6.footer-col
+              .box-logo-footer
+                %p
+                  Gobierno de Chile
+                =image_tag "gobcl-brand.svg", :class => "img-responsive"
+            .col-md-6.footer-col
+              %p.text-right
+                Políticas de Privacidad | CC

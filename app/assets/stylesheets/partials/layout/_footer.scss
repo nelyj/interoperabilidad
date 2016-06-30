@@ -1,29 +1,32 @@
 footer {
     font-family: $font-regular;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: rgba(255, 255, 255, 1);
     .footer-container {
-        background: white;
-        color: #999;
+        background: rgba(255, 255, 255, 1);
+        color: rgba(153, 153, 153, 1);
         text-align: center;
-        border-top: 1px solid #e5e5e5;
+        border-top: 1px solid rgba(229, 229, 299, 1);
     }
     .footer-col {
         margin: 0px;
-        height: 104px;
         line-height: 58px;
         padding-left: 15px;
         padding-right: 15px;
-        background-color: white;
-        border-top: 4px solid grey;
+        background-color: rgba(255, 255, 255, 1);
         &.blue {
-            border-color: $official-blue;
+            border-top: 4px solid $official-blue;
         }
         &.red {
-            border-color: $official-red;
+            border-top: 4px solid $official-red;
             p {
                 padding-right: 70px;
             }
         }
         .box-logo-footer {
+            text-align: left;
             height: 100px;
             display: block;
             position: relative;
