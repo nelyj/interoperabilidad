@@ -1,3 +1,60 @@
+require 'omniauth-oauth2'
+
+module OmniAuth
+  module Strategies
+    class ClaveUnica < OmniAuth::Strategies::OAuth2
+      option :name, "clave_unica"
+
+      option :client_options, {
+        site: "https://www.claveunica.gob.cl/",
+        authorize_url: '/openid/authorize/',
+        token_url: '/openid/token/',
+      }
+      option :authorize_params, {
+        response_type: 'code',
+      }
+
+      #Use 'openid sandbox' for development or 'openid nombre' for production
+      option :scope, 'openid nombre'
+
+      def token_params
+        super.merge(state: request.params["state"])
+      end
+
+      def callback_url
+        # Query string removed to avoid mismatch when calling the token endpoint
+        full_host + script_name + callback_path
+      end
+
+      # These are called after authentication has succeeded. If
+      # possible, you should try to set the UID without making
+      # additional calls (if the user id is returned with the token
+      # or as a URI parameter). This may not be possible with all
+      # providers.
+      uid { user_info['rut'] }
+
+      info do
+        {
+          rut: user_info['RUT'],
+          sub: user_info['sub'],
+          id_token: access_token['id_token']
+        }
+      end
+
+      extra do
+        {
+          'user_info' => user_info
+        }
+      end
+
+      def user_info
+        @user_info ||= access_token.get('/openid/userinfo/').parsed
+      end
+    end
+  end
+end
+
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -240,19 +297,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   OmniAuth.config.full_host = ENV["OP_CALLBACK_URL"]
-  config.omniauth :openid_connect, {
-    name: :clave_unica,
-    scope: [:openid, :nombre],
-    response_type: :code,
-    discovery: true,
-    send_nonce: false,
-    issuer: "https://www.claveunica.gob.cl/openid",
-    client_options: {
-      identifier: ENV["OP_CLIENT_ID"],
-      secret: ENV["OP_SECRET_KEY"],
-      redirect_uri: "#{ENV['OP_CALLBACK_URL']}/users/auth/clave_unica/callback",
-    },
-  }
+  config.omniauth :clave_unica, ENV["OP_CLIENT_ID"], ENV["OP_SECRET_KEY"]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

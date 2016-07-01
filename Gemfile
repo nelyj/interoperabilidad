@@ -39,7 +39,7 @@ gem 'rest-client'
 
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-openid-connect'
+gem 'omniauth-oauth2'
 gem 'haml'
 gem 'haml-rails'
 gem 'hashie'

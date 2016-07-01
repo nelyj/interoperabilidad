@@ -13,15 +13,11 @@ class User < ApplicationRecord
   APP_ID = ENV['ROLE_APP_ID'] || 'AB01'
 
   def self.from_omniauth(auth)
-    rut = auth.extra.raw_info.RUT
-    sub = auth.extra.raw_info.sub
-    id_token = auth.credentials.id_token
-    new_user = where(rut: rut).first
-    if new_user.nil?
-      new_user = create!(rut: rut, sub: sub, id_token: id_token)
-    else
-      new_user.update!(sub: sub, id_token: id_token)
+    new_user = where(rut: auth.info.rut).first_or_create! do |user|
+      user.sub = auth.info.sub
+      user.id_token = auth.info.id_token
     end
+    new_user.update(sub: auth.info.sub, id_token: auth.info.id_token)
     new_user.refresh_user_roles_and_email!
     new_user
   end
