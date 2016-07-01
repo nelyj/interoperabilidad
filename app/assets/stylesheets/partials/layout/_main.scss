@@ -35,8 +35,8 @@ body {
     font-family: $font-light;
     color: $gray-text;
     font-size: 16px;
-    &.schema_versions_show{
-        background-image: url(bg.jpg);
+    &.schema_versions_show {
+        background-image: url('bg.jpg');
         background-repeat: repeat-y;
         background-position: center;
     }
@@ -171,6 +171,8 @@ body {
         background-color: rgba(161, 216, 255, 1);
         color: rgba(113, 123, 127, 1);
         font-family: $font-regular;
+        z-index: 999;
+        transition: height 500ms, background 500ms;
         .category-icon {
             background-color: transparent;
             box-shadow: 2px 2px 17px 0px rgba(0, 0, 0, 0.20);
@@ -351,7 +353,8 @@ ul.list-categories {
 .container-schema-list {}
 
 .container-schema-detail {
-    padding: 0px 60px;
+    padding: 0px 40px 0px 60px;
+    color: rgba(94, 94, 94, 1);
     h1 {
         font-family: $font-regular;
         font-size: 3.5rem;
@@ -360,7 +363,7 @@ ul.list-categories {
             padding: 2px 22px;
             font-size: 2rem;
             vertical-align: top;
-            margin-left: 18px;
+            margin-left: 10px;
             pointer-events: none;
         }
     }
@@ -370,16 +373,19 @@ ul.list-categories {
     }
     .url-canonica {
         span {
-            max-width: 100%;
+            padding: 20px;
             display: block;
+            max-width: 100%;
             overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
             font-size: 1.5rem;
             border-radius: 4px;
+            white-space: nowrap;
             letter-spacing: 0px;
-            padding: 20px;
+            text-overflow: ellipsis;
             background: rgba(246, 246, 246, 1);
+            a {
+                text-decoration: none;
+            }
         }
     }
     .history-version {
@@ -404,7 +410,7 @@ ul.list-categories {
 }
 
 .container-schema-action {
-    padding-top: 10px;
+    padding: 10px 12px;
     .btn {
         width: 100%;
         font-size: 1.8rem;
