@@ -25,7 +25,8 @@
         %a.btn.btn-tiny-rounded.blue
           ="V" + @schema_version.version_number.to_s
       %p
-        %strong Descripción:
+        %strong 
+          Descripción:
         = markdown.render(@schema_version.description).html_safe
       %p.url-canonica
         %span
