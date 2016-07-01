@@ -10,6 +10,16 @@
     border: none;
 }
 
+//Tiny Rounded btns
+@mixin bootstrap-rounded-btns($color) {
+    color: $color;
+    border: 1px solid $color;
+    &.full {
+        background-color: $color;
+        color: rgba(255, 255, 255, 1);
+    }
+}
+
 //Schema component panel
 @mixin schema-component-panel($background, $color-name, $color-text) {
     background-color: $background;

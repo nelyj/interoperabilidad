@@ -70,6 +70,40 @@
     }
 }
 
+//tiny buttons
+.btn-tiny-rounded {
+    background-color: transparent;
+    border-radius: 74.69px;
+    border-bottom: none;
+    &.blue {
+        @include bootstrap-rounded-btns($official-blue);
+    }
+    &.red {
+        @include bootstrap-rounded-btns($official-red);
+    }
+    &.static {
+        @include bootstrap-rounded-btns($btn-static-color);
+    }
+    &.default {
+        @include bootstrap-rounded-btns(darken(rgba(255, 255, 255, 1), 18%));
+    }
+    &.primary {
+        @include bootstrap-rounded-btns($brand-primary);
+    }
+    &.success {
+        @include bootstrap-rounded-btns($brand-success);
+    }
+    &.info {
+        @include bootstrap-rounded-btns($brand-info);
+    }
+    &.warning {
+        @include bootstrap-rounded-btns($brand-warning);
+    }
+    &.danger {
+        @include bootstrap-rounded-btns($brand-danger);
+    }
+}
+
 .round {
     border-radius: 24px;
 }
