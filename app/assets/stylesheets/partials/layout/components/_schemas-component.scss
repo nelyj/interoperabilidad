@@ -198,7 +198,7 @@
                 span {
                     line-height: 1.1rem;
                     padding: 0px;
-                    color: rgba(255,255,255,1);
+                    color: rgba(255, 255, 255, 1);
                     &:before {
                         margin-right: 6px;
                         font-family: 'Glyphicons Halflings';
@@ -256,7 +256,7 @@
                 &.reg-exp {
                     margin: 2px 0px;
                     span {
-                        color: #cb1654;
+                        color: rgba(203, 22, 84, 1);
                         background: rgba(255, 255, 255, 0.8);
                         border-radius: 3px;
                         font-family: $font-menlo;
