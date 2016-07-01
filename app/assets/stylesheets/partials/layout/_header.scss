@@ -9,7 +9,7 @@ header {
     height: 118px;
     .logo {
         float: left;
-        margin-right: 70px;
+        margin: 0px 70px;
         display: inline-block;
     }
     nav {
@@ -51,7 +51,7 @@ header {
     width: 224px;
     margin-top: 40px;
     float: right;
-    margin-right: 115px;
+    margin-right: 70px;
     font-size: 22px;
     font-family: $font-light;
     img {
@@ -66,7 +66,7 @@ header {
 #group-logout {
     float: right;
     margin-top: 40px;
-    margin-right: 115px;
+    margin-right: 70px;
     button {
         border-bottom: none;
         text-align: left;

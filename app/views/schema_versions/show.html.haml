@@ -1,13 +1,15 @@
-.instance-panel.schema-detail
+
+.container-fluid.instance-panel.schema-detail
   .container
-    .col-md-3.text-right
+    .col-md-2.no-gutter.text-right
       .category-icon
         = image_tag "category-icon.svg"
-    .col-md-9.text-left
-      %h3 Categoria
-      %h2=@schema.schema_category.name
-      %p <strong>Descripción:</strong> Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
-
+    .col-md-10.no-gutter.text-left
+      .box-detail-header
+        %h3 Categoria
+        %h2=@schema.schema_category.name
+        %p <strong>Descripción:</strong> Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
+.clearfix
 .container
   .row
     .col-md-2.container-schema-list.no-gutter
