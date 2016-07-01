@@ -23,8 +23,8 @@ services:
       - OP_CLIENT_ID
       - OP_SECRET_KEY
       - OP_CALLBACK_URL=http://dev.interoperabilidad.digital.gob.cl
-      - ROLLBAR_ACCESS_TOKEN
-      - ROLE_URL
+      - ROLE_SERVICE_URL=http://thawing-shore-28727.herokuapp.com/personas/11111111/instituciones/segpres/aplicaciones/AB01
+      - ROLE_APP_ID=AB01
   bundle_cache:
     image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
     volumes:
