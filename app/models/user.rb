@@ -7,7 +7,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable, omniauth_providers: [:clave_unica]
 
-  URL = ENV['ROLE_SERVICE_URL'] || 'http://private-5f0326-microserviciosderolesv4.apiary-mock.com'
+  FALLBACK_URL = 'http://private-5f0326-microserviciosderolesv4.apiary-mock.com'
+  URL = ENV['ROLE_SERVICE_URL']
   APP_ID = ENV['ROLE_APP_ID'] || 'AB01'
 
   def self.from_omniauth(auth)
@@ -24,9 +25,19 @@ class User < ApplicationRecord
     new_user
   end
 
-  # TODO: need to be changed later, to use the provided service to get the roles.
   def refresh_user_roles_and_email!
-    response = JSON.parse(call_roles_service)
+    response = call_roles_service(URL)
+    if response.code == 200
+      response = JSON.parse(response)
+      if response.has_key?('nada')
+        response = JSON.parse(call_roles_service(FALLBACK_URL))
+      else
+        response
+      end
+    else
+      response = JSON.parse(call_roles_service(FALLBACK_URL))
+    end
+
     self.name = refresh_name(response['nombre'])
     parse_organizations_and_roles(response['instituciones'])
 
@@ -84,10 +95,10 @@ class User < ApplicationRecord
     name = first_name.strip + ' ' + second_name.strip
   end
 
-  def call_roles_service
+  def call_roles_service(url)
     path = '/personas/' + rut_number +
       '/instituciones/segpres/aplicaciones/' + APP_ID.to_s
-    response = RestClient.get(URL + path)
+    RestClient.get(url + path)
   end
 
   def rut_number
