@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable, omniauth_providers: [:clave_unica]
 
-  URL = ENV['ROLE_SERVICE_URL'] || 'http://private-5f0326-microserviciosderolesv4.apiary-mock.com/'
+  URL = ENV['ROLE_SERVICE_URL'] || 'http://private-5f0326-microserviciosderolesv4.apiary-mock.com'
   APP_ID = ENV['ROLE_APP_ID'] || 'AB01'
 
   def self.from_omniauth(auth)
@@ -85,7 +85,7 @@ class User < ApplicationRecord
   end
 
   def call_roles_service
-    path = 'personas/' + rut_number +
+    path = '/personas/' + rut_number +
       '/instituciones/segpres/aplicaciones/' + APP_ID.to_s
     response = RestClient.get(URL + path)
   end
