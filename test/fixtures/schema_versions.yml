@@ -152,7 +152,7 @@ anotaciones_schema1_v1:
         type: string
         format: date
 
-anotaciones_chema2_v1:
+anotaciones_schema2_v1:
     schema: anotaciones_schema2
     version_number: 1
     spec:
