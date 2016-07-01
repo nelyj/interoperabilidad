@@ -51,12 +51,12 @@ class HomeHelperTest < ActionView::TestCase
     assert_equal html_expected, html_actual
   end
 
-  test "#dinamic_component_structure returns html base structure to represent a property" do
+  test "#dynamic_component_structure returns html base structure to represent a property" do
     spec = schema_versions(:complex_v1).spec
     name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, "test", class: "name")
     end
-    html_actual = dinamic_component_structure(name, spec["properties"]["nombre"], false)
+    html_actual = dynamic_component_structure(name, spec["properties"]["nombre"], false)
     html_expected = content_tag(:div, nil, class: "panel-group") do
       content_tag(:div, nil, class: "panel panel-schema") do
         content_tag(:div, nil, class: "panel-heading clearfix") do

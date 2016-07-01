@@ -30,7 +30,7 @@ module HomeHelper
     end
   end
 
-  def dinamic_component_structure(name, property_definition, required)
+  def dynamic_component_structure(name, property_definition, required)
     type_and_format = s(property_definition['type']) || ''
     type_and_format += ' (' + s(property_definition['format']) +
       ')' if property_definition['format'].present?
@@ -64,14 +64,14 @@ module HomeHelper
 
   def schema_object_primitive_property_markup(name, primitive_property_definition, required)
     customized_name = content_tag(:span, s(name), class: "name")
-    dinamic_component_structure(customized_name, primitive_property_definition, required)
+    dynamic_component_structure(customized_name, primitive_property_definition, required)
   end
 
   def schema_object_complex_property_markup(name, property_definition, required)
     customized_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, s(name), class: "name")
     end
-    dinamic_component_structure(customized_name, property_definition, required){
+    dynamic_component_structure(customized_name, property_definition, required){
       content_tag(:div, nil, class: "panel-body") do
         schema_object_spec_markup(property_definition)
       end
@@ -82,7 +82,7 @@ module HomeHelper
     customized_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, s(name), class: "name")
     end
-    dinamic_component_structure(customized_name, property_definition, required){
+    dynamic_component_structure(customized_name, property_definition, required){
       content_tag(:div, nil, class: "panel-body") do
          schema_object_property_markup("(elementos)", property_definition["items"], false)
       end
