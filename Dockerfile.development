@@ -28,7 +28,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 # Node-based tools used by our app:
-RUN npm install -g git+https://github.com/continuum/sway.git#ac1de5151fa96771636a5e187116b19940cfdce3
+RUN npm install -g git+https://github.com/continuum/sway.git#7cecdbd8bdf1760e5acc6f776706446c020aa178
 
 # PhantomJS for Capybara/Poltergeist
 ENV PHANTOMJS_VERSION 2.1.1
