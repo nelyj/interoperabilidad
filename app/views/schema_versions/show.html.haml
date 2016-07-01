@@ -22,28 +22,30 @@
     .col-md-7.container-schema-detail
       %h1
         =@schema.name
-        %a.btn
+        %a.btn.btn-tiny-rounded.blue
           ="V" + @schema_version.version_number.to_s
       %p
-        %strong Descripción
+        %strong Descripción:
         = markdown.render(@schema_version.description).html_safe
       %p.url-canonica
-        URL Canónica:
-        %a{href: schema_schema_version_url(@schema, @schema_version, format: :json)}
-          = schema_schema_version_url(@schema, @schema_version, format: :json)
+        %span
+          %strong
+            URL Canónica:
+          %a{href: schema_schema_version_url(@schema, @schema_version, format: :json), target: "_blank"}
+            = schema_schema_version_url(@schema, @schema_version, format: :json)
       .history-version
         %a Versión Anterior
         %a Versión Siguiente
         %a.btn.btn-static{href: schema_schema_versions_path} Historial
-        - if user_signed_in? && current_user.can_create_schemas
-          %a.btn.btn-action-red{href: new_schema_schema_version_path(@schema)}
-            Nueva Versión
       %h2 Esquema
       .field
       = schema_markup(@schema_version)
 
     .col-md-3.container-schema-action.no-gutter
       %a.btn.btn-action-red.btn-lg{:href => schema_schema_version_url(@schema, @schema_version, format: :json), :role => "button", :target => '_blank'} Ver OAS
+      - if user_signed_in? && current_user.can_create_schemas
+        %a.btn.btn-action-blue.btn-lg{href: new_schema_schema_version_path(@schema)}
+          Nueva Versión
       %br
       %h3 Ejemplo
       .box-code-example

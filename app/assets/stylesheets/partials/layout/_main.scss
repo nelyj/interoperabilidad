@@ -38,7 +38,7 @@ body {
     &.schema_versions_show{
         background-image: url(bg.jpg);
         background-repeat: repeat-y;
-        background-position: center;        
+        background-position: center;
     }
 }
 
@@ -348,12 +348,64 @@ ul.list-categories {
 .container-schema-list {}
 
 .container-schema-detail {
-
+    padding: 0px 60px;
+    h1 {
+        font-family: $font-regular;
+        font-size: 3.5rem;
+        color: rgba(94, 94, 94, 1);
+        .btn {
+            padding: 2px 22px;
+            font-size: 2rem;
+            vertical-align: top;
+            margin-left: 18px;
+            pointer-events: none;
+        }
+    }
+    strong {
+        color: rgba(94, 94, 94, 1);
+        font-family: $font-bold;
+    }
+    .url-canonica {
+        span {
+            max-width: 100%;
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 1.5rem;
+            border-radius: 4px;
+            letter-spacing: 0px;
+            padding: 20px;
+            background: rgba(246, 246, 246, 1);
+        }
+    }
+    .history-version {
+        margin-bottom: 30px;
+        a {
+            text-decoration: underline;
+            &:first-child {
+                margin-right: 10px;
+            }
+        }
+        .btn {
+            float: right;
+            text-decoration: none;
+        }
+    }
+    h2 {
+        text-transform: uppercase;
+        font-size: 2.2rem;
+        color: rgba(94, 94, 94, 1);
+        font-family: $font-bold;
+    }
 }
+
 .container-schema-action {
+    padding-top: 10px;
     .btn {
         width: 100%;
         font-size: 1.8rem;
+        margin-bottom: 12px;
     }
 }
 
