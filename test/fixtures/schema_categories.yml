@@ -3,3 +3,9 @@ informacion_de_personas:
 
 formatos_de_fechas_y_horas:
   name: Formatos de Fechas y Horas
+
+anotaciones:
+    name: Anotaciones
+
+zonas:
+    name: Zonas

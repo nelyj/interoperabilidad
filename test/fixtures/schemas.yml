@@ -12,3 +12,31 @@ fecha_iso:
 complex:
   name: complex
   schema_category: informacion_de_personas
+
+anotaciones_schema1:
+    name: AnotacionesSchema1
+    schema_category: anotaciones
+
+anotaciones_schema2:
+    name: AnotacionesSchema2
+    schema_category: anotaciones
+
+anotaciones_schema3:
+    name: AnotacionesSchema3
+    schema_category: anotaciones
+
+zona1:
+    name: Zona Norte
+    schema_category: zonas
+
+zona2:
+    name: Zona Centro
+    schema_category: zonas
+
+zona3:
+    name: Zona Sur
+    schema_category: zonas
+
+zona4:
+    name: Zona Costera
+    schema_category: zonas

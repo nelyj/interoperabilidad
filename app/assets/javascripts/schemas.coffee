@@ -36,7 +36,7 @@ $(document).on 'click', '#remove-file', ->
   $('#label-file').show()
   $("#input-file").val ""
 
-filterSchemas = (category) ->
+this.filterSchemas = filterSchemas = (category) ->
   dataCategory = '[data-categories="' + category + '"]'
   $('.box-schema.filtered').hide().filter(dataCategory).css("display","inline-block")
   return
