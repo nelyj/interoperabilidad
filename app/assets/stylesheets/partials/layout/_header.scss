@@ -100,9 +100,21 @@ header {
         }
     }
     .dropdown-menu {
+        font-size: 1.5rem;
+        max-width: 268px;
+        min-width: 220px;
         padding-bottom: 0px;
+        font-family: $font-regular;
         li {
             border-bottom: 1px solid rgba(213, 213, 213, 1);
+            &.institution {
+                color: $official-blue;
+                padding: 9px 20px;
+                small {
+                    display: block;
+                    font-size: 1.3rem
+                }
+            }
             &.new-schema {
                 background-color: rgba(161, 216, 255, 1);
                 a {
