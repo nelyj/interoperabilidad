@@ -27,9 +27,6 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
-# Node-based tools used by our app:
-RUN npm install -g git+https://github.com/continuum/sway.git#2de24748091c02c00109a6bf7d81352a745f2523
-
 # PhantomJS for Capybara/Poltergeist
 ENV PHANTOMJS_VERSION 2.1.1
 RUN curl -L -O https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 \
@@ -38,6 +35,9 @@ RUN curl -L -O https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTO
      done) \
   && cp phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin \
   && rm -rf phantomjs-$PHANTOMJS_VERSION-linux-x86_64
+
+# Node-based tools used by our app:
+RUN npm install -g git+https://github.com/continuum/sway.git#4c2e00e24749a70b2304cc4e1bc126a2223f91fb
 
 # Our app:
 RUN mkdir /app

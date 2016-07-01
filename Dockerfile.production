@@ -28,7 +28,7 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
 # Node-based tools used by our app:
-RUN npm install -g git+https://github.com/continuum/sway.git#2de24748091c02c00109a6bf7d81352a745f2523
+RUN npm install -g git+https://github.com/continuum/sway.git#4c2e00e24749a70b2304cc4e1bc126a2223f91fb
 
 # Our app:
 RUN mkdir /app
