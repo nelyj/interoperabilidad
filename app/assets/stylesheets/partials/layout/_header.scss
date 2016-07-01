@@ -8,22 +8,22 @@ header {
     background: white;
     height: 118px;
     .logo {
-        display: inline-block;
         float: left;
-        margin-right: 58px;
+        margin-right: 70px;
+        display: inline-block;
     }
     nav {
         display: inline-block;
         ul {
             li {
                 height: 118px;
-                width: 180px;
+                width: 160px;
                 text-align: center;
                 a {
                     height: 118px;
                     line-height: 100px;
                     color: rgba(113, 123, 127, 1);
-                    font-size: 24px;
+                    font-size: 2rem;
                     border-radius: 0px;
                     &:hover {
                         background-color: rgba(249, 249, 249, 1);
@@ -60,5 +60,65 @@ header {
     }
     span {
         color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+#group-logout {
+    float: right;
+    margin-top: 40px;
+    margin-right: 115px;
+    button {
+        border-bottom: none;
+        text-align: left;
+        max-width: 225px;
+        min-width: 150px;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        padding: 10px 12px;
+        .name {
+            float: left;
+            max-width: 130px;
+            overflow: hidden;
+            padding-top: 3px;
+            margin-right: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .btn {
+            float: right;
+            border: none;
+            padding: 0px 6px;
+            margin-right: 7px;
+            text-align: center;
+            color: $official-blue;
+            font-family: $font-regular;
+            background-color: rgba(255, 255, 255, 1);
+        }
+        .caret {
+            float: right;
+            margin-top: 8px;
+        }
+    }
+    .dropdown-menu {
+        padding-bottom: 0px;
+        li {
+            border-bottom: 1px solid rgba(213, 213, 213, 1);
+            &.new-schema {
+                background-color: rgba(161, 216, 255, 1);
+                a {
+                    color: rgba(255, 255, 255, 1);
+                    &:hover {
+                        background-color: rgba(161, 216, 255, 1);
+                    }
+                }
+            }
+            &.logout {
+                border-bottom: none;
+                background-color: rgba(246, 246, 246, 1);
+            }
+            > a {
+                padding: 9px 20px;
+            }
+        }
     }
 }
