@@ -195,6 +195,39 @@ body {
     }
 }
 
+//sticky panel
+.sticky-wrapper {
+    transition: all 0.8s ease;
+    min-height: 320px;
+    &.is-sticky {
+        > .instance-panel.schema-detail {
+            .container {
+                margin-top: 8px;
+            }
+            height: 70px;
+            margin: 0px;
+            padding: 0px;
+            .box-detail-header {
+                padding-left: 20px;
+                padding-top: 10px;
+                transition: all 0.3s ease;
+            }
+            h3,
+            p {
+                display: none;
+                transition: all 0.3s ease;
+            }
+            .category-icon {
+                padding: 10px;
+                transition: all 0.4s ease-in;
+                img {
+                    max-width: 30px;
+                }
+            }
+        }
+    }
+}
+
 #search-schema {
     height: 80px;
     background: #FFFFFF;
