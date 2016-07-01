@@ -113,7 +113,7 @@ body {
         }
     }
     &.filtered {
-      display: none;
+        display: none;
     }
 }
 
@@ -389,6 +389,7 @@ ul.list-categories {
         }
     }
     .history-version {
+        text-transform: uppercase;
         margin-bottom: 30px;
         a {
             text-decoration: underline;
@@ -396,9 +397,8 @@ ul.list-categories {
                 margin-right: 10px;
             }
         }
-        .btn {
+        .historic {
             float: right;
-            text-decoration: none;
         }
     }
     h2 {

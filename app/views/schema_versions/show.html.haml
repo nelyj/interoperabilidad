@@ -35,9 +35,9 @@
           %a{href: schema_schema_version_url(@schema, @schema_version, format: :json), target: "_blank"}
             = schema_schema_version_url(@schema, @schema_version, format: :json)
       .history-version
-        %a Versión Anterior
-        %a Versión Siguiente
-        %a.btn.btn-static{href: schema_schema_versions_path} Historial
+        %a{href: "#"} Versión Anterior
+        %a{href: "#"} Versión Siguiente
+        %a.historic{href: schema_schema_versions_path} Historial
       %h2 Esquema
       .field
       = schema_markup(@schema_version)
