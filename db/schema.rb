@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629142139) do
+ActiveRecord::Schema.define(version: 20160701043838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,11 +39,12 @@ ActiveRecord::Schema.define(version: 20160629142139) do
   end
 
   create_table "schema_versions", force: :cascade do |t|
-    t.integer  "schema_id",      null: false
-    t.integer  "version_number", null: false
-    t.jsonb    "spec",           null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.integer  "schema_id",               null: false
+    t.integer  "version_number",          null: false
+    t.jsonb    "spec",                    null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.jsonb    "spec_with_resolved_refs"
   end
 
   create_table "schemas", force: :cascade do |t|
