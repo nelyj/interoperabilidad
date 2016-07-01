@@ -36,7 +36,7 @@ body {
     color: $gray-text;
     font-size: 16px;
     &.schema_versions_show {
-        background-image: url('bg.jpg');
+        background-image: image-url('bg.jpg');
         background-repeat: repeat-y;
         background-position: center;
     }
