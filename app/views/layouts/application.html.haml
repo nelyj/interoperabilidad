@@ -75,9 +75,7 @@
                         = image_tag "clave-unica.svg", size: "28"
                         Clave<span>única</span>
     .container-fluid.main-container
-      - flash.each do |name, msg|
-        - if msg.is_a?(String)
-          = content_tag :div, msg, :class => "flash_#{name}"
+      = render "shared/flash_messages", :locals => { :flash => flash }
       = yield
     %footer.no-gutter
       .container-fluid.footer-container
