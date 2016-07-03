@@ -9,29 +9,37 @@ module HomeHelper
     encoded_components.unshift(base).join('/')
   end
 
+  def join_markup(buffers)
+    buffers.reduce(ActiveSupport::SafeBuffer.new) do |result, buffer|
+      result.concat buffer
+    end
+  end
+
   def schema_markup(schema_version)
     spec = schema_version.spec_with_resolved_refs['definition']
     references = schema_version.spec_with_resolved_refs['references']
     content_tag(:div, class: "schema-panel-set detail") do
-      content_tag(:h3, s(schema_version.schema.name)) +
-      if spec["type"] == "object"
+      inner_markup = case spec["type"]
+      when "object"
         schema_object_spec_markup(spec, '/', references)
       else
         schema_object_property_markup('', spec, false, '/', references)
       end
+      content_tag(:h3, s(schema_version.schema.name)) + inner_markup
     end
   end
 
   def schema_object_spec_markup(schema_object, json_pointer, references)
-    schema_object['properties'].map do |name, property_definition|
-      required =
+    join_markup(schema_object['properties'].map do |name, property_definition|
+      required = (
         schema_object.has_key?("required") &&
         schema_object["required"].include?(name)
+      )
       schema_object_property_markup(
         name, property_definition, required,
         json_pointer_path(json_pointer, 'properties', name), references
       )
-    end.join("".html_safe)
+    end)
   end
 
   def schema_object_property_markup(name, property_definition, required, json_pointer, references)
@@ -130,7 +138,7 @@ module HomeHelper
     ) do
       content_tag(:div, nil, class: "panel-body") do
         schema_object_property_markup(
-          "(elementos)", property_definition["items"], false,
+          "(elementos)".html_safe, property_definition["items"], false,
           json_pointer_path(json_pointer, "items"), references
         )
       end
@@ -153,32 +161,50 @@ module HomeHelper
   end
 
   def schema_object_common_markup(property_definition)
+    schema_object_common_markup_default(property_definition) +
+      schema_object_common_markup_enum(property_definition)
+  end
+
+  def schema_object_common_markup_default(property_definition)
     if property_definition['default'].present?
-      concat(content_tag(:li, 'por defecto ' + s(property_definition['default'].to_s)))
+      content_tag(:li, 'por defecto ' + s(property_definition['default'].to_s))
+    else
+      "".html_safe
     end
+  end
+
+  def schema_object_common_markup_enum(property_definition)
     if property_definition['enum'].present?
-      elements = "enum: ".html_safe
-      property_definition['enum'].each do |element|
-         elements += s(element) + '<br>'.html_safe
-      end
-      concat(content_tag(:li, elements))
+      content_tag :li, (
+        "enum: ".html_safe +
+        join_markup(property_definition['enum'].map do |element|
+          s(element) + '<br>'.html_safe
+        end)
+      )
+    else
+      "".html_safe
     end
   end
 
   def markup_humanizer(name = '', suffix = '', max, min)
     if max.present? && min.present?
       if max == min
-        concat(content_tag(:li, "largo #{s(max.to_s)} #{name}" +
-          (max!=1 ? "#{suffix}" : "")))
+        content_tag(:li, "largo #{s(max.to_s)} #{name}" +
+          (max!=1 ? "#{suffix}" : ""))
       else
-        concat(content_tag(:li, "rango #{s(min.to_s)}-#{s(max.to_s)} #{name}" +
-          (max!=1 ? "#{suffix}" : "")))
+        content_tag(:li, "rango #{s(min.to_s)}-#{s(max.to_s)} #{name}" +
+          (max!=1 ? "#{suffix}" : ""))
       end
     else
-      concat(content_tag(:li, "máximo #{s(max.to_s)} #{name}" +
-        (max!=1 ? "#{suffix}" : ""))) if max.present?
-      concat(content_tag(:li, "mínimo #{s(min.to_s)} #{name}" +
-        (min!=1 ? "#{suffix}" : ""))) if min.present?
+      if max.present?
+        content_tag(:li, "máximo #{s(max.to_s)} #{name}" +
+          (max!=1 ? "#{suffix}" : ""))
+      elsif min.present?
+        content_tag(:li, "mínimo #{s(min.to_s)} #{name}" +
+          (min!=1 ? "#{suffix}" : ""))
+      else
+        "".html_safe
+      end
     end
   end
 
@@ -191,40 +217,66 @@ module HomeHelper
   def array_specific_markup(property_definition)
     max = property_definition['maxItems']
     min = property_definition['minItems']
+    array_specific_markup_unique_items(property_definition) +
+      markup_humanizer("elemento", "s", max, min)
+  end
+
+  def array_specific_markup_unique_items(property_definition)
     if property_definition['uniqueItems'].present?
-      concat(content_tag(:li, "elementos únicos"))
+      content_tag(:li, "elementos únicos")
+    else
+      "".html_safe
     end
-    markup_humanizer("elemento", "s", max, min)
   end
 
   def numeric_primitive_markup(primitive)
+    numeric_primitive_markup_multiple_of(primitive) +
+      numeric_primitive_markup_bounds(primitive)
+  end
+
+  def numeric_primitive_markup_multiple_of(primitive)
+    if primitive['multipleOf'].present?
+      content_tag(:li, "múltiplo de #{s(primitive['multipleOf'].to_s)}")
+    else
+      "".html_safe
+    end
+  end
+
+  def numeric_primitive_markup_bounds(primitive)
     max = primitive['maximum']
     min = primitive['minimum']
     exclusiveMax = primitive['exclusiveMaximum']
     exclusiveMin = primitive['exclusiveMinimum']
-    if primitive['multipleOf'].present?
-      concat(content_tag(:li, "múltiplo de #{s(primitive['multipleOf'].to_s)}"))
-    end
     if max.present? && min.present?
-      concat(content_tag(:li, "#{s(min.to_s)} " + (exclusiveMin ? "<" : "≤") +
-        " x " + (exclusiveMax ? "<" : "≤") + " #{s(max.to_s)}"))
+      content_tag(:li, "#{s(min.to_s)} " + (exclusiveMin ? "<" : "≤") +
+        " x " + (exclusiveMax ? "<" : "≤") + " #{s(max.to_s)}")
     else
-      concat(content_tag(:li, "x " + (exclusiveMin ? ">" : "≥") +
-        " #{s(min.to_s)}")) if min.present?
-      concat(content_tag(:li, "x " + (exclusiveMax ? "<" : "≤") +
-        " #{s(max.to_s)}")) if max.present?
+      if min.present?
+        content_tag(:li, "x " + (exclusiveMin ? ">" : "≥") +
+          " #{s(min.to_s)}")
+      elsif max.present?
+        content_tag(:li, "x " + (exclusiveMax ? "<" : "≤") +
+          " #{s(max.to_s)}")
+      else
+        "".html_safe
+      end
     end
   end
 
   def string_primitive_markup(primitive)
     max = primitive['maxLength']
     min = primitive['minLength']
+    string_primitive_markup_pattern(primitive) + markup_humanizer(max, min)
+  end
+
+  def string_primitive_markup_pattern(primitive)
     if primitive['pattern'].present?
-      concat(content_tag(:li, class: "reg-exp") do
+      content_tag(:li, class: "reg-exp") do
         content_tag(:span, "#{s(primitive['pattern'])}")
-      end)
+      end
+    else
+      "".html_safe
     end
-    markup_humanizer(max, min)
   end
 
   def s(content)
