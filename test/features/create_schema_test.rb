@@ -15,20 +15,20 @@ class CreateSchemaTest < Capybara::Rails::TestCase
   end
 
   test "attempt to create a schema without an attached file" do
-    find('#create-schema').click
-    assert_content page, "Expected type object but found type null"
+    click_button "Crear Esquema"
+    assert_content page, "No se pudo crear el esquema"
   end
 
   test "attempt to create a schema with an invalid file" do
     attach_file 'schema_spec_file', Rails.root.join('README.md')
-    find('#create-schema').click
+    click_button "Crear Esquema"
     assert_content page, "Archivo no está en formato JSON o YAML:"
   end
 
   test "create a valid schema" do
     attach_file 'schema_spec_file', Rails.root.join(
       'test', 'files', 'test-schemas', 'schemaObject.json')
-    find('#create-schema').click
-    assert_content page, "schema was successfully created."
+    click_button "Crear Esquema"
+    assert_content page, "Nuevo Esquema creado correctamente"
   end
 end
