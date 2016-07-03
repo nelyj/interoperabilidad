@@ -3,6 +3,14 @@ require 'test_helper'
 class HomeHelperTest < ActionView::TestCase
   include HomeHelper
 
+  test "#json_pointer_path" do
+    assert_equal "/", json_pointer_path('/')
+    assert_equal "/foo/bar", json_pointer_path('/foo', 'bar')
+    assert_equal "/foo/bar/baz", json_pointer_path('/foo', 'bar', 'baz')
+    assert_equal "/foo/bar~0/baz", json_pointer_path('/foo', 'bar~', 'baz')
+    assert_equal "/foo/bar~1baz/qux", json_pointer_path('/foo', 'bar/baz', 'qux')
+  end
+
   test "#markup_humanizer returns a human readable range" do
     assert_equal "<li>rango 7-11 elementos</li>", markup_humanizer('elemento', 's', 11, 7)
   end
@@ -56,7 +64,7 @@ class HomeHelperTest < ActionView::TestCase
     name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, "test", class: "name")
     end
-    html_actual = dynamic_component_structure(name, spec["properties"]["nombre"], false)
+    html_actual = dynamic_component_structure(name, spec["properties"]["nombre"], false, '/properties/nombre', {})
     html_expected = content_tag(:div, nil, class: "panel-group") do
       content_tag(:div, nil, class: "panel panel-schema") do
         content_tag(:div, nil, class: "panel-heading clearfix") do
@@ -67,9 +75,6 @@ class HomeHelperTest < ActionView::TestCase
               content_tag(:p, "Descripción descrita", class: "description")
             end +
             content_tag(:div, nil, class: "col-md-6 text-right") do
-              content_tag(:a, class: "btn btn-static link-schema") do
-                content_tag(:span, "schema")
-              end +
               content_tag(:ul) do
                 content_tag(:li, "enum: pepe<br>juan<br>".html_safe)
               end
