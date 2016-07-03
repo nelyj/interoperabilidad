@@ -1,5 +1,11 @@
 perico_sii_schema_admin:
-    user: pedro
-    organization: sii
-    name: "Schema Admin"
-    email: "mail@example.org"
+  user: pedro
+  organization: sii
+  name: "Service Provider"
+  email: "mail@example.org"
+
+pablito_segpres:
+  user: pablito
+  organization: segpres
+  name: "Service Provider"
+  email: "mail@example.org"
