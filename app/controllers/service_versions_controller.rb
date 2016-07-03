@@ -21,7 +21,7 @@ class ServiceVersionsController < ApplicationController
     @service_version = @service.service_versions.build(service_version_params)
     @service_version.user = current_user
     if @service_version.save
-      redirect_to [@service, @service_version], notice: 'service_version was successfully created.'
+      redirect_to [@service, @service_version], notice: 'Nueva versión creada correctamente'
     else
       render :new
     end

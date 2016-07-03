@@ -18,9 +18,9 @@ class SchemasController < ApplicationController
   def create
     @schema = Schema.new(schema_params)
     if @schema.save
-      redirect_to [@schema, @schema.schema_versions.first], notice: 'schema was successfully created.'
+      redirect_to [@schema, @schema.schema_versions.first], notice: 'Nuevo Esquema creado correctamente'
     else
-      flash.now[:error] = "Could not save schema"
+      flash.now[:error] = "No se pudo crear el esquema"
       render action: "new"
     end
   end

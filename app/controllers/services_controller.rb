@@ -23,9 +23,9 @@ class ServicesController < ApplicationController
     @service = Service.new(service_params)
     if @service.save
       @service.create_first_version(current_user)
-      redirect_to [@service, @service.service_versions.first], notice: 'service was successfully created.'
+      redirect_to [@service, @service.service_versions.first], notice: 'Servicio creado correctamente'
     else
-      flash.now[:error] = "Could not save service"
+      flash.now[:error] = "No se pudo crear el servicio"
       render action: "new"
     end
   end
@@ -40,7 +40,7 @@ class ServicesController < ApplicationController
 
   def update
     if @service.update(params.require(:service).permit(:organization_id))
-      redirect_to services_path, notice: 'service was successfully updated.'
+      redirect_to services_path, notice: 'Servicio actualizado correctamente'
     else
       render :edit
     end
