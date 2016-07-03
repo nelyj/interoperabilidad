@@ -39,8 +39,18 @@
           %a{href: schema_schema_version_url(@schema, @schema_version, format: :json), target: "_blank"}
             = schema_schema_version_url(@schema, @schema_version, format: :json)
       .history-version
-        %a{href: "#"} Versión Anterior
-        %a{href: "#"} Versión Siguiente
+        - if @schema_version.has_previous_version?
+          =link_to 'Versión Anterior',
+            schema_schema_version_path(@schema_version.schema, @schema_version.previous_version)
+        -else
+          Versión Anterior
+          %a
+        - if @schema_version.has_next_version?
+          =link_to 'Versión Siguiente',
+            schema_schema_version_path(@schema_version.schema, @schema_version.next_version)
+        -else
+          Versión Siguiente
+          %a
         %a.historic{href: schema_schema_versions_path} Historial
       %h2 Especificación
       .field

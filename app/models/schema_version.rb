@@ -60,4 +60,20 @@ class SchemaVersion < ApplicationRecord
   def example
     self.spec['example']
   end
+
+  def has_previous_version?
+    return !previous_version.nil?
+  end
+
+  def previous_version
+    self.schema.schema_versions.where(version_number: self.version_number - 1).take
+  end
+
+  def has_next_version?
+    return !next_version.nil?
+  end
+
+  def next_version
+    self.schema.schema_versions.where(version_number: self.version_number + 1).take
+  end
 end

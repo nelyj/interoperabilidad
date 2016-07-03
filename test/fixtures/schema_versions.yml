@@ -32,6 +32,50 @@ rut_v1:
         definition: *spec_rut_v1
         references: {}
 
+rut_v2:
+    schema: rut
+    version_number: 2
+    spec: &spec_rut_v1
+        title: RUT
+        description: RUT de una persona o empresa
+        type: object
+        required:
+            - numero
+            - dv
+        properties:
+            numero:
+                type: integer
+                description: Numero de RUT sin digito verificador
+            dv:
+                type: string
+                pattern: \[0-9]{1}|K
+                description: Digito verificador como string de largo 1
+    spec_with_resolved_refs:
+        definition: *spec_rut_v1
+        references: {}
+
+rut_v3:
+    schema: rut
+    version_number: 3
+    spec: &spec_rut_v1
+        title: RUT
+        description: RUT de una persona o empresa
+        type: object
+        required:
+            - numero
+            - dv
+        properties:
+            numero:
+                type: integer
+                description: Numero de RUT sin digito verificador
+            dv:
+                type: string
+                pattern: \[0-9]{1}|K
+                description: Digito verificador como string de largo 1
+    spec_with_resolved_refs:
+        definition: *spec_rut_v1
+        references: {}
+
 complex_v1:
     schema: complex
     version_number: 1
