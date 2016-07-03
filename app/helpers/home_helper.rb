@@ -175,6 +175,8 @@ module HomeHelper
       array_specific_markup(property_definition)
     when "object"
       object_specific_markup(property_definition)
+    else
+      "".html_safe
     end
   end
 
