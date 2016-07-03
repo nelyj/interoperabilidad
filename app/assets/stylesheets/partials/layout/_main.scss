@@ -79,6 +79,11 @@ body {
     @media only screen and (max-width: 620px) {
         text-align: center;
     }
+    .empty-state {
+        display: none;
+        text-align: left;
+        text-indent: 265px;
+    }
 }
 
 .box-schema {

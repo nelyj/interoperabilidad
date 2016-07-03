@@ -20,6 +20,8 @@
               = category.name
 
     .col-md-10.schema-wrapper
+      %p.empty-state
+        No hay esquemas en esta categoría
       .schema-box-container
         - @schemas.each do |schema|
           .box-schema.filtered(data-categories="category-#{schema.schema_category.id}")
