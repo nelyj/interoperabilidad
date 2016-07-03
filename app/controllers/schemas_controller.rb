@@ -25,24 +25,6 @@ class SchemasController < ApplicationController
     end
   end
 
-  def edit
-    return unless user_signed_in?
-    if current_user.can_create_schemas
-      set_schema
-    else
-      redirect_to schemas_path, notice: 'no tiene permisos suficientes'
-    end
-  end
-
-  def update
-    set_schema
-    if @schema.update(params.require(:schema).permit(:schema_category_id))
-      redirect_to schemas_path, notice: 'schema was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
   def search
     @text_search = params[:text_search]
     @schemas = Schema.search(params[:text_search])
