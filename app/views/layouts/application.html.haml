@@ -63,7 +63,7 @@
                               Notificaciones
                           -if current_user.can_create_schemas
                             %li.new-schema
-                              = link_to new_schema_path do
+                              = link_to new_schema_path, id: "menu-new-schema" do
                                 %i.glyphicon.glyphicon-plus
                                 Nuevo Esquema
                           %li.logout
