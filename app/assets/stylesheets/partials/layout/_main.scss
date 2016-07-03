@@ -382,12 +382,10 @@ ul.list-categories {
         }
         &:hover {
             background: rgba(0, 105, 180, 0.10);
-            border: 1px solid rgba(0, 105, 179, 0.10);
             border-radius: 6px;
         }
         &.active {
             background: rgba(106, 193, 255, 1);
-            border: 1px solid rgba(0, 105, 179, 0.10);
             border-radius: 6px;
             a {
                 color: white;
