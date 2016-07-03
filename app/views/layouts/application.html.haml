@@ -16,56 +16,64 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body{:class => controller.controller_path + '_' + controller.action_name}
     %header
-      .container
-        .header-container.clearfix
-          .logo
-            = link_to "/schemas" do
-              = image_tag "logo.svg"
-          %nav
-            %ul.nav.nav-pills
-              %li{:role => "presentation"}
-                =active_link_to 'Servicios', '/services', :active => :inclusive
-              %li{:role => "presentation"}
-                =active_link_to 'Esquemas', '/schemas', :active => :inclusive
-              %li{:role => "presentation"}
-                %a{:href => "#"} Convenios
-
-          - if user_signed_in?
-            .btn-group#user-menu
-              %button.btn.btn-action-blue.round.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-                %span.name
-                  = current_user.name
-                %span.caret
-                %a.btn.btn-tiny-rounded.default.full
-                  99+
-              %ul.dropdown-menu.pull-right
-                %li.institution
-                  %small
-                    Institución
-                  = current_user.organizations.take.name
-                %li
-                  %a{:href => "#"}
-                    Servicios
-                %li
-                  %a{:href => "#"}
-                    Convenios
-                %li
-                  %a{:href => "#"}
-                    Notificaciones
-                -if current_user.can_create_schemas
-                  %li.new-schema
-                    = link_to new_schema_path do
-                      %i.glyphicon.glyphicon-plus
-                      Nuevo Esquema
-                %li.logout
-                  =link_to destroy_user_session_path, method: :delete, id: 'btn-logout' do
-                    %i.glyphicon.glyphicon-log-out
-                    Logout
-          - else
-            %a#btn-login.btn.btn-action-blue.round.gradient{href: user_clave_unica_omniauth_authorize_path}
-              = image_tag "clave-unica.svg", size: "28"
-              Clave<span>única</span>
-
+      .container-fluid
+        .row
+          .header-container.clearfix
+            %nav.navbar.navbar-static-top
+              .container
+                .navbar-header
+                  %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+                    %span.sr-only Toggle navigation
+                    %span.icon-bar
+                    %span.icon-bar
+                    %span.icon-bar
+                  .logo
+                    = link_to "/schemas" do
+                      = image_tag "logo.svg", :class => "img-responsive"
+                #navbar.navbar-collapse.collapse
+                  %ul.nav.navbar-nav.principal
+                    %li{:role => "presentation"}
+                      =active_link_to 'Servicios', '/services', :active => :inclusive
+                    %li{:role => "presentation"}
+                      =active_link_to 'Esquemas', '/schemas', :active => :inclusive
+                    %li{:role => "presentation"}
+                      %a{:href => "#"} Convenios
+                  .nav.navbar-nav.navbar-right
+                    - if user_signed_in?
+                      .btn-group#user-menu
+                        %button.btn.btn-action-blue.round.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                          %span.name
+                            = current_user.name
+                          %span.caret
+                          %a.btn.btn-tiny-rounded.default.full
+                            99+
+                        %ul.dropdown-menu.pull-right
+                          %li.institution
+                            %small
+                              Institución
+                            = current_user.organizations.take.namegit rebase --continue
+                          %li
+                            %a{:href => "#"}
+                              Servicios
+                          %li
+                            %a{:href => "#"}
+                              Convenios
+                          %li
+                            %a{:href => "#"}
+                              Notificaciones
+                          -if current_user.can_create_schemas
+                            %li.new-schema
+                              = link_to new_schema_path do
+                                %i.glyphicon.glyphicon-plus
+                                Nuevo Esquema
+                          %li.logout
+                            =link_to destroy_user_session_path, method: :delete, id: 'btn-logout' do
+                              %i.glyphicon.glyphicon-log-out
+                              Logout
+                    - else
+                      %a#btn-login.btn.btn-action-blue.round.gradient{href: user_clave_unica_omniauth_authorize_path}
+                        = image_tag "clave-unica.svg", size: "28"
+                        Clave<span>única</span>
     .container-fluid.main-container
       - flash.each do |name, msg|
         - if msg.is_a?(String)
@@ -77,12 +85,13 @@
           .col-md-6{:class => "col-xs-6 footer-col blue text-left"}
           .col-md-6{:class => "col-xs-6 footer-col red text-right"}
           .clearfix
+        .row  
           .container
-            .col-md-6.footer-col
+            .col-md-6.col-xs-6.footer-col
               .box-logo-footer
                 %p
                   Gobierno de Chile
                 =image_tag "gobcl-brand.svg", :class => "img-responsive"
-            .col-md-6.footer-col
+            .col-md-6.col-xs-6.footer-col
               %p.text-right
                 Políticas de Privacidad | CC
