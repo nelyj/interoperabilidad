@@ -1,30 +1,17 @@
-- if !user_signed_in?
-  Para subir un esquema por favor
-  = link_to 'identifíquese con su clave única', user_clave_unica_omniauth_authorize_path
-- else
-  = form_for @schema do |f|
-    - if @schema.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@schema.errors.count, "error")
-          prohibited this schema from being saved:
-        %ul
-          - @schema.errors.full_messages.each do |message|
-            %li= message
-    .container.new-schemas-container
-      %h1= @schema.name
-      %h4= @schema.schema_category.name
-      .row
-        .col-md-12
-          %table.table.schema-versions
-            %thead
-              %tr
-                %th Versión
-                %th Fecha
-                %th 
-            %tbody
-              - @schema_versions.each do |schema_version|
-                %tr
-                  %td= schema_version.version_number
-                  %td= schema_version.created_at
-                  %td= link_to 'Ver Esquema', [@schema,schema_version], :class => "btn btn-status primary"
+.container.new-schemas-container
+  %h1= @schema.name
+  %h4= @schema.schema_category.name
+  .row
+    .col-md-12
+      %table.table.schema-versions
+        %thead
+          %tr
+            %th Versión
+            %th Fecha
+            %th 
+        %tbody
+          - @schema_versions.each do |schema_version|
+            %tr
+              %td= schema_version.version_number
+              %td= schema_version.created_at
+              %td= link_to 'Ver Esquema', [@schema,schema_version], :class => "btn btn-status primary"
