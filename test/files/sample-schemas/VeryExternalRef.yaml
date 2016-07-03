@@ -1,0 +1,8 @@
+title: VeryExternalRef
+description: "Prueba de un esquema que hace referencia a otra cosa en internet"
+type: object
+required:
+  - bufferConfiguration
+properties:
+  bufferConfiguration:
+    $ref: https://api.apis.guru/v2/specs/bufferapp.com/1/swagger.json#/definitions/configuration

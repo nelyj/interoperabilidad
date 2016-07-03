@@ -1,0 +1,29 @@
+title: Datos Básicos Personales Simples
+description: "Datos básicos de una persona: RUN/RUT, Nombres, Apellidos, Fecha Nacimiento, Nacionalidad"
+type: object
+required:
+  - rolUnico
+  - nombres
+  - apellidos
+  - fechaNacimiento
+properties:
+  rolUnico:
+    $ref: http://interoperabilidad.digital.gob.cl/schemas/RolUnico/versions/1.json
+  nombres:
+    type: string
+    description: Todos los Nombres.
+  apellidos:
+    type: string
+    description: Todos los Apellidos.
+  fechaNacimiento:
+    description: Fecha Nacimiento en formato ISO
+    type: string
+    format: date
+example:
+  rolUnico:
+    numero: 11111111
+    dv: '1'
+    tipo: 'RUT'
+  nombres: Juan José
+  apellidos: Perez Peralta
+  fechaNacimiento: "1980-04-15"

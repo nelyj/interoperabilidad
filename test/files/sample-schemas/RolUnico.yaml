@@ -1,0 +1,31 @@
+title: Rol Único
+description: "Rol único para identificar una persona.
+
+- En el caso de personas nacidas en Chile
+(o inmigrantes) corresponde tanto al RUN como al RUT.
+
+- Para personas jurídicas o extranjeros que obtengan un RUT provisorio,
+corresponde al RUT."
+type: object
+required:
+  - numero
+  - dv
+  - tipo
+properties:
+  numero:
+    type: integer
+    description: Numero de RUT (sin dígito verificador)
+  dv:
+    type: string
+    pattern: '[0-9]{1}|K'
+    description: Dígito verificador como string de largo 1.
+  tipo:
+    description: Tipo de Rol. Cuando se trata de personas naturales donde el RUT y RUN coinciden, se prefiere especificar como ???????
+    type: string
+    enum:
+      - RUT
+      - RUN
+example:
+  numero: 11111111
+  dv: '1'
+  tipo: 'RUT'
