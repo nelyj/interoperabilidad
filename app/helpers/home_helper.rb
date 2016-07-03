@@ -146,7 +146,7 @@ module HomeHelper
     end
   end
 
-  def schema_object_array_property_markup(name, property_definition, required)
+  def schema_object_array_property_markup(name, property_definition, required, json_pointer, references)
     s_name_markup = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, s(name), class: "name")
     end
