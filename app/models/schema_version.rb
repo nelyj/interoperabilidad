@@ -6,14 +6,25 @@ class SchemaVersion < ApplicationRecord
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
   after_save :update_search_metadata
+  validate :spec_file_must_be_parseable
+  attr_accessor :spec_file_parse_exception
+
+  def spec_file_must_be_parseable
+    if self.spec_file_parse_exception
+      errors.add(:spec_file, "Archivo no está en formato JSON o YAML: #{spec_file_parse_exception}")
+    end
+  end
 
   def spec_file
     @spec_file
   end
 
   def spec_file=(spec_file)
+    self.spec_file_parse_exception = nil
     @spec_file = spec_file
     self.spec = YAML.safe_load(spec_file.read)
+  rescue Psych::SyntaxError => e
+    self.spec_file_parse_exception = e
   end
 
   def to_param
