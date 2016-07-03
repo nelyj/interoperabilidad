@@ -30,8 +30,8 @@ class HomeHelperTest < ActionView::TestCase
     uri = "#/local/ref"
     references = {
       "#/foo/bar/baz" => {
-        type: 'local',
-        uri: uri
+        'type' => 'local',
+        'uri' => uri
       }
     }
     expected = ""
@@ -42,8 +42,8 @@ class HomeHelperTest < ActionView::TestCase
   test "#schema_link_if_reference_present does not render the link when no reference is present" do
     references = {
       "#/foo/bar/baz" => {
-        type: 'local',
-        uri: "foo"
+        'type' => 'local',
+        'uri' => "foo"
       }
     }
     expected = ""
