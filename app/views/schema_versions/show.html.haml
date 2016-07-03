@@ -1,10 +1,10 @@
 
 .container-fluid.instance-panel.schema-detail
   .container
-    .col-md-2.no-gutter.text-right
+    .col-md-2.col-xs-2.no-gutter.text-right
       .category-icon
-        = image_tag "category-icon.svg"
-    .col-md-10.no-gutter.text-left
+        = image_tag "category-icon.svg", :class => "img-responsive"
+    .col-md-10.col-xs-10.no-gutter.text-left
       .box-detail-header
         %h3 Categoria
         %h2=@schema.schema_category.name
