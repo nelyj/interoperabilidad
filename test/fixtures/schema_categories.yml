@@ -9,3 +9,6 @@ anotaciones:
 
 zonas:
     name: Zonas
+
+categoria_sin_ningun_esquema:
+    name: CategoriaSinNingunEsquema

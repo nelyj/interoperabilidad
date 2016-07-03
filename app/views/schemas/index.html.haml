@@ -14,7 +14,7 @@
       %h3.col-title
         Categorías
       %ul#categories-list.list-categories
-        - @categories.each do |category|
+        - @categories.with_schemas.each do |category|
           %li
             %a(data-category="category-#{category.id}")
               = category.name
