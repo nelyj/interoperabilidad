@@ -1,0 +1,8 @@
+title: PrimitiveExternalRef
+description: "Prueba de un esquema que hace referencia a otra cosa en internet que es una primitiva"
+type: object
+required:
+  - edad
+properties:
+  edad:
+    $ref: https://raw.githubusercontent.com/e-gob/interoperabilidad/b133e8750b47a0995d389ca028b6397e21e09528/test/files/sample-schemas/PrimitiveSchema.yaml
