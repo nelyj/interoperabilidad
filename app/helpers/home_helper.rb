@@ -58,9 +58,26 @@ module HomeHelper
     end
   end
 
+  # Return true if the uri seems to point to our own schema pages
+  def looks_like_standard_schema_uri?(uri)
+    recognized_path = Rails.application.routes.recognize_path(URI(uri).path)
+    return (
+      recognized_path[:controller] == "schema_versions" &&
+      recognized_path[:action] == "show"
+    )
+  rescue
+    false
+  end
+
   def schema_link_if_reference_present(json_pointer, references)
-    if references[json_pointer] && references[json_pointer]['type'] == 'remote'
-      uri = references[json_pointer]['uri']
+    ref_key = "#" + json_pointer
+    if references[ref_key] && references[ref_key]['type'] == 'remote'
+      uri = references[ref_key]['uri']
+      if looks_like_standard_schema_uri?(uri)
+        # Instead of sending the user to the raw JSON of the referenced
+        # schema, send them to the nice HTML page of our own web app :)
+        uri.gsub!(/\.json$/, "")
+      end
       content_tag(:a, class: "btn btn-static link-schema", href: uri) do
         content_tag(:span, "schema")
       end
