@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 5.0.0.rc2', '< 5.1'
+gem 'rails', '>= 5.0.0', '< 5.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
@@ -46,11 +46,11 @@ gem 'hashie'
 gem 'redcarpet'
 gem 'rack-cors', :require => 'rack/cors'
 
-gem 'minitest-rails', '~> 3.0.0.rc1'
+gem 'minitest-rails', '~> 3.0.0'
 gem 'poltergeist'
 
 group :test do
-  gem 'minitest-rails-capybara', '~> 3.0.0.rc1'
+  gem 'minitest-rails-capybara', '~> 3.0.0'
   gem 'codeclimate-test-reporter', require: nil
   gem 'capybara-screenshot'
 end
