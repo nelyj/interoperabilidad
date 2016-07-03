@@ -2,14 +2,14 @@
   Para subir un esquema por favor
   = link_to 'identifíquese con su clave única', user_clave_unica_omniauth_authorize_path
 - else
-  = form_for @schema do |f|
-    - if @schema.errors.any?
+  = form_for([@schema, @schema_version]) do |f|
+    - if @schema_version.errors.any?
       #error_explanation
         %h2
-          = pluralize(@schema.errors.count, "error")
+          = pluralize(@schema_version.errors.count, "error")
           prohibited this schema from being saved:
         %ul
-          - @schema.errors.full_messages.each do |message|
+          - @schema_version.errors.full_messages.each do |message|
             %li= message
     .instance-panel
       .container
@@ -22,7 +22,7 @@
               %label#label-file.input-group-btn
                 %span#select-file.btn.btn-action-red.btn-lg
                   Seleccionar Archivo
-                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
+                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly', required: true
               .field
                 %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
               %span#remove-file
