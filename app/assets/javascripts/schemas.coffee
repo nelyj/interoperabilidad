@@ -35,7 +35,7 @@ $(document).on 'change', ':file', ->
 $(document).on 'click', '#remove-file', ->
   $('#input-file, #remove-file').hide()
   $('#label-file').show()
-  $("#input-file, #schema_spec_file").val ""
+  $("#input-file, #schema_spec_file, #schema_version_spec_file").val ""
 
 
 this.filterSchemas = filterSchemas = (category) ->
