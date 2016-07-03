@@ -8,9 +8,11 @@ end
 
 module UITestHelper
   def click_pointer(pointer)
-    within(:spec_pointer, pointer) do
-      first('a[data-toggle=collapse-next]').trigger('click')
-    end
+    find_pointer_expand_or_collapse_link(pointer).trigger('click')
+  end
+
+  def find_pointer_expand_or_collapse_link(pointer)
+    find(:spec_pointer, pointer).first('a[data-toggle=collapse-next]')
   end
 
   def click_schema_category(category_name)
