@@ -31,7 +31,7 @@
                 %a{:href => "#"} Convenios
 
           - if user_signed_in?
-            .btn-group#group-logout
+            .btn-group#user-menu
               %button.btn.btn-action-blue.round.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                 %span.name
                   = current_user.name

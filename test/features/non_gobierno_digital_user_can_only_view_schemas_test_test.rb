@@ -8,7 +8,7 @@ class NonGobiernoDigitalUserCanOnlyViewSchemasTestTest < Capybara::Rails::TestCa
     login_as users(:pedro), scope: :user
     schema_version = schema_versions(:rut_v1)
     visit schema_schema_version_path(schema_version.schema, schema_version)
-    click_button 'btn-user-menu'
+    find('#user-menu').click
     assert_content page, users(:pedro).name
     assert_content page, users(:pedro).organizations.take.name
     assert_content page, "RUT de una persona o empresa"
@@ -20,7 +20,7 @@ class NonGobiernoDigitalUserCanOnlyViewSchemasTestTest < Capybara::Rails::TestCa
     login_as users(:pedro), scope: :user
     schema_version = schema_versions(:rut_v1)
     visit new_schema_schema_version_path(schema_version.schema, schema_version)
-    click_button 'btn-user-menu'
+    find('#user-menu').click
     assert_content page, users(:pedro).name
     assert_content page, users(:pedro).organizations.take.name
     assert_content page,"no tiene permisos suficientes"
@@ -32,7 +32,7 @@ class NonGobiernoDigitalUserCanOnlyViewSchemasTestTest < Capybara::Rails::TestCa
     login_as users(:pedro), scope: :user
     schema_version = schema_versions(:rut_v1)
     visit new_schema_path(schema_version.schema, schema_version)
-    click_button 'btn-user-menu'
+    find('#user-menu').click
     assert_content page, users(:pedro).name
     assert_content page, users(:pedro).organizations.take.name
     assert_content page,"no tiene permisos suficientes"
