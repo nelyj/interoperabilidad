@@ -1,0 +1,8 @@
+title: DoubleExternalRef
+description: "Prueba de un esquema que hace referencia externa a otra cosa con referencia externa"
+type: object
+required:
+  - externalRef
+properties:
+  externalRef:
+    $ref: https://raw.githubusercontent.com/e-gob/interoperabilidad/e55458eb64cb8e561d365e88064ccf2db25fc48f/test/files/sample-schemas/VeryExternalRef.yaml
