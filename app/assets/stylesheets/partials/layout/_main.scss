@@ -36,9 +36,15 @@ body {
     color: $gray-text;
     font-size: 16px;
     &.schema_versions_show {
-        background-image: image-url('bg.jpg');
-        background-repeat: repeat-y;
-        background-position: center;
+        @media only screen and (min-width: 1200px) {
+            background-color: $gray-background;
+            background-image: image-url('bg.jpg');
+            background-repeat: repeat-y;
+            background-position: center;
+        }
+        @media only screen and (max-width: 1200px) {
+            background-color: rgba(255, 255, 255, 1);
+        }
     }
 }
 
@@ -69,7 +75,10 @@ body {
     display: inline-block;
     overflow: hidden;
     max-width: 880px;
-    width: 880px;
+    width: 100%;
+    @media only screen and (max-width: 620px) {
+        text-align: center;
+    }
 }
 
 .box-schema {
@@ -77,12 +86,14 @@ body {
     border-radius: 4px;
     background: white;
     display: inline-block;
-    max-width: 280px;
     width: 280px;
     text-align: left;
     -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
     -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+    @media only screen and (max-width: 480px) {
+        width: 98%;
+    }
     .title {
         color: white;
         height: 77px;
@@ -216,6 +227,12 @@ body {
             p {
                 display: none;
                 transition: all 0.3s ease;
+            }
+            h2 {
+                @media only screen and (max-width: 480px) {
+                    font-size: 2rem;
+                    line-height: 33px;
+                }
             }
             .category-icon {
                 padding: 10px;
@@ -381,16 +398,20 @@ ul.list-categories {
 
 .no-gutter,
 .no-gutter > [class*='col-'] {
-    padding-right: 0;
-    padding-left: 0;
+    @media only screen and (min-width: 768px) {
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
 
 //schema detail
 .container-schema-list {}
 
 .container-schema-detail {
-    padding: 0px 40px 0px 60px;
     color: rgba(94, 94, 94, 1);
+    @media only screen and (min-width: 768px) {
+        padding: 0px 40px 0px 60px;
+    }
     h1 {
         font-family: $font-regular;
         font-size: 3.5rem;
