@@ -1,0 +1,8 @@
+- flash.each do |type, msg|
+  - if msg.is_a?(String)
+    .no-gutter{:class => "alert #{type} alert-dismissable fade in", :"data-alert" => "alert"}
+      .row
+        .container
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+          %p 
+            = msg
