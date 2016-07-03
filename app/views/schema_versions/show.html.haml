@@ -31,7 +31,10 @@
       %p
         %strong
           Descripción:
-        = markdown.render(@schema_version.description).html_safe
+        - if @schema_version.description.present?
+          = markdown.render(@schema_version.description).html_safe
+        -else
+          = "Descripción no disponible"
       %p.url-canonica
         %span
           %strong
