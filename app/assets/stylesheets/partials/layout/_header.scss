@@ -6,40 +6,69 @@ header {
 
 .header-container {
     background: white;
-    height: 118px;
+    @media only screen and (min-width: 768px) {
+        height: 118px;
+    }
+    .navbar {
+        margin: 0px;
+        .navbar-header {
+            padding: 0px 0px 20px 0px;
+            .navbar-toggle {
+                border-color: rgba(185, 185, 185, 1);
+                span {
+                    background-color: darken(rgba(185, 185, 185, 1), 10%);
+                }
+            }
+        }
+        .nav {
+            > li {
+                > a {
+                    border-top: 1px solid rgba(185, 185, 185, 1);
+                }
+            }
+        }
+    }
     .logo {
         float: left;
-        margin: 0px 70px;
+        margin: 0px;
         display: inline-block;
+        @media only screen and (min-width: 992px) {
+            margin: 0px 55px;
+        }
     }
-    nav {
-        display: inline-block;
-        ul {
-            li {
-                height: 118px;
-                width: 160px;
-                text-align: center;
-                a {
+    @media only screen and (min-width: 768px) {
+        nav {
+            .principal {
+                li {
                     height: 118px;
-                    line-height: 100px;
-                    color: rgba(113, 123, 127, 1);
-                    font-size: 2rem;
-                    border-radius: 0px;
-                    &:hover {
-                        background-color: rgba(249, 249, 249, 1);
-                    }
-                    &.active {
-                        background-color: rgba(249, 249, 249, 1);
-                        border-bottom: 6px solid $official-blue;
+                    width: 160px;
+                    text-align: center;
+                    a {
+                        height: 118px;
+                        line-height: 100px;
                         color: rgba(113, 123, 127, 1);
+                        font-size: 2rem;
                         border-radius: 0px;
+                        border-top: none;
                         &:hover {
                             background-color: rgba(249, 249, 249, 1);
+                        }
+                        &.active {
+                            background-color: rgba(249, 249, 249, 1);
+                            border-bottom: 6px solid $official-blue;
                             color: rgba(113, 123, 127, 1);
+                            border-radius: 0px;
+                            &:hover {
+                                background-color: rgba(249, 249, 249, 1);
+                                color: rgba(113, 123, 127, 1);
+                            }
                         }
                     }
                 }
             }
+        }
+        .navbar .nav > li > a {
+            border-top: none;
         }
     }
     .nav-pills > li + li {
@@ -111,7 +140,7 @@ header {
         color: rgba(155, 155, 155, 1);
         background-color: rgba(255, 255, 255, 1);
         box-shadow: 0px 6px 13px 0px rgba(0, 0, 0, 0.30);
-        border-radius: 2px 0px 0px 0px 2px 2px 2px;
+        border-radius: 2px;
         &:after {
             position: absolute;
             top: -6px;
