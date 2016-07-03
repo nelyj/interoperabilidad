@@ -8,7 +8,9 @@
       .box-detail-header
         %h3 Categoria
         %h2=@schema.schema_category.name
-        %p <strong>Descripción:</strong> Estructura de la información para la respuesta a la consulta "información personal" realizada al SRCel.
+        %p
+          %strong Descripción:
+          =@schema.schema_category.description
 .clearfix
 .container
   .row
@@ -27,7 +29,7 @@
         %a.btn.btn-tiny-rounded.blue
           ="V" + @schema_version.version_number.to_s
       %p
-        %strong 
+        %strong
           Descripción:
         = markdown.render(@schema_version.description).html_safe
       %p.url-canonica
@@ -40,7 +42,7 @@
         %a{href: "#"} Versión Anterior
         %a{href: "#"} Versión Siguiente
         %a.historic{href: schema_schema_versions_path} Historial
-      %h2 Esquema
+      %h2 Especificación
       .field
       = schema_markup(@schema_version)
 
