@@ -1,0 +1,4 @@
+title: EdadPersonaAdulta
+description: "Edad de una persona adulta. Debe ser mayor o igual a 18 años"
+type: number
+minimum: 18
