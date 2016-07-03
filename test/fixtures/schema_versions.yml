@@ -1,16 +1,19 @@
 fecha_iso_v1:
     schema: fecha_iso
     version_number: 1
-    spec:
+    spec: &spec_fecha_iso_v1
         title: Fecha ISO
         description: Fecha en formato ISO
         type: string
         format: date
+    spec_with_resolved_refs:
+        definition: *spec_fecha_iso_v1
+        references: {}
 
 rut_v1:
     schema: rut
     version_number: 1
-    spec:
+    spec: &spec_rut_v1
         title: RUT
         description: RUT de una persona o empresa
         type: object
@@ -25,11 +28,14 @@ rut_v1:
                 type: string
                 pattern: \[0-9]{1}|K
                 description: Digito verificador como string de largo 1
+    spec_with_resolved_refs:
+        definition: *spec_rut_v1
+        references: {}
 
 complex_v1:
     schema: complex
     version_number: 1
-    spec:
+    spec: &spec_complex_v1
         type: object
         description: Nested schema objects
         required:
@@ -142,70 +148,85 @@ complex_v1:
                       id:
                         type: string
                         description: Descripción descrita
+    spec_with_resolved_refs:
+        definition: *spec_complex_v1
+        references: {}
 
 anotaciones_schema1_v1:
     schema: anotaciones_schema1
     version_number: 1
-    spec:
+    spec: &spec_anotaciones_schema1_v1
         title: Anotaciones 1
         description: Anotaciones 1 description
         type: string
         format: date
+    spec_with_resolved_refs:
+        definition: *spec_anotaciones_schema1_v1
+        references: {}
 
 anotaciones_schema2_v1:
     schema: anotaciones_schema2
     version_number: 1
-    spec:
+    spec: &spec_anotaciones_schema2_v1
         title: Anotaciones 2
         description: Anotaciones 2 description
         type: string
         format: date
+    spec_with_resolved_refs:
+        definition: *spec_anotaciones_schema2_v1
+        references: {}
 
 anotaciones_schema3_v1:
     schema: anotaciones_schema3
     version_number: 1
-    spec:
+    spec: &spec_anotaciones_schema3_v1
         title: Anotaciones 3
         description: Anotaciones 3 description
         type: string
         format: date
+    spec_with_resolved_refs:
+        definition: *spec_anotaciones_schema3_v1
+        references: {}
 
 zona1_v1:
     schema: zona1
     version_number: 1
-    spec:
+    spec: &spec_zona1_v1
         title: Zona Norte 1
         description: Zona Norte 1 description
         type: string
-
-zona1_v1:
-    schema: zona1
-    version_number: 1
-    spec:
-        title: Zona Norte 1
-        description: Zona Norte 1 description
-        type: string
-
+    spec_with_resolved_refs:
+        definition: *spec_zona1_v1
+        references: {}
 zona2_v1:
     schema: zona2
     version_number: 1
-    spec:
+    spec: &spec_zona2_v1
         title: Zona Centro 1
         description: Zona Centro 1 description
         type: string
+    spec_with_resolved_refs:
+        definition: *spec_zona1_v1
+        references: {}
 
 zona3_v1:
     schema: zona3
     version_number: 1
-    spec:
+    spec: &spec_zona3_v1
         title: Zona Sur 1
         description: Zona Sur 1 description
         type: string
+    spec_with_resolved_refs:
+        definition: *spec_zona3_v1
+        references: {}
 
 zona4_v1:
     schema: zona4
     version_number: 1
-    spec:
+    spec: &spec_zona4_v1
         title: Zona Costera 1
         description: Zona Costera 1 description
         type: string
+    spec_with_resolved_refs:
+        definition: *spec_zona4_v1
+        references: {}

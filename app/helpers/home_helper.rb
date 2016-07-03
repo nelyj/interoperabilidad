@@ -1,12 +1,13 @@
 module HomeHelper
 
   def schema_markup(schema_version)
+    spec = schema_version.spec_with_resolved_refs['definition']
     content_tag(:div, class: "schema-panel-set detail") do
       content_tag(:h3, s(schema_version.schema.name)) +
-      if schema_version.spec["type"] == "object"
-        schema_object_spec_markup(schema_version.spec)
+      if spec["type"] == "object"
+        schema_object_spec_markup(spec)
       else
-        schema_object_property_markup('', schema_version.spec, false)
+        schema_object_property_markup('', spec, false)
       end
     end
   end
