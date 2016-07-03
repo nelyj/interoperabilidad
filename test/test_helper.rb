@@ -140,6 +140,15 @@ INVALID_SPEC ='{
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  self.use_transactional_tests = false
 
-  # Add more helper methods to be used by all tests here...
+  DatabaseCleaner.strategy = :truncation
+
+  before do
+    DatabaseCleaner.start
+  end
+
+  after do
+    DatabaseCleaner.clean
+  end
 end

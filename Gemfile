@@ -53,6 +53,7 @@ group :test do
   gem 'minitest-rails-capybara', '~> 3.0.0'
   gem 'codeclimate-test-reporter', require: nil
   gem 'capybara-screenshot'
+  gem 'database_cleaner'
 end
 
 group :development, :test do
