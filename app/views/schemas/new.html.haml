@@ -4,13 +4,16 @@
 - else
   = form_for @schema do |f|
     - if @schema.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@schema.errors.count, "error")
-          prohibited this schema from being saved:
-        %ul
-          - @schema.errors.full_messages.each do |message|
-            %li= message
+      .container-fluid.no-gutter{:class => "alert warning alert-dismissable fade in", :"data-alert" => "alert"}
+        .row
+          .container
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+            %p
+              = pluralize(@schema.errors.count, "error")
+              prohibited this schema from being saved:
+            %ul
+              - @schema.errors.full_messages.each do |message|
+                %li= message       
     .instance-panel
       .container
         .col-md-12{:class => "text-center"}
