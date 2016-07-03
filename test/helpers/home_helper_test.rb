@@ -19,7 +19,7 @@ class HomeHelperTest < ActionView::TestCase
         'uri' => uri
       }
     }
-    expected = content_tag(:a, class: "btn btn-static link-schema", href: uri) do
+    expected = content_tag(:a, class: "btn btn-static link-schema", href: uri, rel: "noopener noreferrer", target: "_blank") do
       content_tag(:span, "schema")
     end
     assert_equal expected,

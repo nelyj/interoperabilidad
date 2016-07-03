@@ -79,7 +79,7 @@ module HomeHelper
         # schema, send them to the nice HTML page of our own web app :)
         uri.gsub!(/\.json$/, "")
       end
-      content_tag(:a, class: "btn btn-static link-schema", href: uri) do
+      content_tag(:a, class: "btn btn-static link-schema", href: uri, rel: "noopener noreferrer", target: "_blank") do
         content_tag(:span, "schema")
       end
     else
