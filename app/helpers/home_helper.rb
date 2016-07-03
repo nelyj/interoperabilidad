@@ -16,9 +16,10 @@ module HomeHelper
   end
 
   def schema_markup(schema_version)
+    name = schema_version.schema.name
     spec = schema_version.spec_with_resolved_refs['definition']
     references = schema_version.spec_with_resolved_refs['references']
-    content_tag(:div, class: "schema-panel-set detail") do
+    content_tag(:div, class: "schema-panel-set detail", data: {name: name, version: schema_version.version_number}) do
       inner_markup = case spec["type"]
       when "object"
         schema_object_spec_markup(spec, '/', references)
@@ -99,7 +100,7 @@ module HomeHelper
     if property_definition.has_key?('format')
       s_type_and_format += "(#{s(property_definition['format'])})"
     end
-    content_tag(:div, nil, class: "panel-group") do
+    content_tag(:div, nil, class: "panel-group", data: {pointer: json_pointer}) do
       content_tag(:div, nil, class: "panel panel-schema") do
         content_tag(:div, nil, class: "panel-heading clearfix") do
           content_tag(:div, nil, class: "panel-title " + (required ? "required" : "")) do

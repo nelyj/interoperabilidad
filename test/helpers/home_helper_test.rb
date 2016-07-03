@@ -116,7 +116,7 @@ class HomeHelperTest < ActionView::TestCase
       content_tag(:span, "test", class: "name")
     end
     html_actual = dynamic_component_structure(name, spec["properties"]["nombre"], false, '/properties/nombre', {})
-    html_expected = content_tag(:div, nil, class: "panel-group") do
+    html_expected = content_tag(:div, nil, class: "panel-group", data: {pointer: '/properties/nombre'}) do
       content_tag(:div, nil, class: "panel panel-schema") do
         content_tag(:div, nil, class: "panel-heading clearfix") do
           content_tag(:div, nil, class: "panel-title ") do
