@@ -1,5 +1,6 @@
 fecha_iso_v1:
     schema: fecha_iso
+    user: pablito
     version_number: 1
     spec: &spec_fecha_iso_v1
         title: Fecha ISO
@@ -12,6 +13,7 @@ fecha_iso_v1:
 
 rut_v1:
     schema: rut
+    user: pablito
     version_number: 1
     spec: &spec_rut_v1
         title: RUT
@@ -34,6 +36,7 @@ rut_v1:
 
 rut_v2:
     schema: rut
+    user: pablito
     version_number: 2
     spec: &spec_rut_v1
         title: RUT
@@ -56,6 +59,7 @@ rut_v2:
 
 rut_v3:
     schema: rut
+    user: pablito
     version_number: 3
     spec: &spec_rut_v1
         title: RUT
@@ -78,6 +82,7 @@ rut_v3:
 
 complex_v1:
     schema: complex
+    user: pablito
     version_number: 1
     spec: &spec_complex_v1
         type: object
@@ -198,6 +203,7 @@ complex_v1:
 
 anotaciones_schema1_v1:
     schema: anotaciones_schema1
+    user: pablito
     version_number: 1
     spec: &spec_anotaciones_schema1_v1
         title: Anotaciones 1
@@ -210,6 +216,7 @@ anotaciones_schema1_v1:
 
 anotaciones_schema2_v1:
     schema: anotaciones_schema2
+    user: pablito
     version_number: 1
     spec: &spec_anotaciones_schema2_v1
         title: Anotaciones 2
@@ -222,6 +229,7 @@ anotaciones_schema2_v1:
 
 anotaciones_schema3_v1:
     schema: anotaciones_schema3
+    user: pablito
     version_number: 1
     spec: &spec_anotaciones_schema3_v1
         title: Anotaciones 3
@@ -234,6 +242,7 @@ anotaciones_schema3_v1:
 
 zona1_v1:
     schema: zona1
+    user: pablito
     version_number: 1
     spec: &spec_zona1_v1
         title: Zona Norte 1
@@ -244,6 +253,7 @@ zona1_v1:
         references: {}
 zona2_v1:
     schema: zona2
+    user: pablito
     version_number: 1
     spec: &spec_zona2_v1
         title: Zona Centro 1
@@ -255,6 +265,7 @@ zona2_v1:
 
 zona3_v1:
     schema: zona3
+    user: pablito
     version_number: 1
     spec: &spec_zona3_v1
         title: Zona Sur 1
@@ -266,6 +277,7 @@ zona3_v1:
 
 zona4_v1:
     schema: zona4
+    user: pablito
     version_number: 1
     spec: &spec_zona4_v1
         title: Zona Costera 1

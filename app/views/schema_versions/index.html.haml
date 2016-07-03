@@ -8,10 +8,12 @@
           %tr
             %th Versión
             %th Fecha
-            %th 
+            %th Autor
+            %th
         %tbody
           - @schema_versions.each do |schema_version|
             %tr
               %td= schema_version.version_number
               %td= schema_version.created_at
+              %td= schema_version.user.name
               %td= link_to 'Ver Esquema', [@schema,schema_version], :class => "btn btn-status primary"

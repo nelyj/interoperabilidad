@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703153953) do
+ActiveRecord::Schema.define(version: 20160703224354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20160703153953) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.jsonb    "spec_with_resolved_refs"
+    t.integer  "user_id",                 null: false
   end
 
   create_table "schemas", force: :cascade do |t|
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160703153953) do
   end
 
   add_foreign_key "schema_versions", "schemas"
+  add_foreign_key "schema_versions", "users"
   add_foreign_key "schemas", "schema_categories"
   add_foreign_key "service_versions", "services"
   add_foreign_key "service_versions", "users"

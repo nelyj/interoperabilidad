@@ -2,6 +2,7 @@ require 'open3'
 
 class SchemaVersion < ApplicationRecord
   belongs_to :schema
+  belongs_to :user
   validates :spec, swagger_schema_object: true
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs

@@ -9,6 +9,9 @@ class SchemaTest < ActiveSupport::TestCase
       name: 'test-schema',
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
     )
+    schema.create_first_version(users(:pablito))
+    schema.save
+    schema
   end
 
   test '#search returns schemas based on an existing text' do
@@ -18,6 +21,7 @@ class SchemaTest < ActiveSupport::TestCase
       name: 'Persona',
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
     )
+    schema.create_first_version(users(:pablito))
     assert_equal schema, Schema.search("Persona").first
   end
 
@@ -29,9 +33,9 @@ class SchemaTest < ActiveSupport::TestCase
   test '#last_version returns the version number of the last schema version' do
     schema = create_valid_schema!
     assert_equal 1, schema.last_version_number
-    schema.schema_versions.create(spec_file: StringIO.new(VALID_SCHEMA_OBJECT))
+    schema.schema_versions.create(spec_file: StringIO.new(VALID_SCHEMA_OBJECT), user: users(:pablito))
     assert_equal 2, schema.last_version_number
-    schema.schema_versions.create(spec_file: StringIO.new(VALID_SCHEMA_OBJECT))
+    schema.schema_versions.create(spec_file: StringIO.new(VALID_SCHEMA_OBJECT), user: users(:pablito))
     assert_equal 3, schema.last_version_number
   end
 
@@ -53,16 +57,16 @@ class SchemaTest < ActiveSupport::TestCase
   test '#last_version returns the latest schema version' do
     schema = create_valid_schema!
     assert_equal 1, schema.last_version.version_number
-    schema.schema_versions.create(spec_file: StringIO.new(VALID_SCHEMA_OBJECT))
+    schema.schema_versions.create(spec_file: StringIO.new(VALID_SCHEMA_OBJECT), user: users(:pablito))
     assert_equal 2, schema.last_version.version_number
-    schema.schema_versions.create(spec_file: StringIO.new(VALID_SCHEMA_OBJECT))
+    schema.schema_versions.create(spec_file: StringIO.new(VALID_SCHEMA_OBJECT), user: users(:pablito))
     assert_equal 3, schema.last_version.version_number
   end
 
   test "#description returns the description inside the latest schema version's spec" do
     schema = create_valid_schema!
     assert_equal "Some object", schema.description
-    version = schema.schema_versions.build(spec_file: StringIO.new(VALID_SCHEMA_OBJECT))
+    version = schema.schema_versions.build(spec_file: StringIO.new(VALID_SCHEMA_OBJECT), user: users(:pablito))
     version.spec['description'] = "New object"
     version.save!
     assert_equal "New object", schema.description

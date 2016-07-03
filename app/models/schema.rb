@@ -6,7 +6,6 @@ class Schema < ApplicationRecord
   validates :name, uniqueness: true
   attr_accessor :spec
   validates :spec, swagger_schema_object: true
-  after_create :create_first_version
   before_save :update_humanized_name
   delegate :description, to: :last_version
   validate :spec_file_must_be_parseable
@@ -34,8 +33,8 @@ class Schema < ApplicationRecord
     name
   end
 
-  def create_first_version
-    schema_versions.create(spec: self.spec)
+  def create_first_version(user)
+    schema_versions.create(spec: self.spec, user: user)
   end
 
   def last_version_number
