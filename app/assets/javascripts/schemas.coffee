@@ -23,7 +23,7 @@ $(document).on 'fileselect', ':file', (event, numFiles, label) ->
     return
 
 $(document).on 'change', ':file', ->
-  input = $(this)
+  input = $(this) 
   numFiles = if input.get(0).files then input.get(0).files.length else 1
   label = input.val().replace(/\\/g, '/').replace(/.*\//, '')
   input.trigger 'fileselect', [
@@ -35,7 +35,8 @@ $(document).on 'change', ':file', ->
 $(document).on 'click', '#remove-file', ->
   $('#input-file, #remove-file').hide()
   $('#label-file').show()
-  $("#input-file").val ""
+  $("#input-file, #schema_spec_file").val ""
+
 
 this.filterSchemas = filterSchemas = (category) ->
   dataCategory = '[data-categories="' + category + '"]'
