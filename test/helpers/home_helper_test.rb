@@ -11,6 +11,57 @@ class HomeHelperTest < ActionView::TestCase
     assert_equal "/foo/bar~1baz/qux", json_pointer_path('/foo', 'bar/baz', 'qux')
   end
 
+  test "#schema_link_if_reference_present renders the link when a remote reference is present" do
+    uri = "http://external.com/ref"
+    references = {
+      "#/foo/bar/baz" => {
+        'type' => 'remote',
+        'uri' => uri
+      }
+    }
+    expected = content_tag(:a, class: "btn btn-static link-schema", href: uri) do
+      content_tag(:span, "schema")
+    end
+    assert_equal expected,
+      schema_link_if_reference_present('/foo/bar/baz', references)
+  end
+
+  test "#schema_link_if_reference_present does not render the link when a local reference is present" do
+    uri = "#/local/ref"
+    references = {
+      "#/foo/bar/baz" => {
+        type: 'local',
+        uri: uri
+      }
+    }
+    expected = ""
+    assert_equal expected,
+      schema_link_if_reference_present('/foo/bar/baz', references)
+  end
+
+  test "#schema_link_if_reference_present does not render the link when no reference is present" do
+    references = {
+      "#/foo/bar/baz" => {
+        type: 'local',
+        uri: "foo"
+      }
+    }
+    expected = ""
+    assert_equal expected,
+      schema_link_if_reference_present('/foo/bar/qux', references)
+  end
+
+  test "#looks_like_standard_schema_uri? returns true for schema version urls like ours" do
+    assert looks_like_standard_schema_uri? 'http://interoperabilidad.digital.gob.cl/schemas/foo/versions/4'
+    assert looks_like_standard_schema_uri? 'https://interoperabilidad.digital.gob.cl/schemas/foo/versions/4.json'
+    assert looks_like_standard_schema_uri? 'https://we.dont.really.care.about.the.host/schemas/Foo%Bar/versions/4534543535435435543'
+  end
+
+  test "#looks_like_standard_schema_uri? returns false for other urls" do
+    assert !looks_like_standard_schema_uri?('http://interoperabilidad.digital.gob.cl/schemas/foo.json')
+    assert !looks_like_standard_schema_uri?('https://raw.githubusercontent.com/e-gob/interoperabilidad/e55458eb64cb8e561d365e88064ccf2db25fc48f/test/files/sample-schemas/VeryExternalRef.yaml')
+  end
+
   test "#markup_humanizer returns a human readable range" do
     assert_equal "<li>rango 7-11 elementos</li>", markup_humanizer('elemento', 's', 11, 7)
   end
