@@ -31,10 +31,12 @@ class SchemaVersionsController < ApplicationController
 
   def create
     set_schema
-    @schema_version = @schema.schema_versions.build(schema_version_params)
+    @schema_version = @schema.schema_versions.new()
+    @schema_version.update(schema_version_params) unless params[:spec_file].blank?
     if @schema_version.save
-      redirect_to [@schema, @schema_version], notice: 'schema_version was successfully created.'
+      redirect_to [@schema, @schema_version], notice: 'Nueva versión creada correctamente'
     else
+      flash.now[:error] = "No se pudo crear nueva versión"
       render :new
     end
   end
