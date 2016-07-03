@@ -12,4 +12,8 @@ module UITestHelper
       first('a[data-toggle=collapse-next]').trigger('click')
     end
   end
+
+  def click_schema_category(category_name)
+    within(:css, ".list-categories") { find("a", text: category_name).click }
+  end
 end

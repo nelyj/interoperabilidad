@@ -15,7 +15,7 @@ class SchemaViewSpecTest < Capybara::Rails::TestCase
   test "schema spec shows links for external refs" do
     visit root_path
     click_link "Esquemas"
-    within(:css, ".list-categories") { find("a", text: "Anotaciones").click }
+    click_schema_category "Anotaciones"
     click_link "VeryExternalRef"
     within(:schema_spec, "VeryExternalRef") do
       assert_link("schema")
