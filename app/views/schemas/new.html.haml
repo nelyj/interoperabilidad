@@ -37,4 +37,5 @@
           = f.collection_select :schema_category_id, SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
           %br
           .text-right
-            = f.submit 'Crear Esquema', class: 'btn btn-action-red btn-lg'
+            = f.submit 'Crear Esquema', class: 'btn btn-action-red btn-lg',
+              id: "create-schema"
