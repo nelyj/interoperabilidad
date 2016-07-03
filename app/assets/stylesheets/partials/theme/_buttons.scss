@@ -104,6 +104,11 @@
     }
 }
 
+.btn-status {
+    @extend .btn-tiny-rounded;
+    border-radius: 7px;
+}
+
 .round {
     border-radius: 24px;
 }
