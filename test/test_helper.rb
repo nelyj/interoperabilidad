@@ -5,6 +5,13 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require "minitest/rails/capybara"
 require 'capybara/poltergeist'
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app,
+    window_size: [1200, 700],
+    screen_size: [1280, 768],
+    js_errors: true
+  )
+end
 Capybara.default_driver = :poltergeist
 require 'capybara-screenshot/minitest'
 
