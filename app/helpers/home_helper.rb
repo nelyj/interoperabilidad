@@ -113,7 +113,7 @@ module HomeHelper
             content_tag(:div, nil, class: "col-md-6 text-right") do
               schema_link_if_reference_present(json_pointer, references) +
               content_tag(:ul) do
-                schema_object_specific_markup(property_definition)
+                schema_object_specific_markup(property_definition) +
                 schema_object_common_markup(property_definition)
               end
             end
