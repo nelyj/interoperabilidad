@@ -1,0 +1,29 @@
+.schema-versions {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 5px 7px 0px rgba(0, 0, 0, 0.20);
+    border-radius: 3px;
+    thead {
+        background-color: rgba(246, 246, 246, 1);
+        border: none;
+        tr {
+            th {
+                border: none;
+                line-height: 50px;
+                padding-left: 20px;
+                vertical-align: middle;
+                background-color: transparent;
+                font-family: $font-bold;
+            }
+        }
+    }
+    tbody {
+        border: none;
+        tr {
+            td {
+                line-height: 60px;
+                padding-left: 20px;
+                vertical-align: middle;
+            }
+        }
+    }
+}
