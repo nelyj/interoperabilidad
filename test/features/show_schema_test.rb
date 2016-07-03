@@ -70,4 +70,44 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      end
    end
 
+   test "Schema Version show previous versions" do
+     schema_version = schema_versions(:rut_v3)
+     previous_version = schema_version.previous_version
+     visit schema_schema_version_path(schema_version.schema, schema_version)
+     within ".container-schema-detail" do
+       assert_selector 'h1', text: schema_version.schema.name
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + schema_version.version_number.to_s
+       assert_selector 'p', text: schema_version.description
+     end
+     click_link ("Versión Anterior")
+     within ".container-schema-detail" do
+       assert_selector 'h1', text: previous_version.schema.name
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + previous_version.version_number.to_s
+       assert_selector 'p', text: previous_version.description
+     end
+   end
+
+   test "Schema Version show next versions" do
+     schema_version = schema_versions(:rut_v2)
+     next_version = schema_version.next_version
+     visit schema_schema_version_path(schema_version.schema, schema_version)
+     within ".container-schema-detail" do
+       assert_selector 'h1', text: schema_version.schema.name
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + schema_version.version_number.to_s
+       assert_selector 'p', text: schema_version.description
+     end
+     click_link ("Versión Siguiente")
+     within ".container-schema-detail" do
+       assert_selector 'h1', text: next_version.schema.name
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + next_version.version_number.to_s
+       assert_selector 'p', text: next_version.description
+     end
+   end
+
+   test "Schema Version show History" do
+     schema_version = schema_versions(:rut_v3)
+     visit schema_schema_version_path(schema_version.schema, schema_version)
+     click_link ("Historial")
+   end
+
 end
