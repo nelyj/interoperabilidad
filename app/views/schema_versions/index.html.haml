@@ -11,9 +11,6 @@
         %ul
           - @schema.errors.full_messages.each do |message|
             %li= message
-    .instance-panel
-      .container
-        .col-md-12{:class => "text-center"}
     .container.new-schemas-container
       %h1= @schema.name
       %h4= @schema.schema_category.name
@@ -30,4 +27,4 @@
                 %tr
                   %td= schema_version.version_number
                   %td= schema_version.created_at
-                  %td= link_to 'Ver', [@schema,schema_version]
+                  %td= link_to 'Ver Esquema', [@schema,schema_version], :class => "btn btn-status primary"
