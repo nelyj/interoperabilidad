@@ -176,6 +176,9 @@ GEM
       validate_url
       webfinger (>= 1.0.1)
     orm_adapter (0.5.0)
+    parallel (1.9.0)
+    parallel_tests (2.6.0)
+      parallel
     pg (0.18.4)
     pkg-config (1.1.7)
     poltergeist (1.10.0)
@@ -324,6 +327,7 @@ DEPENDENCIES
   minitest-rails-capybara (~> 3.0.0)
   omniauth
   omniauth-openid-connect
+  parallel_tests
   pg (~> 0.18)
   poltergeist
   puma (~> 3.0)

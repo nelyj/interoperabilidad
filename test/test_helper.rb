@@ -1,4 +1,5 @@
 ENV['RAILS_ENV'] ||= 'test'
+require 'parallel_tests/test/runtime_logger' if ENV['RECORD_RUNTIME']
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 require File.expand_path('../../config/environment', __FILE__)
