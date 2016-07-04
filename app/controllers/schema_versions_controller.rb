@@ -31,10 +31,8 @@ class SchemaVersionsController < ApplicationController
 
   def create
     set_schema
-
     @schema_version = @schema.schema_versions.new()
-    @schema_version.update(schema_version_params.merge(user:current_user)) unless params[:spec_file].blank?
-
+    @schema_version.update(schema_version_params.merge(user:current_user)) unless params[:schema_version].blank?
     if @schema_version.save
       redirect_to [@schema, @schema_version], notice: 'Nueva versión creada correctamente'
     else
