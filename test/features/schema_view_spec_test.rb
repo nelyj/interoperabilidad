@@ -5,16 +5,20 @@ class SchemaViewSpecTest < Capybara::Rails::TestCase
   include UITestHelper
 
   setup do
-    Schema.create!(
+    schema_1 = Schema.create!(
       name: 'VeryExternalRef',
       schema_category: schema_categories(:anotaciones),
       spec_file: File.open(Rails.root / "test/files/sample-schemas/VeryExternalRef.yaml")
     )
-    Schema.create!(
+    schema_1.create_first_version(users(:pablito))
+    schema_1.save
+    schema_2 = Schema.create!(
       name: 'PrimitiveExternalRef',
       schema_category: schema_categories(:anotaciones),
       spec_file: File.open(Rails.root / "test/files/sample-schemas/PrimitiveExternalRef.yaml")
     )
+    schema_2.create_first_version(users(:pablito))
+    schema_2.save
   end
 
   test "schema spec shows links for external refs" do
