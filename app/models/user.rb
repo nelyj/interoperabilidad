@@ -9,7 +9,7 @@ class User < ApplicationRecord
   devise :trackable, :omniauthable, omniauth_providers: [:clave_unica]
 
   FALLBACK_URL = 'http://private-5f0326-microserviciosderolesv4.apiary-mock.com'
-  URL = ENV['ROLE_SERVICE_URL']
+  URL = ENV['ROLE_SERVICE_URL'] || 'http://thawing-shore-28727.herokuapp.com'
   APP_ID = ENV['ROLE_APP_ID'] || 'AB01'
 
   def self.from_omniauth(auth)
