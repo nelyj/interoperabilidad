@@ -108,7 +108,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      schema_version = schema_versions(:rut_v2)
      visit schema_schema_version_path(schema_version.schema, schema_version)
      click_link ("Historial")
-     within ".container.container.new-schemas-container" do
+     within ".container.new-schemas-container" do
        assert_selector 'h1', text: schema_version.schema.name
        assert_selector 'h4', text: schema_version.schema.schema_category.name
        assert_text schema_version.previous_version.version_number
