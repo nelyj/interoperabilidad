@@ -111,6 +111,43 @@ class HomeHelperTest < ActionView::TestCase
     assert_equal html_expected, html_actual
   end
 
+  test "#numeric_primitive_markup represent exclusive bounds when max and min are present" do
+    spec = schema_versions(:complex_v1).spec
+    html_actual = numeric_primitive_markup_bounds(spec["properties"]["integro"])
+    assert_equal content_tag(:li, "4 < x < 16"), html_actual
+  end
+
+  test "#numeric_primitive_markup represent bounds when max and min are present" do
+    spec = schema_versions(:complex_v1).spec
+    html_actual = numeric_primitive_markup_bounds(spec["properties"]["numero"])
+    assert_equal content_tag(:li, "3 ≤ x ≤ 7"), html_actual
+  end
+
+  test "#numeric_primitive_markup represent bounds when min is present" do
+    spec = schema_versions(:complex_v1).spec
+    html_actual = numeric_primitive_markup_bounds(spec["properties"]["numero2"])
+    assert_equal content_tag(:li, "x ≥ 3"), html_actual
+  end
+
+  test "#numeric_primitive_markup represent exclusive bounds when max is present" do
+    spec = schema_versions(:complex_v1).spec
+    html_actual = numeric_primitive_markup_bounds(spec["properties"]["integro2"])
+    assert_equal content_tag(:li, "x < 7"), html_actual
+  end
+
+  test "#numeric_primitive_markup represent exclusive bounds when min is present" do
+    spec = schema_versions(:complex_v1).spec
+    html_actual = numeric_primitive_markup_bounds(spec["properties"]["numero3"])
+    assert_equal content_tag(:li, "x > 5"), html_actual
+  end
+
+  test "#numeric_primitive_markup represent bounds when max is present" do
+    spec = schema_versions(:complex_v1).spec
+    html_actual = numeric_primitive_markup_bounds(spec["properties"]["integro3"])
+    assert_equal content_tag(:li, "x ≤ 4"), html_actual
+  end
+
+
   test "#array_specific_markup returns html to represent a numeric property" do
     spec = schema_versions(:complex_v1).spec
     html_actual = array_specific_markup(spec["properties"]["estadosMensajes"])

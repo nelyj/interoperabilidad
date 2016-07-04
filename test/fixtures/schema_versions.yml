@@ -132,6 +132,18 @@ complex_v1:
             maximum: 7
             exclusiveMaximum: true
             description: Descripción descrita
+          numero3:
+            title: numero3
+            type: number
+            minimum: 5
+            exclusiveMinimum: true
+            description: Descripción descrita
+          integro3:
+            title: integro3
+            type: integer
+            maximum: 4
+            exclusiveMaximum: false
+            description: Descripción descrita
           fecha:
             type: string
             format: date-time
