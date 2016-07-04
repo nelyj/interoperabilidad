@@ -22,7 +22,7 @@ class CreateSchemaTest < Capybara::Rails::TestCase
   test "attempt to create a schema with an invalid file" do
     attach_file 'schema_spec_file', Rails.root.join('README.md')
     click_button "Crear Esquema"
-    assert_content page, "Archivo no está en formato JSON o YAML:"
+    assert_content page, "Archivo no está en formato JSON o YAML"
   end
 
   test "create a valid schema" do

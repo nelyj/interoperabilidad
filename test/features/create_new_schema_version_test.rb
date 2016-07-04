@@ -25,7 +25,7 @@ class CreateNewSchemaVersionTest < Capybara::Rails::TestCase
   test "attempt to create a schema with an invalid file" do
     attach_file 'schema_version_spec_file', Rails.root.join('README.md')
     click_button "Subir Nueva Versión"
-    assert_content page, "No se pudo crear nueva versión"
+    assert_content page, "Archivo no está en formato JSON o YAML"
   end
 
   test "create a valid schema" do
