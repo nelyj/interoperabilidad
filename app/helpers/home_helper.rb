@@ -189,7 +189,7 @@ module HomeHelper
 
   def schema_object_common_markup_default(property_definition)
     if property_definition['default'].present?
-      content_tag(:li, 'por defecto ' + s(property_definition['default'].to_s))
+      content_tag(:li, 'default ' + s(property_definition['default'].to_s))
     else
       "".html_safe
     end
@@ -208,7 +208,7 @@ module HomeHelper
     end
   end
 
-  def markup_humanizer(name = '', suffix = '', max, min)
+  def markup_humanizer(name = '', suffix = '', max: nil, min: nil)
     if max.present? && min.present?
       if max == min
         content_tag(:li, "largo #{s(max.to_s)} #{name}" +
@@ -233,14 +233,14 @@ module HomeHelper
   def object_specific_markup(property_definition)
     max = property_definition['maxProperties']
     min = property_definition['minProperties']
-    markup_humanizer("propiedad", "es", max, min)
+    markup_humanizer("propiedad", "es", max: max, min: min)
   end
 
   def array_specific_markup(property_definition)
     max = property_definition['maxItems']
     min = property_definition['minItems']
     array_specific_markup_unique_items(property_definition) +
-      markup_humanizer("elemento", "s", max, min)
+      markup_humanizer("elemento", "s", max: max, min: min)
   end
 
   def array_specific_markup_unique_items(property_definition)
@@ -288,7 +288,8 @@ module HomeHelper
   def string_primitive_markup(primitive)
     max = primitive['maxLength']
     min = primitive['minLength']
-    string_primitive_markup_pattern(primitive) + markup_humanizer(max, min)
+    string_primitive_markup_pattern(primitive) +
+      markup_humanizer("caracter", "es", max: max, min: min)
   end
 
   def string_primitive_markup_pattern(primitive)

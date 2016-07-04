@@ -30,7 +30,7 @@ class CreateNewSchemaVersionTest < Capybara::Rails::TestCase
 
   test "create a valid schema" do
     attach_file 'schema_version_spec_file', Rails.root.join(
-      'test', 'files', 'test-schemas', 'schemaObject.json')
+      'test', 'files', 'sample-schemas', 'schemaObject.json')
     click_button "Subir Nueva Versión"
     assert_content page, "Nueva versión creada correctamente"
   end

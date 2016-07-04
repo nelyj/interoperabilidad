@@ -27,7 +27,7 @@ class CreateSchemaTest < Capybara::Rails::TestCase
 
   test "create a valid schema" do
     attach_file 'schema_spec_file', Rails.root.join(
-      'test', 'files', 'test-schemas', 'schemaObject.json')
+      'test', 'files', 'sample-schemas', 'schemaObject.json')
     click_button "Crear Esquema"
     assert_content page, "Nuevo Esquema creado correctamente"
   end

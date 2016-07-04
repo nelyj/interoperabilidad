@@ -63,50 +63,58 @@ class HomeHelperTest < ActionView::TestCase
   end
 
   test "#markup_humanizer returns a human readable range" do
-    assert_equal "<li>rango 7-11 elementos</li>", markup_humanizer('elemento', 's', 11, 7)
+    assert_equal "<li>rango 7-11 elementos</li>", markup_humanizer('elemento', 's', max: 11, min: 7)
+    assert_equal "<li>rango 0-1 elemento</li>", markup_humanizer('elemento', 's', max: 1, min: 0)
   end
 
   test "#markup_humanizer returns a human readable length" do
-    assert_equal "<li>largo 7 elementos</li>", markup_humanizer('elemento', 's', 7, 7)
+    assert_equal "<li>largo 7 elementos</li>", markup_humanizer('elemento', 's', max: 7, min: 7)
+    assert_equal "<li>largo 1 elemento</li>", markup_humanizer('elemento', 's', max: 1, min: 1)
+  end
+
+  test "#markup_humanizer returns the maximum value" do
+    assert_equal "<li>máximo 20 elementos</li>", markup_humanizer('elemento', 's', max: 20)
+    assert_equal "<li>máximo 1 item</li>", markup_humanizer('item', 's', max: 1)
+  end
+
+  test "#markup_humanizer returns the minimum value" do
+    assert_equal "<li>mínimo 3 items</li>", markup_humanizer('item', 's', min: 3)
+    assert_equal "<li>mínimo 1 elemento</li>", markup_humanizer('elemento', 's', min: 1)
+  end
+
+  test "#markup_humanizer returns an empty string when max and min are not present" do
+    assert_equal "".html_safe, markup_humanizer('elemento', 's')
   end
 
   test "#schema_object_specific_markup returns html to represent a string primitive" do
     spec = schema_versions(:complex_v1).spec
-    html = content_tag(:ul) do
-      schema_object_specific_markup(spec["properties"]["hora"])
-    end
-    assert_equal "<ul><li class=\"reg-exp\"><span>/[0-9] {2}/</span></li></ul>", html
+    html = schema_object_specific_markup(spec["properties"]["hora"])
+    assert_equal "<li class=\"reg-exp\"><span>/[0-9] {2}/</span></li>", html
   end
 
   test "#schema_object_common_markup returns html to represent an enum" do
     spec = schema_versions(:complex_v1).spec
-    html = content_tag(:ul) do
-      schema_object_common_markup(spec["properties"]["nombre"])
-    end
-    assert_equal "<ul><li>enum: pepe<br>juan<br></li></ul>", html
+    html = schema_object_common_markup(spec["properties"]["nombre"])
+    assert_equal "<li>enum: pepe<br>juan<br></li>", html
+  end
+
+  test "#schema_object_common_markup returns html to represent the default value" do
+    spec = schema_versions(:complex_v1).spec
+    html = schema_object_common_markup_default(spec["properties"]["numero"])
+    assert_equal content_tag(:li, 'default 5'), html
   end
 
   test "#numeric_primitive_markup returns html to represent a numeric property" do
     spec = schema_versions(:complex_v1).spec
-    html_actual = content_tag(:ul) do
-      numeric_primitive_markup(spec["properties"]["integro"])
-    end
-    html_expected = content_tag(:ul) do
-      content_tag(:li, "múltiplo de 5") +
-      content_tag(:li, "4 < x < 16")
-    end
+    html_actual = numeric_primitive_markup(spec["properties"]["integro"])
+    html_expected = content_tag(:li, "múltiplo de 5") + content_tag(:li, "4 < x < 16")
     assert_equal html_expected, html_actual
   end
 
   test "#array_specific_markup returns html to represent a numeric property" do
     spec = schema_versions(:complex_v1).spec
-    html_actual = content_tag(:ul) do
-      array_specific_markup(spec["properties"]["estadosMensajes"])
-    end
-    html_expected = content_tag(:ul) do
-      content_tag(:li, "elementos únicos") +
-      content_tag(:li, "mínimo 2 elementos")
-    end
+    html_actual = array_specific_markup(spec["properties"]["estadosMensajes"])
+    html_expected = content_tag(:li, "elementos únicos") + content_tag(:li, "mínimo 2 elementos")
     assert_equal html_expected, html_actual
   end
 
