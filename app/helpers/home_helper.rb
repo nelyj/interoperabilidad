@@ -129,7 +129,9 @@ module HomeHelper
   end
 
   def schema_object_primitive_property_markup(name, primitive_property_definition, required, json_pointer, references)
-    s_name_markup = content_tag(:span, s(name), class: "name")
+    css_class = "name"
+    css_class.concat(" anonymous") if name.empty?
+    s_name_markup = content_tag(:span, s(name), class: css_class)
     dynamic_component_structure(
       s_name_markup, primitive_property_definition, required,
       json_pointer, references

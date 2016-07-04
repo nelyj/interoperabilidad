@@ -17,6 +17,7 @@ class SchemaViewSpecTest < Capybara::Rails::TestCase
     make_schema "VeryExternalRef", "yaml"
     make_schema "PrimitiveExternalRef", "yaml"
     make_schema "ComplexSchema", "json"
+    make_schema "PrimitiveSchema", "yaml"
     visit root_path
     click_link "Esquemas"
     click_schema_category "Anotaciones"
@@ -169,4 +170,10 @@ class SchemaViewSpecTest < Capybara::Rails::TestCase
     end
   end
 
+  test "primitive schemas do not render an 'empty' name" do
+    click_link "PrimitiveSchema"
+    within(:schema_spec, "PrimitiveSchema") do
+      assert_no_css(".name") # It is present in the DOM, but invisible
+    end
+  end
 end
