@@ -18,4 +18,16 @@ module UITestHelper
   def click_schema_category(category_name)
     within(:css, ".list-categories") { find("a", text: category_name).click }
   end
+
+  def assert_required_property(pointer)
+    within(:spec_pointer, pointer) do
+      assert_css(".panel-title.required .name")
+    end
+  end
+
+  def assert_no_required_property(pointer)
+    within(:spec_pointer, pointer) do
+      assert_no_css(".panel-title.required .name", text: pointer.split('/').last)
+    end
+  end
 end
