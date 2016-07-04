@@ -44,7 +44,7 @@ class SchemaViewSpecTest < Capybara::Rails::TestCase
     end
   end
 
-  test "schema spec indicates required properties" do
+  test "schema spec lists properties and their required status" do
     click_link "ComplexSchema"
     within(:schema_spec, "ComplexSchema") do
       assert_no_required_property "/properties/hora"
@@ -75,4 +75,98 @@ class SchemaViewSpecTest < Capybara::Rails::TestCase
       assert_no_required_property "/properties/estadosSiguientes/items/properties/nombre"
     end
   end
+
+  test "schema spec lists constraints and data types" do
+    click_link "ComplexSchema"
+    within(:schema_spec, "ComplexSchema") do
+      within :spec_pointer, "/properties/hora" do
+        assert_content "string"
+        assert_content "/[0-9] {1}/"
+      end
+      within :spec_pointer, "/properties/fecha" do
+        assert_content "string"
+        assert_content "date-time"
+      end
+      within :spec_pointer, "/properties/nombre" do
+        assert_content "string"
+        assert_content "enum"
+        assert_content "pepe"
+        assert_content "juan"
+      end
+      within :spec_pointer, "/properties/numero" do
+        assert_content "number"
+        assert_content "múltiplo de 5"
+        assert_content "3 ≤ x ≤ 7"
+      end
+      within :spec_pointer, "/properties/integro" do
+        assert_content "integer"
+        assert_content "default 5"
+        assert_content "3 < x < 7"
+      end
+      within :spec_pointer, "/properties/numero2" do
+        assert_content "number"
+        assert_content "x ≥ 3"
+      end
+      within :spec_pointer, "/properties/estadosMensajes" do
+        assert_content "array"
+        assert_content "elementos únicos"
+        assert_content "mínimo 2 elementos"
+      end
+      click_pointer "/properties/estadosMensajes"
+      within :spec_pointer, "/properties/estadosMensajes/items" do
+        assert_content "object"
+      end
+      click_pointer "/properties/estadosMensajes/items"
+      within :spec_pointer, "/properties/estadosMensajes/items/properties/id" do
+        assert_content "number"
+      end
+      within :spec_pointer, "/properties/estadosMensajes/items/properties/tipo" do
+        assert_content "string"
+      end
+      within :spec_pointer, "/properties/estadosMensajes/items/properties/titulo" do
+        assert_content "string"
+      end
+      within :spec_pointer, "/properties/estadosMensajes/items/properties/contenido" do
+        assert_content "string"
+      end
+      within :spec_pointer, "/properties/estadosMensajes/items/properties/tipoContenido" do
+        assert_content "string"
+        assert_content "enum:"
+        assert_content "TXT"
+        assert_content "HTML"
+        assert_content "PDF"
+        assert_content "NADA"
+      end
+      within :spec_pointer, "/properties/estadosMensajes/items/properties/notificacionPorEmail" do
+        assert_content "boolean"
+      end
+      within :spec_pointer, "/properties/estadosSiguientes" do
+        assert_content "array"
+        assert_content "mínimo 1 elemento"
+      end
+      click_pointer "/properties/estadosSiguientes"
+      within :spec_pointer, "/properties/estadosSiguientes/items" do
+        assert_content "object"
+      end
+      click_pointer "/properties/estadosSiguientes/items"
+      within :spec_pointer, "/properties/estadosSiguientes/items/properties/id" do
+        assert_content "string"
+      end
+      within :spec_pointer, "/properties/estadosSiguientes/items/properties/Cosas" do
+        assert_content "array"
+      end
+      click_pointer "/properties/estadosSiguientes/items/properties/Cosas"
+      within :spec_pointer, "/properties/estadosSiguientes/items/properties/Cosas/items" do
+        assert_content "object"
+      end
+      click_pointer "/properties/estadosSiguientes/items/properties/Cosas/items"
+      within :spec_pointer, "/properties/estadosSiguientes/items/properties/Cosas/items/properties/id" do
+        assert_content "string"
+      end
+      within :spec_pointer, "/properties/estadosSiguientes/items/properties/nombre" do
+        assert_content "string"
+      end
+    end
+  end
+
 end
