@@ -123,7 +123,9 @@ class HomeHelperTest < ActionView::TestCase
             content_tag(:div, nil, class: "col-md-6") do
               name +
               content_tag(:p, "string", class: "data-type") +
-              content_tag(:p, "Descripción descrita", class: "description")
+              content_tag(:div, class: "description") do
+                content_tag(:p, "Descripción descrita")
+              end
             end +
             content_tag(:div, nil, class: "col-md-6 text-right") do
               content_tag(:ul) do

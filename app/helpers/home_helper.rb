@@ -1,4 +1,5 @@
 module HomeHelper
+  include ApplicationHelper
 
   def json_pointer_path(base, *new_components)
     return base if new_components.empty?
@@ -107,8 +108,9 @@ module HomeHelper
             content_tag(:div, nil, class: "col-md-6") do
               s_name_markup +
               content_tag(:p, s_type_and_format, class: "data-type") +
-              content_tag(:p, s(property_definition['description']) || '',
-                class: "description")
+              content_tag(:div, nil, class: "description") do
+                markdown.render(property_definition['description'] || '').html_safe
+              end
             end +
             content_tag(:div, nil, class: "col-md-6 text-right") do
               schema_link_if_reference_present(json_pointer, references) +
