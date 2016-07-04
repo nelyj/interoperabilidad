@@ -18,8 +18,7 @@ class SchemaViewSpecTest < Capybara::Rails::TestCase
     make_schema "PrimitiveExternalRef", "yaml"
     make_schema "ComplexSchema", "json"
     make_schema "PrimitiveSchema", "yaml"
-    visit root_path
-    click_link "Esquemas"
+    visit schemas_path
     click_schema_category "Anotaciones"
   end
 

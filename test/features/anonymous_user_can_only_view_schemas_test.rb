@@ -22,7 +22,6 @@ class AnonymousUserCanOnlyViewSchemasTest < Capybara::Rails::TestCase
 
   test "anonymous user can't create new schemas" do
     schema_version = schema_versions(:rut_v1)
-    visit root_path
     visit new_schema_path
     assert page.has_content?("Para subir un esquema por favor identifíquese con su clave única")
     assert page.has_no_content?("Nueva Versión")

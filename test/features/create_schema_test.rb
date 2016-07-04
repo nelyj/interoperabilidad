@@ -5,7 +5,6 @@ class CreateSchemaTest < Capybara::Rails::TestCase
   after { Warden.test_reset! }
 
   setup do
-    visit root_path
     login_as users(:pablito), scope: :user
     visit root_path
     find('#user-menu').click

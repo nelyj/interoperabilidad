@@ -7,9 +7,8 @@ class CreateNewSchemaVersionTest < Capybara::Rails::TestCase
   after { Warden.test_reset! }
 
   setup do
-    visit root_path
     login_as users(:pablito), scope: :user
-    visit root_path
+    visit schemas_path
     click_schema_category "Anotaciones"
     click_link "AnotacionesSchema1"
     click_link "Nueva Versión"
