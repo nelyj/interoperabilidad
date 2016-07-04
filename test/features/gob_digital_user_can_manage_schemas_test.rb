@@ -24,7 +24,6 @@ class GobDigitalUserCanManageSchemasTest < Capybara::Rails::TestCase
     click_link 'Esquemas'
     assert_text 'Directorio de Esquemas'
     click_schema_category schema_categories(:zonas).name
-    assert_text schemas(:zona1).name
     click_link schemas(:zona1).name
 
     within ".container-schema-detail" do
