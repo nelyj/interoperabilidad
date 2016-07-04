@@ -12,11 +12,12 @@
           .container
             %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
             %p
+              No se pudo guardar el esquema debido a
               = pluralize(@schema.errors.count, "error")
-              prohibited this schema from being saved:
+              \:
             %ul
               - @schema.errors.full_messages.each do |message|
-                %li= message       
+                %li= message
     .instance-panel
       .container
         .col-md-12{:class => "text-center"}

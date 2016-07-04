@@ -1,4 +1,4 @@
-- if !user_signed_in? 
+- if !user_signed_in?
   .alert.info
     .container
       %p
@@ -12,11 +12,12 @@
           .container
             %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
             %p
+              No se pudo guardar la nueva versión del esquema debido a
               = pluralize(@schema_version.errors.count, "error")
-              prohibited this schema from being saved:
+              \:
             %ul
               - @schema_version.errors.full_messages.each do |message|
-                %li= message 
+                %li= message
     .instance-panel
       .container
         .col-md-12{:class => "text-center"}
