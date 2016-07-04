@@ -5,7 +5,6 @@ document.addEventListener 'turbolinks:load', ->
   hljs.initHighlightingOnLoad();
   $('#categories-list li:first').addClass("active")
   filterSchemas($('#categories-list li:first a').attr("data-category"))
-  $(".instance-panel.schema-detail").sticky({topSpacing: 0, zIndex: 99});
 
 $(document).on 'click', '#categories-list li a', (e) ->
   e.preventDefault()
