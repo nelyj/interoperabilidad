@@ -7,7 +7,6 @@ class GobDigitalUserCanManageSchemasTest < Capybara::Rails::TestCase
   after { Warden.test_reset! }
 
   test "Loged User can_create_schema can see Nuevo Esquema button " do
-    visit root_path
     login_as users(:pedro), scope: :user
     visit root_path
     find('#user-menu').click
@@ -20,27 +19,26 @@ class GobDigitalUserCanManageSchemasTest < Capybara::Rails::TestCase
   end
 
   test "Loged User can_create_schema can see Nueva Version button" do
-    visit root_path
-    click_link 'Esquemas'
+    visit schemas_path
     assert_text 'Directorio de Esquemas'
-    click_schema_category schema_categories(:zonas).name
-    click_link schemas(:zona1).name
+    click_schema_category 'Zonas'
+    assert_text 'Zona Norte'
+    click_link 'Zona Norte'
 
     within ".container-schema-detail" do
-      assert_selector 'h1', text: schemas(:zona1).name
+      assert_selector 'h1', text: 'Zona Norte'
     end
     assert_no_link "Nueva Versión"
 
     login_as users(:pablito), scope: :user
-    visit root_path
-    click_link 'Esquemas'
+    visit schemas_path
     assert_text 'Directorio de Esquemas'
-    click_schema_category schema_categories(:zonas).name
-    assert_text schemas(:zona1).name
-    click_link schemas(:zona1).name
+    click_schema_category "Zonas"
+    assert_text 'Zona Norte'
+    click_link 'Zona Norte'
 
     within ".container-schema-detail" do
-      assert_selector 'h1', text: schemas(:zona1).name
+      assert_selector 'h1', text: 'Zona Norte'
     end
     assert_link "Nueva Versión"
   end
