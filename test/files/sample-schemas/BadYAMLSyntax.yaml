@@ -1,0 +1,24 @@
+title: Nombre y apellido
+description: “Nombre y apellido de una persona.
+
+- El nombre se entregará en modo lista.
+
+- El apellido se entregará en modo lista."
+required:
+      - nombres
+      - apellidos  
+    type: object
+    properties:
+      nombres:
+	type: array        
+	description: Todos los nombres
+        items:
+          type: string
+      apellidos:
+        type: array
+        description: Todos los apellidos
+        items:
+          type: string
+example:
+  nombres: [‘Juan’]
+  apellidos: [‘Perez’]
