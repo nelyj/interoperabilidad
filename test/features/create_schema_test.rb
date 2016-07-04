@@ -11,7 +11,7 @@ class CreateSchemaTest < Capybara::Rails::TestCase
     find('#user-menu').click
     find_link('menu-new-schema').click
     fill_in 'schema_name', :with => "Test"
-    page.execute_script("$(\"input[type=file]\").show()")
+    page.execute_script('$("input[type=file]").show()')
   end
 
   test "attempt to create a schema without an attached file" do
