@@ -134,7 +134,7 @@ complex_v1:
             description: Descripción descrita
           fecha:
             type: string
-            format: dateTime
+            format: date-time
             description: Descripción descrita
           hora:
             type: string
