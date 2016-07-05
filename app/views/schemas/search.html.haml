@@ -17,7 +17,7 @@
         .box-schema(data-categories="category-#{schema.schema_category.id}")
           .title
             = link_to [schema, schema.last_version] do
-              = truncate(schema.name, :length => 56)
+              = truncate(schema.name, :length => 50)
           .body
             %span 
               Descripción: 
