@@ -12,9 +12,7 @@
           .container
             %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
             %p
-              No se pudo guardar la nueva versión del esquema debido a
-              = pluralize(@schema_version.errors.count, "error")
-              \:
+              No se pudo guardar la nueva versión del esquema debido a #{t("error", count: @schema_version.errors.count)}:
             %ul
               - @schema_version.errors.full_messages.each do |message|
                 %li= message
