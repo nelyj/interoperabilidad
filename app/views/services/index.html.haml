@@ -1,6 +1,6 @@
 %p#notice
 %h1 Servicios
-= form_tag(services_path, :method => "get", id: "search-form") do
+= form_tag(search_services_path, :method => "get", id: "search-form") do
   = text_field_tag :search, params[:search], placeholder: "Búsqueda de Servicios"
   = submit_tag "Buscar"
 
@@ -14,7 +14,7 @@
     %tbody
       - @services.each do |s|
         %tr
-          %td= link_to s.name, service_service_version_path(service_name: s.name,
+          %td= link_to s.name, organization_service_service_version_path(@organization, service_name: s.name,
             version_number: s.last_version_number)
           %td= s.organization.name
   %br

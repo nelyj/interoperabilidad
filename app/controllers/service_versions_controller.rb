@@ -1,4 +1,5 @@
 class ServiceVersionsController < ApplicationController
+  before_action :set_organization
   before_action :set_service
   before_action :set_service_version, only: :show
 
@@ -13,7 +14,12 @@ class ServiceVersionsController < ApplicationController
     if user_signed_in? && @service.can_be_updated_by?(current_user)
        @service_version = ServiceVersion.new
     else
-      redirect_to service_service_versions_path(@service), notice: 'no tiene permisos suficientes'
+      redirect_to(
+        organization_service_service_versions_path(
+          @organization, @service
+          ),
+        notice: 'no tiene permisos suficientes'
+      )
     end
   end
 
@@ -43,13 +49,13 @@ class ServiceVersionsController < ApplicationController
   def make_current_version
     set_service_version
     @service_version.make_current_version
-    redirect_to services_path
+    redirect_to organization_services_path(@organization)
   end
 
   def reject_version
     set_service_version
     @service_version.reject_version
-    redirect_to services_path
+    redirect_to organization_services_path(@organization)
   end
 
   private
@@ -59,10 +65,14 @@ class ServiceVersionsController < ApplicationController
   end
 
   def set_service
-    @service = Service.where(name: params[:service_name]).take
+    @service = @organization.services.where(name: params[:service_name]).first
+  end
+
+  def set_organization
+    @organization = Organization.where(name: params[:organization_name]).first
   end
 
   def set_service_version
-    @service_version = @service.service_versions.where(version_number: params[:version_number]).take
+    @service_version = @service.service_versions.where(version_number: params[:version_number]).first
   end
 end
