@@ -14,7 +14,7 @@
     %tbody
       - @services.each do |s|
         %tr
-          %td= link_to s.name, organization_service_service_version_path(@organization, service_name: s.name,
+          %td= link_to s.name, organization_service_service_version_path(s.organization, service_name: s.name,
             version_number: s.last_version_number)
           %td= s.organization.name
   %br
