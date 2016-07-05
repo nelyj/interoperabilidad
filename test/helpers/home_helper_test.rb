@@ -296,7 +296,7 @@ class HomeHelperTest < ActionView::TestCase
       array_specific_markup(spec["properties"]["estadosSiguientes"])
   end
 
-  test "#array_specific_markup represents of an array property with unique items" do
+  test "#array_specific_markup represents an array property with unique items" do
     spec = schema_versions(:complex_v1).spec
     assert_equal content_tag(:li, "elementos únicos") + content_tag(:li, "mínimo 2 elementos"),
       array_specific_markup(spec["properties"]["estadosMensajes"])
