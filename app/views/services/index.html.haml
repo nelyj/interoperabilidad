@@ -38,4 +38,4 @@
         %tr
           %td= s.service.name
           %td= s.service.organization.name
-          %td= link_to 'Revisar', [s.service, s]
+          %td= link_to 'Revisar', [s.service.organization, s.service, s]

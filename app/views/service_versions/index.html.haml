@@ -13,6 +13,6 @@
         %td= service_version.service_id
         %td= service_version.version_number
         %td= service_version.status
-        %td= link_to 'Ver', [@service.organization, @service,service_version]
+        %td= link_to 'Ver', [@organization, @service, service_version]
 %br
   = link_to 'New Version', new_organization_service_service_version_path
