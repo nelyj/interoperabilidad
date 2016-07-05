@@ -1,0 +1,11 @@
+title: VeryExternalRef
+description: "Prueba de un esquema que hace referencia a otra cosa en internet dentro de un array"
+type: object
+required:
+  - arregloDeBufferConfiguration
+properties:
+  arregloDeBufferConfiguration:
+    type: array
+    description: Arreglo de configuraciones de la app `Buffer`.
+    items:
+        $ref: https://api.apis.guru/v2/specs/bufferapp.com/1/swagger.json#/definitions/configuration

@@ -123,4 +123,34 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      end
    end
 
+   test "Schema Version show Schemas In the Same Category" do
+     schema_version = schema_versions(:zona1_v1)
+     visit schema_schema_version_path(schema_version.schema, schema_version)
+     within ".container-schema-detail" do
+       assert_selector 'h1', text: schema_version.schema.name
+     end
+
+     within ".list-categories" do
+       assert_selector "li.active", text: schema_version.schema.name
+       assert_selector "li.active", match: :first
+       assert_link schema_version.schema.name
+       assert_link schemas(:zona2).name
+       assert_link schemas(:zona3).name
+       assert_link schemas(:zona4).name
+       click_link schemas(:zona3).name
+     end
+     schema_version = schema_versions(:zona3_v1)
+     within ".container-schema-detail" do
+       assert_selector 'h1', text: schema_version.schema.name
+     end
+
+     within ".list-categories" do
+       assert_selector "li.active", text: schema_version.schema.name
+       assert_selector "li.active", match: :first
+       assert_link schema_version.schema.name
+       assert_link schemas(:zona2).name
+       assert_link schemas(:zona1).name
+       assert_link schemas(:zona4).name
+     end
+   end
 end

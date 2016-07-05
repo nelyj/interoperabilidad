@@ -2,7 +2,8 @@ document.addEventListener 'turbolinks:load', ->
   $('select').select2
     theme: 'bootstrap'
     containerCssClass: ':all:'
-  hljs.initHighlightingOnLoad();
+  $('pre code').each (i, block) ->
+    hljs.highlightBlock(block)
   $('#categories-list li:first').addClass("active")
   filterSchemas($('#categories-list li:first a').attr("data-category"))
 
@@ -21,10 +22,15 @@ $(document).on 'fileselect', ':file', (event, numFiles, label) ->
     $('#label-file').hide()
     return
 
+titleize = (string) ->
+  string.split(/[\s|_]/).map((s) -> s[0].toUpperCase() + s.slice(1)).join('')
+
+
 $(document).on 'change', ':file', ->
-  input = $(this) 
+  input = $(this)
   numFiles = if input.get(0).files then input.get(0).files.length else 1
   label = input.val().replace(/\\/g, '/').replace(/.*\//, '')
+  $('#schema_name').val(titleize(label.replace(/\..*$/, '')))
   input.trigger 'fileselect', [
     numFiles
     label

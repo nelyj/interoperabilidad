@@ -97,6 +97,28 @@ complex_v1:
           integro: 6
           fecha: 25/10/1990
         properties:
+          rut:
+            type: object
+            maxProperties: 3
+            title: "Rol Único"
+            required:
+             - numero
+             - dv
+             - tipo
+            properties:
+             dv:
+              type: string
+              pattern: "[0-9]{1}|K"
+              description: "Dígito verificador como string de largo 1."
+             tipo:
+              enum:
+               - RUT
+               - RUN
+              type: string
+              description: "Tipo de Rol. Cuando se trata de personas naturales donde el RUT y RUN coinciden, se prefiere especificar como ???????"
+             numero:
+              type: integer
+              description: "Numero de RUT (sin dígito verificador)"
           nombre:
             title: nombre
             type: string
@@ -132,9 +154,21 @@ complex_v1:
             maximum: 7
             exclusiveMaximum: true
             description: Descripción descrita
+          numero3:
+            title: numero3
+            type: number
+            minimum: 5
+            exclusiveMinimum: true
+            description: Descripción descrita
+          integro3:
+            title: integro3
+            type: integer
+            maximum: 4
+            exclusiveMaximum: false
+            description: Descripción descrita
           fecha:
             type: string
-            format: dateTime
+            format: date-time
             description: Descripción descrita
           hora:
             type: string
@@ -286,3 +320,17 @@ zona4_v1:
     spec_with_resolved_refs:
         definition: *spec_zona4_v1
         references: {}
+
+arreglin_v3:
+    schema: fecha_iso
+    user: pablito
+    version_number: 3
+    spec:
+        title: arreglin
+        description: Descripción descrita
+        type: array
+        items:
+          type: string
+    spec_with_resolved_refs:
+      definition: *spec_zona4_v1
+      references: {}

@@ -1,4 +1,5 @@
 module HomeHelper
+  include ApplicationHelper
 
   def json_pointer_path(base, *new_components)
     return base if new_components.empty?
@@ -107,8 +108,9 @@ module HomeHelper
             content_tag(:div, nil, class: "col-md-6") do
               s_name_markup +
               content_tag(:p, s_type_and_format, class: "data-type") +
-              content_tag(:p, s(property_definition['description']) || '',
-                class: "description")
+              content_tag(:div, nil, class: "description") do
+                markdown.render(property_definition['description'] || '').html_safe
+              end
             end +
             content_tag(:div, nil, class: "col-md-6 text-right") do
               schema_link_if_reference_present(json_pointer, references) +
@@ -127,7 +129,9 @@ module HomeHelper
   end
 
   def schema_object_primitive_property_markup(name, primitive_property_definition, required, json_pointer, references)
-    s_name_markup = content_tag(:span, s(name), class: "name")
+    css_class = "name"
+    css_class.concat(" anonymous") if name.empty?
+    s_name_markup = content_tag(:span, s(name), class: css_class)
     dynamic_component_structure(
       s_name_markup, primitive_property_definition, required,
       json_pointer, references
@@ -187,7 +191,7 @@ module HomeHelper
 
   def schema_object_common_markup_default(property_definition)
     if property_definition['default'].present?
-      content_tag(:li, 'por defecto ' + s(property_definition['default'].to_s))
+      content_tag(:li, 'default ' + s(property_definition['default'].to_s))
     else
       "".html_safe
     end
@@ -206,7 +210,7 @@ module HomeHelper
     end
   end
 
-  def markup_humanizer(name = '', suffix = '', max, min)
+  def markup_humanizer(name = '', suffix = '', max: nil, min: nil)
     if max.present? && min.present?
       if max == min
         content_tag(:li, "largo #{s(max.to_s)} #{name}" +
@@ -231,14 +235,14 @@ module HomeHelper
   def object_specific_markup(property_definition)
     max = property_definition['maxProperties']
     min = property_definition['minProperties']
-    markup_humanizer("propiedad", "es", max, min)
+    markup_humanizer("propiedad", "es", max: max, min: min)
   end
 
   def array_specific_markup(property_definition)
     max = property_definition['maxItems']
     min = property_definition['minItems']
     array_specific_markup_unique_items(property_definition) +
-      markup_humanizer("elemento", "s", max, min)
+      markup_humanizer("elemento", "s", max: max, min: min)
   end
 
   def array_specific_markup_unique_items(property_definition)
@@ -286,7 +290,8 @@ module HomeHelper
   def string_primitive_markup(primitive)
     max = primitive['maxLength']
     min = primitive['minLength']
-    string_primitive_markup_pattern(primitive) + markup_humanizer(max, min)
+    string_primitive_markup_pattern(primitive) +
+      markup_humanizer("caracter", "es", max: max, min: min)
   end
 
   def string_primitive_markup_pattern(primitive)

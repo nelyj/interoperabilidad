@@ -17,12 +17,23 @@ Rails.application.routes.draw do
       path: 'versions'
   end
 
-  resources :services, only: [:index, :new, :create, :edit, :update], param: :name do
-    resources :service_versions,
-      only: [:index, :new, :create, :show], param: :version_number,
-      path: 'versions' do
-        member { put 'state' }
-      end
+  resources :services, only: [:index] do
+    collection do
+      get 'search'
+      get 'pending_approval'
+    end
+  end
 
+  resources :organizations, only: [:index], param: :name do
+    resources :services, only: [:index, :new, :create, :show], param: :name do
+      resources :service_versions,
+        only: [:index, :new, :create, :show], param: :version_number,
+        path: 'versions' do
+          member do
+            put 'state'
+            get 'source_code'
+          end
+      end
+    end
   end
 end
