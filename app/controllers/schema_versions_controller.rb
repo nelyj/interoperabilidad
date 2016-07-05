@@ -9,7 +9,7 @@ class SchemaVersionsController < ApplicationController
         # Fall into view rendering.
       end
       format.json do
-        render json: @schema_version.spec
+        render json: JSON.pretty_generate(@schema_version.spec)
       end
     end
   end
