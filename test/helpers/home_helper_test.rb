@@ -86,10 +86,153 @@ class HomeHelperTest < ActionView::TestCase
     assert_equal "".html_safe, markup_humanizer('elemento', 's')
   end
 
+  test "#schema_markup redirects array to properly submethods" do
+    schema_version = schema_versions(:arreglin_v3)
+    name = schema_version.schema.name
+    spec = schema_version.spec_with_resolved_refs['definition']
+    references = schema_version.spec_with_resolved_refs['references']
+    html = content_tag(:div, class: "schema-panel-set detail", data: {name: name, version: schema_version.version_number}) do
+      content_tag(:h3, schema_version.schema.name) +
+      schema_object_property_markup('', spec, false, '/', references)
+    end
+    assert_equal html, schema_markup(schema_version)
+  end
+
+  test "#schema_markup redirects object to properly submethods" do
+    schema_version = schema_versions(:rut_v1)
+    name = schema_version.schema.name
+    spec = schema_version.spec_with_resolved_refs['definition']
+    references = schema_version.spec_with_resolved_refs['references']
+    html = content_tag(:div, class: "schema-panel-set detail", data: {name: name, version: schema_version.version_number}) do
+      content_tag(:h3, schema_version.schema.name) +
+      schema_object_spec_markup(spec, '/', references)
+    end
+    assert_equal html, schema_markup(schema_version)
+  end
+
+  test "#schema_markup redirects primitive to properly submethods" do
+    schema_version = schema_versions(:fecha_iso_v1)
+    name = schema_version.schema.name
+    spec = schema_version.spec_with_resolved_refs['definition']
+    references = schema_version.spec_with_resolved_refs['references']
+    html = content_tag(:div, class: "schema-panel-set detail", data: {name: name, version: schema_version.version_number}) do
+      content_tag(:h3, schema_version.schema.name) +
+      schema_object_property_markup('', spec, false, '/', references)
+    end
+    assert_equal html, schema_markup(schema_version)
+  end
+
+  test "#schema_object_property_markup redirects to properly submethods" do
+    property_definition = schema_versions(:complex_v1).spec["properties"]["nombre"]
+    html = schema_object_primitive_property_markup(
+      "nombre", property_definition, true, '', ''
+    )
+    assert_equal html, schema_object_property_markup(
+      "nombre", property_definition, true, '', ''
+    )
+    property_definition = schema_versions(:complex_v1).spec["properties"]["rut"]
+    html = schema_object_complex_property_markup(
+      "rut", property_definition, true, '', ''
+    )
+    assert_equal html, schema_object_property_markup(
+      "rut", property_definition, true, '', ''
+    )
+    property_definition = schema_versions(:complex_v1).spec["properties"]["estadosMensajes"]
+    html = schema_object_array_property_markup(
+      "estadosMensajes", property_definition, true, '', ''
+    )
+    assert_equal html, schema_object_property_markup(
+      "estadosMensajes", property_definition, true, '', ''
+    )
+  end
+
+  test "#schema_object_complex_property_markup represents an object" do
+    property_definition = schema_versions(:complex_v1).spec["properties"]["rut"]
+    name_markup = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
+      content_tag(:span, "rut", class: "name")
+    end
+    html = dynamic_component_structure(name_markup, property_definition, true, '', '') do
+      content_tag(:div, nil, class: "panel-body") do
+        schema_object_spec_markup(property_definition, '', '')
+      end
+    end
+    assert_equal html, schema_object_complex_property_markup(
+        "rut", property_definition, true, '', ''
+      )
+  end
+
+  test "#schema_object_array_property_markup represents an array" do
+    property_definition = schema_versions(:complex_v1).spec["properties"]["estadosMensajes"]
+    name_markup = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
+      content_tag(:span, "estadosMensajes", class: "name")
+    end
+    html = dynamic_component_structure(
+      name_markup, property_definition, true, '', ''
+    ) do
+      content_tag(:div, nil, class: "panel-body") do
+        schema_object_property_markup(
+          "(elementos)".html_safe, property_definition["items"], false,
+          json_pointer_path('', "items"), ''
+        )
+      end
+    end
+    assert_equal html, schema_object_array_property_markup(
+        "estadosMensajes", property_definition, true, '', ''
+      )
+  end
+
+  test "#schema_object_primitive_property_markup represents a primitive" do
+    property_definition = schema_versions(:complex_v1).spec["properties"]["nombre"]
+    name_markup = content_tag(:span, "nombre", class: "name")
+    html = dynamic_component_structure(
+      name_markup, property_definition, true,
+      '', ''
+    )
+    assert_equal html, schema_object_primitive_property_markup(
+        "nombre", property_definition, true, '', ''
+      )
+  end
+
   test "#schema_object_specific_markup returns html to represent a string primitive" do
     spec = schema_versions(:complex_v1).spec
     html = schema_object_specific_markup(spec["properties"]["hora"])
     assert_equal "<li class=\"reg-exp\"><span>/[0-9] {2}/</span></li>", html
+  end
+
+  test "#schema_object_specific_markup represents a number primitive" do
+    spec = schema_versions(:complex_v1).spec
+    assert_equal numeric_primitive_markup(spec["properties"]["numero"]),
+      schema_object_specific_markup(spec["properties"]["numero"])
+  end
+
+  test "#schema_object_specific_markup represents a integer primitive" do
+    spec = schema_versions(:complex_v1).spec
+    assert_equal numeric_primitive_markup(spec["properties"]["integro"]),
+      schema_object_specific_markup(spec["properties"]["integro"])
+  end
+
+  test "#schema_object_specific_markup represents a string primitive" do
+    spec = schema_versions(:complex_v1).spec
+    assert_equal string_primitive_markup(spec["properties"]["nombre"]),
+      schema_object_specific_markup(spec["properties"]["nombre"])
+  end
+
+  test "#schema_object_specific_markup represents an array" do
+    spec = schema_versions(:complex_v1).spec
+    assert_equal array_specific_markup(spec["properties"]["estadosMensajes"]),
+      schema_object_specific_markup(spec["properties"]["estadosMensajes"])
+  end
+
+  test "#schema_object_specific_markup represents an object" do
+    spec = schema_versions(:complex_v1).spec
+    assert_equal object_specific_markup(spec["properties"]["rut"]),
+      schema_object_specific_markup(spec["properties"]["rut"])
+  end
+
+  test "#object_specific_markup represents markup for objects" do
+    spec = schema_versions(:complex_v1).spec
+    html = schema_object_specific_markup(spec["properties"]["rut"])
+    assert_equal markup_humanizer("propiedad", "es", max: 3), html
   end
 
   test "#schema_object_common_markup returns html to represent an enum" do
@@ -111,48 +254,52 @@ class HomeHelperTest < ActionView::TestCase
     assert_equal html_expected, html_actual
   end
 
-  test "#numeric_primitive_markup represent exclusive bounds when max and min are present" do
+  test "#numeric_primitive_markup represents exclusive bounds when max and min are present" do
     spec = schema_versions(:complex_v1).spec
     html_actual = numeric_primitive_markup_bounds(spec["properties"]["integro"])
     assert_equal content_tag(:li, "4 < x < 16"), html_actual
   end
 
-  test "#numeric_primitive_markup represent bounds when max and min are present" do
+  test "#numeric_primitive_markup represents bounds when max and min are present" do
     spec = schema_versions(:complex_v1).spec
     html_actual = numeric_primitive_markup_bounds(spec["properties"]["numero"])
     assert_equal content_tag(:li, "3 ≤ x ≤ 7"), html_actual
   end
 
-  test "#numeric_primitive_markup represent bounds when min is present" do
+  test "#numeric_primitive_markup represents bounds when min is present" do
     spec = schema_versions(:complex_v1).spec
     html_actual = numeric_primitive_markup_bounds(spec["properties"]["numero2"])
     assert_equal content_tag(:li, "x ≥ 3"), html_actual
   end
 
-  test "#numeric_primitive_markup represent exclusive bounds when max is present" do
+  test "#numeric_primitive_markup represents exclusive bounds when max is present" do
     spec = schema_versions(:complex_v1).spec
     html_actual = numeric_primitive_markup_bounds(spec["properties"]["integro2"])
     assert_equal content_tag(:li, "x < 7"), html_actual
   end
 
-  test "#numeric_primitive_markup represent exclusive bounds when min is present" do
+  test "#numeric_primitive_markup represents exclusive bounds when min is present" do
     spec = schema_versions(:complex_v1).spec
     html_actual = numeric_primitive_markup_bounds(spec["properties"]["numero3"])
     assert_equal content_tag(:li, "x > 5"), html_actual
   end
 
-  test "#numeric_primitive_markup represent bounds when max is present" do
+  test "#numeric_primitive_markup represents bounds when max is present" do
     spec = schema_versions(:complex_v1).spec
     html_actual = numeric_primitive_markup_bounds(spec["properties"]["integro3"])
     assert_equal content_tag(:li, "x ≤ 4"), html_actual
   end
 
-
-  test "#array_specific_markup returns html to represent a numeric property" do
+  test "#array_specific_markup represents of an array property" do
     spec = schema_versions(:complex_v1).spec
-    html_actual = array_specific_markup(spec["properties"]["estadosMensajes"])
-    html_expected = content_tag(:li, "elementos únicos") + content_tag(:li, "mínimo 2 elementos")
-    assert_equal html_expected, html_actual
+    assert_equal content_tag(:li, "mínimo 1 elemento"),
+      array_specific_markup(spec["properties"]["estadosSiguientes"])
+  end
+
+  test "#array_specific_markup represents of an array property with unique items" do
+    spec = schema_versions(:complex_v1).spec
+    assert_equal content_tag(:li, "elementos únicos") + content_tag(:li, "mínimo 2 elementos"),
+      array_specific_markup(spec["properties"]["estadosMensajes"])
   end
 
   test "#dynamic_component_structure returns html base structure to represent a property" do
