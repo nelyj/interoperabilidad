@@ -22,3 +22,7 @@
             /= truncate(s.description, :length => 183)
             %h3.organization
               = s.organization.name
+
+%br
+  - if user_signed_in? && current_user.organizations.any?
+    = link_to 'Nuevo Servicio', new_organization_service_path(current_user.organizations.first)

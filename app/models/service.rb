@@ -24,7 +24,7 @@ class Service < ApplicationRecord
 
   def create_first_version(user)
     service_versions.create(spec: self.spec, user: user,
-      backwards_compatible: self.backwards_compatible)
+      backwards_compatible: true)
   end
 
   def last_version_number
