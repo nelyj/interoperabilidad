@@ -4,6 +4,19 @@ es:
     one: 1 error
     other: "%{count} errores"
   activerecord:
+    models:
+      schema: Esquema
+      schema_version: Versión de Esquema
+    attributes:
+      schema:
+        name: Nombre
+        category: Categoría
+        spec: Especificación
+        spec_file: Archivo de Especificación
+      schema_version:
+        spec: Especificación
+        spec_file: Archivo de Especificación
+
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
