@@ -7,7 +7,8 @@ class ServicesController < ApplicationController
   end
 
   def search
-    @services = Service.search(params[:search])
+    @text_search = params[:text_search]
+    @services = Service.search(params[:text_search])
   end
 
   def pending_approval
