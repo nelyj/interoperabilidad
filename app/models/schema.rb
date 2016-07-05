@@ -3,9 +3,9 @@ class Schema < ApplicationRecord
   belongs_to :schema_category
   has_many :schema_versions
 
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
   attr_accessor :spec
-  validates :spec, swagger_schema_object: true
+  validates :spec, swagger_schema_object: true, presence: true
   before_save :update_humanized_name
   delegate :description, to: :last_version
   validate :spec_file_must_be_parseable

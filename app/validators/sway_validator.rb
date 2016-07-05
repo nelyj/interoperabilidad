@@ -2,6 +2,7 @@ require 'open3'
 
 class SwayValidator <  ActiveModel::EachValidator
   def validate_each(record, attribute, value)
+    return unless value.present?
     warnings, errors = run_validation(value)
     unless warnings.empty? && errors.empty?
       (warnings + errors).each do |item|
