@@ -11,18 +11,7 @@
 .container.no-gutter
   .row.no-gutter
     .col-md-12.schema-wrapper.text-left
-      - @services.each do |s|
-        .box-service
-          %h2.title
-            = link_to organization_service_service_version_path(s.organization, service_name: s.name, version_number: s.last_version_number) do
-              = truncate(s.name, :length => 50)
-          .body
-            %p
-              Descripción:
-            /= truncate(s.description, :length => 183)
-            %h3.organization
-              = s.organization.name
-
+      = render partial: "boxes", locals: {services: @services}
 %br
   - if user_signed_in? && current_user.organizations.any?
     = link_to 'Nuevo Servicio', new_organization_service_path(current_user.organizations.first)
