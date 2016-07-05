@@ -44,7 +44,7 @@ test: build db
 
 ptest: build
 	docker-compose run -e RAILS_ENV=test web parallel_test -e "rake db:create"
-	docker-compose run -e RAILS_ENV=test web parallel_test -e "bin/rails db:environment:set RAILS_ENV=test"	
+	docker-compose run -e RAILS_ENV=test web parallel_test -e "bin/rails db:environment:set RAILS_ENV=test"
 	docker-compose run web rake parallel:prepare
 	docker-compose run web rake parallel:test
 
@@ -57,4 +57,4 @@ db: build
 production-build: Dockerfile.production
 	docker build  -f Dockerfile.production  -t egob/interoperabilidad  .
 
-.PHONY: all run build stop restart mac-open clean test logs db production-build
+.PHONY: all run build stop restart mac-open clean test ptest logs db production-build
