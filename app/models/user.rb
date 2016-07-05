@@ -42,7 +42,6 @@ class User < ApplicationRecord
     self.name = refresh_name(response['nombre'])
     parse_organizations_and_roles(response['instituciones'])
 
-    self.can_create_schemas = true
     save!
   end
 
@@ -57,6 +56,9 @@ class User < ApplicationRecord
 
   def parse_organization_role(organization, role, email)
     org_id = organization['id'].empty? ? "AB01" : organization['id']
+
+    self.can_create_schemas = true if org_id = "AB01"
+
     org = Organization.where(dipres_id: org_id ).first_or_create!(
       name: organization['nombre'].empty? ?
               'Secretaría General de la Presidencia' : organization['nombre'],
