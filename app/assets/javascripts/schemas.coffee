@@ -2,7 +2,8 @@ document.addEventListener 'turbolinks:load', ->
   $('select').select2
     theme: 'bootstrap'
     containerCssClass: ':all:'
-  hljs.initHighlightingOnLoad();
+  $('pre code').each (i, block) ->
+    hljs.highlightBlock(block)
   $('#categories-list li:first').addClass("active")
   filterSchemas($('#categories-list li:first a').attr("data-category"))
 
