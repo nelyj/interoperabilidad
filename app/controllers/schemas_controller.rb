@@ -21,7 +21,7 @@ class SchemasController < ApplicationController
       @schema.create_first_version(current_user)
       redirect_to [@schema, @schema.schema_versions.first], notice: 'Nuevo Esquema creado correctamente'
     else
-      flash.now[:error] = "No se pudo crear el esquema"
+      flash.now[:error] = t(:cant_create_schema)
       render action: "new"
     end
   end

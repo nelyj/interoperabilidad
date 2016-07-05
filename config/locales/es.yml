@@ -1,5 +1,14 @@
 ---
 es:
+  cant_create_schema: No se pudo crear el esquema
+  cant_create_schema_version: No se pudo crear nueva versión
+  cant_save_schema_version_error:
+    one: No se puedo guardar la nueva versión debido a 1 error
+    other: No se puedo guardar la nueva versión debido a %{count} errores
+  cant_save_schema_error:
+    one: No se pudo guardar el esquema debido a 1 error
+    other: No se pudo guardar el esquema debido a %{count} errores
+  cant_create_service: No se pudo crear el servicio
   error:
     one: 1 error
     other: "%{count} errores"
@@ -228,3 +237,10 @@ es:
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm
+  devise:
+    sessions:
+      user:
+        signed_out: "Sesión cerrada con éxito"
+    omniauth_callbacks:
+      user:
+        success: Autenticación exitosa

@@ -36,7 +36,7 @@ class SchemaVersionsController < ApplicationController
     if @schema_version.save
       redirect_to [@schema, @schema_version], notice: 'Nueva versión creada correctamente'
     else
-      flash.now[:error] = "No se pudo crear nueva versión"
+      flash.now[:error] = t(:cant_create_schema_version)
       render :new
     end
   end

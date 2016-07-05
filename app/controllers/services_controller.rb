@@ -29,7 +29,7 @@ class ServicesController < ApplicationController
       @service.create_first_version(current_user)
       redirect_to [@organization, @service, @service.service_versions.first], notice: 'Servicio creado correctamente'
     else
-      flash.now[:error] = "No se pudo crear el servicio"
+      flash.now[:error] = test(:cant_create_service)
       render action: "new"
     end
   end

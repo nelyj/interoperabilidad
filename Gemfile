@@ -45,6 +45,7 @@ gem 'haml-rails'
 gem 'hashie'
 gem 'redcarpet'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'devise-i18n'
 
 gem 'minitest-rails', '~> 3.0.0'
 gem 'poltergeist'
