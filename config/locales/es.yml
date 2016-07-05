@@ -9,17 +9,35 @@ es:
     one: No se pudo guardar el esquema debido a 1 error
     other: No se pudo guardar el esquema debido a %{count} errores
   cant_create_service: No se pudo crear el servicio
+  not_enough_permissions: No tiene permisos suficientes
+  new_schema_created: Nuevo Esquema creado correctamente
+  new_schema_version_created: Nueva Versión creada correctamente
+  schema_directory: Directorio de Esquemas
+  enter_schema_name: Ingresa nombre de Esquema
+  enter_new_schema_name: Indica nombre para el esquema
+  description: Descripción
+  to_upload_a_schema_please: Para subir un esquema por favor
+  identify_with_clave_unica: identifíquese con su clave única
+  create_schema: Crear Esquema
+  choose_file: Seleccionar Archivo
+  schema_name_example: "Ej: PatenteComercial"
+  enter_new_schema_category: Indica Categoría
+  create_schema: Crear Esquema
+  no_results_found: "No se han encontrado resultados"
   error:
     one: 1 error
     other: "%{count} errores"
   activerecord:
     models:
       schema: Esquema
+      schema_category:
+        one: Categoría
+        other: Categorías
       schema_version: Versión de Esquema
     attributes:
       schema:
         name: Nombre
-        category: Categoría
+        schema_category: Categoría
         spec: Especificación
         spec_file: Archivo de Especificación
       schema_version:

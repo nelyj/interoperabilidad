@@ -11,7 +11,7 @@ class SchemasController < ApplicationController
       @schema = Schema.new
       @categories = SchemaCategory.all
     else
-      redirect_to schemas_path, notice: 'no tiene permisos suficientes'
+      redirect_to schemas_path, notice: t(:not_enough_permissions)
     end
   end
 
@@ -19,7 +19,7 @@ class SchemasController < ApplicationController
     @schema = Schema.new(schema_params)
     if @schema.save
       @schema.create_first_version(current_user)
-      redirect_to [@schema, @schema.schema_versions.first], notice: 'Nuevo Esquema creado correctamente'
+      redirect_to [@schema, @schema.schema_versions.first], notice: t(:new_schema_created)
     else
       flash.now[:error] = t(:cant_create_schema)
       render action: "new"

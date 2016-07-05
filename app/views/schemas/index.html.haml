@@ -1,18 +1,16 @@
 .instance-panel
   .container
     .col-md-12{:class => "text-center"}
-      %h1
-        Directorio de Esquemas
+      %h1= t(:schema_directory)
       .form-group.col-md-6.container-form
         = form_tag(search_schemas_path, method: "get") do
           .inner-addon.left-addon
             %i.glyphicon.glyphicon-search
-            %input#search-schema.form-control{:placeholder => "Ingresa nombre de Esquema", :type => "text", :name => "text_search"}/
+            %input#search-schema.form-control{:placeholder => t(:enter_schema_name), :type => "text", :name => "text_search"}/
 .container
   .row
     .col-md-2
-      %h3.col-title
-        Categorías
+      %h3.col-title=SchemaCategory.model_name.human(count: 2)
       %ul#categories-list.list-categories
         - @categories.with_schemas.each do |category|
           %li
@@ -28,5 +26,5 @@
                 = truncate(schema.name, :length => 50)
             .body
               %span
-                Descripción:
+                #{t(:description)}:
               = truncate(schema.description, :length => 183)

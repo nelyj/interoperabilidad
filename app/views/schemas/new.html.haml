@@ -2,8 +2,8 @@
   .alert.info
     .container
       %p
-        Para subir un esquema por favor
-        = link_to 'identifíquese con su clave única', user_clave_unica_omniauth_authorize_path
+        #{t(:to_upload_a_schema_please)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
 - else
   = form_for @schema do |f|
     - if @schema.errors.any?
@@ -21,11 +21,10 @@
           .box-new-schema-file
             .box-title
               %span +
-              %p Crear Esquema
+              %p= t(:create_schema)
             .input-group.box-input-file
               %label#label-file.input-group-btn
-                %span#select-file.btn.btn-action-red.btn-lg
-                  Seleccionar Archivo
+                %span#select-file.btn.btn-action-red.btn-lg= t(:choose_file)
                 = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
               .field
                 %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
@@ -34,12 +33,12 @@
     .container.new-schemas-container
       .row
         .col-md-6
-          %h3 Indica nombre para el esquema
-          = f.text_field :name, { :class => "form-control input-lg", :placeholder => "Ex. Patente Comercial"}
+          %h3= t(:enter_new_schema_name)
+          = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:schema_name_example)}
         .col-md-6
-          %h3 Indica Categoría
+          %h3= t(:enter_new_schema_category)
           = f.collection_select :schema_category_id, SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
           %br
           .text-right
-            = f.submit 'Crear Esquema', class: 'btn btn-action-red btn-lg',
+            = f.submit t(:create_schema), class: 'btn btn-action-red btn-lg',
               id: "create-schema"

@@ -23,7 +23,7 @@ class NonGobiernoDigitalUserCanOnlyViewSchemasTestTest < Capybara::Rails::TestCa
     find('#user-menu').click
     assert_content page, users(:pedro).name
     assert_content page, users(:pedro).organizations.take.name
-    assert_content page,"no tiene permisos suficientes"
+    assert_content page,"No tiene permisos suficientes"
     refute_content page, "Nueva Versión"
     refute_content page, "Nuevo Esquema"
   end
@@ -35,7 +35,7 @@ class NonGobiernoDigitalUserCanOnlyViewSchemasTestTest < Capybara::Rails::TestCa
     find('#user-menu').click
     assert_content page, users(:pedro).name
     assert_content page, users(:pedro).organizations.take.name
-    assert_content page,"no tiene permisos suficientes"
+    assert_content page,"No tiene permisos suficientes"
     refute_content page, "Nueva Versión"
     refute_content page, "Nuevo Esquema"
   end

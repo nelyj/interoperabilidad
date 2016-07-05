@@ -25,7 +25,7 @@ class SchemaVersionsController < ApplicationController
     if current_user.can_create_schemas
       @schema_version = SchemaVersion.new
     else
-      redirect_to [@schema, @schema.last_version], notice: 'no tiene permisos suficientes'
+      redirect_to [@schema, @schema.last_version], notice: t(:not_enough_permissions)
     end
   end
 
@@ -34,7 +34,7 @@ class SchemaVersionsController < ApplicationController
     @schema_version = @schema.schema_versions.new()
     @schema_version.update(schema_version_params.merge(user:current_user)) unless params[:schema_version].blank?
     if @schema_version.save
-      redirect_to [@schema, @schema_version], notice: 'Nueva versión creada correctamente'
+      redirect_to [@schema, @schema_version], notice: t(:new_schema_version_created)
     else
       flash.now[:error] = t(:cant_create_schema_version)
       render :new

@@ -1,8 +1,7 @@
 .instance-panel
   .container
     .col-md-12{:class => "text-center"}
-      %h1
-        Directorio de Esquemas
+      %h1= t(:schema_directory)
       .form-group.col-md-6.container-form
         = form_tag(search_schemas_path, method: "get") do
           .inner-addon.left-addon
@@ -11,7 +10,7 @@
 .container.no-gutter
   .row.no-gutter
     .col-md-12.schema-wrapper.text-left
-      = content_tag(:p, "No se han encontrado resultados", 
+      = content_tag(:p, t(:no_results_found),
         class:"text-center") if @schemas.empty?
       - @schemas.each do |schema|
         .box-schema(data-categories="category-#{schema.schema_category.id}")
@@ -19,6 +18,6 @@
             = link_to [schema, schema.last_version] do
               = truncate(schema.name, :length => 50)
           .body
-            %span 
-              Descripción: 
+            %span
+              #{t(:description)}:
             = truncate(schema.description, :length => 183)
