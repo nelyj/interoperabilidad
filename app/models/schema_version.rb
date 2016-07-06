@@ -9,6 +9,7 @@ class SchemaVersion < ApplicationRecord
   after_save :update_search_metadata
   validate :spec_file_must_be_parseable
   attr_accessor :spec_file_parse_exception
+  default_scope -> { order('version_number DESC') }
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception
