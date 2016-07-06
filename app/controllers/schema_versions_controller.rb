@@ -32,7 +32,12 @@ class SchemaVersionsController < ApplicationController
   def create
     set_schema
     @schema_version = @schema.schema_versions.new()
-    @schema_version.update(schema_version_params.merge(user:current_user)) unless params[:schema_version].blank?
+    if params[:schema_version].blank?
+      flash[:error] = t(:must_upload_a_spec_file)
+      render :new
+      return
+    end
+    @schema_version.update(schema_version_params.merge(user:current_user))
     if @schema_version.save
       redirect_to [@schema, @schema_version], notice: t(:new_schema_version_created)
     else
