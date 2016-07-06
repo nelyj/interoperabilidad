@@ -12,6 +12,9 @@ es:
   not_enough_permissions: No tiene permisos suficientes
   new_schema_created: Nuevo Esquema creado correctamente
   new_schema_version_created: Nueva Versión creada correctamente
+  new_service_created: Servicio creado correctamente
+  new_service_version_created: Nueva versión creada correctamente
+  service_updated: Servicio actualizado correctamente
   schema_directory: Directorio de Esquemas
   enter_schema_name: Ingresa nombre de Esquema
   enter_new_schema_name: Indica nombre para el esquema
@@ -24,6 +27,11 @@ es:
   enter_new_schema_category: Indica Categoría
   create_schema: Crear Esquema
   no_results_found: "No se han encontrado resultados"
+  service_directory: Directorio de Servicios
+  enter_service_name: "Ingresa nombre de Servicio"
+  new_service: 'Nuevo Servicio'
+  services_pending_approval: 'Servicios por aprobar'
+  no_services_pending_approval: No hay servicios pendientes de aprobar
   error:
     one: 1 error
     other: "%{count} errores"
@@ -34,6 +42,9 @@ es:
         one: Categoría
         other: Categorías
       schema_version: Versión de Esquema
+      organization:
+        one: Organización
+        other: Organizaciones
     attributes:
       schema:
         name: Nombre
@@ -43,6 +54,8 @@ es:
       schema_version:
         spec: Especificación
         spec_file: Archivo de Especificación
+      service:
+        name: Nombre
 
     errors:
       messages:

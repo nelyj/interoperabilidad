@@ -5,7 +5,7 @@
         = truncate(s.name, :length => 50)
     .body
       %p
-        Descripción:
+        #{t(:description)}:
       /= truncate(s.description, :length => 183)
       %h3.organization
         = s.organization.name

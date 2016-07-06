@@ -1,8 +1,7 @@
 .instance-panel
   .container
     .col-md-12{:class => "text-center"}
-      %h1
-        Directorio de Servicios
+      %h1= t(:service_directory)
       .form-group.col-md-6.container-form
         = form_tag(search_services_path, method: "get") do
           .inner-addon.left-addon
@@ -11,6 +10,5 @@
 .container.no-gutter
   .row.no-gutter
     .col-md-12.schema-wrapper.text-left
-      = content_tag(:p, "No se han encontrado resultados",
-        class:"text-center") if @services.empty?
+      = content_tag(:p, t(:no_results_found), class:"text-center") if @services.empty?
       = render partial: "boxes", locals: {services: @services}

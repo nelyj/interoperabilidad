@@ -19,7 +19,7 @@ class ServicesController < ApplicationController
     if user_signed_in? && current_user.roles.exists?(name: "Service Provider")
        @service = Service.new
     else
-      redirect_to organization_services_path(@organization), notice: 'no tiene permisos suficientes'
+      redirect_to organization_services_path(@organization), notice: t(:not_enough_permissions)
     end
   end
 
@@ -27,7 +27,10 @@ class ServicesController < ApplicationController
     @service = Service.new(service_params)
     if @service.save
       @service.create_first_version(current_user)
-      redirect_to [@organization, @service, @service.service_versions.first], notice: 'Servicio creado correctamente'
+      redirect_to(
+        [@organization, @service, @service.service_versions.first],
+        notice: t(:new_service_created)
+      )
     else
       flash.now[:error] = test(:cant_create_service)
       render action: "new"
@@ -38,13 +41,13 @@ class ServicesController < ApplicationController
     if user_signed_in? &&
       current_user.organizations.where(id: @service.organization.id).length > 0
     else
-      redirect_to organization_services_path(@organizaton), notice: 'no tiene permisos suficientes'
+      redirect_to organization_services_path(@organizaton), notice: :not_enough_permissions
     end
   end
 
   def update
     if @service.update(params.require(:service).permit(:organization_id))
-      redirect_to organization_services_path(@organization), notice: 'Servicio actualizado correctamente'
+      redirect_to organization_services_path(@organization), notice: t(:service_updated)
     else
       render :edit
     end

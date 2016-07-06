@@ -1,13 +1,13 @@
 -if user_signed_in? && current_user.can_create_schemas?
-  %h2 Servicios por aprobar.
+  %h2= t(:services_pending_approval)
   - if @pending_services_version.nil?
-    No hay servicios pendientes de aprovar.
+    = t(:no_services_pending_approval)
   - else
     %table
       %thead
         %tr
-          %th Nombre
-          %th Organizacion
+          %th= Service.human_attribute_name(:name)
+          %th= Organization.model_name.human
           %th{:colspan => "3"}
       %tbody
         - @pending_services_version.each do |s|

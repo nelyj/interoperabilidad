@@ -1,4 +1,4 @@
-%h1 Nuevo Servicio
+%h1= t(:new_service)
 = form_for [@organization, @service] do |f|
   - if @service.errors.any?
     #error_explanation

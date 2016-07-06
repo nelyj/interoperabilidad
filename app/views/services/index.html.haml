@@ -1,17 +1,16 @@
 .instance-panel
   .container
     .col-md-12{:class => "text-center"}
-      %h1
-        Directorio de Servicios
+      %h1= t(:service_directory)
       .form-group.col-md-6.container-form
         = form_tag(search_services_path, :method => "get") do
           .inner-addon.left-addon
             %i.glyphicon.glyphicon-search
-            %input#search-schema.form-control{:placeholder => "Ingresa nombre de Servicio", :type => "text", :name => "text_search"}/
+            %input#search-schema.form-control{:placeholder => t(:enter_service_name), :type => "text", :name => "text_search"}/
 .container.no-gutter
   .row.no-gutter
     .col-md-12.schema-wrapper.text-left
       = render partial: "boxes", locals: {services: @services}
 %br
   - if user_signed_in? && current_user.organizations.any?
-    = link_to 'Nuevo Servicio', new_organization_service_path(current_user.organizations.first)
+    = link_to t(:new_service), new_organization_service_path(current_user.organizations.first)
