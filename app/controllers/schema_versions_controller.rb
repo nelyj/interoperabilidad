@@ -33,7 +33,7 @@ class SchemaVersionsController < ApplicationController
     set_schema
     @schema_version = @schema.schema_versions.new()
     if params[:schema_version].blank?
-      flash[:error] = t(:must_upload_a_spec_file)
+      flash[:error] = "#{t(:cant_create_schema_version)}: #{t(:must_upload_a_spec_file)}"
       render :new
       return
     end
