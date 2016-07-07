@@ -1,5 +1,10 @@
 ---
 es:
+  history: Historial
+  operations: Operaciones
+  next_version: Versión siguiente
+  previous_version: Versión anterior
+  base_url: URL Base
   cant_create_schema: No se pudo crear el esquema
   cant_create_schema_version: No se pudo crear nueva versión
   cant_save_schema_version_error:
@@ -19,6 +24,7 @@ es:
   enter_schema_name: Ingresa nombre de Esquema
   enter_new_schema_name: Indica nombre para el esquema
   description: Descripción
+  description_not_found: Descripción no disponible
   to_upload_a_schema_please: Para subir un esquema por favor
   identify_with_clave_unica: identifíquese con su clave única
   create_schema: Crear Esquema
