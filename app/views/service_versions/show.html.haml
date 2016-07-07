@@ -62,7 +62,7 @@
     .col-md-10
       %h2 Especificación
       .field
-        = service_markup(@service_version)
+        = @service_version
       .field
         = JSON.pretty_generate(@service_version.spec)
       .actions

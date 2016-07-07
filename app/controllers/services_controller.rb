@@ -23,7 +23,7 @@ class ServicesController < ApplicationController
         notice: t(:new_service_created)
       )
     else
-      flash.now[:error] = test(:cant_create_service)
+      flash.now[:error] = t(:cant_create_service)
       render action: "new"
     end
   end
