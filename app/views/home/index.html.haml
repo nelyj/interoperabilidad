@@ -11,6 +11,3 @@
   .row.no-gutter
     .col-md-12.schema-wrapper.text-left
       = render partial: "boxes", locals: {services: @services}
-%br
-  - if user_signed_in? && current_user.organizations.any?
-    = link_to t(:new_service), new_organization_service_path(current_user.organizations.first)
