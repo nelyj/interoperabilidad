@@ -2,6 +2,10 @@ class ServicesController < ApplicationController
   before_action :set_organization, only: [:index, :new, :create]
   before_action :set_service, only: [:edit, :update]
 
+  def index
+    @services = @organization.services.all
+  end
+
   def new
     if user_signed_in? && current_user.roles.exists?(name: "Service Provider")
        @service = Service.new

@@ -56,9 +56,7 @@ class User < ApplicationRecord
 
   def parse_organization_role(organization, role, email)
     org_id = organization['id'].empty? ? "AB01" : organization['id']
-
-    self.can_create_schemas = true if org_id == "AB01"
-
+    self.can_create_schemas = (org_id == "AB01")
     org = Organization.where(dipres_id: org_id ).first_or_create!(
       name: organization['nombre'].empty? ?
               'Secretaría General de la Presidencia' : organization['nombre'],
