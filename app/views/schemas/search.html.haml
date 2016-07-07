@@ -13,7 +13,7 @@
       = content_tag(:p, t(:no_results_found),
         class:"text-center") if @schemas.empty?
       - @schemas.each do |schema|
-        .box-schema(data-categories="category-#{schema.schema_category.id}")
+        .box-schema
           .title
             = link_to [schema, schema.last_version] do
               = truncate(schema.name, :length => 50)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703224354) do
+ActiveRecord::Schema.define(version: 20160707192848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,11 @@ ActiveRecord::Schema.define(version: 20160703224354) do
     t.string   "description"
   end
 
+  create_table "schema_categories_schemas", force: :cascade do |t|
+    t.integer "schema_id"
+    t.integer "schema_category_id"
+  end
+
   create_table "schema_versions", force: :cascade do |t|
     t.integer  "schema_id",               null: false
     t.integer  "version_number",          null: false
@@ -50,10 +55,9 @@ ActiveRecord::Schema.define(version: 20160703224354) do
   end
 
   create_table "schemas", force: :cascade do |t|
-    t.string   "name",               null: false
-    t.integer  "schema_category_id", null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.string   "name",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.tsvector "lexemes"
     t.string   "humanized_name"
     t.index ["lexemes"], name: "schemas_lexemes_idx", using: :gin
@@ -99,9 +103,10 @@ ActiveRecord::Schema.define(version: 20160703224354) do
     t.index ["sub"], name: "index_users_on_sub", unique: true, using: :btree
   end
 
+  add_foreign_key "schema_categories_schemas", "schema_categories"
+  add_foreign_key "schema_categories_schemas", "schemas"
   add_foreign_key "schema_versions", "schemas"
   add_foreign_key "schema_versions", "users"
-  add_foreign_key "schemas", "schema_categories"
   add_foreign_key "service_versions", "services"
   add_foreign_key "service_versions", "users"
   add_foreign_key "services", "organizations"

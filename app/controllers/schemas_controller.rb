@@ -34,7 +34,7 @@ class SchemasController < ApplicationController
   private
 
   def schema_params
-    params.require(:schema).permit(:schema_category_id, :name, :spec_file)
+    params.require(:schema).permit(:schema_category_ids, :name, :spec_file)
   end
 
   def set_schema

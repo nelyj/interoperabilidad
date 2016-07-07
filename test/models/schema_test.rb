@@ -5,7 +5,7 @@ class SchemaTest < ActiveSupport::TestCase
   def create_valid_schema!
     # Schema automatically creates the first schema_version
     schema = Schema.create(
-      schema_category: schema_categories(:informacion_de_personas),
+      schema_categories: [schema_categories(:informacion_de_personas)],
       name: 'test-schema',
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
     )
@@ -17,7 +17,7 @@ class SchemaTest < ActiveSupport::TestCase
   test '#search returns schemas based on an existing text' do
     valid_schema = create_valid_schema!
     schema = Schema.create!(
-      schema_category: schema_categories(:informacion_de_personas),
+      schema_categories: [schema_categories(:informacion_de_personas)],
       name: 'Persona',
       spec_file: StringIO.new(VALID_SCHEMA_OBJECT)
     )
@@ -48,7 +48,7 @@ class SchemaTest < ActiveSupport::TestCase
     invalid_schema = Schema.new(
       name: 'test2',
       spec_file: StringIO.new(INVALID_SCHEMA_OBJECT),
-      schema_category: schema_categories(:informacion_de_personas)
+      schema_categories: [schema_categories(:informacion_de_personas)]
     )
     assert_not invalid_schema.valid?
     assert_not invalid_schema.errors[:spec].blank?

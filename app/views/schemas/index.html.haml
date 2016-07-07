@@ -14,13 +14,13 @@
       %ul#categories-list.list-categories
         - @categories.with_schemas.each do |category|
           %li
-            %a(data-category="category-#{category.id}")
+            %a{data: {category: category.id}}
               = category.name
 
     .col-md-10.schema-wrapper
       .schema-box-container
         - @schemas.each do |schema|
-          .box-schema.filtered(data-categories="category-#{schema.schema_category.id}")
+          .box-schema.filtered{data: {categories:schema.schema_category_ids.join(' ')}}
             .title
               = link_to [schema, schema.last_version] do
                 = truncate(schema.name, :length => 50)

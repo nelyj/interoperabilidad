@@ -1,25 +1,12 @@
-.container-fluid.instance-panel.schema-detail
-  .container
-    .col-md-2.col-xs-3.no-gutter.text-right
-      .category-icon
-        = image_tag "category-icon.svg", :class => "img-responsive"
-    .col-md-10.col-xs-9.no-gutter.text-left
-      .box-detail-header
-        %h3=t(:category)
-        %h2=@schema.schema_category.name
-        %p
-          %strong=t(:description) + ': '
-          =@schema.schema_category.description
-.clearfix
 .container
   .row
     .col-md-2.container-schema-list.no-gutter
-      %h3.col-title=t(:schemas) + ': '
-      %h4.col-title=@schema.schema_category.name
-      %ul.list-categories
-        %li.active=link_to @schema.name, schema_schema_version_path(@schema, @schema.last_version)
-        - @same_category_schemas.each do |schema|
-          - if schema.id != @schema.id
+      %h3.col-title
+        #{t(:related_schemas)}
+      - @schema.schema_categories.each do |schema_category|
+        %h4.col-title=schema_category.name
+        %ul.list-categories
+          - schema_category.schemas.each do |schema|
             %li=link_to schema.name, schema_schema_version_path(schema, schema.last_version)
 
     .col-md-7.container-schema-detail

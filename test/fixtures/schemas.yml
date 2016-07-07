@@ -2,41 +2,41 @@
 
 rut:
   name: rut
-  schema_category: informacion_de_personas
+  schema_categories: informacion_de_personas
   lexemes: "'1':10C 'digit':4C,15C 'empres':22B 'larg':9C 'numer':11C 'person':20B 'rut':1A,2A,3A,13C,17B 'string':7C 'verif':5C,16C"
 
 fecha_iso:
   name: fecha_iso
-  schema_category: formatos_de_fechas_y_horas
+  schema_categories: formatos_de_fechas_y_horas
 
 complex:
   name: complex
-  schema_category: informacion_de_personas
+  schema_categories: informacion_de_personas
 
 anotaciones_schema1:
     name: AnotacionesSchema1
-    schema_category: anotaciones
+    schema_categories: anotaciones
 
 anotaciones_schema2:
     name: AnotacionesSchema2
-    schema_category: anotaciones
+    schema_categories: anotaciones
 
 anotaciones_schema3:
     name: AnotacionesSchema3
-    schema_category: anotaciones
+    schema_categories: anotaciones
 
 zona1:
     name: Zona Norte
-    schema_category: zonas
+    schema_categories: zonas
 
 zona2:
     name: Zona Centro
-    schema_category: zonas
+    schema_categories: zonas
 
 zona3:
     name: Zona Sur
-    schema_category: zonas
+    schema_categories: zonas
 
 zona4:
     name: Zona Costera
-    schema_category: zonas
+    schema_categories: zonas

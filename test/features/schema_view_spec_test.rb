@@ -7,7 +7,7 @@ class SchemaViewSpecTest < Capybara::Rails::TestCase
   def make_schema(name, extension)
     Schema.create!(
       name: name,
-      schema_category: schema_categories(:anotaciones),
+      schema_categories: [schema_categories(:anotaciones)],
       spec_file: File.open(Rails.root / "test/files/sample-schemas/#{name}.#{extension}")
     ).create_first_version(users(:pablito))
   end

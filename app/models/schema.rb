@@ -1,6 +1,6 @@
 class Schema < ApplicationRecord
   include Searchable
-  belongs_to :schema_category
+  has_and_belongs_to_many :schema_categories
   has_many :schema_versions
 
   validates :name, uniqueness: true, presence: true

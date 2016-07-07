@@ -56,6 +56,7 @@ es:
   no_services_pending_approval: No hay servicios pendientes de aprobar
   must_upload_a_spec_file: Debes subir un archivo de especificación.
   generate_code: Generar código fuente
+  related_schemas: Esquemas relacionados
   error:
     one: 1 error
     other: "%{count} errores"

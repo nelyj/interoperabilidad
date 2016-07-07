@@ -1,6 +1,6 @@
 .container.new-schemas-container
   %h1= @schema.name
-  %h4= @schema.schema_category.name
+  %h4= @schema.schema_categories.map(&:name).join(', ')
   .row
     .col-md-12
       %table.table.schema-versions

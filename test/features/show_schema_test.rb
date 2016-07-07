@@ -2,15 +2,6 @@ require "test_helper"
 
 class ShowSchemaTest < Capybara::Rails::TestCase
 
-   test "Schema Category Name and Description" do
-     schema_version = schema_versions(:rut_v1)
-     visit schema_schema_version_path(schema_version.schema, schema_version)
-     within ".box-detail-header" do
-       assert_selector 'h2', text: schema_version.schema.schema_category.name
-       assert_selector 'p', text: schema_version.schema.schema_category.description
-     end
-   end
-
    test "Schema Version Name description version url next and previous versions history and spec" do
      schema_version = schema_versions(:rut_v2)
      visit schema_schema_version_path(schema_version.schema, schema_version)
@@ -110,7 +101,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      click_link ("Historial")
      within ".container.new-schemas-container" do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'h4', text: schema_version.schema.schema_category.name
+       assert_selector 'h4', text: "Información de Personas"
        assert_text schema_version.previous_version.version_number
        assert_text schema_version.previous_version.created_at.to_s
        assert_text schema_version.previous_version.user.name
@@ -131,8 +122,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      end
 
      within ".list-categories" do
-       assert_selector "li.active", text: schema_version.schema.name
-       assert_selector "li.active", match: :first
+       assert_selector "li", text: schema_version.schema.name
        assert_link schema_version.schema.name
        assert_link schemas(:zona2).name
        assert_link schemas(:zona3).name
@@ -145,8 +135,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      end
 
      within ".list-categories" do
-       assert_selector "li.active", text: schema_version.schema.name
-       assert_selector "li.active", match: :first
+       assert_selector "li", text: schema_version.schema.name
        assert_link schema_version.schema.name
        assert_link schemas(:zona2).name
        assert_link schemas(:zona1).name

@@ -44,7 +44,7 @@ $(document).on 'click', '#remove-file', ->
 
 
 this.filterSchemas = filterSchemas = (category) ->
-  dataCategory = '[data-categories="' + category + '"]'
+  dataCategory = '[data-categories*="' + category + '"]'
   $('.box-schema.filtered').hide().filter(dataCategory).css("display","inline-block")
   if $('.box-schema.filtered').filter(dataCategory).length == 0
     $('.schema-wrapper .empty-state').show();
