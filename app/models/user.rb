@@ -46,6 +46,7 @@ class User < ApplicationRecord
   end
 
   def parse_organizations_and_roles(organizations)
+    self.roles.delete_all
     organizations.each do |organization|
       org = organization['institucion']
       role = organization['rol']
@@ -62,8 +63,6 @@ class User < ApplicationRecord
               'Secretaría General de la Presidencia' : organization['nombre'],
       initials: organization['sigla'].empty? ?
               'SEGPRES' : organization['sigla'])
-
-    self.roles.where(organization: org).delete_all
     self.roles.first_or_create!(organization: org,
                                 name: parse_role(role),
                                 email: email)
