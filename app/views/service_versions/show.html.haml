@@ -1,11 +1,73 @@
-%p#notice
-%h1= @service_version.service.name + " V. " + @service_version.version_number.to_s
-%h2= @service_version.status
-.field
-= @service_version.spec
-.actions
-= link_to 'New Version', new_organization_service_service_version_path
-= link_to 'Index', organization_service_service_versions_path
-- if user_signed_in? && current_user.organizations.exists?(Organization.where(initials: "SEGPRES")) && @service_version.proposed?
-  = button_to 'Aprobar', state_organization_service_service_version_path(state: 'current'), method: :put
-  = button_to 'Rechazar', state_organization_service_service_version_path(state: 'rejected'), method: :put
+.clearfix
+.container
+  .row
+    .col-md-12.container-schema-detail
+      %h1
+        = @service_version.service.name
+        %a.btn.btn-status.blue
+          =" V" + @service_version.version_number.to_s
+      %p
+        %strong
+          %a.btn.btn-status.blue
+            = @service_version.status.upcase
+          = t(:description) + ': '
+          - if @service_version.description.present?
+            = markdown.render(@service_version.description).html_safe
+          -else
+            = t(:description_not_found)
+      %p.url-canonica
+        %span
+          %strong
+            = t(:base_url) + ': '
+          %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
+            = organization_service_service_version_url(@service, @service_version, format: :json)
+      .history-version
+        /- if @service_version.has_previous_version?
+        =link_to t(:previous_version)
+        /  schema_schema_version_path(@schema_version.schema, @schema_version.previous_version)
+        /-else
+        /  Versión Anterior
+        /  %a
+        /- if @schema_version.has_next_version?
+        =link_to t(:next_version)
+        /    schema_schema_version_path(@schema_version.schema, @schema_version.next_version)
+        /-else
+        /  Versión Siguiente
+        /  %a
+        %a.historic{href: '#'}
+          = t(:history)
+.clearfix
+.container
+  .row
+    .col-md-2.container-operations-list.no-gutter
+      %h3.col-title
+        = t(:operations)
+      %ul.list-operations
+        %li.active
+          %a
+            %span.btn.btn-status.success.full PUT
+            %span.path Verbo 1
+        %li
+          %a
+            %span.btn.btn-status.warning.full POST
+            %span.path Verbo 2
+        %li
+          %a
+            %span.btn.btn-status.info.full GET
+            %span.path Verbo 3
+        %li
+          %a
+            %span.btn.btn-status.danger.full DELETE
+            %span.path Verbo 4
+    .col-md-10
+      %h2 Especificación
+      .field
+        = service_markup(@service_version)
+      .field
+        = JSON.pretty_generate(@service_version.spec)
+      .actions
+        = link_to 'New Version', new_organization_service_service_version_path
+        = link_to 'Index', organization_service_service_versions_path
+        - if user_signed_in? && current_user.organizations.exists?(Organization.where(initials: "SEGPRES")) && @service_version.proposed?
+          = button_to 'Aprobar', state_organization_service_service_version_path(state: 'current'), method: :put
+          = button_to 'Rechazar', state_organization_service_service_version_path(state: 'rejected'), method: :put
