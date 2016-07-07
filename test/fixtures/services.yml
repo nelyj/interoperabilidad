@@ -1,7 +1,7 @@
 servicio_1:
   name: servicio_1
-  organization: SEGPRES
+  organization: segpres
 
 servicio_2:
   name: servicio_2
-  organization: MINSAL
+  organization: minsal
