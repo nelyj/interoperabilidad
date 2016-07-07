@@ -5,16 +5,16 @@
         = image_tag "category-icon.svg", :class => "img-responsive"
     .col-md-10.col-xs-9.no-gutter.text-left
       .box-detail-header
-        %h3 Categoria
+        %h3=t(:category)
         %h2=@schema.schema_category.name
         %p
-          %strong Descripción:
+          %strong=t(:description) + ': '
           =@schema.schema_category.description
 .clearfix
 .container
   .row
     .col-md-2.container-schema-list.no-gutter
-      %h3.col-title Esquemas:
+      %h3.col-title=t(:schemas) + ': '
       %h4.col-title=@schema.schema_category.name
       %ul.list-categories
         %li.active=link_to @schema.name, schema_schema_version_path(@schema, @schema.last_version)
@@ -26,49 +26,49 @@
       %h1
         =@schema.name
         %a.btn.btn-tiny-rounded.blue
-          ="V" + @schema_version.version_number.to_s
+          ="R" + @schema_version.version_number.to_s
       %p
         %strong
-          Descripción:
+          =t(:description) + ': '
         - if @schema_version.description.present?
           = markdown.render(@schema_version.description).html_safe
         -else
-          = "Descripción no disponible"
+          =t(:no_description)
       %p.url-canonica
         %span
           %strong
-            URL Canónica:
+
           %a{href: schema_schema_version_url(@schema, @schema_version, format: :json), target: "_blank"}
             = schema_schema_version_url(@schema, @schema_version, format: :json)
       .history-version
         - if @schema_version.has_previous_version?
-          =link_to 'Versión Anterior',
+          =link_to t(:previous_version),
             schema_schema_version_path(@schema_version.schema, @schema_version.previous_version)
         -else
-          Versión Anterior
+          =t(:previous_version)
           %a
         - if @schema_version.has_next_version?
-          =link_to 'Versión Siguiente',
+          =link_to t(:next_version),
             schema_schema_version_path(@schema_version.schema, @schema_version.next_version)
         -else
-          Versión Siguiente
+          =t(:next_version)
           %a
-        %a.historic{href: schema_schema_versions_path} Historial
-      %h2 Especificación
+        %a.historic{href: schema_schema_versions_path}=t(:history)
+      %h2=t(:specification)
       .field
       = schema_markup(@schema_version)
 
     .col-md-3.container-schema-action.no-gutter
-      %a.btn.btn-action-red.btn-lg{:href => schema_schema_version_url(@schema, @schema_version, format: :json), :role => "button", :target => '_blank'} Ver OAS
+      %a.btn.btn-action-red.btn-lg{:href => schema_schema_version_url(@schema, @schema_version, format: :json), :role => "button", :target => '_blank'}=t(:show_oas)
       - if user_signed_in? && current_user.can_create_schemas
         %a.btn.btn-action-blue.btn-lg{:href => new_schema_schema_version_path(@schema)}
-          Nueva Versión
+          =t(:new_version)
       %br
-      %h3 Ejemplo
+      %h3=t(:example)
       .box-code-example
         %pre
           - if @schema_version.example.present?
             %code.json
               = preserve(JSON.pretty_generate @schema_version.example)
           - else
-            Sin ejemplo.
+            =t(:no_example)

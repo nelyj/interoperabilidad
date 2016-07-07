@@ -17,7 +17,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
 
      within ".container-schema-detail" do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + schema_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
 
        within '.url-canonica' do
@@ -25,8 +25,8 @@ class ShowSchemaTest < Capybara::Rails::TestCase
        end
 
        within '.history-version' do
-         assert find_link('Versión Anterior')
-         assert find_link('Versión Siguiente')
+         assert find_link('Versión anterior')
+         assert find_link('Versión siguiente')
          assert find_link('Historial')
        end
 
@@ -54,7 +54,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      within ".container-schema-detail" do
        within '.history-version' do
          assert_text 'VERSIÓN ANTERIOR'
-         assert find_link('Versión Siguiente')
+         assert find_link('Versión siguiente')
        end
      end
    end
@@ -64,7 +64,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      visit schema_schema_version_path(schema_version.schema, schema_version)
      within ".container-schema-detail" do
        within '.history-version' do
-         assert find_link('Versión Anterior')
+         assert find_link('Versión anterior')
          assert_text 'VERSIÓN SIGUIENTE'
        end
      end
@@ -76,13 +76,13 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      visit schema_schema_version_path(schema_version.schema, schema_version)
      within ".container-schema-detail" do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + schema_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
      end
-     click_link ("Versión Anterior")
+     click_link ("Versión anterior")
      within ".container-schema-detail" do
        assert_selector 'h1', text: previous_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + previous_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + previous_version.version_number.to_s
        assert_selector 'p', text: previous_version.description
      end
    end
@@ -93,13 +93,13 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      visit schema_schema_version_path(schema_version.schema, schema_version)
      within ".container-schema-detail" do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + schema_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
      end
-     click_link ("Versión Siguiente")
+     click_link ("Versión siguiente")
      within ".container-schema-detail" do
        assert_selector 'h1', text: next_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'V' + next_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + next_version.version_number.to_s
        assert_selector 'p', text: next_version.description
      end
    end
