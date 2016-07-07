@@ -4,10 +4,9 @@ class Service < ApplicationRecord
   has_many :service_versions
   validates :name, uniqueness: true
   before_save :update_humanized_name
-  attr_accessor :spec
   validates :spec, swagger_spec: true
-
-  attr_accessor :backwards_compatible
+  delegate :description, to: :current_version
+  attr_accessor :spec, :backwards_compatible
 
   def spec_file
     @spec_file

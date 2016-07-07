@@ -52,6 +52,10 @@ class ServiceVersion < ApplicationRecord
     self.rejected!
   end
 
+  def description
+    spec['info']['description']
+  end
+
   def update_old_versions_statuses
     if self.backwards_compatible?
       new_status = ServiceVersion.statuses[:outdated]
