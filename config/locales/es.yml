@@ -36,6 +36,11 @@ es:
   service_directory: Directorio de Servicios
   enter_service_name: "Ingresa nombre de Servicio"
   new_service: 'Nuevo Servicio'
+  institution: Institución
+  services: Servicios
+  agreements: Convenios
+  notifications: Notificaciones
+  logout: Logout
   services_pending_approval: 'Servicios por aprobar'
   no_services_pending_approval: No hay servicios pendientes de aprobar
   must_upload_a_spec_file: Debes subir un archivo de especificación.

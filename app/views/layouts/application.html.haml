@@ -39,41 +39,8 @@
                     %li{:role => "presentation"}
                       %a{:href => "#"} Convenios
                   .nav.navbar-nav.navbar-right
-                    - if user_signed_in?
-                      .btn-group#user-menu
-                        %button.btn.btn-action-blue.round.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-                          %span.name
-                            = current_user.name
-                          %span.caret
-                          %a.btn.btn-tiny-rounded.default.full
-                            99+
-                        %ul.dropdown-menu.pull-right
-                          %li.institution
-                            %small
-                              Institución
-                            = current_user.organizations.take.name
-                          %li
-                            %a{:href => "#"}
-                              Servicios
-                          %li
-                            %a{:href => "#"}
-                              Convenios
-                          %li
-                            %a{:href => "#"}
-                              Notificaciones
-                          -if current_user.can_create_schemas
-                            %li.new-schema
-                              = link_to new_schema_path, id: "menu-new-schema" do
-                                %i.glyphicon.glyphicon-plus
-                                Nuevo Esquema
-                          %li.logout
-                            =link_to destroy_user_session_path, method: :delete, id: 'btn-logout' do
-                              %i.glyphicon.glyphicon-log-out
-                              Logout
-                    - else
-                      %a#btn-login.btn.btn-action-blue.round.gradient{href: user_clave_unica_omniauth_authorize_path}
-                        = image_tag "clave-unica.svg", size: "28"
-                        Clave<span>única</span>
+                    =render 'layouts/menu'
+
     .container-fluid.main-container
       = render "shared/flash_messages", :locals => { :flash => flash }
       = yield
@@ -83,7 +50,7 @@
           .col-md-6{:class => "col-xs-6 footer-col blue text-left"}
           .col-md-6{:class => "col-xs-6 footer-col red text-right"}
           .clearfix
-        .row  
+        .row
           .container
             .col-md-6.col-xs-6.footer-col
               .box-logo-footer
