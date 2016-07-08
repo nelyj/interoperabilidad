@@ -34,7 +34,10 @@ class ServiceVersionsController < ApplicationController
   end
 
   def source_code
-    redirect_to @service_version.generate_zipped_code(%w(java php csharp jaxrs-cxf slim aspnet5))
+    default_langs = %w(java php csharp jaxrs-cxf slim aspnet5)
+    redirect_to @service_version.generate_zipped_code(
+      params[:languages] || default_langs
+    )
   end
 
   def state
