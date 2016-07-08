@@ -56,13 +56,13 @@ class ServiceVersionsController < ApplicationController
   def make_current_version
     set_service_version
     @service_version.make_current_version
-    redirect_to organization_services_path(@organization)
+    redirect_to pending_approval_services_path
   end
 
   def reject_version
     set_service_version
     @service_version.reject_version
-    redirect_to organization_services_path(@organization)
+    redirect_to pending_approval_services_path
   end
 
   private

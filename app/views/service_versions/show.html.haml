@@ -34,9 +34,9 @@
         /-else
         /  Versión Siguiente
         /  %a
+
         =link_to t(:generate_code), source_code_organization_service_service_version_path
-        %a.historic{href: '#'}
-          = t(:history)
+        =link_to t(:history), organization_service_service_versions_path
 .clearfix
 .container
   .row
