@@ -9,6 +9,7 @@ class ServiceVersion < ApplicationRecord
   after_save :update_search_metadata
   after_create :retract_proposed
   delegate :name, to: :service
+  delegate :organization, to: :service
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   #
@@ -90,7 +91,7 @@ class ServiceVersion < ApplicationRecord
           swagger_codegen spec_tmp_file.path, lang, lang_dir
         end
       end
-      output_zip_name = "#{name}-r#{version_number}-#{langs.join('__')}.zip"
+      output_zip_name = "#{organization.name}-#{name}-r#{version_number}-#{langs.join('__')}.zip"
       with_tmp_file(output_zip_name) do |tmp_zip_file|
         ZipFileGenerator.new(swagger_codegen_output_dir, tmp_zip_file.path).write
         new_object = s3_bucket.objects.build(output_zip_name)
