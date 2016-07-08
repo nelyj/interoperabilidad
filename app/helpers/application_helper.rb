@@ -8,7 +8,6 @@ module ApplicationHelper
         hard_wrap: true,
         xhtml: false,
         prettify: false,
-        link_attributes: false,
         filter_html: true,
         safe_links_only: true
       ),
