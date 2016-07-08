@@ -46,7 +46,7 @@ ptest: build
 	docker-compose run -e RAILS_ENV=test web parallel_test -e "rake db:create"
 	docker-compose run -e RAILS_ENV=test web parallel_test -e "bin/rails db:environment:set RAILS_ENV=test"
 	docker-compose run web rake parallel:prepare
-	docker-compose run web rake parallel:test
+	docker-compose run -e RECORD_RUNTIME=true web rake parallel:test
 
 logs:
 	docker-compose logs

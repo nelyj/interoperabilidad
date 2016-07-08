@@ -1,9 +1,9 @@
 ENV['RAILS_ENV'] ||= 'test'
-require 'parallel_tests/test/runtime_logger' if ENV['RECORD_RUNTIME']
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'parallel_tests/test/runtime_logger' if ENV['RECORD_RUNTIME']
 require "minitest/rails/capybara"
 require 'capybara/poltergeist'
 Capybara.register_driver :poltergeist do |app|
