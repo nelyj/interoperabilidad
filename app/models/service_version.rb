@@ -124,7 +124,8 @@ class ServiceVersion < ApplicationRecord
   def s3_bucket
     S3::Service.new(
       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      use_ssl: true
     ).buckets.find(ENV['S3_CODEGEN_BUCKET'])
   end
 
