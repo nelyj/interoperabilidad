@@ -55,6 +55,12 @@ Putting it all together, after building the image you can run it like this:
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
+        -e OP_CLIENT_ID=MyClaveUnicaClientId \
+        -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
+        -e OP_CALLBACK_URL=https://production.base.url.com \
+        -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
+        -e APP_ID=MyAppIdForTheRoleService \
+        -e ROLLBAR_ACCESS_TOKEN=MyAccessTokenForRollbar \
         egob/interoperabilidad
 
 
@@ -66,7 +72,13 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        egob/interoperabilidad
+        -e OP_CLIENT_ID=MyClaveUnicaClientId \
+        -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
+        -e OP_CALLBACK_URL=https://production.base.url.com \
+        -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
+        -e APP_ID=MyAppIdForTheRoleService \
+        -e ROLLBAR_ACCESS_TOKEN=MyAccessTokenForRollbar \
+        egob/interoperabilidad \
         bundle exec rake db:create db:migrate
 
 You can also add the `--rm` flag to this command to remove this disposable container right after it executes.
