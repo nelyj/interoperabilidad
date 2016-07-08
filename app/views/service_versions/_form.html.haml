@@ -15,7 +15,6 @@
     = f.label :spec_file
     = f.file_field :spec_file
   .field
-    = f.label :backwards_compatible
-    = f.check_box :backwards_compatible
+    = f.hidden_field :backwards_compatible, value: true
   .actions
     = f.submit
