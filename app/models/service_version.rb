@@ -90,7 +90,7 @@ class ServiceVersion < ApplicationRecord
           swagger_codegen spec_tmp_file.path, lang, lang_dir
         end
       end
-      output_zip_name = "service-version-#{id}-#{langs.join('_')}.zip"
+      output_zip_name = "#{name}-r#{version_number}-#{langs.join('_')}.zip"
       with_tmp_file(output_zip_name) do |tmp_zip_file|
         ZipFileGenerator.new(swagger_codegen_output_dir, tmp_zip_file.path).write
         new_object = s3_bucket.objects.build(output_zip_name)
