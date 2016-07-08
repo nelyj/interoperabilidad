@@ -1,7 +1,7 @@
 class ServiceVersionsController < ApplicationController
   before_action :set_organization
   before_action :set_service
-  before_action :set_service_version, only: [:show, :source_code]
+  before_action :set_service_version, only: [:show, :source_code, :state]
 
   def show
   end
@@ -41,16 +41,25 @@ class ServiceVersionsController < ApplicationController
   end
 
   def state
-    new_state = params[:state]
-    case new_state
-    when 'current'
-      make_current_version
-    when 'rejected'
-      reject_version
-    else
-      Rollbar.error('For ' + self.service.name + ' version ' +
-        self.version_number + ' the new_state was: ' + new_state)
-    end
+    if user_signed_in? && current_user.is_service_admin?
+      new_state = params[:state]
+      case new_state
+      when 'current'
+        make_current_version
+      when 'rejected'
+        reject_version
+      else
+        Rollbar.error('For ' + self.service.name + ' version ' +
+          self.version_number + ' the new_state was: ' + new_state)
+        end
+      else
+        redirect_to(
+          organization_service_service_versions_path(
+            @organization, @service, @service_version
+            ),
+          notice: 'no tiene permisos suficientes'
+        )
+      end
   end
 
   def make_current_version
