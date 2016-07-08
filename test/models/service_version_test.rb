@@ -174,7 +174,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
       user: users(:perico),
       backwards_compatible: true
     )
-    url = service_version.generate_zipped_code(%w(java php csharp spring slim aspnet5))
+    url = service_version.generate_zipped_code(%w(java php csharp jaxrs-cxf slim aspnet5))
     assert !open(url).read.nil?
   end
 
