@@ -8,9 +8,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable, omniauth_providers: [:clave_unica]
 
-  FALLBACK_URL = 'http://private-5f0326-microserviciosderolesv4.apiary-mock.com'
-  URL = ENV['ROLE_SERVICE_URL'] || 'http://thawing-shore-28727.herokuapp.com'
-  APP_ID = ENV['ROLE_APP_ID'] || 'AB01'
+  GOB_DIGITAL_ID = "AB01"
+
+  URL = ENV['ROLE_SERVICE_URL']
+  APP_ID = ENV['ROLE_APP_ID']
 
   def self.from_omniauth(auth)
     rut = auth.extra.raw_info.RUT
@@ -22,42 +23,40 @@ class User < ApplicationRecord
     else
       new_user.update!(sub: sub, id_token: id_token)
     end
-    new_user.refresh_user_roles_and_email!
+    new_user.refresh_user_roles_and_email(auth.extra.raw_info)
     new_user
   end
 
-  def refresh_user_roles_and_email!
+  def refresh_user_roles_and_email(raw_info)
     response = call_roles_service(URL)
     if response.code == 200
       response = JSON.parse(response)
-      if response.has_key?('nada')
-        response = JSON.parse(call_roles_service(FALLBACK_URL))
-      else
-        response
-      end
+      parse_organizations_and_roles(response, raw_info)
+      save!
     else
-      response = JSON.parse(call_roles_service(FALLBACK_URL))
+      Rollbar.error('Call to Role Service for user: ' + name +
+       ' rut: ' + rut_number + ' Returned: ' + response.code)
     end
-
-    self.name = refresh_name(response['nombre'])
-    parse_organizations_and_roles(response['instituciones'])
-
-    save!
   end
 
-  def parse_organizations_and_roles(organizations)
+  def parse_organizations_and_roles(response, raw_info)
     self.roles.delete_all
-    organizations.each do |organization|
-      org = organization['institucion']
-      role = organization['rol']
-      email = parse_email(organization['email'])
-      parse_organization_role(org, role, email)
+    if response.has_key?('nada')
+      self.name = raw_info.nombres + ' ' + raw_info.apellidoPaterno + ' ' + raw_info.apellidoMaterno
+    else
+      self.name = refresh_name(response['nombre'])
+      response['instituciones'].each do |organization|
+        org = organization['institucion']
+        role = organization['rol']
+        email = parse_email(organization['email'])
+        parse_organization_role(org, role, email)
+      end
     end
   end
 
   def parse_organization_role(organization, role, email)
-    org_id = organization['id'].empty? ? "AB01" : organization['id']
-    self.can_create_schemas = (org_id == "AB01")
+    org_id = organization['id']
+    self.can_create_schemas = (org_id == GOB_DIGITAL_ID)
     org = Organization.where(dipres_id: org_id ).first_or_create!(
       name: organization['nombre'].empty? ?
               'Secretaría General de la Presidencia' : organization['nombre'],
@@ -103,6 +102,14 @@ class User < ApplicationRecord
 
   def rut_number
     return self.rut[0..-3].tr('.','')
+  end
+
+  def is_service_admin?
+    gob_digital = Organization.where(dipres_id: GOB_DIGITAL_ID)
+    belongs_to_gobdigital = organizations.exists?(gob_digital)
+    is_service_provider = roles.where(organization: gob_digital).exists?(name: "Service Provider")
+    return false unless belongs_to_gobdigital && is_service_provider
+    return true
   end
 
 end
