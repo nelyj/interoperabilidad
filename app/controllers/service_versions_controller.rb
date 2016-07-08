@@ -34,7 +34,7 @@ class ServiceVersionsController < ApplicationController
   end
 
   def source_code
-    redirect_to @service_version.generate_zipped_code
+    redirect_to @service_version.generate_zipped_code(%w(java php csharp spring slim aspnet5))
   end
 
   def state
