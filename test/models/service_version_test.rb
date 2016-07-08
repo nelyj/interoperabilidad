@@ -166,4 +166,16 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 3, service.service_versions.rejected.length
   end
 
+  test "generate_zipped_code returns an URL where the code can be downloaded" do
+    service = services(:servicio_1)
+    service_version = service.service_versions.create!(
+      spec_file: StringIO.new(VALID_SPEC),
+      service: service,
+      user: users(:perico),
+      backwards_compatible: true
+    )
+    url = service_version.generate_zipped_code(%w(java php csharp spring slim aspnet5))
+    assert !open(url).read.nil?
+  end
+
 end

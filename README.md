@@ -13,6 +13,7 @@ Note: Only tested on Mac OS X and Linux so far.
 Assuming you have a functional make and docker on your system, just go to the project root and type:
 
     $ export OP_CLIENT_ID=<our-clave-unica-secret-id> OP_SECRET_KEY=<our-clave-unica-secret>
+    $ export AWS_ACCESS_KEY_ID=<our-aws-access-key-id> AWS_SECRET_ACCESS_KEY=<our-aws-access-key-id>
     $ make
 
 ...and go for coffee — it will take a while unless you have the right docker images cached. It will:
@@ -47,6 +48,13 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `ROLLBAR_ACCESS_TOKEN`: Rollbar token, needed to log errors in production.
 
+- `AWS_ACCESS_KEY_ID`: AWS Access Key, to use S3.
+
+- `AWS_SECRET_ACCESS_KEY`: AWS Secret Access Key, to use S3.
+
+- `S3_CODEGEN_BUCKET`: Pre-existing S3 Bucket where generated code (for API clients and server stubs) will be uploaded.
+
+
 You can also set the `PORT` environment variable to change the port where the web server will listen (defaults to 80). See `config/puma.rb` for more options you can tune/override via environment variables.
 
 Putting it all together, after building the image you can run it like this:
@@ -61,6 +69,9 @@ Putting it all together, after building the image you can run it like this:
         -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
         -e APP_ID=MyAppIdForTheRoleService \
         -e ROLLBAR_ACCESS_TOKEN=MyAccessTokenForRollbar \
+        -e AWS_ACCESS_KEY_ID=MyAWSAccessKeyId \
+        -e AWS_SECRET_ACCESS_KEY=MyAWSSecretAccessKey \
+        -e S3_CODEGEN_BUCKET=my-s3-bucket \
         egob/interoperabilidad
 
 
@@ -78,6 +89,9 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
         -e APP_ID=MyAppIdForTheRoleService \
         -e ROLLBAR_ACCESS_TOKEN=MyAccessTokenForRollbar \
+        -e AWS_ACCESS_KEY_ID=MyAWSAccessKeyId \
+        -e AWS_SECRET_ACCESS_KEY=MyAWSSecretAccessKey \
+        -e S3_CODEGEN_BUCKET=my-s3-bucket \
         egob/interoperabilidad \
         bundle exec rake db:create db:migrate
 

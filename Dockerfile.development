@@ -39,6 +39,9 @@ RUN curl -L -O https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTO
 # Node-based tools used by our app:
 RUN npm install -g git+https://github.com/continuum/sway.git#4c2e00e24749a70b2304cc4e1bc126a2223f91fb
 
+# Java for swagger-codegen:
+RUN apt-get install -y openjdk-7-jre
+
 # Our app:
 RUN mkdir /app
 WORKDIR /app

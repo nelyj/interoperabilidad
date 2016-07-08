@@ -1,7 +1,7 @@
 class ServiceVersionsController < ApplicationController
   before_action :set_organization
   before_action :set_service
-  before_action :set_service_version, only: :show
+  before_action :set_service_version, only: [:show, :source_code]
 
   def show
   end
@@ -31,6 +31,10 @@ class ServiceVersionsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def source_code
+    redirect_to @service_version.generate_zipped_code
   end
 
   def state
