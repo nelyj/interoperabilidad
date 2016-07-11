@@ -7,6 +7,7 @@ class ServiceVersion < ApplicationRecord
   belongs_to :user
   validates :spec, swagger_spec: true
   before_create :set_version_number
+  before_save :update_spec_with_resolved_refs
   after_save :update_search_metadata
   after_create :retract_proposed
   delegate :name, to: :service
@@ -60,6 +61,20 @@ class ServiceVersion < ApplicationRecord
 
   def description
     spec['info']['description']
+  end
+
+  def update_spec_with_resolved_refs
+    output, _ = Open3.capture2("sway-resolve", :stdin_data => spec.to_json)
+    # spec_with_resolved_refs will have two keys:
+    # - `spec_with_resolved_refs['definition']`, will mirror `self.spec`
+    #   but with all $refs replaced by the resolved/expanded content
+    # - `spec_with_resolved_refs['references']` will contain a hash with an
+    #   entry for every reference that has been resolved. Each entry in the hash
+    #   will have the JSON Pointer of the parent element where a $ref was found
+    #   as a key. And the value will include 'uri' (with the original ref URI),
+    #  'type' (which can take the values 'local', 'remote'), among others. See
+    #  the output of the sway-resolve command for more details.
+    self.spec_with_resolved_refs = JSON.parse(output)
   end
 
   def update_old_versions_statuses

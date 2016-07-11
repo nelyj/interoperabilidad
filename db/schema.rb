@@ -65,14 +65,15 @@ ActiveRecord::Schema.define(version: 20160707192848) do
   end
 
   create_table "service_versions", force: :cascade do |t|
-    t.integer  "service_id",                           null: false
-    t.integer  "version_number",                       null: false
-    t.jsonb    "spec",                                 null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "status",               default: 0
-    t.integer  "user_id",                              null: false
-    t.boolean  "backwards_compatible", default: false, null: false
+    t.integer  "service_id",                              null: false
+    t.integer  "version_number",                          null: false
+    t.jsonb    "spec",                                    null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "status",                  default: 0
+    t.integer  "user_id",                                 null: false
+    t.boolean  "backwards_compatible",    default: false, null: false
+    t.jsonb    "spec_with_resolved_refs"
   end
 
   create_table "services", force: :cascade do |t|
