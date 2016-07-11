@@ -2,6 +2,7 @@ require 'tempfile'
 require 'open3'
 
 class ServiceVersion < ApplicationRecord
+  include S3Configuration
   belongs_to :service
   belongs_to :user
   validates :spec, swagger_spec: true
@@ -94,7 +95,7 @@ class ServiceVersion < ApplicationRecord
       output_zip_name = "#{organization.name}-#{name}-r#{version_number}-#{langs.join('__')}.zip"
       with_tmp_file(output_zip_name) do |tmp_zip_file|
         ZipFileGenerator.new(swagger_codegen_output_dir, tmp_zip_file.path).write
-        new_object = s3_bucket.objects.build(output_zip_name)
+        new_object = codegen_bucket.objects.build(output_zip_name)
         new_object.content = open(tmp_zip_file.path)
         new_object.acl = :public_read
         new_object.save
@@ -119,14 +120,6 @@ class ServiceVersion < ApplicationRecord
       tmp_spec_file.close
       yield(tmp_spec_file)
     end
-  end
-
-  def s3_bucket
-    S3::Service.new(
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-      use_ssl: true
-    ).buckets.find(ENV['S3_CODEGEN_BUCKET'])
   end
 
   def swagger_codegen(spec_file_path, lang, output_dir_path)

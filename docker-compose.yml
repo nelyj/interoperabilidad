@@ -24,6 +24,7 @@ services:
       - OP_SECRET_KEY
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION
       - S3_CODEGEN_BUCKET=gobdigital-plat-rest-dev
       - OP_CALLBACK_URL=http://dev.interoperabilidad.digital.gob.cl
       - ROLE_SERVICE_URL=http://thawing-shore-28727.herokuapp.com

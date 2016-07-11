@@ -52,6 +52,8 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `AWS_SECRET_ACCESS_KEY`: AWS Secret Access Key, to use S3.
 
+- `AWS_REGION`: Region to use in S3 service.
+
 - `S3_CODEGEN_BUCKET`: Pre-existing S3 Bucket where generated code (for API clients and server stubs) will be uploaded.
 
 
@@ -69,6 +71,7 @@ Putting it all together, after building the image you can run it like this:
         -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
         -e APP_ID=MyAppIdForTheRoleService \
         -e ROLLBAR_ACCESS_TOKEN=MyAccessTokenForRollbar \
+        -e AWS_REGION=my-default-aws-region-for-s3 \
         -e AWS_ACCESS_KEY_ID=MyAWSAccessKeyId \
         -e AWS_SECRET_ACCESS_KEY=MyAWSSecretAccessKey \
         -e S3_CODEGEN_BUCKET=my-s3-bucket \
@@ -89,6 +92,7 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
         -e APP_ID=MyAppIdForTheRoleService \
         -e ROLLBAR_ACCESS_TOKEN=MyAccessTokenForRollbar \
+        -e AWS_REGION=my-default-aws-region-for-s3 \
         -e AWS_ACCESS_KEY_ID=MyAWSAccessKeyId \
         -e AWS_SECRET_ACCESS_KEY=MyAWSSecretAccessKey \
         -e S3_CODEGEN_BUCKET=my-s3-bucket \
