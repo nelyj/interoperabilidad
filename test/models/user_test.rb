@@ -2,38 +2,39 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  test '#refresh_user_roles_and_email! sets a hard coded email, org, flags and roles' do
+  test '#refresh_user_roles_and_email! login of user without roles' do
     user = users(:perico)
     segpres = organizations(:segpres)
-    user.refresh_user_roles_and_email!
-    assert_equal "mail@example.org", user.roles.first.email
-    assert_equal segpres, user.organizations.first
-    assert user.can_create_schemas
-    assert "Service Provider", user.roles.where(organization: segpres).first.name
+    auth = Hashie::Mash.new(
+      extra: {raw_info: {"RUT" => "22.222.222-2", "sub" => "8", "nombres" => "Perico", "apellidoPaterno" => "de los", "apellidoMaterno" => "Palotes"}},
+      credentials: {id_token: "ASDF"}
+    )
+    user.refresh_user_roles_and_email(auth.extra.raw_info)
+    assert user.roles.empty?
+    assert user.organizations.empty?
+    assert !user.can_create_schemas
   end
 
   test '.from_omniauth sets Auth params to new user' do
     auth = Hashie::Mash.new(
-      extra: {raw_info: {"RUT" => "22.222.222-2", "sub" => "8"}},
+      extra: {raw_info: {"RUT" => "55.555.555-5", "sub" => "8", "nombres" => "Perico", "apellidoPaterno" => "de los", "apellidoMaterno" => "Palotes"}},
       credentials: {id_token: "ASDF"}
     )
     User.from_omniauth(auth)
-    user = User.where(rut: "22.222.222-2").first
-    segpres = organizations(:segpres)
+    user = User.where(rut: "55.555.555-5").first
 
-    assert_equal "22.222.222-2", user.rut
+    assert_equal "55.555.555-5", user.rut
     assert_equal "Perico de los Palotes", user.name
     assert_equal "8", user.sub
     assert_equal "ASDF", user.id_token
-    assert_equal "mail@example.org", user.roles.first.email
-    assert_equal segpres, user.organizations.first
-    assert user.can_create_schemas
-    assert "Service Provider", user.roles.where(organization: segpres).first.name
+    assert user.roles.empty?
+    assert user.organizations.empty?
+    assert !user.can_create_schemas
   end
 
   test '.from_omniauth sets Auth params to existing user' do
     auth = Hashie::Mash.new(
-      extra: {raw_info: {"RUT" => "11.111.111-1", "sub" => "8"}},
+      extra: {raw_info: {"RUT" => "11.111.111-1", "sub" => "8", "nombres" => "Perico", "apellidoPaterno" => "de los", "apellidoMaterno" => "Palotes"}},
       credentials: {id_token: "ASDF"}
     )
     user = User.where(rut: "11.111.111-1").first
@@ -44,16 +45,13 @@ class UserTest < ActiveSupport::TestCase
     User.from_omniauth(auth)
 
     user = User.where(rut: "11.111.111-1").first
-    segpres = organizations(:segpres)
 
     assert_equal "11.111.111-1", user.rut
     assert_equal "Perico de los Palotes", user.name
     assert_equal "8", user.sub
     assert_equal "ASDF", user.id_token
-    assert_equal "mail@example.org", user.roles.first.email
-    assert_equal segpres, user.organizations.first
-    assert user.can_create_schemas
-    assert "Service Provider", user.roles.where(organization: segpres).first.name
+    assert user.roles.empty?
+    assert user.organizations.empty?
+    assert !user.can_create_schemas
   end
-
 end
