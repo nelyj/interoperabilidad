@@ -102,7 +102,7 @@ class User < ApplicationRecord
       RestClient.get(url + path)
     rescue => e
       Rollbar.error('Call to Role Service URL: ' + URL +
-       ' path: ' + Path + ' returned: ' + e.response)
+       ' path: ' + path + ' returned: ' + e.response)
     end
   end
 
