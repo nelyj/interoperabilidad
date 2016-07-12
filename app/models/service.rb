@@ -31,7 +31,7 @@ class Service < ApplicationRecord
   end
 
   def can_be_updated_by?(user)
-    user.organizations.exists?(id: organization.id)
+    user.roles.where(organization_id: organization.id).exists?(name: "Service Provider")
   end
 
   def last_version
