@@ -12,7 +12,7 @@ class Organization <ApplicationRecord
   end
 
   def is_member?(user)
-    user.organizations.exists?(self)
+    user.organizations.exists?(dipres_id: self.dipres_id)
   end
 
 end
