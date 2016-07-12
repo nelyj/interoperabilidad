@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class HomeHelperTest < ActionView::TestCase
-  include HomeHelper
+class SpecRenderHelperTest < ActionView::TestCase
+  include SpecRenderHelper
+  include ApplicationHelper
 
   test "#json_pointer_path" do
     assert_equal "/", json_pointer_path('/')

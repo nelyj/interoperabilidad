@@ -12,7 +12,7 @@
             = @service_version.status.upcase
           = t(:description) + ': '
           - if @service_version.description.present?
-            = markdown.render(@service_version.description).html_safe
+            /= markdown.render(@service_version.description).html_safe
           -else
             = t(:description_not_found)
       %p.url-canonica
@@ -63,9 +63,9 @@
     .col-md-10
       %h2 Especificación
       .field
-        = @service_version
+        = service_params_markup(@service_version)
       .field
-        = JSON.pretty_generate(@service_version.spec)
+        = JSON.pretty_generate(@service_version.spec_with_resolved_refs['definition'])
       .actions
         = link_to t(:new_version), new_organization_service_service_version_path
         = link_to t(:history), organization_service_service_versions_path
