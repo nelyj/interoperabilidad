@@ -1,4 +1,15 @@
-- @services.each do |service|
-  = service.name
-
+- if user_signed_in? && current_user.is_service_admin?
+  =link_to "Por aprobar", pending_approval_services_path
+  %br
 = link_to t(:new_service), new_organization_service_path
+%br
+%input{:type=>"text", placeholder: "Search"}
+%br
+- @services.each do |service|
+  = service.created_at
+  |
+  = service.name
+  |
+  = service.service_versions.last.user.name
+  |
+  = service.service_versions.last.status

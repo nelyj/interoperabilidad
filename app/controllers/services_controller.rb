@@ -3,11 +3,15 @@ class ServicesController < ApplicationController
   before_action :set_service, only: [:edit, :update]
 
   def index
-    @services = @organization.services.all
+    if user_signed_in? && @organization.is_member?(current_user)
+      @services = @organization.services.all
+    else
+      redirect_to services_path, notice: t(:not_enough_permissions)
+    end
   end
 
   def new
-    if user_signed_in? && current_user.roles.exists?(name: "Service Provider")
+    if user_signed_in? && @organization.can_create_service_or_version?(current_user)
        @service = Service.new
     else
       redirect_to organization_services_path(@organization), notice: t(:not_enough_permissions)
@@ -29,10 +33,10 @@ class ServicesController < ApplicationController
   end
 
   def edit
-    if user_signed_in? &&
+    if user_signed_in? && @service.can_be_updated_by?(current_user)
       current_user.organizations.where(id: @service.organization.id).length > 0
     else
-      redirect_to organization_services_path(@organizaton), notice: :not_enough_permissions
+      redirect_to organization_services_path(@organizaton), notice: t(:not_enough_permissions)
     end
   end
 
