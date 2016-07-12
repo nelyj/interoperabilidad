@@ -36,12 +36,13 @@ class User < ApplicationRecord
     else
       Rollbar.error('Call to Role Service for user: ' + name +
        ' rut: ' + rut_number + ' Returned: ' + response.code)
+       parse_organizations_and_roles(null, raw_info)
     end
   end
 
   def parse_organizations_and_roles(response, raw_info)
     self.roles.delete_all
-    if response.has_key?('nada')
+    if response.nil? || response.has_key?('nada')
       self.name = raw_info.nombres + ' ' + raw_info.apellidoPaterno + ' ' + raw_info.apellidoMaterno
     else
       self.name = refresh_name(response['nombre'])
@@ -97,7 +98,12 @@ class User < ApplicationRecord
   def call_roles_service(url)
     path = '/personas/' + rut_number +
       '/instituciones/segpres/aplicaciones/' + APP_ID.to_s
-    RestClient.get(url + path)
+    begin
+      RestClient.get(url + path)
+    rescue => e
+      Rollbar.error('Call to Role Service URL: ' + URL +
+       ' path: ' + Path + ' returned: ' + e.response)
+    end
   end
 
   def rut_number
