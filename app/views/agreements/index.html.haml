@@ -1,0 +1,25 @@
+.title-panel-pages
+	.container
+		.row
+			.col-md-12
+				%h1 Convenios Ministerio Secretaría General de la Presidencia
+		.row
+			.col-md-12
+				%ul.nav.nav-tabs{:role => "tablist"}
+					%li.active{:role => "presentation"}
+						%a{"aria-controls" => "home", "data-toggle" => "tab", :href => "#home", :role => "tab"} Proveedor
+					%li{:role => "presentation"}
+						%a{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#profile", :role => "tab"} Consumidor
+					%li{:role => "presentation", :class => "tab-to-new"}
+						%a{:href => 'javascript:void(0);', :title => 'Crear Nuevo Convenio'}
+							%i.material-icons
+								note_add
+							%span Crear Nuevo Convenio	
+				
+.content-tabs
+	.container
+		.tab-content
+			#home.tab-pane.active{:role => "tabpanel"}
+				Contenido Proveedor
+			#profile.tab-pane{:role => "tabpanel"}
+				Contenido Consumidor
