@@ -36,4 +36,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :users, only: [:index] do
+    resources :notifications, only:[:index, :show]
+  end
+
 end

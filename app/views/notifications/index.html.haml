@@ -1,0 +1,9 @@
+%h1=t(:notifications)
+- @notifications.each do |notification|
+  = notification.created_at
+  |
+  = notification.message
+  |
+  = notification.read
+  |
+  = notification.seen

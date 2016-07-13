@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707192848) do
+ActiveRecord::Schema.define(version: 20160713144724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id",                      null: false
+    t.string   "subject_type",                 null: false
+    t.integer  "subject_id",                   null: false
+    t.string   "message",                      null: false
+    t.boolean  "read",         default: false
+    t.boolean  "seen",         default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id", using: :btree
+    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
+  end
 
   create_table "organizations", force: :cascade do |t|
     t.string "name",      null: false

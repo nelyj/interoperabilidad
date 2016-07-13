@@ -5,6 +5,7 @@ class ServiceVersion < ApplicationRecord
   include S3Configuration
   belongs_to :service
   belongs_to :user
+  has_many :notifications, as: :subject
   validates :spec, swagger_spec: true
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
