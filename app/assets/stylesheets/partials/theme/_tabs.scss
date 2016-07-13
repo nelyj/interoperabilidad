@@ -1,0 +1,35 @@
+.nav-tabs{
+  border: none;
+  > li > a,
+  > li.active a{
+    font-size: $big-size-font;
+    border-radius: 0;
+    border: none !important;
+    padding: 16px 20px;
+    color: $official-blue;
+  }
+  >li.active a{
+    @extend .font-bold;
+  }
+  .tab-to-new a,
+  .tab-to-new a:hover,
+  .tab-to-new a:focus{
+    @extend .font-bold;
+    background: none;
+    display: block;
+    overflow: hidden;
+    padding: 8px;
+    font-size: 16px;
+    i{
+      display: block;
+      float: left;
+      font-size: 18px;
+      padding: 4px;
+    }
+    span{
+      display: block;
+      float: left;
+      padding: 3px;
+    }
+  }
+}
