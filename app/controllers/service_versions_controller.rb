@@ -18,7 +18,7 @@ class ServiceVersionsController < ApplicationController
         organization_service_service_versions_path(
           @organization, @service
           ),
-        notice: 'no tiene permisos suficientes'
+        notice: t(:not_enough_permissions)
       )
     end
   end
@@ -51,15 +51,15 @@ class ServiceVersionsController < ApplicationController
       else
         Rollbar.error('For ' + self.service.name + ' version ' +
           self.version_number + ' the new_state was: ' + new_state)
-        end
-      else
-        redirect_to(
-          organization_service_service_versions_path(
-            @organization, @service, @service_version
-            ),
-          notice: 'no tiene permisos suficientes'
-        )
       end
+    else
+      redirect_to(
+        organization_service_service_versions_path(
+          @organization, @service, @service_version
+          ),
+        notice: t(:not_enough_permissions)
+      )
+    end
   end
 
   def make_current_version
