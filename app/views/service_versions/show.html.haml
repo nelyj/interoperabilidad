@@ -22,42 +22,60 @@
           %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
             = organization_service_service_version_url(@service, @service_version, format: :json)
       .history-version
-        /- if @service_version.has_previous_version?
         =link_to t(:previous_version)
-        /  schema_schema_version_path(@schema_version.schema, @schema_version.previous_version)
-        /-else
-        /  Versión Anterior
-        /  %a
-        /- if @schema_version.has_next_version?
         =link_to t(:next_version)
-        /    schema_schema_version_path(@schema_version.schema, @schema_version.next_version)
-        /-else
-        /  Versión Siguiente
-        /  %a
-
         =link_to t(:generate_code), source_code_organization_service_service_version_path
         =link_to t(:history), organization_service_service_versions_path
 .clearfix
-.container
+.container-fluid
   .row
-    .col-md-2.container-operations-list.no-gutter
-      %h3.col-title
-        = t(:operations)
-      %ul.list-operations
-        - @service_version.operations.each do |(verb, path), operation|
-          %li
-            %a
-              %span.full.btn.btn-status{class: css_class_for_http_verb(verb)}= verb
-              %span.path= path
-    .col-md-10
-      %h2 Especificación
-      .field
-        = service_params_markup(@service_version)
-      %pre.field
-        = JSON.pretty_generate(@service_version.spec_with_resolved_refs['definition'])
-      .actions
-        = link_to t(:new_version), new_organization_service_service_version_path
-        = link_to t(:history), organization_service_service_versions_path
-      - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
-        = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
-        = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
+    .col-md-12.wrapper-operation.no-gutter
+      .container-verbs.in
+        %button#collapseVerbs.btn.btn-primary.btn-sm{:type => "button"}
+          %i.glyphicon.glyphicon-plus
+        %h3.col-title
+          = t(:operations)
+        %ul.list-operations
+          - @service_version.operations.each do |(verb, path), operation|
+            %li
+              %a
+                %span.full.btn.btn-status{class: css_class_for_http_verb(verb)}= verb
+                %span.path= path
+      .container-service
+        %p Especificación
+        .operation.in
+          %button.btn.btn-primary.btn-sm.collapseConsole{:type => "button"}
+            %i.glyphicon.glyphicon-plus PROBAR
+          %h2 Especificación
+          .field
+            = service_params_markup(@service_version)
+          .actions
+            = link_to t(:new_version), new_organization_service_service_version_path
+            = link_to t(:history), organization_service_service_versions_path
+          - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
+            = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
+            = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
+        .console 
+          %button#fullConsole.btn.btn-primary.btn-sm{:type => "button"}
+            %i.glyphicon.glyphicon-plus FullScreen
+          %button#closeConsole.btn.btn-primary.btn-sm{:type => "button"}
+            %i.glyphicon.glyphicon-plus Cerrar
+          %p
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

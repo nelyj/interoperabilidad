@@ -612,3 +612,75 @@ ul.list-operations {
 //schema panel set component
 @import "components/_schemas-component.scss";
 @import "components/_tables.scss";
+//Services
+.wrapper-operation {
+    overflow: hidden;
+}
+
+.container-verbs,
+.container-service,
+.operation,
+.console {
+    -webkit-transition: width 0.3s ease;
+    -moz-transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+}
+
+.container-verbs {
+    //background-color: lighten(rgba(0, 0, 0, 1), 95);
+    display: inline-block;
+    float: left;
+    width: 85px;
+    &.in {
+        width: 20%;
+    }
+}
+
+.container-service {
+    //background-color: lighten(rgba(0, 0, 0, 1), 90);
+    width: 80%;
+    display: inline-block;
+    position: relative;
+    .operation {
+        //background-color: lighten(rgba(0, 0, 0, 1), 80);
+        width: 50%;
+        display: inline-block;
+        float: left;
+        position: relative;
+        left: 0px;
+        .collapseConsole {
+            display: none;
+        }
+        &.in {
+            width: 100%;
+            display: inline-block;
+            .collapseConsole {
+                display: inline-block;
+            }
+        }
+        &.out {
+            width: 0px;
+            overflow: hidden;
+            position: absolute;
+        }
+    }
+    .console {
+        position: absolute;
+        //background-color: lighten(rgba(0, 0, 0, 1), 60);
+        width: 0px;
+        top: 0px;
+        right: 0px;
+        &.in {
+            right: 0px;
+            width: 50%;
+            display: inline-block;
+        }
+        &.full {
+            right: 0px;
+            width: 100%;
+            position: absolute;
+            display: inline-block;
+        }
+    }
+}
