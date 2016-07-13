@@ -1,0 +1,27 @@
+//agreements partial stylesheet
+.title-panel-pages{
+	.container{
+		h1{
+			padding: 0 2px;
+			margin: 50px 0;
+			font-size: $max-size-font;
+			font-weight: 300;
+			color: $official-blue;
+		}
+		.nav-tabs{
+			.tab-to-new{
+				float: right;
+			}
+		}
+	}
+}
+
+.content-tabs{
+	background: $main-section-content;
+	padding: 30px 0;
+	min-height: 300px;
+}
+
+.content-tabs{
+	background: $main-section-content;
+}
