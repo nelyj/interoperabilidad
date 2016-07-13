@@ -44,7 +44,11 @@
       %h3.col-title
         = t(:operations)
       %ul.list-operations
-        = service_operations(@service_version.spec)
+        - @service_version.operations.each do |(verb, path), operation|
+          %li
+            %a
+              %span.full.btn.btn-status{class: css_class_for_http_verb(verb)}= verb
+              %span.path= path
     .col-md-10
       %h2 Especificación
       .field

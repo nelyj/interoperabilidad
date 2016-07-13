@@ -17,21 +17,6 @@ module ServiceVersionsHelper
     end)
   end
 
-  def service_operations(service_spec)
-    join_markup(service_spec['paths'].map do |path, operations|
-      join_markup(operations.map do |verb, operation|
-        if verb != 'parameters'
-          content_tag(:li) do
-            content_tag(:a) do
-              content_tag(:span, verb, class: 'btn btn-status '+ class_definer(verb) + ' full') +
-              content_tag(:span, path, class: 'path')
-            end
-          end
-        end
-      end)
-    end)
-  end
-
   def service_path_operation_markup(path, operations, json_pointer, references)
     common_parameters = operations.extract!('parameters')['parameters'] || []
     content_tag(:ul, class: 'list-operations') do
@@ -42,7 +27,7 @@ module ServiceVersionsHelper
     end
   end
 
-  def class_definer(verb)
+  def css_class_for_http_verb(verb)
     options = {
       'get' => 'info', 'post' => 'success', 'put' => 'warning', 'delete' => 'danger'
     }
@@ -56,7 +41,7 @@ module ServiceVersionsHelper
     content_tag(:li) do
       content_tag(:a) do
         content_tag(:span, verb, class: 'btn btn-status '+
-          class_definer(verb) + ' full') + path + '<br>'.html_safe +
+          css_class_for_http_verb(verb) + ' full') + path + '<br>'.html_safe +
           content_tag(:h3, operation['summary']) +
           content_tag(:h2, 'Parámetros') +
           service_operation_parameters_distribution(common_parameters) +

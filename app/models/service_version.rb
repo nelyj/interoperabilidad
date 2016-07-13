@@ -64,6 +64,18 @@ class ServiceVersion < ApplicationRecord
     spec['info']['description']
   end
 
+  # Returns a hash where keys are tuples of [path, verb] and the values are
+  # the swagger operations
+  def operations
+    ops = {}
+    spec['paths'].each do |path, verbs|
+      verbs.except('parameters').each do |verb, operation|
+        ops[[verb, path]] = operation
+      end
+    end
+    ops
+  end
+
   def update_spec_with_resolved_refs
     output, _ = Open3.capture2("sway-resolve", :stdin_data => spec.to_json)
     # spec_with_resolved_refs will have two keys:
