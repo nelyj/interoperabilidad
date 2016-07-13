@@ -64,7 +64,7 @@ class ServiceTest < ActiveSupport::TestCase
   test "#can_be_updated_by? returns false for a user who belongs to the service's organization and is not a Service Provider" do
     service = create_valid_service!
     perico = users(:perico)
-    perico.roles.create!(organization: organizations(:segpres), name: "Watever")
+    perico.roles.create!(organization: organizations(:segpres), name: "Whatever")
     assert_not service.can_be_updated_by?(perico)
   end
 
