@@ -12,7 +12,7 @@
             = @service_version.status.upcase
           = t(:description) + ': '
           - if @service_version.description.present?
-            /= markdown.render(@service_version.description).html_safe
+            = markdown.render(@service_version.description).html_safe
           -else
             = t(:description_not_found)
       %p.url-canonica
