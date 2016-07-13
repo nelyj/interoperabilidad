@@ -105,7 +105,6 @@ module ServiceVersionsHelper
     content_tag(:h3, parameter_section_name(location)) +
     content_tag(:div, class: "schema-panel-set detail") do
       join_markup(parameters.map do |parameter|
-        #service_parameter_markup(parameter) +
         if location == 'body'
           if parameter['schema']['description'].blank?
             parameter['schema'].merge!({ 'description' => parameter['description'] })
@@ -118,11 +117,6 @@ module ServiceVersionsHelper
         end
       end)
     end
-  end
-
-  def service_parameter_markup(parameter)
-    content_tag(:p, parameter['description']) +
-    content_tag(:p, parameter['required'])
   end
 
   def service_operation_parameters_schema_markup(schema, json_pointer, references)
