@@ -49,7 +49,7 @@
       %h2 Especificación
       .field
         = service_params_markup(@service_version)
-      .field
+      %pre.field
         = JSON.pretty_generate(@service_version.spec_with_resolved_refs['definition'])
       .actions
         = link_to t(:new_version), new_organization_service_service_version_path
