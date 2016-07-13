@@ -29,19 +29,26 @@ class User < ApplicationRecord
 
   def refresh_user_roles_and_email(raw_info)
     response = call_roles_service(URL)
-    if response.code == 200
-      response = JSON.parse(response)
-      parse_organizations_and_roles(response, raw_info)
-      save!
-    else
+    if response.nil?
       Rollbar.error('Call to Role Service for user: ' + name +
-       ' rut: ' + rut_number + ' Returned: ' + response.code)
-       parse_organizations_and_roles(null, raw_info)
+       ' rut: ' + rut_number + ' Returned: nil')
+       parse_organizations_and_roles(nil, raw_info)
+    else
+      if response.code == 200
+        response = JSON.parse(response)
+        parse_organizations_and_roles(response, raw_info)
+        save!
+      else
+        Rollbar.error('Call to Role Service for user: ' + name +
+        ' rut: ' + rut_number + ' Returned: ' + response.code.to_s)
+        parse_organizations_and_roles(nil, raw_info)
+      end
     end
   end
 
   def parse_organizations_and_roles(response, raw_info)
     self.roles.delete_all
+    self.can_create_schemas = false
     if response.nil? || response.has_key?('nada')
       self.name = raw_info.nombres + ' ' + raw_info.apellidoPaterno + ' ' + raw_info.apellidoMaterno
     else
@@ -103,6 +110,7 @@ class User < ApplicationRecord
     rescue => e
       Rollbar.error('Call to Role Service URL: ' + URL +
        ' path: ' + path + ' returned: ' + e.response)
+       return nil
     end
   end
 
