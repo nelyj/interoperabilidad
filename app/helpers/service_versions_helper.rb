@@ -71,8 +71,21 @@ module ServiceVersionsHelper
       content_tag(:h3, name) +
       content_tag(:p, response['description']) +
       response_schema_object_markup(response['schema']) +
-      response_headers_markup(response['headers'])
+      response_headers_markup(response['headers']) +
+      response_example_markup(response['examples'])
     end)
+  end
+
+  def response_example_markup(example)
+    if example.present?
+      content_tag(:div, class: 'box-code-example') do
+        content_tag(:code, class: 'json') do
+          preserve(JSON.pretty_generate example)
+        end
+      end
+    else
+      ''
+    end
   end
 
   def response_headers_markup(headers)
