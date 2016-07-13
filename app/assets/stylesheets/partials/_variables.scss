@@ -1,13 +1,14 @@
 //colors
 $official-blue: rgba(0, 108, 183, 1);
 $official-red: rgba(239, 65, 68, 1);
-$gray-background: rgba(249, 249, 249, 1);
+$gray-background: rgba(242, 242, 242, 1);
 $gray-text: rgba(145, 145, 145, 1);
 $btn-static-color: rgba(147, 147, 147, 1);
 $border-input-color: rgba(151, 151, 151, 1);
 $schemas-background-color: rgba(106, 193, 255, 1);
 $services-background-color: rgba(255, 116,111,1);
 $dot-required-color: rgba(100, 230, 80, 1);
+$main-section-content: rgba(255, 255, 255, 1);
 
 //fonts
 $font-regular: gobclregular, Tahoma, Verdana, Segoe, sans-serif;
@@ -16,3 +17,14 @@ $font-bold: gobclbold, Tahoma, Verdana, Segoe, sans-serif;
 $font-heavy: gobclheavy, Tahoma, Verdana, Segoe, sans-serif;
 $font-menlo: Menlo, Monaco, Consolas, "Courier New", monospace;
 $font-courier: "Courier New", Menlo, Monaco, Consolas, monospace;
+
+//Font Sizes
+$max-size-font: 24px;
+$big-size-font: 18px;
+
+//Extras @extend
+.font-bold{
+    font-family: gobclbold, Tahoma, Verdana, Segoe, sans-serif;
+}
+
+
