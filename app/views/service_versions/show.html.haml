@@ -44,22 +44,7 @@
       %h3.col-title
         = t(:operations)
       %ul.list-operations
-        %li.active
-          %a
-            %span.btn.btn-status.success.full PUT
-            %span.path Verbo 1
-        %li
-          %a
-            %span.btn.btn-status.warning.full POST
-            %span.path Verbo 2
-        %li
-          %a
-            %span.btn.btn-status.info.full GET
-            %span.path Verbo 3
-        %li
-          %a
-            %span.btn.btn-status.danger.full DELETE
-            %span.path Verbo 4
+        = service_operations(@service_version.spec)
     .col-md-10
       %h2 Especificación
       .field
