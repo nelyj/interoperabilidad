@@ -44,7 +44,7 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `ROLE_SERVICE_URL`: URL for the Role Service.
 
-- `APP_ID`: APP_ID in the Role Service.
+- `ROLE_APP_ID`: APP_ID in the Role Service.
 
 - `ROLLBAR_ACCESS_TOKEN`: Rollbar token, needed to log errors in production.
 
