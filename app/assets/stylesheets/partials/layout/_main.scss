@@ -115,7 +115,7 @@ body {
 .box-schema {
     margin: 0px 5px 20px 5px;
     border-radius: 4px;
-    background: rgba(255,255,255,1);
+    background: rgba(255, 255, 255, 1);
     display: inline-block;
     width: 280px;
     text-align: left;
@@ -159,9 +159,9 @@ body {
             display: block;
             position: absolute;
             width: auto;
-            background: rgba(239,239,239,1);;
+            background: rgba(239, 239, 239, 1);
             border-radius: 4px;
-            color: rgba(145,145,145,1);
+            color: rgba(145, 145, 145, 1);
             bottom: 0px;
             font-size: 1.3rem;
             padding: 5px 7px;
@@ -178,10 +178,11 @@ body {
 
 .box-service {
     @extend .box-schema;
-    .title{
+    .title {
         background-color: $services-background-color;
     }
 }
+
 .instance-panel {
     width: 100%;
     height: 280px;
