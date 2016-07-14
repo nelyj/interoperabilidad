@@ -11,6 +11,8 @@
   >li.active a{
     @extend .font-bold;
   }
+
+  /* Especiales */
   .tab-to-new a,
   .tab-to-new a:hover,
   .tab-to-new a:focus{
@@ -18,7 +20,7 @@
     background: none;
     display: block;
     overflow: hidden;
-    padding: 12px;
+    padding: 12px 0 12px 12px;
     font-size: 16px;
     i{
       display: block;
@@ -32,8 +34,6 @@
       padding: 3px;
     }
   }
-  
-  /* Especiales */
   .tab-to-new{
     float: right;
   }
