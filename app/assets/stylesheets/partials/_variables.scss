@@ -1,8 +1,11 @@
 //colors
 $official-blue: rgba(0, 108, 183, 1);
 $official-red: rgba(239, 65, 68, 1);
+$official-green: rgba(83, 154, 0, 1);
 $gray-background: rgba(242, 242, 242, 1);
+$gray-background-especial: rgba(113, 123, 127, 1);
 $gray-text: rgba(145, 145, 145, 1);
+$light-text: rgba(255, 255, 255, 1);
 $btn-static-color: rgba(147, 147, 147, 1);
 $border-input-color: rgba(151, 151, 151, 1);
 $schemas-background-color: rgba(106, 193, 255, 1);
@@ -21,8 +24,12 @@ $font-courier: "Courier New", Menlo, Monaco, Consolas, monospace;
 //Font Sizes
 $max-size-font: 24px;
 $big-size-font: 18px;
+$mid-size-font: 14px;
+$normal-size-font: 13px;
+$small-size-font: 11px;
+$nano-size-font: 10px;
 
-//Extras @extend
+//@extends
 .font-bold{
     font-family: gobclbold, Tahoma, Verdana, Segoe, sans-serif;
 }

@@ -11,7 +11,7 @@
 					%li{:role => "presentation"}
 						%a{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#profile", :role => "tab"} Consumidor
 					%li{:role => "presentation", :class => "tab-to-new"}
-						%a{:href => 'javascript:void(0);', :title => 'Crear Nuevo Convenio'}
+						%a{:href => 'new', :title => 'Crear Nuevo Convenio'}
 							%i.material-icons
 								note_add
 							%span Crear Nuevo Convenio	
@@ -20,6 +20,44 @@
 	.container
 		.tab-content
 			#home.tab-pane.active{:role => "tabpanel"}
-				Contenido Proveedor
+				.row
+					.col-md-12.head-title-table
+						%h2 Listado de convenios
+						.search-table
+							%input{:type => 'text', :placeholder => 'Buscar por nombre'}
+							%button.search
+								%i.material-icons
+									search
+				.row
+					.col-md-12
+						%table
+							%thead
+								%tr
+									%th Institución solicitante
+									%th Servicios involucrados
+									%th Propósito
+									%th Fecha ult. movimiento
+									%th Estado
+							%tbody
+								%colgroup
+									%col{:width => "15%"}
+									%col{:width => "22%"}
+									%col
+									%col{:width => "12%"}
+									%col{:width => "8%"}
+								- (1..6).each do |i|
+									%tr
+										%td Minsal
+										%td
+											%ul
+												%li Rol Unico
+												%li Licencia de Enseñanza Media
+												%li Fecha de inicio de actividades
+										%td
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed suscipit urna, sed molestie orci. Integer pharetra eget ligula elementum ultricies. Suspendisse blandit id odio eget molestie
+										%td 2/08/2016
+										%td
+											%span.label-green
+												En Trámite
 			#profile.tab-pane{:role => "tabpanel"}
 				Contenido Consumidor

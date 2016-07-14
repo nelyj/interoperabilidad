@@ -18,7 +18,7 @@
     background: none;
     display: block;
     overflow: hidden;
-    padding: 8px;
+    padding: 12px;
     font-size: 16px;
     i{
       display: block;
@@ -32,4 +32,10 @@
       padding: 3px;
     }
   }
+  
+  /* Especiales */
+  .tab-to-new{
+    float: right;
+  }
 }
+
