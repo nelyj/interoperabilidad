@@ -25,8 +25,8 @@ class ServiceVersionTest < ActiveSupport::TestCase
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                      user: users(:perico))
-    assert_equal 3, service.service_versions.length
-    assert_equal 2, service.service_versions.retracted.length
+    assert_equal 4, service.service_versions.length
+    assert_equal 3, service.service_versions.retracted.length
     assert_equal 1, service.service_versions.proposed.length
   end
 
@@ -61,12 +61,12 @@ class ServiceVersionTest < ActiveSupport::TestCase
                                      service: service,
                                      user: users(:perico))
 
-    assert_equal 6, service.service_versions.length
+    assert_equal 7, service.service_versions.length
     assert_equal 1, service.service_versions.rejected.length
     assert_equal 1, service.service_versions.retired.length
     assert_equal 1, service.service_versions.outdated.length
     assert_equal 1, service.service_versions.current.length
-    assert_equal 1, service.service_versions.retracted.length
+    assert_equal 2, service.service_versions.retracted.length
     assert_equal 1, service.service_versions.proposed.length
   end
 

@@ -1,0 +1,37 @@
+servicio1_v1:
+    service: servicio_1
+    user: pablito
+    version_number: 1
+    spec: &spec_servicio1_v1
+        swagger: '2.0'
+        info:
+          version: 0.0.0
+          title: Simple API
+        paths:
+          /:
+            get:
+              responses:
+                200:
+                  description: OK
+    spec_with_resolved_refs:
+        definition: *spec_servicio1_v1
+        references: {}
+
+servicio2_v1:
+    service: servicio_2
+    user: pablito
+    version_number: 1
+    spec: &spec_servicio2_v1
+        swagger: '2.0'
+        info:
+          version: 0.0.0
+          title: Simple API
+        paths:
+          /:
+            get:
+              responses:
+                200:
+                  description: OK
+    spec_with_resolved_refs:
+        definition: *spec_servicio2_v1
+        references: {}
