@@ -7,9 +7,9 @@
 			.col-md-12
 				%ul.nav.nav-tabs{:role => "tablist"}
 					%li.active{:role => "presentation"}
-						%a{"aria-controls" => "home", "data-toggle" => "tab", :href => "#home", :role => "tab"} Proveedor
+						%a{"aria-controls" => "proveedor", "data-toggle" => "tab", :href => "#proveedor", :role => "tab"} Proveedor
 					%li{:role => "presentation"}
-						%a{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#profile", :role => "tab"} Consumidor
+						%a{"aria-controls" => "consumidor", "data-toggle" => "tab", :href => "#consumidor", :role => "tab"} Consumidor
 					%li{:role => "presentation", :class => "tab-to-new"}
 						%a{:href => 'new', :title => 'Crear Nuevo Convenio'}
 							%i.material-icons
@@ -19,7 +19,7 @@
 .content-tabs
 	.container
 		.tab-content
-			#home.tab-pane.active{:role => "tabpanel"}
+			#proveedor.tab-pane.active{:role => "tabpanel"}
 				.row
 					.col-md-12.head-title-table
 						%h2 Listado de convenios
@@ -46,18 +46,32 @@
 									%col{:width => "12%"}
 									%col{:width => "8%"}
 								- (1..6).each do |i|
-									%tr
-										%td Minsal
-										%td
-											%ul
-												%li Rol Unico
-												%li Licencia de Enseñanza Media
-												%li Fecha de inicio de actividades
-										%td
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed suscipit urna, sed molestie orci. Integer pharetra eget ligula elementum ultricies. Suspendisse blandit id odio eget molestie
-										%td 2/08/2016
-										%td
-											%span.label-green
-												En Trámite
-			#profile.tab-pane{:role => "tabpanel"}
-				Contenido Consumidor
+									= render partial: "content_table"
+			#consumidor.tab-pane{:role => "tabpanel"}
+				.row
+					.col-md-12.head-title-table
+						%h2 Listado de convenios
+						.search-table
+							%input{:type => 'text', :placeholder => 'Buscar por nombre'}
+							%button.search
+								%i.material-icons
+									search
+				.row
+					.col-md-12
+						%table
+							%thead
+								%tr
+									%th Institución proveedora
+									%th Servicios involucrados
+									%th Propósito
+									%th Fecha ult. movimiento
+									%th Estado
+							%tbody
+								%colgroup
+									%col{:width => "15%"}
+									%col{:width => "22%"}
+									%col
+									%col{:width => "12%"}
+									%col{:width => "8%"}
+								- (1..6).each do |i|
+									= render partial: "content_table"
