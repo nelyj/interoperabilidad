@@ -68,13 +68,9 @@ class User < ApplicationRecord
     org_id = organization['id']
     self.can_create_schemas = (org_id == GOB_DIGITAL_ID)
     org = Organization.where(dipres_id: org_id ).first_or_create!(
-      name: organization['nombre'].empty? ?
-              'Secretaría General de la Presidencia' : organization['nombre'],
-      initials: organization['sigla'].empty? ?
-              'SEGPRES' : organization['sigla'])
-    self.roles.first_or_create!(organization: org,
-                                name: parse_role(role),
-                                email: email)
+      name: organization['nombre'],
+      initials: organization['sigla'])
+    self.roles.create(organization: org, name: parse_role(role), email: email)
   end
 
   def parse_role(role)

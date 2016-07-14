@@ -41,6 +41,9 @@ es:
   agreements: Convenios
   notifications: Notificaciones
   shownotifications: Ver Notificaciones
+  create_new_service_notification: "Nuevo Servicio: %{name} creado."
+  create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación."
+  create_state_change_notification: "Servicio %{name}, versión %{version} ha sido %{status}."
   logout: Logout
   new_schema: Nuevo Esquema
   new_version: Nueva Versión
@@ -51,7 +54,9 @@ es:
   schemas: Esquemas
   category: Categoria
   approve: Aprobar
+  approved: aprobado
   reject: Rechazar
+  rejected: rechazado
   no_description: "Descripción no disponible"
   services_pending_approval: 'Servicios por aprobar'
   no_services_pending_approval: No hay servicios pendientes de aprobar

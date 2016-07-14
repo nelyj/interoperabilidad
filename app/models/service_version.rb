@@ -3,6 +3,7 @@ require 'open3'
 
 class ServiceVersion < ApplicationRecord
   include S3Configuration
+  include Rails.application.routes.url_helpers
   belongs_to :service
   belongs_to :user
   has_many :notifications, as: :subject
@@ -10,6 +11,7 @@ class ServiceVersion < ApplicationRecord
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
   after_save :update_search_metadata
+  after_create :create_new_notification
   after_create :retract_proposed
   delegate :name, to: :service
   delegate :organization, to: :service
@@ -54,10 +56,34 @@ class ServiceVersion < ApplicationRecord
   def make_current_version
     self.current!
     update_old_versions_statuses
+    create_state_change_notification(I18n.t(:approved))
   end
 
   def reject_version
     self.rejected!
+    create_state_change_notification(I18n.t(:rejected))
+  end
+
+  def create_new_notification
+    org = Organization.where(dipres_id: "AB01")
+    if version_number == 1
+      message = I18n.t(:create_new_service_notification, name: name)
+    else
+      message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s)
+    end
+    Role.where(name: "Service Provider", organization: org).each do |role|
+      role.user.notifications.create(subject: self,
+        message: message
+      )
+    end
+  end
+
+  def create_state_change_notification(status)
+    org = Organization.where(dipres_id: "AB01")
+    user.notifications.create(subject: self,
+      message: I18n.t(:create_state_change_notification, name: name,
+        version: self.version_number.to_s, status: status)
+    )
   end
 
   def description
@@ -111,8 +137,11 @@ class ServiceVersion < ApplicationRecord
 
   def retract_proposed
     service.service_versions.proposed.where(
-      "version_number != ?", self.version_number).update_all(
-      status: ServiceVersion.statuses[:retracted])
+      "version_number != ?", self.version_number).each do |version|
+
+        version.update(status: ServiceVersion.statuses[:retracted])
+        version.notifications.update_all(read: true)
+    end
   end
 
   # `langs` is an array containing any swagger-codegen generator.
@@ -173,4 +202,9 @@ class ServiceVersion < ApplicationRecord
   def api_package_name
     self.name.titleize.gsub(/\s+/, '')
   end
+
+  def url
+    organization_service_service_version_path(self.organization, self.service, self)
+  end
+
 end

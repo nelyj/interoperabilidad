@@ -2,6 +2,7 @@ class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :subject, polymorphic: true
   after_create :send_by_email
+  default_scope -> { order('created_at DESC') }
 
   # Add on AgreementVersion: has_many :notifications, as: :subject
 
