@@ -2,6 +2,8 @@
 .container
   .row
     .col-md-12.container-schema-detail
+      %h1=@organization.name
+      =select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name")
       %h1
         = @service_version.service.name
         %a.btn.btn-status.blue
