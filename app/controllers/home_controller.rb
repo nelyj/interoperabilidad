@@ -9,7 +9,12 @@ class HomeController < ApplicationController
 
   def search
     @text_search = params[:text_search]
-    @services = Service.search(params[:text_search])
+    organization = Organization.where(name: @text_search).first
+    if organization.blank?
+      @services = Service.search(params[:text_search])
+    else
+      @services = organization.services
+    end
   end
 
   def pending_approval
