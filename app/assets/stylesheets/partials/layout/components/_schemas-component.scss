@@ -8,7 +8,7 @@
     .panel-group {
         margin: 3px 0px;
     }
-    //detail version (without margin) child of standard version
+    //detail version (without margin)
     &.detail {
         .panel-heading,
         .panel-body,
@@ -16,17 +16,18 @@
         .panel-group {
             padding: 0px;
             margin: 0px;
+            border-radius: 0px;
         }
         div {
-            border: none !important;
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
             box-shadow: none;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+            border: none !important;
         }
         div.panel-body,
         div.panel-schema {
-            background-color: transparent !important;
             margin-top: 0px !important;
+            background-color: transparent !important;
         }
         div.panel-heading,
         div.panel-body {
@@ -87,10 +88,6 @@
                 }
             }
         }
-        .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-heading,
-        .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-schema .panel-body {
-            border-radius: 5px;
-        }
         div.panel-collapse {
             background-color: transparent !important;
         }
@@ -129,10 +126,10 @@
                                     //level 9+ (n > 8)
                                     background-color: rgba(255, 255, 255, 1);
                                     div.panel-heading {
+                                      border-radius: 0px;
                                         background-color: rgba(255, 255, 255, 1);
                                         border: 1px solid rgba(201, 212, 238, 1);
                                         color: rgba(82, 91, 114, 1);
-                                        border-radius: 5px 5px 0px 0px;
                                         .description {
                                             color: rgba(127, 140, 176, 1);
                                         }
@@ -143,10 +140,8 @@
                                         border: 1px solid rgba(201, 212, 238, 1);
                                         background-color: rgba(255, 255, 255, 1);
                                         border-top: none;
-                                        border-radius: 0px 0px 5px 5px;
                                         div.panel-body {
                                             background-color: rgba(255, 255, 255, 1);
-                                            border-radius: 0px 0px 5px 5px;
                                             border-top: none;
                                             margin-top: -3px;
                                         }
@@ -160,8 +155,8 @@
         }
     }
     > .panel-heading {
-        border-radius: 5px;
         min-height: 75px;
+        border-radius: 0px;
         [class*='col-'] {
             padding: 0px;
             margin: 0px;
@@ -177,7 +172,7 @@
                 color: rgba(229, 229, 229, 1);
                 margin-left: -28px;
                 padding-right: 10px;
-                line-height: 13px;
+                line-height: 20px;
                 font-size: 13px;
             }
             &.down {
@@ -206,7 +201,7 @@
                         margin-right: 6px;
                         font-family: 'Glyphicons Halflings';
                         content: "\e164";
-                        font-size: 16px;
+                        font-size: 13px;
                         line-height: 16px;
                         padding: 0px;
                         vertical-align: middle;
@@ -219,6 +214,7 @@
             font-style: italic;
         }
         .description {
+            font-size: 13px;
             margin: 0px;
             padding: 0px 0px 0px 18px;
             font-family: $font-courier;
@@ -234,8 +230,8 @@
                     content: "";
                     width: 10px;
                     height: 10px;
-                    margin-right: 10px;
                     border-radius: 10px;
+                    margin-right: 10px;
                     display: inline-block;
                     background-color: transparent;
                     border: 1px solid rgba(255, 255, 255, 1);
@@ -283,7 +279,6 @@
         border: none;
         .panel-body {
             border: none;
-            border-radius: 5px;
         }
     }
 }
