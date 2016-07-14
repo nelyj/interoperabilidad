@@ -1,7 +1,7 @@
 //navbar
 header {
     background: white;
-    .container-fluid{
+    .container-fluid {
         border-bottom: 1px solid $official-grey;
     }
 }
@@ -54,8 +54,8 @@ header {
                         line-height: 125%;
                         font-size: $font-14;
                     }
-                    &:hover{
-                      background: $gray-background-especial;
+                    &:hover {
+                        background: $gray-background-especial;
                     }
                 }
             }
