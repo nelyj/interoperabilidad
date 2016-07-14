@@ -102,7 +102,7 @@
     //level 1
     @include schema-component-panel( rgba(85, 93, 115, 1), rgba(227, 227, 227, 1), rgba(173, 173, 173, 1));
     border: none;
-    font-size: 1.4rem;
+    font-size: 14px;
     font-family: $font-menlo;
     .panel-schema {
         //level 2
@@ -177,8 +177,8 @@
                 color: rgba(229, 229, 229, 1);
                 margin-left: -28px;
                 padding-right: 10px;
-                line-height: 2rem;
-                font-size: 1.3rem;
+                line-height: 24px;
+                font-size: 24px;
             }
             &.down {
                 &:before {
@@ -199,15 +199,15 @@
                     display: none;
                 }
                 span {
-                    line-height: 1.1rem;
+                    line-height: 18px;
                     padding: 0px;
                     color: rgba(255, 255, 255, 1);
                     &:before {
                         margin-right: 6px;
                         font-family: 'Glyphicons Halflings';
                         content: "\e164";
-                        font-size: 1.1rem;
-                        line-height: 1.1rem;
+                        font-size: 16px;
+                        line-height: 16px;
                         padding: 0px;
                         vertical-align: middle;
                     }
@@ -219,7 +219,7 @@
             font-style: italic;
         }
         .description {
-            font-size: 1.3rem;
+            font-size: 24px;
             margin: 0px;
             padding: 0px 0px 0px 18px;
             font-family: $font-courier;
@@ -228,7 +228,7 @@
             margin-top: 0px;
             margin-bottom: 0px;
             padding-left: 30px;
-            font-size: 1.4rem;
+            font-size: 14px;
             color: inherit;
             .name {
                 &:before {
@@ -257,7 +257,7 @@
         ul {
             text-align: right;
             list-style: none;
-            font-size: 1.4rem;
+            font-size: 14px;
             li {
                 &.reg-exp {
                     margin: 2px 0px;
@@ -267,7 +267,7 @@
                         border-radius: 3px;
                         font-family: $font-menlo;
                         padding: 3px;
-                        font-size: 1.4rem;
+                        font-size: 14px;
                     }
                 }
             }
