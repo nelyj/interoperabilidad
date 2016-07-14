@@ -1,41 +1,39 @@
-.nav-tabs{
-  border: none;
-  > li > a,
-  > li.active a{
-    font-size: $big-size-font;
-    border-radius: 0;
-    border: none !important;
-    padding: 16px 20px;
-    color: $official-blue;
-  }
-  >li.active a{
-    @extend .font-bold;
-  }
-
-  /* Especiales */
-  .tab-to-new a,
-  .tab-to-new a:hover,
-  .tab-to-new a:focus{
-    @extend .font-bold;
-    background: none;
-    display: block;
-    overflow: hidden;
-    padding: 12px 0 12px 12px;
-    font-size: 16px;
-    i{
-      display: block;
-      float: left;
-      font-size: 18px;
-      padding: 4px;
+.nav-tabs {
+    border: none;
+    > li > a,
+    > li.active a {
+        font-size: $font-18;
+        border-radius: 0;
+        border: none !important;
+        padding: 16px 20px;
+        color: $official-blue;
     }
-    span{
-      display: block;
-      float: left;
-      padding: 3px;
+    >li.active a {
+        @extend .font-bold;
     }
-  }
-  .tab-to-new{
-    float: right;
-  }
+    /* Especiales */
+    .tab-to-new a,
+    .tab-to-new a:hover,
+    .tab-to-new a:focus {
+        @extend .font-bold;
+        background: none;
+        display: block;
+        overflow: hidden;
+        padding: 12px 0 12px 12px;
+        font-size: 16px;
+        i {
+            display: block;
+            float: left;
+            font-size: 18px;
+            padding: 4px;
+        }
+        span {
+            display: block;
+            float: left;
+            padding: 3px;
+        }
+    }
+    .tab-to-new {
+        float: right;
+    }
 }
-

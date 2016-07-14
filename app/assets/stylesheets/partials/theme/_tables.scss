@@ -7,7 +7,7 @@ table {
                 @extend .font-bold;
                 background: $gray-background;
                 padding: 12px;
-                font-size: $normal-size-font;
+                font-size: $font-13;
                 line-height: 120%;
             }
         }
@@ -17,7 +17,7 @@ table {
             td,
             th {
                 padding: 12px;
-                font-size: $normal-size-font;
+                font-size: $font-13;
                 line-height: 120%;
                 ul {
                     padding-left: 20px;
@@ -40,7 +40,7 @@ table {
     h2 {
         float: left;
         @extend .font-bold;
-        font-size: $big-size-font;
+        font-size: $font-18;
         margin: 0;
         padding: 20px 0;
     }

@@ -34,7 +34,7 @@ body {
     background-color: $gray-background;
     font-family: $font-light;
     color: $gray-text;
-    font-size: $normal-size-font;
+    font-size: $font-13;
     &.schema_versions_show {
         @media only screen and (min-width: 1200px) {
             background-color: $gray-background;
@@ -60,26 +60,27 @@ body {
         margin-bottom: 10px;
     }
 }
+
 //labels
-.label-blue{
+.label-blue {
     display: block;
     padding: 3px;
     @extend .font-bold;
     text-transform: uppercase;
-    font-size: $nano-size-font;
+    font-size: $font-10;
     border: 1px solid $official-blue;
     color: $official-blue;
     text-align: center;
     min-width: 75px;
 }
 
-.label-red{
+.label-red {
     @extend .label-blue;
     color: $official-red;
     border-color: $official-red;
 }
 
-.label-green{
+.label-green {
     @extend .label-blue;
     color: $official-green;
     border-color: $official-green;
@@ -132,7 +133,7 @@ body {
         overflow: hidden;
         padding: 17px;
         line-height: 21px;
-        font-size: $max-size-font;
+        font-size: $font-24;
         font-family: $font-regular;
         border-radius: 4px 4px 0px 0px;
         background-color: $schemas-background-color;
@@ -146,7 +147,7 @@ body {
     }
     .body {
         padding: 17px;
-        font-size: $big-size-font;
+        font-size: $font-18;
         min-height: 130px;
         height: 130px;
         overflow: hidden;
@@ -163,7 +164,7 @@ body {
             border-radius: 4px;
             color: rgba(145, 145, 145, 1);
             bottom: 0px;
-            font-size: $big-size-font;
+            font-size: $font-18;
             padding: 5px 7px;
             max-width: 235px;
             overflow: hidden;
@@ -197,7 +198,7 @@ body {
         }
     }
     h1 {
-        font-size: $max-size-font;
+        font-size: $font-24;
         color: white;
         margin-top: 0px;
         margin-bottom: 15px;
@@ -208,7 +209,7 @@ body {
         .glyphicon {
             position: absolute;
             pointer-events: none;
-            font-size: $max-size-font;
+            font-size: $font-24;
             padding: 27px;
             color: rgba(175, 175, 175, 1);
         }
@@ -291,7 +292,7 @@ body {
             }
             h2 {
                 @media only screen and (max-width: 480px) {
-                    font-size: $max-size-font;
+                    font-size: $font-24;
                     line-height: 33px;
                 }
             }
@@ -312,7 +313,7 @@ body {
     box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.20);
     border-radius: 100px;
     padding-left: 66px;
-    font-size: $big-size-font;
+    font-size: $font-18;
     &::-webkit-input-placeholder {
         color: rgba(197, 197, 197, 1);
         /* Webkit */
@@ -357,11 +358,11 @@ body {
         float: left;
         padding: 43px 34px;
         display: inline-block;
-        font-size: $max-size-font;
-        line-height: $max-size-font;
+        font-size: $font-24;
+        line-height: $font-24;
         span {
             float: left;
-            font-size: $max-size-font;
+            font-size: $font-24;
             font-family: $font-light;
         }
         p {
@@ -387,7 +388,7 @@ body {
     input.form-control {
         border: none;
         color: white;
-        font-size: $max-size-font;
+        font-size: $font-24;
         background-color: rgba(255, 255, 255, 0.20);
     }
     label.input-group-btn {
@@ -407,7 +408,7 @@ body {
         float: right;
         margin: 0px;
         padding: 0px;
-        font-size: $max-size-font;
+        font-size: $font-24;
         line-height: 42px;
         cursor: pointer;
     }
@@ -426,8 +427,8 @@ ul.list-categories {
     padding: 5px 0px 15px 0px;
     li {
         font-family: $font-regular;
-        font-size: $max-size-font;
-        line-height: $max-size-font;
+        font-size: $font-24;
+        line-height: $font-24;
         padding: 8px;
         margin-bottom: 1px;
         color: $gray-text;
@@ -508,11 +509,11 @@ ul.list-operations {
     }
     h1 {
         font-family: $font-regular;
-        font-size: $max-size-font;
+        font-size: $font-24;
         color: rgba(94, 94, 94, 1);
         .btn {
             padding: 2px 22px;
-            font-size: $max-size-font;
+            font-size: $font-24;
             vertical-align: top;
             margin-left: 10px;
             pointer-events: none;
@@ -528,7 +529,7 @@ ul.list-operations {
             display: block;
             max-width: 100%;
             overflow: hidden;
-            font-size: $max-size-font;
+            font-size: $font-24;
             border-radius: 4px;
             white-space: nowrap;
             letter-spacing: 0px;
@@ -554,7 +555,7 @@ ul.list-operations {
     }
     h2 {
         text-transform: uppercase;
-        font-size: $max-size-font;
+        font-size: $font-24;
         color: rgba(94, 94, 94, 1);
         font-family: $font-bold;
     }
@@ -564,7 +565,7 @@ ul.list-operations {
     padding: 10px 12px;
     .btn {
         width: 100%;
-        font-size: $max-size-font;
+        font-size: $font-24;
         margin-bottom: 12px;
     }
     pre {

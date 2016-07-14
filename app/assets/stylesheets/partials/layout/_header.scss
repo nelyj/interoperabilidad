@@ -43,12 +43,12 @@ header {
                     span {
                         float: left;
                         display: block;
-                        font-size: $big-size-font;
+                        font-size: $font-18;
                         line-height: 94%;
                     }
                     span {
                         line-height: 120%;
-                        font-size: $mid-size-font;
+                        font-size: $font-14;
                         margin-left: 6px;
                     }
                 }
@@ -75,7 +75,7 @@ header {
                         height: 118px;
                         line-height: 100px;
                         color: rgba(113, 123, 127, 1);
-                        font-size: $max-size-font;
+                        font-size: $font-24;
                         border-radius: 0px;
                         border-top: none;
                         &:hover {
@@ -127,8 +127,8 @@ header {
         text-align: left;
         max-width: 225px;
         min-width: 150px;
-        font-size: $max-size-font;
-        line-height: $max-size-font;
+        font-size: $font-18;
+        line-height: $font-24;
         padding: 12px;
         background: $gray-background-especial;
         color: $light-text;
@@ -160,7 +160,7 @@ header {
         max-width: 320px;
         min-width: 250px;
         padding-top: 0px;
-        font-size: $max-size-font;
+        font-size: $font-24;
         padding-bottom: 0px;
         font-family: $font-regular;
         color: rgba(155, 155, 155, 1);
@@ -184,7 +184,7 @@ header {
                 padding: 9px 20px;
                 small {
                     display: block;
-                    font-size: $big-size-font;
+                    font-size: $font-18;
                 }
             }
             &.new-schema {

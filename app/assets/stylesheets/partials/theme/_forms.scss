@@ -41,7 +41,7 @@ select.form-control,
 }
 
 .select2-results{
-    font-size: $mid-size-font;
+    font-size: $font-14;
 }
 
 .input-group input,
@@ -77,7 +77,7 @@ span.select2-selection.select2-selection--multiple.select2 {
 .input-group-lg .select2-container--bootstrap .select2-selection--single,
 .select2-container--bootstrap .select2-selection--single.input-lg{
     border-radius: 0;
-    font-size: $mid-size-font;
+    font-size: $font-14;
     height: 44px;
     line-height: 160%;
 }
@@ -91,6 +91,6 @@ input[type="radio"], input[type="checkbox"]{
 .form-group{
     label{
         font-family: $font-bold;
-        font-size: $mid-size-font;
+        font-size: $font-14;
     }
 }
