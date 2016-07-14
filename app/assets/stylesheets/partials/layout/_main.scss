@@ -31,7 +31,7 @@
 }
 
 body {
-    background-color: $gray-background;
+    background-color: rgba(255, 255, 255, 1);
     font-family: $font-light;
     color: $gray-text;
     font-size: $font-13;
@@ -184,9 +184,60 @@ body {
 }
 
 .box-service {
-    @extend .box-schema;
+    margin: 0px 5px 20px 5px;
+    border-radius: 2px;
+    background: rgba(255,255,255,1);
+    display: inline-block;
+    width: 280px;
+    text-align: left;
+    border-color: $gray-background;
+    border-style: solid;
+    border-width: 2px;
+    @media only screen and (max-width: 480px) {
+        width: 98%;
+    }
     .title {
-        background-color: $services-background-color;
+        height: 65px;
+        overflow: hidden;
+        padding: 20px 20px 0px 20px;
+        line-height: 21px;
+        font-size: $big-size-font;
+        font-family: $font-regular;
+        border-radius: 2px 2px 0px 0px;
+        margin: 0px;
+        a {
+            @extend .font-bold;
+            color: $official-blue;
+            text-overflow: ellipsis;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    .body {
+        padding: 5px 20px;
+        font-size: $normal-size-font;
+        height: 95px;
+        overflow: hidden;
+        font-family: $font-regular;
+        position: relative;
+        span {
+            font-family: $font-bold;
+        }
+        a.organization{
+            text-decoration: underline;
+            display: block;
+            position: absolute;
+            width: auto;
+            bottom: 0px;
+            font-size: 1.3rem;
+            padding: 20px 0px;
+            max-width: 235px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: $official-lightblue;
+        }
     }
 }
 
