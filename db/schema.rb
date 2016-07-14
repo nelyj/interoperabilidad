@@ -10,11 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713144724) do
+ActiveRecord::Schema.define(version: 20160713210557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "agreement_revisions", force: :cascade do |t|
+    t.integer "agreement_id"
+    t.integer "user_id"
+    t.integer "state"
+    t.text    "purpose"
+    t.text    "legal_base"
+    t.string  "log"
+    t.string  "file"
+    t.text    "objection_message"
+    t.index ["agreement_id"], name: "index_agreement_revisions_on_agreement_id", using: :btree
+    t.index ["user_id"], name: "index_agreement_revisions_on_user_id", using: :btree
+  end
+
+  create_table "agreement_revisions_services", force: :cascade do |t|
+    t.integer "agreement_revision_id"
+    t.integer "service_id"
+    t.index ["agreement_revision_id"], name: "index_agreement_revisions_services_on_agreement_revision_id", using: :btree
+    t.index ["service_id"], name: "index_agreement_revisions_services_on_service_id", using: :btree
+  end
+
+  create_table "agreements", force: :cascade do |t|
+    t.integer "service_provider_organization_id"
+    t.integer "service_consumer_organization_id"
+    t.index ["service_consumer_organization_id"], name: "index_agreements_on_service_consumer_organization_id", using: :btree
+    t.index ["service_provider_organization_id"], name: "index_agreements_on_service_provider_organization_id", using: :btree
+  end
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id",                      null: false
@@ -30,9 +57,11 @@ ActiveRecord::Schema.define(version: 20160713144724) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string "name",      null: false
-    t.string "initials"
-    t.string "dipres_id", null: false
+    t.string  "name",          null: false
+    t.string  "initials"
+    t.string  "dipres_id",     null: false
+    t.integer "agreements_id"
+    t.index ["agreements_id"], name: "index_organizations_on_agreements_id", using: :btree
     t.index ["dipres_id"], name: "index_organizations_on_dipres_id", unique: true, using: :btree
   end
 

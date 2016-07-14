@@ -1,6 +1,7 @@
 class Service < ApplicationRecord
   include Searchable
   belongs_to :organization
+  has_and_belongs_to_many :agreement_revisions
   has_many :service_versions
   validates :name, uniqueness: true
   before_save :update_humanized_name

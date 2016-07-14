@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :service_versions
   has_many :schema_versions
   has_many :notifications
+  has_many :agreement_versions
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

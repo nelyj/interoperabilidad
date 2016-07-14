@@ -2,6 +2,7 @@ class Organization <ApplicationRecord
   has_many :roles
   has_many :users, through: :roles
   has_many :services
+  has_many :agreements
 
   def to_param
     name
