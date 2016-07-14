@@ -1,7 +1,6 @@
 //navbar
 header {
     background: white;
-    margin-bottom: 1px;
 }
 
 .header-container {
@@ -20,6 +19,14 @@ header {
                 }
             }
         }
+        .navbar-collapse{
+            .navbar-right{
+                margin-right: 0;
+            }
+            .principal{
+                margin-left: 10%;
+            }
+        }
         .nav {
             > li {
                 > a {
@@ -32,10 +39,8 @@ header {
         float: left;
         margin: 0px;
         display: inline-block;
-        @media only screen and (min-width: 992px) {
-            margin: 0px 55px;
-        }
     }
+
     @media only screen and (min-width: 768px) {
         nav {
             .principal {
@@ -95,7 +100,6 @@ header {
 #user-menu {
     float: right;
     margin-top: 40px;
-    margin-right: 70px;
     button {
         border-bottom: none;
         text-align: left;
