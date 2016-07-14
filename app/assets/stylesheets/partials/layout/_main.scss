@@ -201,12 +201,12 @@ body {
         overflow: hidden;
         padding: 20px 20px 0px 20px;
         line-height: 21px;
-        font-size: $big-size-font;
+        font-size: $font-18;
         font-family: $font-regular;
         border-radius: 2px 2px 0px 0px;
         margin: 0px;
         a {
-            @extend .font-bold;
+            font-family: $font-bold;
             color: $official-blue;
             text-overflow: ellipsis;
             &:hover {
@@ -216,7 +216,7 @@ body {
     }
     .body {
         padding: 5px 20px;
-        font-size: $normal-size-font;
+        font-size: $font-13;
         height: 95px;
         overflow: hidden;
         font-family: $font-regular;
