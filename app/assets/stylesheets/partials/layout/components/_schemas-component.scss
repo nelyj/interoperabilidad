@@ -177,8 +177,8 @@
                 color: rgba(229, 229, 229, 1);
                 margin-left: -28px;
                 padding-right: 10px;
-                line-height: 24px;
-                font-size: 24px;
+                line-height: 13px;
+                font-size: 13px;
             }
             &.down {
                 &:before {
@@ -242,7 +242,7 @@
                     border: 1px solid rgba(255, 255, 255, 1);
                 }
                 &.anonymous {
-                    display:none
+                    display: none
                 }
             }
             &.required {
