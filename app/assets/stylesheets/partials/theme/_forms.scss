@@ -37,12 +37,24 @@ select.form-control,
 .select2-selection--single.input-lg {
     border-bottom-width: 1px;
     border-color: $border-input-color;
-    border-radius: 0px;
+    border-radius: 0;
+}
+
+.select2-results{
+    font-size: $mid-size-font;
 }
 
 .input-group input,
-input.form-control {
-    border-radius: 6px;
+input.form-control,
+.select2-container--bootstrap .select2-search--dropdown .select2-search__field,
+.select2-container--bootstrap .select2-dropdown,
+.select2-container--bootstrap.select2-container--focus .select2-selection,
+.select2-container--bootstrap.select2-container--open .select2-selection,
+.form-control,
+.form-control:active,
+.form-control:focus{
+    border-radius: 0;
+    box-shadow: none;
 }
 
 .input-group-btn:first-child > .btn,
@@ -59,4 +71,26 @@ span.select2-selection.select2-selection--multiple.select2 {
 .select2-container--bootstrap .select2-selection {
     color: $gray-text;
     font-family: inherit;
+}
+
+.form-group-lg .select2-container--bootstrap .select2-selection--single,
+.input-group-lg .select2-container--bootstrap .select2-selection--single,
+.select2-container--bootstrap .select2-selection--single.input-lg{
+    border-radius: 0;
+    font-size: $mid-size-font;
+    height: 44px;
+    line-height: 160%;
+}
+
+//Radios
+input[type="radio"], input[type="checkbox"]{
+    margin-right: 4px;
+}
+
+//Labels
+.form-group{
+    label{
+        font-family: $font-bold;
+        font-size: $mid-size-font;
+    }
 }

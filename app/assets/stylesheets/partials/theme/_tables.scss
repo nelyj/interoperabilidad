@@ -5,7 +5,7 @@ table{
   thead{
     tr{
       th{
-        @extend .font-bold;
+        font-family: $font-bold;
         background: $gray-background;
         padding: 12px;
         font-size: $normal-size-font;
