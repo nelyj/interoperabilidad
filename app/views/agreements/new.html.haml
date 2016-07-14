@@ -1,2 +1,62 @@
-.container.new-schemas-container
-	NEW
+.new-agreement.main-container
+	.container-fluid.main-title
+		.container
+			.col12
+				%h1 Creación de Nuevo Convenio
+				%a{:href => 'index', :title => 'Cancelar'}
+					%i.material-icons
+						close
+	.container-fluid.new-agreement-content
+		.container
+			%form.form-group
+				.row
+					.col-md-6
+						%label Institución proveedora
+						%select.form-control.input-lg
+							%option{:value => "AA"} Seleccione una institución
+							%option{:value => "SS"} Servicio de Salud
+							%option{:value => "SII"} Servicio de Impuestos Internos
+							%option{:value => "SVU"} Ministerio de Vivienda y Urbanismo
+				.row
+					.col-md-6
+						%label Serivicios que involucra este convenio
+						.list-selector
+							.input-group
+								%input.form-control{:type => 'text', :placeholder => 'Buscar por nombre'}
+								%span.input-group-btn
+									%button.search
+										%i.material-icons
+											search
+							.content-list
+								- (1..10).each do |i|
+									.row-list
+										%label
+											%input{:type => 'checkbox'}
+											Fecha de inicio de actividades
+								
+					.col-md-6
+						%ul.services-list
+							%li Fecha de inicio de actividades
+							%li Dirección empleador
+							%li Declaraciones patrimoniales
+				.row
+					.col-md-12
+						%label Propósito
+						%textarea.form-control
+				.row
+					.col-md-12
+						%label Marco Legal
+						%textarea.form-control
+				.row
+					.col-md-12
+						%label Términos y condiciones
+						%ul
+							%li Contar con competencia y atribuciones legales para acceder y tratar la información consultada.
+							%li Mantener las plataformas para intercambio de información con niveles de seguridad acorde a estándares internacionales y con las normas particulares que se dicten sobre seguridad de información para los órganos del Estado.
+							%li Utilizar la información proporcionada sólo para los fines propios que fue entregada.
+							%li Velar por la confidencialidad de la información, limitando su divulgación a sólo aquellos funcionarios, que estrictamente tengan la obligación de conocerla evitando el acceso a terceros  no autorizados.
+							%li Cumplir y hacer cumplir a los funcionarios de la institución con lo establecido en la Ley Nº 19.628 sobre protección de la vida privada y con el debido resguardo del secreto estadístico  establecido en la Ley Nº 17.374 y demás leyes especiales que regulen el tema.
+				.row
+					.col-md-12
+						%input.btn.btn-primary{:type => 'button', :value => 'Crear Solicitud'}
+

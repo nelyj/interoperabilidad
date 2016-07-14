@@ -21,3 +21,43 @@
 .content-tabs{
 	background: $main-section-content;
 }
+
+.new-agreement{
+	.main-title{
+		background: $main-section-content;
+		border-top: 1px solid $official-grey;
+		border-bottom: 1px solid #f0f0f0;
+		position: relative;
+		padding: 18px 0;
+		.container{
+			position: relative;
+		}
+		h1{
+			color: $official-blue;
+			font-size: $big-size-font;
+			margin: 0;
+			padding: 0;
+		}
+		a{
+			position: absolute;
+	    right: 12px;
+	    top: -3px;
+		}
+	}
+	.new-agreement-content{
+		background: $main-section-content;
+		padding: 20px 0 40px 0;
+		.form-group{
+			.row{
+				padding: 20px 0 10px  0;
+			}
+			textarea{
+				min-height: 120px;
+			}
+		}
+		.services-list{
+			margin-top: 26px;
+			padding-left: 20px;
+		}
+	}
+}

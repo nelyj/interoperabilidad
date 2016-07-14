@@ -1,0 +1,33 @@
+.list-selector{
+    height: 175px;
+    border: 1px solid $official-grey;
+    font-size: $normal-size-font;
+    .content-list{
+        height: 135px;
+        overflow: hidden;
+        overflow-y: auto;
+        border-top: 1px solid $official-grey;
+        .row-list{
+            padding: 2px 4px;
+        }
+        .row-list.selected{
+            background: $official-blue;
+            color: $light-text;
+        }
+        input[type=checkbox]{
+            border-radius: 0;
+        }
+        label{
+            font-family: $font-light;
+        }
+    }
+    .form-control,
+    .input-group-btn button{
+        border: none;
+        background: none;
+        &:focus{
+            outline: 0px;
+            box-shadow: none;
+        }
+    }
+}
