@@ -7,5 +7,6 @@
       %p
         #{t(:description)}:
       /= truncate(s.description, :length => 183)
-      %h3.organization
-        = s.organization.name
+      = link_to search_services_path(text_search: s.organization.name) do
+        %h3.organization
+          = s.organization.name
