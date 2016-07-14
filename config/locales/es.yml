@@ -40,6 +40,7 @@ es:
   services: Servicios
   agreements: Convenios
   notifications: Notificaciones
+  shownotifications: Ver Notificaciones
   logout: Logout
   new_schema: Nuevo Esquema
   new_version: Nueva Versión

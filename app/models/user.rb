@@ -128,4 +128,12 @@ class User < ApplicationRecord
     return true
   end
 
+  def unread_notifications
+    self.notifications.where(read: false).count
+  end
+
+  def unseen_notifications?
+    self.notifications.where(seen: false).count > 0
+  end
+
 end

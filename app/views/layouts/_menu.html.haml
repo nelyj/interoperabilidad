@@ -3,11 +3,12 @@
     = image_tag "clave-unica.svg", size: "28"
     Clave<span>única</span>
 - else
-  .notifications-box.with-notifications
-    %a{:href => '#', :title => 'Ver Notificaciones'}
+  .notifications-box{:class => "#{'with-notifications' if current_user.unseen_notifications? }" }
+    =link_to user_notifications_path(current_user), :title => t(:shownotifications) do
       %i.material-icons
         notifications
-      %span 5
+      %span= current_user.unread_notifications
+
   .btn-group#user-menu
     %button.btn.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %span.name
@@ -33,9 +34,6 @@
           = link_to new_schema_path, id: "menu-new-schema" do
             %i.glyphicon.glyphicon-plus
             =t(:new_schema)
-      %li
-        %a{:href => "#"}
-          =t(:notifications)
       %li.logout
         =link_to destroy_user_session_path, method: :delete, id: 'btn-logout' do
           %i.glyphicon.glyphicon-log-out
