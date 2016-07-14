@@ -47,7 +47,9 @@ class Service < ApplicationRecord
   def text_search_vectors
     vectors = [
       Searchable::SearchVector.new(name, 'A'),
-      Searchable::SearchVector.new(humanized_name, 'A')
+      Searchable::SearchVector.new(humanized_name, 'A'),
+      Searchable::SearchVector.new(organization.name, 'B'),
+      Searchable::SearchVector.new(organization.initials, 'B')
     ]
     version = current_version || last_version
     unless version.nil?
