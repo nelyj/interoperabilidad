@@ -50,7 +50,7 @@ body {
 
 .main-container {
     min-height: 560px;
-    margin-bottom: 60px;
+    padding-bottom: 60px;
     padding: 0px;
 }
 
@@ -59,6 +59,30 @@ body {
     .input-group {
         margin-bottom: 10px;
     }
+}
+//labels
+.label-blue{
+    display: block;
+    padding: 3px;
+    @extend .font-bold;
+    text-transform: uppercase;
+    font-size: $nano-size-font;
+    border: 1px solid $official-blue;
+    color: $official-blue;
+    text-align: center;
+    min-width: 75px;
+}
+
+.label-red{
+    @extend .label-blue;
+    color: $official-red;
+    border-color: $official-red;
+}
+
+.label-green{
+    @extend .label-blue;
+    color: $official-green;
+    border-color: $official-green;
 }
 
 //schemas
