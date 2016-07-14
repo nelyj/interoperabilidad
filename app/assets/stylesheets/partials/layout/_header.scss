@@ -43,13 +43,13 @@ header {
                     span {
                         float: left;
                         display: block;
-                        font-size: $font-18;
                         line-height: 94%;
+                        font-size: $font-18;
                     }
                     span {
-                        line-height: 120%;
-                        font-size: $font-14;
                         margin-left: 6px;
+                        line-height: 120%;
+                        font-size: $font-18;
                     }
                 }
             }
@@ -128,7 +128,7 @@ header {
         max-width: 225px;
         min-width: 150px;
         font-size: $font-18;
-        line-height: $font-24;
+        line-height: 22px;
         padding: 12px;
         background: $gray-background-especial;
         color: $light-text;
@@ -160,7 +160,7 @@ header {
         max-width: 320px;
         min-width: 250px;
         padding-top: 0px;
-        font-size: $font-24;
+        font-size: $font-18;
         padding-bottom: 0px;
         font-family: $font-regular;
         color: rgba(155, 155, 155, 1);
@@ -184,7 +184,7 @@ header {
                 padding: 9px 20px;
                 small {
                     display: block;
-                    font-size: $font-18;
+                    font-size: 12px;
                 }
             }
             &.new-schema {
