@@ -114,12 +114,12 @@ body {
 }
 
 .box-schema {
-    margin: 0px 5px 20px 5px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 1);
-    display: inline-block;
     width: 280px;
     text-align: left;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0px 5px 20px 5px;
+    background: rgba(255, 255, 255, 1);
     -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
     -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
@@ -133,7 +133,7 @@ body {
         overflow: hidden;
         padding: 17px;
         line-height: 21px;
-        font-size: $font-24;
+        font-size: $font-18;
         font-family: $font-regular;
         border-radius: 4px 4px 0px 0px;
         background-color: $schemas-background-color;
@@ -147,7 +147,7 @@ body {
     }
     .body {
         padding: 17px;
-        font-size: $font-18;
+        font-size: $font-13;
         min-height: 130px;
         height: 130px;
         overflow: hidden;
@@ -397,7 +397,6 @@ body {
     }
     #input-file {
         display: none;
-        border-radius: 6px;
         width: 280px;
         max-width: 280px;
         padding-top: 7px;
@@ -427,8 +426,8 @@ ul.list-categories {
     padding: 5px 0px 15px 0px;
     li {
         font-family: $font-regular;
-        font-size: $font-24;
-        line-height: $font-24;
+        font-size: $font-18;
+        line-height: $font-18;
         padding: 8px;
         margin-bottom: 1px;
         color: $gray-text;
@@ -444,13 +443,11 @@ ul.list-categories {
         }
         &:hover {
             background: rgba(0, 105, 180, 0.10);
-            border-radius: 6px;
         }
         &.active {
             background: rgba(106, 193, 255, 1);
-            border-radius: 6px;
             a {
-                color: white;
+                color: rgba(255, 255, 255, 1);
             }
         }
     }
@@ -500,7 +497,16 @@ ul.list-operations {
 .container-operations-list {}
 
 //schema detail
-.container-schema-list {}
+.container-schema-list {
+    h3 {
+        font-size: $font-18;
+        font-family: $font-bold;
+    }
+    h4 {
+        font-size: $font-18;
+        font-family: $font-18;
+    }
+}
 
 .container-schema-detail {
     color: rgba(94, 94, 94, 1);
