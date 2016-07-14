@@ -609,46 +609,69 @@ ul.list-operations {
     }
 }
 
-//schema panel set component
+//Schema panel set component
 @import "components/_schemas-component.scss";
 @import "components/_tables.scss";
 //Services
 .wrapper-operation {
     overflow: hidden;
+    background-color: rgba(252, 252, 252, 1);
 }
 
 .container-verbs,
 .container-service,
 .operation,
 .console {
-    -webkit-transition: width 0.3s ease;
-    -moz-transition: width 0.3s ease;
-    -o-transition: width 0.3s ease;
     transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+    -moz-transition: width 0.3s ease;
+    -webkit-transition: width 0.3s ease;
 }
 
 .container-verbs {
-    //background-color: lighten(rgba(0, 0, 0, 1), 95);
-    display: inline-block;
     float: left;
     width: 85px;
+    display: inline-block;
+    .list-operations {
+        li {
+            a {
+                .path {
+                    display: none;
+                }
+            }
+        }
+    }
     &.in {
         width: 20%;
+        .list-operations {
+            li {
+                a {
+                    .path {
+                        display: inline;
+                    }
+                }
+            }
+        }
     }
 }
 
 .container-service {
-    //background-color: lighten(rgba(0, 0, 0, 1), 90);
     width: 80%;
-    display: inline-block;
     position: relative;
+    display: inline-block;
+    background: rgba(252, 252, 252, 1);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.33);
     .operation {
-        //background-color: lighten(rgba(0, 0, 0, 1), 80);
-        width: 50%;
-        display: inline-block;
-        float: left;
-        position: relative;
         left: 0px;
+        width: 50%;
+        float: left;
+        height: 100%;
+        padding: 30px;
+        position: relative;
+        white-space: nowrap;
+        display: inline-block;
+        text-overflow: ellipsis;
+        background-color: rgba(255, 255, 255, 1);
         .collapseConsole {
             display: none;
         }
@@ -662,25 +685,25 @@ ul.list-operations {
         &.out {
             width: 0px;
             overflow: hidden;
-            position: absolute;
         }
     }
     .console {
-        position: absolute;
-        //background-color: lighten(rgba(0, 0, 0, 1), 60);
-        width: 0px;
         top: 0px;
+        width: 0px;
         right: 0px;
+        height: 100%;
+        position: absolute;
+        background-color: rgba(234, 234, 234, 1);
         &.in {
             right: 0px;
             width: 50%;
             display: inline-block;
         }
         &.full {
-            right: 0px;
             width: 100%;
-            position: absolute;
-            display: inline-block;
+        }
+        .inner-console {
+            padding: 30px;
         }
     }
 }
