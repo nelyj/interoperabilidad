@@ -1,4 +1,4 @@
-@widthVerbsCollapse = 85;
+@widthVerbsCollapsed = 85
 @windowWidth = 0
 @serviceWidth = 0
 
@@ -12,9 +12,15 @@ $(document).on 'click', '#collapseVerbs', =>
     .toggleClass('in')
     .promise().done =>
       unless $('.container-verbs').hasClass('in')
-        $('.container-service').width( @windowWidth - @widthVerbsCollapse )
+        $('.container-service').width( @windowWidth - @widthVerbsCollapsed )
       else
         $('.container-service').width( @serviceWidth )
+        $('.operation')
+          .removeClass('out')
+          .addClass('in')
+        $('.console')
+          .removeClass('in full')
+          .addClass('out')
       return
   return
 
@@ -25,30 +31,25 @@ $(document).on 'click', '.collapseConsole', =>
     .promise().done =>
       unless $('.console').hasClass('in')
         console.log "consola not in"
-        #$('.container-service').width( @windowWidth - @widthVerbsCollapse )
       else
         console.log "consola in"
-        #$('.container-service').width( @serviceWidth )
       return
   return
 
 $(document).on 'click', '#closeConsole', ->
-  $('.console').removeClass('in')
-  $('.console').removeClass('full')
-  $('.operation').removeClass('out')
-  $('.operation').addClass('in')
+  $('.console').removeClass('in full')
+  $('.operation')
+    .removeClass('out')
+    .addClass('in')
 
 $(document).on 'click', '#fullConsole', ->
   unless $('.console').hasClass('full')
-    $('.operation, .console').removeClass('in')
-    $('.operation').addClass('out')
     $('.console').addClass('full')
     $('.operation').addClass('out')
   else
-    $('.console').removeClass('full')
-    $('.console').addClass('in')
-    $('.operation').removeClass('out')
-
-
-
+    $('.console')
+      .removeClass('full')
+      .addClass('in')
+    $('.operation')
+      .removeClass('out')
 
