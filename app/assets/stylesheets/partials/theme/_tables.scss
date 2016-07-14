@@ -1,74 +1,74 @@
 // All tables style
-
-table{
-  color: $gray-text;
-  thead{
-    tr{
-      th{
-        font-family: $font-bold;
-        background: $gray-background;
-        padding: 12px;
-        font-size: $normal-size-font;
-        line-height: 120%;
-      }
-    }
-  }
-  tbody{
-    tr{
-      td, th{
-        padding: 12px;
-        font-size: $normal-size-font;
-        line-height: 120%;
-        ul{
-          padding-left: 20px;
-          margin: 0;
+table {
+    color: $gray-text;
+    thead {
+        tr {
+            th {
+                @extend .font-bold;
+                background: $gray-background;
+                padding: 12px;
+                font-size: $normal-size-font;
+                line-height: 120%;
+            }
         }
-      }
-      td{
-        border-bottom: 1px solid $gray-background;
-      }
-      &:last-child td{
-        border-bottom: none;
-      }
     }
-  }
+    tbody {
+        tr {
+            td,
+            th {
+                padding: 12px;
+                font-size: $normal-size-font;
+                line-height: 120%;
+                ul {
+                    padding-left: 20px;
+                    margin: 0;
+                }
+            }
+            td {
+                border-bottom: 1px solid $gray-background;
+            }
+            &:last-child td {
+                border-bottom: none;
+            }
+        }
+    }
 }
 
 //Aditionals
-.head-title-table{
-  overflow: hidden;
-  h2{
-    float: left;
-    @extend .font-bold;
-    font-size: $big-size-font;
-    margin: 0;
-    padding: 20px 0;
-  }
-  .search-table{
-    float: right;
-    position: relative;
-    background: $main-section-content;
-    border: 1px solid #ccc;
-    width: 300px;
-    height: 35px;
-    input, button{
-      border: none;
-      background: none;
-      position: absolute;
-      left: 10px;
-      width: 260px;
-      height: 35px;
-      &:focus{
-        outline: 0px;
-      }
+.head-title-table {
+    overflow: hidden;
+    h2 {
+        float: left;
+        @extend .font-bold;
+        font-size: $big-size-font;
+        margin: 0;
+        padding: 20px 0;
     }
-    button{
-      height: 30px;
-      width: 30px;
-      left: initial;
-      right: 4px !important;
-      line-height: 260%;
+    .search-table {
+        float: right;
+        position: relative;
+        background: $main-section-content;
+        border: 1px solid #ccc;
+        width: 300px;
+        height: 35px;
+        input,
+        button {
+            border: none;
+            background: none;
+            position: absolute;
+            left: 10px;
+            width: 260px;
+            height: 35px;
+            &:focus {
+                outline: 0px;
+            }
+        }
+        button {
+            height: 30px;
+            width: 30px;
+            left: initial;
+            right: 4px !important;
+            line-height: 260%;
+        }
     }
-  }
 }
-

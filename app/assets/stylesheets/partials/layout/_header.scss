@@ -19,46 +19,44 @@ header {
                 }
             }
         }
-        .navbar-collapse{
-            .navbar-right{
+        .navbar-collapse {
+            .navbar-right {
                 margin: 40px 0 0 0;
             }
-            .principal{
-                margin-left: 10%;
-            }
         }
-        .nav{
-          > li{
-            > a{
-              border-top: 1px solid rgba(185, 185, 185, 1);
+        .nav {
+            > li {
+                > a {
+                    border-top: 1px solid rgba(185, 185, 185, 1);
+                }
             }
-          }
-          .notifications-box{
-            float: left;
-            margin-right: 10px;
-            background: #ccc;
-            a{
-              display: block;
-              padding: 12px;
-              overflow: hidden;
-              color: $light-text;
-              i, span{
+            .notifications-box {
                 float: left;
-                display: block;
-                font-size: $big-size-font;
-                line-height: 94%;
-              }
-              span{
-                line-height: 120%;
-                font-size: $mid-size-font;
-                margin-left: 6px;
-              }
+                margin-right: 10px;
+                background: #ccc;
+                a {
+                    display: block;
+                    padding: 12px;
+                    overflow: hidden;
+                    color: $light-text;
+                    i,
+                    span {
+                        float: left;
+                        display: block;
+                        font-size: $big-size-font;
+                        line-height: 94%;
+                    }
+                    span {
+                        line-height: 120%;
+                        font-size: $mid-size-font;
+                        margin-left: 6px;
+                    }
+                }
             }
-          }
-          .with-notifications{
-            @extend .notifications-box;
-            background: $official-red;
-          }
+            .with-notifications {
+                @extend .notifications-box;
+                background: $official-red;
+            }
         }
     }
     .logo {
@@ -66,7 +64,6 @@ header {
         margin: 0px;
         display: inline-block;
     }
-
     @media only screen and (min-width: 768px) {
         nav {
             .principal {
@@ -78,7 +75,7 @@ header {
                         height: 118px;
                         line-height: 100px;
                         color: rgba(113, 123, 127, 1);
-                        font-size: 2rem;
+                        font-size: $max-size-font;
                         border-radius: 0px;
                         border-top: none;
                         &:hover {
@@ -130,8 +127,8 @@ header {
         text-align: left;
         max-width: 225px;
         min-width: 150px;
-        font-size: 1.5rem;
-        line-height: 1.5rem;
+        font-size: $max-size-font;
+        line-height: $max-size-font;
         padding: 12px;
         background: $gray-background-especial;
         color: $light-text;
@@ -163,7 +160,7 @@ header {
         max-width: 320px;
         min-width: 250px;
         padding-top: 0px;
-        font-size: 1.5rem;
+        font-size: $max-size-font;
         padding-bottom: 0px;
         font-family: $font-regular;
         color: rgba(155, 155, 155, 1);
@@ -187,7 +184,7 @@ header {
                 padding: 9px 20px;
                 small {
                     display: block;
-                    font-size: 1.3rem
+                    font-size: $big-size-font;
                 }
             }
             &.new-schema {
