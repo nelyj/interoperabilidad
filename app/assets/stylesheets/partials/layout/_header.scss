@@ -21,18 +21,44 @@ header {
         }
         .navbar-collapse{
             .navbar-right{
-                margin-right: 0;
+                margin: 40px 0 0 0;
             }
             .principal{
                 margin-left: 10%;
             }
         }
-        .nav {
-            > li {
-                > a {
-                    border-top: 1px solid rgba(185, 185, 185, 1);
-                }
+        .nav{
+          > li{
+            > a{
+              border-top: 1px solid rgba(185, 185, 185, 1);
             }
+          }
+          .notifications-box{
+            float: left;
+            margin-right: 10px;
+            background: #ccc;
+            a{
+              display: block;
+              padding: 12px;
+              overflow: hidden;
+              color: $light-text;
+              i, span{
+                float: left;
+                display: block;
+                font-size: $big-size-font;
+                line-height: 94%;
+              }
+              span{
+                line-height: 120%;
+                font-size: $mid-size-font;
+                margin-left: 6px;
+              }
+            }
+          }
+          .with-notifications{
+            @extend .notifications-box;
+            background: $official-red;
+          }
         }
     }
     .logo {
@@ -98,8 +124,7 @@ header {
 }
 
 #user-menu {
-    float: right;
-    margin-top: 40px;
+    float: left;
     button {
         border-bottom: none;
         text-align: left;
@@ -107,12 +132,13 @@ header {
         min-width: 150px;
         font-size: 1.5rem;
         line-height: 1.5rem;
-        padding: 10px 12px;
+        padding: 12px;
+        background: $gray-background-especial;
+        color: $light-text;
         .name {
             float: left;
             max-width: 130px;
             overflow: hidden;
-            padding-top: 3px;
             margin-right: 10px;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -129,21 +155,21 @@ header {
         }
         .caret {
             float: right;
-            margin-top: 8px;
+            margin-top: 5px;
         }
     }
     .dropdown-menu {
         border: none;
-        max-width: 268px;
-        min-width: 220px;
+        max-width: 320px;
+        min-width: 250px;
         padding-top: 0px;
         font-size: 1.5rem;
         padding-bottom: 0px;
         font-family: $font-regular;
         color: rgba(155, 155, 155, 1);
         background-color: rgba(255, 255, 255, 1);
-        box-shadow: 0px 6px 13px 0px rgba(0, 0, 0, 0.30);
-        border-radius: 2px;
+        box-shadow: 0px 1px 16px rgba(0, 0, 0, 0.2);
+        border-radius: 0;
         &:after {
             position: absolute;
             top: -6px;

@@ -3,13 +3,16 @@
     = image_tag "clave-unica.svg", size: "28"
     Clave<span>única</span>
 - else
+  .notifications-box.with-notifications
+    %a{:href => '#', :title => 'Ver Notificaciones'}
+      %i.material-icons
+        notifications
+      %span 5
   .btn-group#user-menu
-    %button.btn.btn-action-blue.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+    %button.btn.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
       %span.name
         = current_user.name
       %span.caret
-      %a.btn.btn-tiny-rounded.default.full
-        99+
     %ul.dropdown-menu.pull-right
       - current_user.organizations.each do |org|
         %li.institution
@@ -23,7 +26,7 @@
             %i.glyphicon.glyphicon-plus
             =t(:new_service)
         %li
-          %a{:href => "#"}
+          %a{:href => "/agreements/index"}
             =t(:agreements)
       -if current_user.can_create_schemas
         %li.new-schema
