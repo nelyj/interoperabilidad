@@ -48,7 +48,8 @@
             %i.glyphicon.glyphicon-plus PROBAR
           %h2 Especificación
           .field
-            = service_params_markup(@service_version)
+            .schema-panel-set.detail{data: {name: @service_version.name, version: @service_version.version_number}}
+              = service_params_markup(@service_version)
           .actions
             = link_to t(:new_version), new_organization_service_service_version_path
             = link_to t(:history), organization_service_service_versions_path

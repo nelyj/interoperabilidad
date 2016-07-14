@@ -1,12 +1,9 @@
 module ServiceVersionsHelper
 
   def service_params_markup(service_version)
-    name = service_version.service.name
     spec = service_version.spec_with_resolved_refs['definition']
     references = service_version.spec_with_resolved_refs['references']
-    content_tag(:div, class: "schema-panel-set detail", data: {name: name, version: service_version.version_number}) do
-      content_tag(:h3, "Paths") + service_path_markup(spec, '/', references)
-    end
+    service_path_markup(spec, '/', references)
   end
 
   def service_path_markup(service_spec, json_pointer, references)
