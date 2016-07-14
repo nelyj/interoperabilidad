@@ -4,9 +4,8 @@
       = link_to organization_service_service_version_path(s.organization, service_name: s.name, version_number: s.last_version_number) do
         = truncate(s.name, :length => 50)
     .body
-      %p
-        #{t(:description)}:
-      /= truncate(s.description, :length => 183)
-      = link_to search_services_path(text_search: s.organization.name) do
-        %h3.organization
-          = s.organization.name
+      - if s.description.blank?
+        = t(:no_description)
+      - else
+        = truncate(s.description, :length => 70)
+      = link_to s.organization.name, search_services_path(text_search: s.organization.name), class: 'organization'

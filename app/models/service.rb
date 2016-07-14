@@ -6,7 +6,7 @@ class Service < ApplicationRecord
   validates :name, uniqueness: true
   before_save :update_humanized_name
   validates :spec, swagger_spec: true
-  delegate :description, to: :current_version
+  delegate :description, to: :current_or_last_version
   attr_accessor :spec, :backwards_compatible
 
   def spec_file
@@ -41,6 +41,10 @@ class Service < ApplicationRecord
 
   def current_version
     service_versions.where(status: ServiceVersion.statuses[:current]).first
+  end
+
+  def current_or_last_version
+    current_version || last_version
   end
 
   # Required by Searchable to (re)build its index
