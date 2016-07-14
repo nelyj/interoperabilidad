@@ -5,7 +5,7 @@ module ApplicationHelper
     Redcarpet::Markdown.new(
       Redcarpet::Render::HTML.new(
         with_toc_data: false,
-        hard_wrap: true,
+        hard_wrap: false,
         xhtml: false,
         prettify: false,
         filter_html: true,
