@@ -1,9 +1,22 @@
 %h1=t(:notifications)
-- @notifications.each do |notification|
-  = notification.created_at
-  |
-  = notification.message
-  |
-  = notification.read
-  |
-  = notification.seen
+%table
+  %thead
+    %td
+      Fecha
+    %td
+      Mensaje
+    %td
+      Leida
+    %td
+      Vista
+    %tbody
+      - @notifications.each do |notification|
+        %tr{"data-link" => user_notification_path(current_user, notification)}
+          %td
+            = notification.created_at
+          %td
+            = notification.message
+          %td
+            = notification.read
+          %td
+            = notification.seen
