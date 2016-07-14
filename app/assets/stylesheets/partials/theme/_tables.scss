@@ -1,16 +1,16 @@
 // All tables style
-table {
-    color: $gray-text;
-    thead {
-        tr {
-            th {
-                @extend .font-bold;
-                background: $gray-background;
-                padding: 12px;
-                font-size: $font-13;
-                line-height: 120%;
-            }
-        }
+table{
+  color: $gray-text;
+  width: 100%;
+  thead{
+    tr{
+      th{
+        font-family: $font-bold;
+        background: $gray-background;
+        padding: 12px;
+        font-size: $font-13;
+        line-height: 120%;
+      }
     }
     tbody {
         tr {

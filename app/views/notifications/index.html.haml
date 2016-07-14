@@ -1,22 +1,30 @@
-%h1=t(:notifications)
-%table
-  %thead
-    %td
-      Fecha
-    %td
-      Mensaje
-    %td
-      Leida
-    %td
-      Vista
-    %tbody
-      - @notifications.each do |notification|
-        %tr{"data-link" => user_notification_path(current_user, notification)}
-          %td
-            = notification.created_at
-          %td
-            = notification.message
-          %td
-            = notification.read
-          %td
-            = notification.seen
+.content-pages.container-fluid 
+  .container
+    .row
+      .col-md-12.head-title-table
+        %h2=t(:notifications)
+        .search-table
+          %input{:type => 'text', :placeholder => 'Buscar por nombre'}
+          %button.search
+            %i.material-icons
+              search
+    .row
+      .col-md-12
+        %table
+          %colgroup
+            %col{:width => "10%"}
+            %col{:width => "82%"}
+            %col{:width => "8%"}
+          %thead
+            %th Fecha
+            %th Mensaje
+            %th Estado
+          %tbody
+            - @notifications.each do |notification|
+              %tr{"data-link" => user_notification_path(current_user, notification)}
+                %td
+                  = notification.created_at
+                %td
+                  = notification.message
+                %td
+                  = notification.read
