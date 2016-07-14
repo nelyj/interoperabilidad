@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get 'agreements/edit'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#root'
 
   devise_scope :user do
@@ -36,6 +35,7 @@ Rails.application.routes.draw do
           member do
             put 'state'
             get 'source_code'
+            get 'operations/:verb*path', to: 'service_versions#show', as: 'operation'
           end
       end
     end

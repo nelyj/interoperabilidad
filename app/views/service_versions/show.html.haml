@@ -22,6 +22,11 @@
           %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
             = organization_service_service_version_url(@service, @service_version, format: :json)
       .history-version
+        - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
+          = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
+          = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
+
+        = link_to t(:new_version), new_organization_service_service_version_path
         =link_to t(:previous_version)
         =link_to t(:next_version)
         =link_to t(:generate_code), source_code_organization_service_service_version_path
@@ -38,24 +43,21 @@
         %ul.list-operations
           - @service_version.operations.each do |(verb, path), operation|
             %li
-              %a
+              %a{href: operation_organization_service_service_version_path(verb: verb, path: path, anchor: 'operation-doc')}
                 %span.full.btn.btn-status{class: css_class_for_http_verb(verb)}= verb
                 %span.path= path
       .container-service
-        .operation.in
-          %p Especificación
+        #operation-doc.operation.in
+          %h2
+            .span.btn.btn-status.full{class: css_class_for_http_verb(@verb)}= @verb
+            = @path
+          - if @operation['summary']
+            %h3= @operation['summary']
+          - if @operation['description']
+            %p= markdown.render(@operation['description']).html_safe
           %button.btn.btn-primary.btn-sm.collapseConsole{:type => "button"}
-            %i.glyphicon.glyphicon-plus PROBAR
-          %h2 Especificación
-          .field
-            .schema-panel-set.detail{data: {name: @service_version.name, version: @service_version.version_number}}
-              = service_params_markup(@service_version)
-          .actions
-            = link_to t(:new_version), new_organization_service_service_version_path
-            = link_to t(:history), organization_service_service_versions_path
-          - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
-            = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
-            = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
+            %i.glyphicon.glyphicon-plus Probar
+          = service_operation_markup(@service_version, @verb, @path)
         .console
           .inner-console
             %button#fullConsole.btn.btn-primary.btn-sm{:type => "button"}

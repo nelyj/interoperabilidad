@@ -1,51 +1,31 @@
 module ServiceVersionsHelper
-
-  def service_params_markup(service_version)
-    spec = service_version.spec_with_resolved_refs['definition']
-    references = service_version.spec_with_resolved_refs['references']
-    service_path_markup(spec, '/', references)
-  end
-
-  def service_path_markup(service_spec, json_pointer, references)
-    join_markup(service_spec['paths'].map do |path, operations|
-      service_path_operation_markup(
-        path, operations, json_pointer_path(json_pointer, path), references
-      )
-    end)
-  end
-
-  def service_path_operation_markup(path, operations, json_pointer, references)
-    common_parameters = operations.extract!('parameters')['parameters'] || []
-    content_tag(:ul, class: 'list-operations') do
-      join_markup(operations.map do |verb, operation|
-        service_operation_content_markup(path, verb, operation, common_parameters,
-          json_pointer, references) + '<br>'.html_safe
-      end)
-    end
+  def service_operation_markup(service_version, verb, path)
+    service_operation_content_markup(
+      path, verb,
+      service_version.operation(verb, path),
+      service_version.common_parameters_for_path(path),
+      json_pointer_path('/paths', path, verb),
+      service_version.spec_with_resolved_refs['references']
+    )
   end
 
   def css_class_for_http_verb(verb)
-    options = {
-      'get' => 'info', 'post' => 'success', 'put' => 'warning', 'delete' => 'danger'
-    }
-    options[verb] || ''
+    {
+      'get' => 'info',
+      'post' => 'success',
+      'put' => 'warning',
+      'delete' => 'danger'
+    }[verb] || ''
   end
 
   def service_operation_content_markup(path, verb, operation, common_parameters, json_pointer, references)
     if operation['parameters'].present?
-        common_parameters = common_parameters + operation['parameters']
+      common_parameters += operation['parameters']
     end
-    content_tag(:li) do
-      content_tag(:a) do
-        content_tag(:span, verb, class: 'btn btn-status '+
-          css_class_for_http_verb(verb) + ' full') + path + '<br>'.html_safe +
-          content_tag(:h3, operation['summary']) +
-          content_tag(:h2, 'Parámetros') +
-          service_operation_parameters_distribution(common_parameters) +
-          content_tag(:h2, 'Respuestas') +
-          service_operation_responses_markup(operation['responses'])
-      end
-    end
+    content_tag(:h2, 'Parámetros') +
+    service_operation_parameters_distribution(common_parameters) +
+    content_tag(:h2, 'Respuestas') +
+    service_operation_responses_markup(operation['responses'])
   end
 
   def service_operation_responses_markup(responses)
@@ -111,8 +91,18 @@ module ServiceVersionsHelper
     end)
   end
 
+  def parameter_section_name(location)
+    {
+      'body' => 'Body',
+      'query' => 'URL: Query',
+      'header' => 'Header',
+      'path' => 'URL: Path',
+      'formData' => 'Body (form data)'
+    }[location]
+  end
+
   def service_distributed_parameter_markup(location, parameters)
-    content_tag(:h3, location) +
+    content_tag(:h3, parameter_section_name(location)) +
     content_tag(:div, class: "schema-panel-set detail") do
       join_markup(parameters.map do |parameter|
         #service_parameter_markup(parameter) +

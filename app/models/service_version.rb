@@ -68,12 +68,20 @@ class ServiceVersion < ApplicationRecord
   # the swagger operations
   def operations
     ops = {}
-    spec['paths'].each do |path, verbs|
+    spec_with_resolved_refs['definition']['paths'].each do |path, verbs|
       verbs.except('parameters').each do |verb, operation|
         ops[[verb, path]] = operation
       end
     end
     ops
+  end
+
+  def operation(verb, path)
+    spec_with_resolved_refs['definition']['paths'][path][verb]
+  end
+
+  def common_parameters_for_path(path)
+    spec_with_resolved_refs['definition']['paths'][path]['parameters'] || []
   end
 
   def update_spec_with_resolved_refs

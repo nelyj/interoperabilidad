@@ -4,6 +4,16 @@ class ServiceVersionsController < ApplicationController
   before_action :set_service_version, only: [:show, :source_code, :state]
 
   def show
+    if params[:verb].nil? || params[:path].nil?
+      default_verb, default_path = @service_version.operations.keys.first
+      redirect_to operation_organization_service_service_version_path(
+        path: default_path, verb: default_verb
+      )
+      return
+    end
+    @verb = params[:verb]
+    @path =  params[:path]
+    @operation = @service_version.operation(@verb, @path)
   end
 
   def index
