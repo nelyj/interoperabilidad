@@ -1,2 +1,62 @@
-.container.new-schemas-container
-	SHOW
+.show-agreement.main-container
+  .container-fluid.main-title
+    .container
+      .col-md-12
+        %h1 Convenio entre Ministerio Secretaría General de la Presidencia y Servicio de Impuestos Internos
+        %a{:href => 'index', :title => 'Cancelar'}
+          %i.material-icons
+            close
+  .container-fluid.show-agreement-content
+    .container
+      .row
+        .col-md-9
+          .description
+            %p
+              Solicitante:
+              %strong Servicio de Impuestos Internos
+            %p
+              Proveedor:
+              %strong Ministerio Secretaría General de la Presidencia
+            %p
+              Fecha de solicitud:
+              %strong 10/06/2016
+            %br
+            %p
+              %strong Servicios involucrados
+            %ul
+              %li Fecha de inicio de actividades
+              %li Dirección empleador
+              %li Declaraciones patrimoniales
+            %br
+            %p
+              %strong
+                Propósito:
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed suscipit urna, sed molestie orci. Integer pharetra eget ligula elementum ultricies. Suspendisse blandit id odio eget molestie. Mauris risus orci, tempor eu nunc vitae, iaculis molestie diam. Vestibulum et massa eu lorem placerat efficitur id at mi. Fusce posuere nisi quis augue congue, eget varius mauris feugiat.
+
+          .visor
+            //Aquí va el PDF
+            .preview
+              %embed{:src => 'http://www.colegiomanuelbaquedano.cl/download/Libros/Narraciones%20Extraordinarias.pdf', :width => '100%', :height => '500'}
+
+            // o también
+            // el textarea para editar el convenio
+            //%textarea
+
+          .actions
+            %input.btn.btn-default{:type => 'button', :value => 'Editar'}
+            %input.btn.btn-primary{:type => 'button', :value => 'Enviar Borrador'}
+        .col-md-3
+          .box.next-step
+            %section
+              %span Estado del convenio
+              %label En trámite
+            %section
+              %strong Próximo Paso
+              %p
+                Revisión borrador Fiscal
+              %p
+                Responsable: Alberto Fuenzalida
+              %p
+                Contacto: alberto@mail.com
+          .box.history
+

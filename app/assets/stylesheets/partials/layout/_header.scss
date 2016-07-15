@@ -39,7 +39,7 @@ header {
                 a {
                     display: block;
                     background: #ccc;
-                    padding: 12px;
+                    padding: 12px 12px 11px 12px;
                     overflow: hidden;
                     color: $light-text;
                     i,
@@ -168,10 +168,9 @@ header {
     }
     .dropdown-menu {
         border: none;
-        max-width: 320px;
-        min-width: 250px;
+        min-width: 215px;
         padding-top: 0px;
-        font-size: $font-18;
+        font-size: $font-14;
         padding-bottom: 0px;
         font-family: $font-regular;
         color: rgba(155, 155, 155, 1);
@@ -189,10 +188,9 @@ header {
             content: '';
         }
         li {
-            border-bottom: 1px solid rgba(213, 213, 213, 1);
             &.institution {
                 color: $official-blue;
-                padding: 9px 20px;
+                padding: 6px 12px;
                 small {
                     display: block;
                     font-size: 12px;
@@ -202,8 +200,17 @@ header {
                 background-color: rgba(161, 216, 255, 1);
                 a {
                     color: rgba(255, 255, 255, 1);
+                    overflow: hidden;
                     &:hover {
                         background-color: rgba(161, 216, 255, 1);
+                    }
+                    i, span{
+                      padding-top: 0;
+                      display: block;
+                      float: left;
+                    }
+                    span{
+                      padding-top: 3px;
                     }
                 }
             }

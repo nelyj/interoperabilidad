@@ -23,17 +23,15 @@
         %li
           = link_to t(:services), organization_services_path(org)
         %li
-          = link_to new_organization_service_path(org), id: "menu-new-service" do
-            %i.glyphicon.glyphicon-plus
-            =t(:new_service)
-        %li
           %a{:href => "/agreements/index"}
             =t(:agreements)
       -if current_user.can_create_schemas
         %li.new-schema
           = link_to new_schema_path, id: "menu-new-schema" do
-            %i.glyphicon.glyphicon-plus
-            =t(:new_schema)
+            %i.material-icons
+              add
+            %span
+              =t(:new_schema)
       %li.logout
         =link_to destroy_user_session_path, method: :delete, id: 'btn-logout' do
           %i.glyphicon.glyphicon-log-out
