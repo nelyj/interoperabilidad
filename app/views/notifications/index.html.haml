@@ -1,4 +1,4 @@
-.content-pages.container-fluid 
+.content-pages.container-fluid
   .container
     .row
       .col-md-12.head-title-table
@@ -21,10 +21,11 @@
             %th Estado
           %tbody
             - @notifications.each do |notification|
-              %tr{"data-link" => user_notification_path(current_user, notification)}
+              %tr{"data-link" => user_notification_path(current_user, notification), :class => "#{'no-leida' if !notification.read }" }
                 %td
                   = notification.created_at
                 %td
                   = notification.message
                 %td
-                  = notification.read
+                  %span
+                    = notification.read

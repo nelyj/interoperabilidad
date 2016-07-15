@@ -1,0 +1,20 @@
+//Agreements partial stylesheet
+
+.no-leida{
+  td, th{
+    font-family: $font-bold;
+  }
+}
+
+.content-pages{
+  table{
+    tbody{
+      tr:hover{
+        td{
+          cursor: pointer;
+          background: rgba(0, 108, 183, 0.05);
+        }
+      }
+    }
+  }
+}
