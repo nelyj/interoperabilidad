@@ -73,6 +73,7 @@ header {
     @media only screen and (min-width: 768px) {
         nav {
             .principal {
+                margin-left: 10%;
                 li {
                     height: 118px;
                     width: 160px;
@@ -81,7 +82,7 @@ header {
                         height: 118px;
                         line-height: 100px;
                         color: rgba(113, 123, 127, 1);
-                        font-size: $font-24;
+                        font-size: $font-18;
                         border-radius: 0px;
                         border-top: none;
                         &:hover {
