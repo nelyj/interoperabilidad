@@ -3,7 +3,7 @@
     .col-md-6.no-gutter
       %h2=@organization.name
     .col-md-6.no-gutter
-      =select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name"), class: "form-control input-lg"
+      = select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name"), class: "form-control input-lg"
 .container-fluid.instance-panel-services
   .container
     .row
@@ -12,7 +12,7 @@
           %h1
             = @service_version.service.name
             ="R" + @service_version.version_number.to_s
-          %span.btn.btn-status.blue
+          %span.label-blue
             = @service_version.status.upcase
         %br
         .description
@@ -21,12 +21,22 @@
             = markdown.render(@service_version.description).html_safe
           -else
             = t(:description_not_found)
-      .col-md-4
-        =link_to t(:previous_version)
-        =link_to t(:next_version)
-        =link_to t(:history), organization_service_service_versions_path
+      .col-md-4.text-right
+        =link_to "#", class: "detail-action #{'deactivate' unless @service_version.has_previous_version? }" do
+          %i.material-icons undo
+          = t(:previous_version)
+        %br
+        =link_to "", class: "detail-action #{'deactivate' unless @service_version.has_next_version? }" do
+          %i.material-icons redo
+          = t(:next_version)
+        %br
+        =link_to organization_service_service_versions_path, class: "detail-action" do
+          %i.material-icons list
+          = t(:history)
+        %br
+
     .row
-      .col-md-12.actions
+      .col-md-12.principal-actions
         %a.btn.btn-primary Solicitar Convenio
         =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
         %a.btn.btn-static Ver OAS
@@ -38,9 +48,9 @@
             %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
               = organization_service_service_version_url(@service, @service_version, format: :json)
 
-    - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
-      = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
-      = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
+    / - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
+    /   = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
+    /   = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
 
 .container-fluid
   .row
