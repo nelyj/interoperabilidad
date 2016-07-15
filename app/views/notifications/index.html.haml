@@ -21,11 +21,19 @@
             %th Estado
           %tbody
             - @notifications.each do |notification|
-              %tr{"data-link" => user_notification_path(current_user, notification), :class => "#{'no-leida' if !notification.read }" }
+              %tr{"data-link" => user_notification_path(current_user, notification), :class => "#{'fila-no-leida' if !notification.read }" }
                 %td
                   = notification.created_at
                 %td
                   = notification.message
                 %td
-                  %span
-                    = notification.read
+                  - if !notification.read
+                    %span{:class => 'label-no-leida'}
+                      %i.material-icons
+                        email
+                      %p No Leída
+                  - else
+                    %span{:class => 'label-leida'}
+                      %i.material-icons
+                        check
+                      %p Leída

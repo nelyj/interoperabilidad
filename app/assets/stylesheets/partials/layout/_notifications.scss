@@ -1,9 +1,29 @@
 //Agreements partial stylesheet
 
-.no-leida{
+.fila-no-leida{
   td, th{
     font-family: $font-bold;
   }
+}
+
+.label-no-leida,
+.label-leida{
+  font-family: $font-bold;
+  color: $official-blue;
+  display: block;
+  width: 130px;
+  i,p{
+    display: block;
+    float: left;
+  }
+  p{
+    margin-left: 5px;
+    padding-top: 4px;
+  }
+}
+
+.label-leida{
+  color: $official-green;
 }
 
 .content-pages{
