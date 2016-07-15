@@ -2,7 +2,7 @@
 header {
     background: white;
     .container-fluid{
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid $official-grey;
     }
 }
 
@@ -36,9 +36,9 @@ header {
             .notifications-box {
                 float: left;
                 margin-right: 10px;
-                background: #ccc;
                 a {
                     display: block;
+                    background: #ccc;
                     padding: 12px;
                     overflow: hidden;
                     color: $light-text;
@@ -51,8 +51,11 @@ header {
                     }
                     span {
                         margin-left: 6px;
-                        line-height: 120%;
-                        font-size: $font-18;
+                        line-height: 125%;
+                        font-size: $font-14;
+                    }
+                    &:hover{
+                      background: $gray-background-especial;
                     }
                 }
             }
@@ -130,8 +133,8 @@ header {
         text-align: left;
         max-width: 225px;
         min-width: 150px;
-        font-size: $font-18;
-        line-height: 22px;
+        font-size: $font-14;
+        line-height: 120%;
         padding: 12px;
         background: $gray-background-especial;
         color: $light-text;

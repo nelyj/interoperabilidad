@@ -52,6 +52,7 @@ body {
     min-height: 560px;
     padding-bottom: 60px;
     padding: 0px;
+    background: #f1f1f1;
 }
 
 .form-container {
@@ -64,7 +65,7 @@ body {
 .content-pages{
     background: $main-section-content;
     padding: 30px 0;
-    min-height: 300px;
+    min-height: 600px;
 }
 
 //labels
