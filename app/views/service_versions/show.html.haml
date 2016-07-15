@@ -22,11 +22,11 @@
           -else
             = t(:description_not_found)
       .col-md-4.text-right
-        =link_to "#", class: "detail-action #{'deactivate' unless @service_version.has_previous_version? }" do
+        =link_to @service_version.has_previous_version? ? organization_service_service_version_path(@organization, @service, @service_version.previous_version) : '' , class: "detail-action #{'deactivate' unless @service_version.has_previous_version? }" do
           %i.material-icons undo
           = t(:previous_version)
         %br
-        =link_to "", class: "detail-action #{'deactivate' unless @service_version.has_next_version? }" do
+        =link_to @service_version.has_next_version? ? organization_service_service_version_path(@organization, @service, @service_version.next_version) : '' , class: "detail-action #{'deactivate' unless @service_version.has_next_version? }" do
           %i.material-icons redo
           = t(:next_version)
         %br
