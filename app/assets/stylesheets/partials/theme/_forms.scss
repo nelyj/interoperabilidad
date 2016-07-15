@@ -37,10 +37,10 @@ select.form-control,
 .select2-selection--single.input-lg {
     border-bottom-width: 1px;
     border-color: $border-input-color;
-    border-radius: 0;
+    border-radius: 0px;
 }
 
-.select2-results{
+.select2-results {
     font-size: $font-14;
 }
 
@@ -52,7 +52,7 @@ input.form-control,
 .select2-container--bootstrap.select2-container--open .select2-selection,
 .form-control,
 .form-control:active,
-.form-control:focus{
+.form-control:focus {
     border-radius: 0;
     box-shadow: none;
 }
@@ -75,7 +75,7 @@ span.select2-selection.select2-selection--multiple.select2 {
 
 .form-group-lg .select2-container--bootstrap .select2-selection--single,
 .input-group-lg .select2-container--bootstrap .select2-selection--single,
-.select2-container--bootstrap .select2-selection--single.input-lg{
+.select2-container--bootstrap .select2-selection--single.input-lg {
     border-radius: 0;
     font-size: $font-14;
     height: 44px;
@@ -83,14 +83,18 @@ span.select2-selection.select2-selection--multiple.select2 {
 }
 
 //Radios
-input[type="radio"], input[type="checkbox"]{
+input[type="radio"],
+input[type="checkbox"] {
     margin-right: 4px;
 }
 
 //Labels
-.form-group{
-    label{
+.form-group {
+    label {
         font-family: $font-bold;
         font-size: $font-14;
+    }
+    select {
+        border-radius: 0px;
     }
 }
