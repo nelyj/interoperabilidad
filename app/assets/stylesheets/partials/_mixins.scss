@@ -1,19 +1,24 @@
 //Btn Border
 @mixin bootstrap-btns($brand-color, $color-percent) {
-    border-bottom: 2px solid darken($brand-color, $color-percent);
+    border-bottom: 3px solid darken($brand-color, $color-percent);
+    border-radius: 0px;
 }
 
 //Btn Gradient
 @mixin bootstrap-btns-gradient($deg, $color, $percent, $sec-color, $sec-percent) {
     background-image: -webkit-linear-gradient($deg, $color $percent * 1%, $sec-color $sec-percent * 1%);
     background-image: linear-gradient($deg, $color $percent * 1%, $sec-color $sec-percent * 1%);
+    border-radius: 0px;
     border: none;
 }
 
-//Tiny Rounded btns
-@mixin bootstrap-rounded-btns($color) {
+//Tiny btns
+@mixin bootstrap-tiny-btns($color) {
     color: $color;
+    padding: 0px 10px;
     border: 1px solid $color;
+    font-size: $font-13;
+    font-family: $font-regular;
     &.full {
         background-color: $color;
         color: rgba(255, 255, 255, 1);
