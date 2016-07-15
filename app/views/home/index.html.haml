@@ -7,7 +7,7 @@
           .inner-addon.left-addon
             %i.glyphicon.glyphicon-search
             %input#search-schema.form-control{:placeholder => t(:enter_service_name), :type => "text", :name => "text_search"}/
-.container.no-gutter
-  .row.no-gutter
+.container
+  .row
     .col-md-12.schema-wrapper.text-left
       = render partial: "boxes", locals: {services: @services}

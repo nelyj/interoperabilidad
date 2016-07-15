@@ -7,8 +7,8 @@
           .inner-addon.left-addon
             %i.glyphicon.glyphicon-search
             %input#search-schema.form-control{:value => @text_search, :type => "text", :name => "text_search"}/
-.container.no-gutter
-  .row.no-gutter
+.container
+  .row
     .col-md-12.schema-wrapper.text-left
       = content_tag(:p, t(:no_results_found),
         class:"text-center") if @schemas.empty?
