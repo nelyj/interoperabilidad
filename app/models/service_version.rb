@@ -2,6 +2,7 @@ require 'tempfile'
 require 'open3'
 
 class ServiceVersion < ApplicationRecord
+  PARAM_LOCATIONS = ['path', 'query', 'header', 'body', 'formData']
   include S3Configuration
   include Rails.application.routes.url_helpers
   belongs_to :service
