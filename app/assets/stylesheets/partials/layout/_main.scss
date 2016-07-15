@@ -611,11 +611,12 @@ ul.list-operations {
 
 .url-canonica {
     margin: 0px;
-    line-height: 224%;
+    width: 100%;
+    max-width: 656px;
     display: inline-block;
     vertical-align: bottom;
     span {
-        padding: 3px 12px;
+        padding: 8px 12px;
         display: block;
         max-width: 100%;
         overflow: hidden;
@@ -692,16 +693,17 @@ ul.list-operations {
         display: block;
         line-height: 100%;
         h1 {
+            float: left;
             font-size: $font-24;
+            display: inline-block;
             font-family: $font-bold;
             color: $dark-black-text;
-            margin: -4px 10px 0px 0px;
-            float: left;
-            display: inline-block
+            margin: -1px 10px 0px 0px;
         }
         span {
             display: inline-block;
             margin-right: 5px;
+            background: rgba(255, 255, 255, 1);
         }
     }
     .description {
@@ -725,15 +727,41 @@ ul.list-operations {
             margin: 0px;
         }
     }
-    .actions {
+    .principal-actions {
         .btn {
             margin-right: 4px;
+        }
+    }
+    .detail-action {
+        background-color: rgba(0, 149, 255, 0.1);
+        font-family: $font-regular;
+        font-size: $font-18;
+        color: $official-blue;
+        display: inline-block;
+        padding: 5px 11px;
+        margin-bottom: 6px;
+        width: 183px;
+        text-align: left;
+        i {
+            float: left;
+            margin-right: 10px;
+        }
+        &.deactivate {
+            cursor: default;
+            color: rgba($official-blue, 0.25);
+            text-decoration: none;
+            i {
+                color: rgba($official-blue, 0.25);
+            }
+            &:hover {
+                text-decoration: none;
+            }
         }
     }
 }
 
 .institution-detail {
-    border: 1px solid $official-grey;
+    border-bottom: 1px solid $official-grey;
     background-color: rgba(255, 255, 255, 1);
     h2 {
         font-size: $font-24;
@@ -746,6 +774,7 @@ ul.list-operations {
     }
     .select2-container {
         padding-top: 6px;
+        float: right;
     }
     .select2 span,
     .select2 li {
@@ -778,6 +807,12 @@ ul.list-operations {
     .list-operations {
         li {
             a {
+                .btn {
+                    text-transform: uppercase;
+                    &.danger {
+                        padding: 0px;
+                    }
+                }
                 .path {
                     display: none;
                 }
