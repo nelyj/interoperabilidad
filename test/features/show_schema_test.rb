@@ -8,7 +8,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
 
      within ".container-schema-detail" do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + schema_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
 
        within '.url-canonica' do
@@ -67,13 +67,13 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      visit schema_schema_version_path(schema_version.schema, schema_version)
      within ".container-schema-detail" do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + schema_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
      end
      click_link ("Versión anterior")
      within ".container-schema-detail" do
        assert_selector 'h1', text: previous_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + previous_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + previous_version.version_number.to_s
        assert_selector 'p', text: previous_version.description
      end
    end
@@ -84,13 +84,13 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      visit schema_schema_version_path(schema_version.schema, schema_version)
      within ".container-schema-detail" do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + schema_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
      end
      click_link ("Versión siguiente")
      within ".container-schema-detail" do
        assert_selector 'h1', text: next_version.schema.name
-       assert_selector 'a.btn.btn-tiny-rounded.blue', text: 'R' + next_version.version_number.to_s
+       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + next_version.version_number.to_s
        assert_selector 'p', text: next_version.description
      end
    end

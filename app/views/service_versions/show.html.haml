@@ -11,7 +11,6 @@
         .title
           %h1
             = @service_version.service.name
-          %span.btn.btn-status.blue
             ="R" + @service_version.version_number.to_s
           %span.btn.btn-status.blue
             = @service_version.status.upcase
@@ -65,8 +64,7 @@
             %h3= @operation['summary']
           - if @operation['description']
             %p= markdown.render(@operation['description']).html_safe
-          %button.btn.btn-primary.btn-sm.collapseConsole{:type => "button"}
-            %i.glyphicon.glyphicon-plus Probar
+          %button.btn.btn-success.collapseConsole Probar
           %h2= t(:parameters)
           - if @service_version.has_parameters?(@verb, @path)
             - ServiceVersion::PARAM_LOCATIONS.each do |location|
