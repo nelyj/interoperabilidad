@@ -1,12 +1,31 @@
 module ServiceVersionsHelper
-  def service_operation_markup(service_version, verb, path)
-    service_operation_content_markup(
-      path, verb,
-      service_version.operation(verb, path),
-      service_version.common_parameters_for_path(path),
-      json_pointer_path('/paths', path, verb),
+
+
+  def service_operation_responses_markup(service_version, verb, path)
+    service_operation_responses_content_markup(
+      service_version.operation(verb, path)['responses'],
+      json_pointer_path('/paths', path, verb, 'responses'),
       service_version.spec_with_resolved_refs['references']
     )
+  end
+
+  def service_operation_parameters_markup(service_version, verb, path, location)
+    path_parameters = service_version.path_parameters(path, location)
+    operation_parameters = service_version.operation_parameters(verb, path, location)
+    join_markup(path_parameters.map do |index, parameter|
+      service_parameter_markup(
+        location, parameter,
+        json_pointer_path('/paths', path, 'parameters', index.to_s),
+        service_version.spec_with_resolved_refs['references']
+      )
+    end) +
+    join_markup(operation_parameters.map do |index, parameter|
+      service_parameter_markup(
+        location, parameter,
+        json_pointer_path('/paths', path, verb, 'parameters', index.to_s),
+        service_version.spec_with_resolved_refs['references']
+      )
+    end)
   end
 
   def css_class_for_http_verb(verb)
@@ -18,22 +37,18 @@ module ServiceVersionsHelper
     }[verb] || ''
   end
 
-  def service_operation_content_markup(path, verb, operation, common_parameters, json_pointer, references)
-    if operation['parameters'].present?
-      common_parameters += operation['parameters']
-    end
-    content_tag(:h2, 'Parámetros') +
-    service_operation_parameters_distribution(common_parameters) +
-    content_tag(:h2, 'Respuestas') +
-    service_operation_responses_markup(operation['responses'])
-  end
-
-  def service_operation_responses_markup(responses)
+  def service_operation_responses_content_markup(responses, json_pointer, references)
     join_markup(responses.map do |name, response|
       content_tag(:h3, name) +
       content_tag(:p, response['description']) +
-      response_schema_object_markup(response['schema']) +
-      response_headers_markup(response['headers']) +
+      response_schema_object_markup(
+        response['schema'],
+        json_pointer_path(json_pointer, 'schema'), references
+      ) +
+      response_headers_markup(
+        response['headers'],
+        json_pointer_path(json_pointer, 'headers'), references
+      ) +
       response_example_markup(response['examples'])
     end)
   end
@@ -50,45 +65,30 @@ module ServiceVersionsHelper
     end
   end
 
-  def response_headers_markup(headers)
+  def response_headers_markup(headers, json_pointer, references)
     if headers.present?
       join_markup(headers.map do |name, header|
-        schema_object_property_markup(name, header, false, '/', '')
+        schema_object_property_markup(
+          name, header, false,
+          json_pointer_path(json_pointer, name), references
+        )
       end)
     end
   end
 
-  def response_schema_object_markup(schema)
+  def response_schema_object_markup(schema, json_pointer, references)
     if schema.present?
       case schema["type"]
-        when "object"
-          schema_object_spec_markup(schema, '/', '')
-        else
-          schema_object_property_markup('', schema, false, '/', '')
-        end
+      when "object"
+        schema_object_spec_markup(schema, json_pointer, references)
+      else
+        schema_object_property_markup(
+          '', schema, false, json_pointer, references
+        )
+      end
     else
       return ''
     end
-  end
-
-  def service_operation_parameters_distribution(parameters)
-    distributed_params = {
-      'body' => [], 'query' => [], 'header' => [], 'path' => [], 'formData' => []
-    }
-    parameters.each do |parameter|
-      distributed_params[parameter['in']].push(parameter)
-    end
-    if distributed_params.values.join.empty?
-      content_tag(:p, "Esta operación no posee parametros")
-    else
-      service_distributed_parameters(distributed_params)
-    end
-  end
-
-  def service_distributed_parameters(distributed_params)
-    join_markup(distributed_params.map do |location, parameters|
-      service_distributed_parameter_markup(location, parameters) unless parameters.empty?
-    end)
   end
 
   def parameter_section_name(location)
@@ -101,27 +101,17 @@ module ServiceVersionsHelper
     }[location]
   end
 
-  def service_distributed_parameter_markup(location, parameters)
-    content_tag(:h3, parameter_section_name(location)) +
-    content_tag(:div, class: "schema-panel-set detail") do
-      join_markup(parameters.map do |parameter|
-        if location == 'body'
-          if parameter['schema']['description'].blank?
-            parameter['schema'].merge!({ 'description' => parameter['description'] })
-          end
-          schema_object_property_markup(parameter['name'],
-            parameter['schema'], parameter['required'], '', '')
-        else
-          schema_object_property_markup(parameter['name'],
-            parameter, parameter['required'], '', '')
-        end
-      end)
+  def service_parameter_markup(location, parameter, json_pointer, references)
+    if location == 'body'
+      if parameter['schema']['description'].blank?
+        parameter['schema'].merge!('description' => parameter['description'])
+      end
+      schema_object_property_markup(parameter['name'],
+        parameter['schema'], parameter['required'],
+        json_pointer_path(json_pointer, 'schema'), references)
+    else
+      schema_object_property_markup(parameter['name'],
+        parameter, parameter['required'],  json_pointer, references)
     end
-  end
-
-  def service_operation_parameters_schema_markup(schema, json_pointer, references)
-    schema_object_complex_property_markup(
-      schema['title'], schema['properties'], true, json_pointer, references
-    )
   end
 end

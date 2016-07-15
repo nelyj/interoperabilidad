@@ -57,11 +57,24 @@
             %p= markdown.render(@operation['description']).html_safe
           %button.btn.btn-primary.btn-sm.collapseConsole{:type => "button"}
             %i.glyphicon.glyphicon-plus Probar
-          = service_operation_markup(@service_version, @verb, @path)
+          %h2= t(:parameters)
+          - if @service_version.has_parameters?(@verb, @path)
+            - ['path', 'query', 'header', 'body', 'formData'].each do |location|
+              - if @service_version.has_parameters?(@verb, @path, location)
+                %h3= parameter_section_name(location)
+                = service_operation_parameters_markup(@service_version, @verb, @path, location)
+          - else
+            %p= t(:operation_without_parameters)
+          %h2= t(:responses)
+          = service_operation_responses_markup(@service_version, @verb, @path)
         .console
           .inner-console
             %button#fullConsole.btn.btn-primary.btn-sm{:type => "button"}
               %i.glyphicon.glyphicon-plus FullScreen
             %button#closeConsole.btn.btn-primary.btn-sm{:type => "button"}
               %i.glyphicon.glyphicon-plus Cerrar
-            = service_operation_markup(@service_version, @verb, @path)
+            = service_operation_parameters_markup(@service_version, @verb, @path, 'path')
+            = service_operation_parameters_markup(@service_version, @verb, @path, 'query')
+            = service_operation_parameters_markup(@service_version, @verb, @path, 'headers')
+            = service_operation_parameters_markup(@service_version, @verb, @path, 'body')
+            = service_operation_parameters_markup(@service_version, @verb, @path, 'formData')

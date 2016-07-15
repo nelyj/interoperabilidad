@@ -63,6 +63,9 @@ es:
   must_upload_a_spec_file: Debes subir un archivo de especificación.
   generate_code: Generar código fuente
   related_schemas: Esquemas relacionados
+  parameters: Parámetros
+  responses: Respuestas
+  operation_without_parameters: Operación sin parámetros
   error:
     one: 1 error
     other: "%{count} errores"

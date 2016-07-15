@@ -106,8 +106,27 @@ class ServiceVersion < ApplicationRecord
     spec_with_resolved_refs['definition']['paths'][path][verb]
   end
 
-  def common_parameters_for_path(path)
-    spec_with_resolved_refs['definition']['paths'][path]['parameters'] || []
+  def path_parameters(path, location = nil)
+    _filter_by_location(
+      _with_original_index(
+        spec_with_resolved_refs['definition']['paths'][path]['parameters'] || []
+      ),
+      location
+    )
+  end
+
+  def operation_parameters(verb, path, location = nil)
+    _filter_by_location(
+      _with_original_index(
+        operation(verb, path)['parameters'] || []
+      ),
+      location
+    )
+  end
+
+  def has_parameters?(verb, path, location = nil)
+    path_parameters(path, location).any? ||
+      operation_parameters(verb, path, location).any?
   end
 
   def update_spec_with_resolved_refs
@@ -207,4 +226,19 @@ class ServiceVersion < ApplicationRecord
     organization_service_service_version_path(self.organization, self.service, self)
   end
 
+  def _filter_by_location(indexed_params, location = nil )
+    if location.nil?
+      indexed_params
+    else
+      indexed_params.select {|i, p| p['in'] == location }
+    end
+  end
+
+  def _with_original_index(params)
+    indexed_params = {}
+    params.each_with_index do |p, i|
+      indexed_params[i] = p
+    end
+    indexed_params
+  end
 end
