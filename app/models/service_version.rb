@@ -242,4 +242,21 @@ class ServiceVersion < ApplicationRecord
     end
     indexed_params
   end
+
+  def has_previous_version?
+    return !previous_version.nil?
+  end
+
+  def previous_version
+    self.service.service_versions.where(version_number: self.version_number - 1).take
+  end
+
+  def has_next_version?
+    return !next_version.nil?
+  end
+
+  def next_version
+    self.service.service_versions.where(version_number: self.version_number + 1).take
+  end
+
 end
