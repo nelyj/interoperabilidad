@@ -2,7 +2,6 @@ require 'tempfile'
 require 'open3'
 
 class ServiceVersion < ApplicationRecord
-  PARAM_LOCATIONS = ['path', 'query', 'header', 'body', 'formData']
   include S3Configuration
   include Rails.application.routes.url_helpers
   belongs_to :service
@@ -107,10 +106,14 @@ class ServiceVersion < ApplicationRecord
     spec_with_resolved_refs['definition']['paths'][path][verb]
   end
 
+  def path(path)
+    spec_with_resolved_refs['definition']['paths'][path]
+  end
+
   def path_parameters(path, location = nil)
     _filter_by_location(
       _with_original_index(
-        spec_with_resolved_refs['definition']['paths'][path]['parameters'] || []
+        self.path(path)['parameters'] || []
       ),
       location
     )
@@ -128,6 +131,14 @@ class ServiceVersion < ApplicationRecord
   def has_parameters?(verb, path, location = nil)
     path_parameters(path, location).any? ||
       operation_parameters(verb, path, location).any?
+  end
+
+  def parameter_locations(verb, path)
+    params = (
+      (operation(verb, path)['parameters'] || []) +
+      (self.path(path)['parameters'] || [])
+    )
+    params.map{ |p| p['in'] }.uniq
   end
 
   def update_spec_with_resolved_refs
