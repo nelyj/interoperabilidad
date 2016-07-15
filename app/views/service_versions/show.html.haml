@@ -1,45 +1,53 @@
-.clearfix
-.container
-  .row
-    .col-md-12.container-schema-detail
-      %h1=@organization.name
-      =select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name")
-      %h1
-        = @service_version.service.name
-        %a.btn.btn-status.blue
-          ="R" + @service_version.version_number.to_s
-      %p
-        %strong
-          %a.btn.btn-status.blue
+.institution-detail
+  .container
+    .col-md-6.no-gutter
+      %h2=@organization.name
+    .col-md-6.no-gutter
+      =select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name"), class: "form-control input-lg"
+.container-fluid.instance-panel-services
+  .container
+    .row
+      .col-md-8
+        .title
+          %h1
+            = @service_version.service.name
+          %span.btn.btn-status.blue
+            ="R" + @service_version.version_number.to_s
+          %span.btn.btn-status.blue
             = @service_version.status.upcase
+        %br
+        .description
           = t(:description) + ': '
           - if @service_version.description.present?
             = markdown.render(@service_version.description).html_safe
           -else
             = t(:description_not_found)
-      %p.url-canonica
-        %span
-          %strong
-            = t(:base_url) + ': '
-          %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
-            = organization_service_service_version_url(@service, @service_version, format: :json)
-      .history-version
-        - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
-          = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
-          = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
-
-        = link_to t(:new_version), new_organization_service_service_version_path
+      .col-md-4
         =link_to t(:previous_version)
         =link_to t(:next_version)
-        =link_to t(:generate_code), source_code_organization_service_service_version_path
         =link_to t(:history), organization_service_service_versions_path
-.clearfix
+    .row
+      .col-md-12.actions
+        %a.btn.btn-primary Solicitar Convenio
+        =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
+        %a.btn.btn-static Ver OAS
+        =link_to t(:generate_code), source_code_organization_service_service_version_path, class: "btn btn-static"
+        %p.url-canonica
+          %span
+            %strong
+              = t(:base_url) + ': '
+            %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
+              = organization_service_service_version_url(@service, @service_version, format: :json)
+
+    - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
+      = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
+      = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
+
 .container-fluid
   .row
     .col-md-12.wrapper-operation.no-gutter
       .container-verbs.in
-        %button#collapseVerbs.btn.btn-primary.btn-sm{:type => "button"}
-          %i.glyphicon.glyphicon-plus
+        %i#collapseVerbs.material-icons keyboard_arrow_right
         %h3.col-title
           = t(:operations)
         %ul.list-operations
@@ -71,10 +79,8 @@
           = service_operation_responses_markup(@service_version, @verb, @path)
         .console
           .inner-console
-            %button#fullConsole.btn.btn-primary.btn-sm{:type => "button"}
-              %i.glyphicon.glyphicon-plus FullScreen
-            %button#closeConsole.btn.btn-primary.btn-sm{:type => "button"}
-              %i.glyphicon.glyphicon-plus Cerrar
+            %i#fullConsole.material-icons.pull-left zoom_out_map
+            %i#closeConsole.material-icons.pull-right clear
             - ServiceVersion::PARAM_LOCATIONS.each do |location|
               - if @service_version.has_parameters?(@verb, @path, location)
                 %h3= parameter_section_name(location)

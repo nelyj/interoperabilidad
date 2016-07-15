@@ -62,10 +62,15 @@ body {
     }
 }
 
-.content-pages{
+.content-pages {
     background: $main-section-content;
     padding: 30px 0;
     min-height: 600px;
+}
+
+strong {
+    color: rgba(94, 94, 94, 1);
+    font-family: $font-bold;
 }
 
 //labels
@@ -187,7 +192,7 @@ body {
 .box-service {
     margin: 0px 5px 20px 5px;
     border-radius: 2px;
-    background: rgba(255,255,255,1);
+    background: rgba(255, 255, 255, 1);
     display: inline-block;
     width: 270px;
     text-align: left;
@@ -225,7 +230,7 @@ body {
         span {
             font-family: $font-bold;
         }
-        a.organization{
+        a.organization {
             text-decoration: underline;
             display: block;
             position: absolute;
@@ -516,15 +521,15 @@ ul.list-operations {
     li {
         a {
             span {
-                font-size: 0.6em;
+                width: 50px;
                 text-align: center;
                 padding: 3px 0 4px;
-                width: 50px;
                 line-height: 1.4em;
+                font-size: $font-14;
                 text-decoration: none;
             }
             .path {
-                font-size: 1em;
+                font-size: $font-13;
                 padding: 3px 4px;
             }
         }
@@ -583,27 +588,6 @@ ul.list-operations {
             pointer-events: none;
         }
     }
-    strong {
-        color: rgba(94, 94, 94, 1);
-        font-family: $font-bold;
-    }
-    .url-canonica {
-        span {
-            padding: 20px;
-            display: block;
-            max-width: 100%;
-            overflow: hidden;
-            font-size: $font-14;
-            border-radius: 4px;
-            white-space: nowrap;
-            letter-spacing: 0px;
-            text-overflow: ellipsis;
-            background: rgba(246, 246, 246, 1);
-            a {
-                text-decoration: none;
-            }
-        }
-    }
     .history-version {
         text-transform: uppercase;
         margin-bottom: 30px;
@@ -622,6 +606,29 @@ ul.list-operations {
         font-size: $font-24;
         color: rgba(94, 94, 94, 1);
         font-family: $font-bold;
+    }
+}
+
+.url-canonica {
+    margin: 0px;
+    line-height: 224%;
+    display: inline-block;
+    vertical-align: bottom;
+    span {
+        padding: 3px 12px;
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        font-size: $font-14;
+        border-radius: 0px;
+        white-space: nowrap;
+        letter-spacing: 0px;
+        text-overflow: ellipsis;
+        background: rgba(255, 255, 255, 1);
+        a {
+            margin-left: 6px;
+            text-decoration: none;
+        }
     }
 }
 
@@ -678,6 +685,77 @@ ul.list-operations {
 @import "components/_schemas-component.scss";
 @import "components/_tables.scss";
 //Services
+.instance-panel-services {
+    background-color: $gray-background;
+    padding: 30px 0px;
+    .title {
+        display: block;
+        line-height: 100%;
+        h1 {
+            font-size: $font-24;
+            font-family: $font-bold;
+            color: $dark-black-text;
+            margin: -4px 10px 0px 0px;
+            float: left;
+            display: inline-block
+        }
+        span {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+    .description {
+        font-size: $font-18;
+        color: $dark-black-text;
+        font-family: $font-regular;
+        margin-bottom: 30px;
+        h1 {
+            font-size: $font-24;
+            font-family: $font-bold;
+        }
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: $font-18;
+            font-family: $font-bold;
+        }
+        p {
+            margin: 0px;
+        }
+    }
+    .actions {
+        .btn {
+            margin-right: 4px;
+        }
+    }
+}
+
+.institution-detail {
+    border: 1px solid $official-grey;
+    background-color: rgba(255, 255, 255, 1);
+    h2 {
+        font-size: $font-24;
+        margin-top: 13px;
+        margin-bottom: 16px;
+        color: $official-blue;
+    }
+    select {
+        max-width: 470px;
+    }
+    .select2-container {
+        padding-top: 6px;
+    }
+    .select2 span,
+    .select2 li {
+        font-size: $font-18;
+    }
+    span.select2-selection {
+        background-color: $gray-background;
+    }
+}
+
 .wrapper-operation {
     overflow: hidden;
     background-color: rgba(252, 252, 252, 1);
@@ -718,6 +796,9 @@ ul.list-operations {
             }
         }
     }
+    i {
+        cursor: pointer;
+    }
 }
 
 .container-service {
@@ -737,9 +818,6 @@ ul.list-operations {
         display: inline-block;
         text-overflow: ellipsis;
         background-color: rgba(255, 255, 255, 1);
-        .collapseConsole {
-            display: none;
-        }
         &.in {
             width: 100%;
             display: inline-block;
@@ -769,6 +847,9 @@ ul.list-operations {
         }
         .inner-console {
             padding: 30px;
+            i {
+                cursor: pointer;
+            }
         }
     }
 }
