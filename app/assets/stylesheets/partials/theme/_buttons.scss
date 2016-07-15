@@ -71,42 +71,42 @@
 }
 
 //tiny buttons
-.btn-tiny-rounded {
+.btn-tiny {
     background-color: transparent;
-    border-radius: 74.69px;
+    border-radius: 0px;
     border-bottom: none;
     &.blue {
-        @include bootstrap-rounded-btns($official-blue);
+        @include bootstrap-tiny-btns($official-blue);
     }
     &.red {
-        @include bootstrap-rounded-btns($official-red);
+        @include bootstrap-tiny-btns($official-red);
     }
     &.static {
-        @include bootstrap-rounded-btns($btn-static-color);
+        @include bootstrap-tiny-btns($btn-static-color);
     }
     &.default {
-        @include bootstrap-rounded-btns(darken(rgba(255, 255, 255, 1), 18%));
+        @include bootstrap-tiny-btns(darken(rgba(255, 255, 255, 1), 18%));
     }
     &.primary {
-        @include bootstrap-rounded-btns($brand-primary);
+        @include bootstrap-tiny-btns($brand-primary);
     }
     &.success {
-        @include bootstrap-rounded-btns($brand-success);
+        @include bootstrap-tiny-btns($brand-success);
     }
     &.info {
-        @include bootstrap-rounded-btns($brand-info);
+        @include bootstrap-tiny-btns($brand-info);
     }
     &.warning {
-        @include bootstrap-rounded-btns($brand-warning);
+        @include bootstrap-tiny-btns($brand-warning);
     }
     &.danger {
-        @include bootstrap-rounded-btns($brand-danger);
+        @include bootstrap-tiny-btns($brand-danger);
     }
 }
 
 .btn-status {
-    @extend .btn-tiny-rounded;
-    border-radius: 7px;
+    @extend .btn-tiny;
+    border-radius: 0px;
 }
 
 .round {
