@@ -2,6 +2,7 @@ document.addEventListener 'turbolinks:load', ->
   $('select').select2
     theme: 'bootstrap'
     containerCssClass: ':all:'
+    width: 'resolve'
   $('pre code').each (i, block) ->
     hljs.highlightBlock(block)
   $('#categories-list li:first').addClass("active")
