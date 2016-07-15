@@ -63,8 +63,10 @@ header {
                 }
             }
             .with-notifications {
+                a{
+                  background: $official-red !important;
+                }
                 @extend .notifications-box;
-                background: $official-red;
             }
         }
     }
@@ -116,7 +118,6 @@ header {
 
 #btn-login {
     width: 224px;
-    margin-top: 40px;
     float: right;
     margin-right: 70px;
     font-size: 22px;

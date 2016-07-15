@@ -2,7 +2,7 @@
   .container
     .col-md-12{:class => "text-center"}
       %h1= t(:schema_directory)
-      .form-group.col-md-6.container-form
+      .form-group.col-md-8.container-form
         = form_tag(search_schemas_path, method: "get") do
           .inner-addon.left-addon
             %i.glyphicon.glyphicon-search
