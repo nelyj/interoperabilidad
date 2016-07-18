@@ -1,10 +1,10 @@
 @widthVerbsCollapsed = 85
 @windowWidth = 0
-@serviceWidth = 0
+@verbsWidth = 0
 
 document.addEventListener 'turbolinks:load', =>
   @windowWidth = $(window).width()
-  @serviceWidth = $('.container-service').width()
+  @verbsWidth = $('.container-verbs').width()
   $(".container-service").css("min-height", $(".container-verbs").height())
 
 #Verbs Col
@@ -15,13 +15,17 @@ $(document).on 'click', '#collapseVerbs', =>
       unless $('.container-verbs').hasClass('in')
         $('.container-service').width( @windowWidth - @widthVerbsCollapsed )
       else
-        $('.container-service').width( @serviceWidth )
+        $('.container-service').width( @windowWidth - @verbsWidth )
         $('.operation')
           .removeClass('out')
           .addClass('in')
         $('.console')
           .removeClass('in full')
           .addClass('out')
+        $('.collapseConsole')
+          .removeClass('default full')
+          .addClass('btn-success')
+          .prop('disabled', false)
       return
   return
 

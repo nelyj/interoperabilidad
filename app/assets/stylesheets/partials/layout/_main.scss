@@ -518,8 +518,13 @@ ul.list-categories {
 
 ul.list-operations {
     @extend .list-categories;
-    padding: 9px 9px 15px 9px;
+    padding: 14px 9px 15px 15px;
     li {
+        display: block;
+        overflow: hidden;
+        line-height: 13px;
+        padding: 0px;
+        margin-bottom: 15px;
         a {
             span {
                 width: 50px;
@@ -797,7 +802,13 @@ ul.list-operations {
 }
 
 .container-verbs,
-.container-service,
+.container-service {
+    transition: all 0.3s easeInOut;
+    -o-transition: all 0.3s easeInOut;
+    -moz-transition: all 0.3s easeInOut;
+    -webkit-transition: all 0.3s easeInOut;
+}
+
 .operation,
 .console {
     transition: width 0.3s ease;
@@ -829,12 +840,22 @@ ul.list-operations {
             a {
                 .btn {
                     text-transform: uppercase;
+                    float: left;
+                    margin-right: 5px;
+                    padding: 0px;
                     &.danger {
                         padding: 0px;
                     }
                 }
                 .path {
+                    float: left;
                     display: none;
+                    text-align: left;
+                    width: 163px;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    padding: 0px;
                 }
             }
         }
