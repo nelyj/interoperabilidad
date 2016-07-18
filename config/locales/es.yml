@@ -32,10 +32,11 @@ es:
   schema_name_example: "Ej: PatenteComercial"
   enter_new_schema_category: Indica Categoría
   create_schema: Crear Esquema
+  create_service: Crear Servicio
+  create_agreement: Crear Convenio
   no_results_found: "No se han encontrado resultados"
   service_directory: Directorio de Servicios
   enter_service_name: "Ingresa nombre de Servicio"
-  new_service: 'Nuevo Servicio'
   institution: Institución
   services: Servicios
   agreements: Convenios
@@ -57,8 +58,20 @@ es:
   approved: aprobado
   reject: Rechazar
   rejected: rechazado
-  no_description: "Descripción no disponible"
-  services_pending_approval: 'Servicios por aprobar'
+  proposed: propuesto
+  current: vigente
+  retired: retirado
+  retracted: retractado
+  outdated: desactualizado
+  no_description: Descripción no disponible
+  services_pending_approval: Servicios por aprobar
+  service_name: Nombre del servicio
+  requesting_organization: Institución solicitante
+  requester: Solicitante
+  state: Estado
+  new_requests_pending_approval:
+    one: Nueva solicitud pendiente de validación
+    other: Nuevas solicitudes pendientes de validación
   no_services_pending_approval: No hay servicios pendientes de aprobar
   must_upload_a_spec_file: Debes subir un archivo de especificación.
   generate_code: Generar código fuente

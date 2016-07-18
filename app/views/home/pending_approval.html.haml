@@ -1,17 +1,42 @@
--if user_signed_in? && current_user.can_create_schemas?
-  %h2= t(:services_pending_approval)
-  - if @pending_services_version.nil?
-    = t(:no_services_pending_approval)
-  - else
-    %table
-      %thead
-        %tr
-          %th= Service.human_attribute_name(:name)
-          %th= Organization.model_name.human
-          %th{:colspan => "3"}
-      %tbody
-        - @pending_services_version.each do |s|
-          %tr
-            %td= s.service.name
-            %td= s.service.organization.name
-            %td= link_to 'Revisar', [s.service.organization, s.service, s]
+- if user_signed_in? && current_user.is_service_admin?
+  .title-panel-pages
+    .container
+      .row
+        .col-md-12
+          %h1= t(:services_pending_approval)
+
+.content-pages.content-tabs
+  .container
+    .tab-content
+      #servicios.tab-pane.active{:role => "tabpanel"}
+        - if @pending_services_version.empty?
+          .row
+            .col-md-12.head-title-table
+              %h2= t(:no_services_pending_approval)
+        - else
+          .row
+            .col-md-12.head-title-table
+              %h2= t(:new_requests_pending_approval, count: @pending_services_version.count)
+              .search-table
+                %input{:type => 'text', :placeholder => 'Buscar por nombre'}
+                %button.search
+                  %i.material-icons
+                    search
+          .row
+            .col-md-12
+              %table
+                %thead
+                  %tr
+                    %th Fecha
+                    %th= t(:service_name)
+                    %th= t(:requesting_organization)
+                    %th= t(:requester)
+                    %th= t(:state)
+                %tbody
+                  %colgroup
+                    %col{:width => "10%"}
+                    %col
+                    %col{:width => "22%"}
+                    %col{:width => "12%"}
+                    %col{:width => "8%"}
+                    = render partial: "pending", collection: @pending_services_version

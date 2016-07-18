@@ -1,0 +1,8 @@
+%tr{"data-link" => organization_service_service_version_path(pending.service.organization.name, pending.service.name, pending.version_number)}
+  %td= pending.created_at.strftime("%d/%m/%Y")
+  %td= pending.name
+  %td= pending.organization.name
+  %td= pending.user.name
+  %td
+    %span.label-blue
+      = t(:proposed)
