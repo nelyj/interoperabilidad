@@ -48,9 +48,9 @@
             %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
               = organization_service_service_version_url(@service, @service_version, format: :json)
 
-    / - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
-    /   = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
-    /   = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
+      - if user_signed_in? && current_user.organizations.exists?(Organization.where(dipres_id: 'AB01')) && @service_version.proposed?
+        = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
+        = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
 
 .container-fluid
   .row
