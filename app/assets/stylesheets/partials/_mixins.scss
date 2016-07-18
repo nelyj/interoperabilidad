@@ -15,9 +15,9 @@
 //Tiny btns
 @mixin bootstrap-tiny-btns($color) {
     color: $color;
-    padding: 0px 10px;
+    padding: 2px 10px 0px 10px;
     border: 1px solid $color;
-    font-size: $font-13;
+    font-size: $font-11;
     font-family: $font-regular;
     &.full {
         background-color: $color;
