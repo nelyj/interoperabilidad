@@ -33,7 +33,7 @@
 body {
     background-color: rgba(255, 255, 255, 1);
     font-family: $font-light;
-    color: $gray-text;
+    color: $dark-black-text;
     font-size: $font-13;
     &.schema_versions_show {
         @media only screen and (min-width: 1200px) {
@@ -527,6 +527,7 @@ ul.list-operations {
                 line-height: 1.4em;
                 font-size: $font-14;
                 text-decoration: none;
+                color: $dark-black-text;
             }
             .path {
                 font-size: $font-13;
@@ -675,7 +676,6 @@ ul.list-operations {
     p,
     ul {
         margin: 0px;
-        margin-left: 60px;
     }
     a {
         text-decoration: underline;
@@ -805,6 +805,19 @@ ul.list-operations {
     float: left;
     width: 85px;
     display: inline-block;
+    padding: 25px 9px;
+    .header {
+        border-bottom: 1px solid rgba(203, 203, 203, 1);
+        display: block;
+        overflow: hidden;
+        padding: 0px 9px 18px 9px;
+        h3 {
+            font-size: $font-18;
+            font-family: $font-bold;
+            color: $dark-black-text;
+            display: none;
+        }
+    }
     .list-operations {
         li {
             a {
@@ -822,6 +835,11 @@ ul.list-operations {
     }
     &.in {
         width: 20%;
+        .header {
+            h3 {
+                display: inline;
+            }
+        }
         .list-operations {
             li {
                 a {
@@ -831,9 +849,19 @@ ul.list-operations {
                 }
             }
         }
+        i {
+            float: right;
+        }
     }
     i {
+        margin: 0 auto;
+        float: none;
+        width: 24px;
+        height: 24px;
+        display: block;
         cursor: pointer;
+        color: $dark-black-text;
+        background-color: rgba(240, 240, 240, 1);
     }
 }
 
@@ -842,7 +870,7 @@ ul.list-operations {
     position: relative;
     display: inline-block;
     background: rgba(252, 252, 252, 1);
-    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.33);
+    box-shadow: rgba(0, 0, 0, 0.329412) 0px 1px 1px 0px, rgba(0, 0, 0, 0.137255) 0px 2px 6px 0px;
     .operation {
         left: 0px;
         width: 50%;
@@ -858,12 +886,36 @@ ul.list-operations {
             width: 100%;
             display: inline-block;
             .collapseConsole {
+                width: 170px;
+                font-size: $font-18;
                 display: inline-block;
+                margin-bottom: 50px;
             }
         }
         &.out {
             width: 0px;
             overflow: hidden;
+        }
+        h2 {
+            margin-bottom: 30px;
+            font-size: $font-24;
+            color: $dark-black-text;
+            font-family: $font-bold;
+            &.parameters{
+              text-transform: uppercase;
+            }
+        }
+        .description-summary {
+            margin-bottom: 40px;
+            p {
+                font-size: $font-18;
+                font-family: $font-regular;
+                margin-bottom: 5px;
+            }
+        }
+        & > .schema-panel-set.detail {
+            padding: 0px;
+            background: transparent;
         }
     }
     .console {

@@ -56,9 +56,10 @@
   .row
     .col-md-12.wrapper-operation.no-gutter
       .container-verbs.in
-        %i#collapseVerbs.material-icons keyboard_arrow_right
-        %h3.col-title
-          = t(:operations)
+        .header
+          %i#collapseVerbs.material-icons keyboard_arrow_right
+          %h3.col-title
+            = t(:operations)
         %ul.list-operations
           - @service_version.operations.each do |(verb, path), operation|
             %li
@@ -70,20 +71,23 @@
           %h2
             .span.btn.btn-status.full{class: css_class_for_http_verb(@verb)}= @verb
             = @path
-          - if @operation['summary']
-            %h3= @operation['summary']
-          - if @operation['description']
-            %p= markdown.render(@operation['description']).html_safe
+          .description-summary
+            - if @operation['summary']
+              %p= @operation['summary']
+            - if @operation['description']
+              %div= markdown.render(@operation['description']).html_safe
           %button.btn.btn-success.collapseConsole Probar
-          %h2= t(:parameters)
-          - if @service_version.has_parameters?(@verb, @path)
-            - @service_version.parameter_locations(@verb, @path).each do |location|
-              %h3= parameter_section_name(location)
-              = service_operation_parameters_markup(@service_version, @verb, @path, location)
-          - else
-            %p= t(:operation_without_parameters)
+          %h2.parameters= t(:parameters)
+          .schema-panel-set.detail
+            - if @service_version.has_parameters?(@verb, @path)
+              - @service_version.parameter_locations(@verb, @path).each do |location|
+                %h3= parameter_section_name(location)
+                = service_operation_parameters_markup(@service_version, @verb, @path, location)
+            - else
+              %p= t(:operation_without_parameters)
           %h2= t(:responses)
-          = service_operation_responses_markup(@service_version, @verb, @path)
+          .schema-panel-set.detail
+            = service_operation_responses_markup(@service_version, @verb, @path)
         .console
           .inner-console
             %i#fullConsole.material-icons.pull-left zoom_out_map
