@@ -90,8 +90,14 @@
             = service_operation_responses_markup(@service_version, @verb, @path)
         .console
           .inner-console
-            %i#fullConsole.material-icons.pull-left zoom_out_map
-            %i#closeConsole.material-icons.pull-right clear
-            - @service_version.parameter_locations(@verb, @path).each do |location|
-              %h3= parameter_section_name(location)
-              = service_operation_parameters_markup(@service_version, @verb, @path, location)
+            .title
+              %i#fullConsole.material-icons.pull-left zoom_out_map
+              %i#closeConsole.material-icons.pull-right clear
+            .schema-panel-set
+              - if @service_version.has_parameters?(@verb, @path)
+                - @service_version.parameter_locations(@verb, @path).each do |location|
+                  %h3= parameter_section_name(location)
+                  = service_operation_parameters_markup(@service_version, @verb, @path, location)
+              - else
+                %p= t(:operation_without_parameters)
+

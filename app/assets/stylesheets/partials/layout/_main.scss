@@ -518,6 +518,7 @@ ul.list-categories {
 
 ul.list-operations {
     @extend .list-categories;
+    padding: 9px 9px 15px 9px;
     li {
         a {
             span {
@@ -804,13 +805,14 @@ ul.list-operations {
 .container-verbs {
     float: left;
     width: 85px;
+    padding: 0px;
     display: inline-block;
-    padding: 25px 9px;
     .header {
-        border-bottom: 1px solid rgba(203, 203, 203, 1);
         display: block;
         overflow: hidden;
-        padding: 0px 9px 18px 9px;
+        line-height: 30px;
+        padding: 18px 19px 13px 16px;
+        border-bottom: 1px solid rgba(203, 203, 203, 1);
         h3 {
             font-size: $font-18;
             font-family: $font-bold;
@@ -838,6 +840,7 @@ ul.list-operations {
         .header {
             h3 {
                 display: inline;
+                padding: 18px 9px 13px 16px;
             }
         }
         .list-operations {
@@ -854,11 +857,11 @@ ul.list-operations {
         }
     }
     i {
-        margin: 0 auto;
         float: none;
         width: 24px;
         height: 24px;
         display: block;
+        margin: 0 auto;
         cursor: pointer;
         color: $dark-black-text;
         background-color: rgba(240, 240, 240, 1);
@@ -870,7 +873,7 @@ ul.list-operations {
     position: relative;
     display: inline-block;
     background: rgba(252, 252, 252, 1);
-    box-shadow: rgba(0, 0, 0, 0.329412) 0px 1px 1px 0px, rgba(0, 0, 0, 0.137255) 0px 2px 6px 0px;
+    box-shadow: rgba(0, 0, 0, 0.329412) 0px -1px 1px 0px, rgba(0, 0, 0, 0.137255) 0px -1px 1px 0px;
     .operation {
         left: 0px;
         width: 50%;
@@ -915,8 +918,8 @@ ul.list-operations {
         .description-summary {
             margin-bottom: 15px;
             p {
-                font-size: $font-18;
                 margin-bottom: 5px;
+                font-size: $font-18;
                 font-family: $font-regular;
             }
         }
@@ -942,8 +945,19 @@ ul.list-operations {
         }
         .inner-console {
             padding: 20px 30px 30px 30px;
-            i {
-                cursor: pointer;
+            .title {
+                display: block;
+                overflow: hidden;
+                margin-bottom: 10px;
+                padding: 20px 0px 30px 0px;
+                border-bottom: 1px solid rgba(202, 202, 202, 1);
+                i {
+                    cursor: pointer;
+                }
+            }
+            & > .schema-panel-set {
+                padding: 0px;
+                background: transparent;
             }
         }
     }
