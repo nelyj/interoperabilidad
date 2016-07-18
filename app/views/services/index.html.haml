@@ -1,15 +1,44 @@
-- if user_signed_in? && current_user.is_service_admin?
-  =link_to "Por aprobar", pending_approval_services_path
-  %br
-= link_to t(:new_service), new_organization_service_path
-%br
-%input{:type=>"text", placeholder: "Search"}
-%br
-- @services.each do |service|
-  = service.created_at
-  |
-  = service.name
-  |
-  = service.service_versions.last.user.name
-  |
-  = service.service_versions.last.status
+.title-panel-pages
+  .container
+    .row
+      .col-md-12
+        %h1= @organization.name
+    .row
+      .col-md-12
+        %ul.nav.nav-tabs{:role => "tablist"}
+          %li{:role => "presentation", :class => "tab-to-new"}
+            =link_to new_organization_service_path do
+              %i.material-icons
+                file_upload
+              %span=t(:create_service)
+
+.content-pages.content-tabs
+  .container
+    .tab-content
+      #servicios.tab-pane.active{:role => "tabpanel"}
+        .row
+          .col-md-12.head-title-table
+            %h2 Listado de convenios
+            .search-table
+              %input{:type => 'text', :placeholder => 'Buscar por nombre'}
+              %button.search
+                %i.material-icons
+                  search
+        .row
+          .col-md-12
+            %table
+              %thead
+                %tr
+                  %th= t(:dateString)
+                  %th= t(:service_name)
+                  %th= ServiceVersion.human_attribute_name(:version_number)
+                  %th= t(:author)
+                  %th Estado
+              %tbody
+                %colgroup
+                  %col{:width => "15%"}
+                  %col
+                  %col{:width => "10%"}
+                  %col{:width => "20%"}
+                  %col{:width => "8%"}
+                  = render partial: "service", collection: @services

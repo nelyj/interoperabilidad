@@ -1,5 +1,7 @@
 ---
 es:
+  author: Autor
+  dateString: Fecha
   history: Historial
   operations: Operaciones
   next_version: Versión siguiente
@@ -103,7 +105,8 @@ es:
         spec_file: Archivo de Especificación
       service:
         name: Nombre
-
+      service_version:
+        version_number: Revisión
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
