@@ -73,16 +73,16 @@ class ServiceVersion < ApplicationRecord
     end
     Role.where(name: "Service Provider", organization: org).each do |role|
       role.user.notifications.create(subject: self,
-        message: message
+        message: message, email: role.email
       )
     end
   end
 
   def create_state_change_notification(status)
-    org = Organization.where(dipres_id: "AB01")
+    email = user.roles.where(organization: organization, name: "Service Provider").first.email
     user.notifications.create(subject: self,
       message: I18n.t(:create_state_change_notification, name: name,
-        version: self.version_number.to_s, status: status)
+        version: self.version_number.to_s, status: status), email: email
     )
   end
 
