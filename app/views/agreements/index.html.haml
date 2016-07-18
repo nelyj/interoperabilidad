@@ -14,8 +14,8 @@
 						%a{:href => 'new', :title => 'Crear Nuevo Convenio'}
 							%i.material-icons
 								note_add
-							%span Crear Nuevo Convenio	
-				
+							%span Crear Nuevo Convenio
+
 .content-pages.content-tabs
 	.container
 		.tab-content
@@ -44,9 +44,10 @@
 									%col{:width => "22%"}
 									%col
 									%col{:width => "12%"}
-									%col{:width => "8%"}
+									%col{:width => "10%"}
 								- (1..6).each do |i|
 									= render partial: "content_table"
+
 			#consumidor.tab-pane{:role => "tabpanel"}
 				.row
 					.col-md-12.head-title-table
