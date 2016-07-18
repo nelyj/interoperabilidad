@@ -129,7 +129,7 @@ class User < ApplicationRecord
   end
 
   def unseen_notifications?
-    self.notifications.where(seen: false).count > 0
+    self.notifications.exists?(seen: false)
   end
 
 end

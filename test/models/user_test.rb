@@ -122,33 +122,59 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test '.parse_organizations_and_roles delete all roles' do
-    response = {
-      "RUN": {
-        "dv": "1",
-        "numero": 17022419,
-        "tipo": "RUN"
+    response = Hashie::Mash.new(
+      RUN: {
+        dv: "1",
+        numero: 17022419,
+        tipo: "RUN"
       },
-      "nombre": {
-        "apellidos": [
+      nombre: {
+        apellidos: [
           "Fiebig"
         ],
-        "nombres": [
+        nombres: [
           "Alfredo"
         ]
       },
-      "instituciones": [
+      instituciones: [
         {
-          "email": "juanito@dominio.cl",
-          "institucion": {
-          "id": "AB01",
-          "nombre": "Subsecretaria de la Presidencia",
-          "padre_id": "AB01",
-          "sigla": "Segpres"
+          email: "juanito@dominio.cl",
+          institucion: {
+          id: "AB01",
+          nombre: "Secretaría General de la Presidencia",
+          padre_id: "AB01",
+          sigla: "Segpres"
         },
-        "rol": "Validador",
+        rol: "Validador",
       }
-    ]}
-    user = User.where(rut: "11.111.111-1")
+    ])
+    user = User.where(rut: "11.111.111-1").first
+    user.roles.create(organization: organizations(:sii), name: "Service Provider", email: "test@example.org")
+    user.roles.create(organization: organizations(:minsal), name: "Service Provider", email: "test2@example.org")
+    assert user.organizations.exists?(name: "Servicio de Impuestos Internos")
+    assert user.organizations.exists?(name: "Ministerio de Salud")
+
+    user.parse_organizations_and_roles(response, nil)
+
+    assert user.organizations.exists?(name: "Secretaría General de la Presidencia")
+    assert_not user.organizations.exists?(name: "Servicio de Impuestos Internos")
+    assert_not user.organizations.exists?(name: "Ministerio de Salud")
+  end
+
+  test ".unread_notifications return the number of unread_notifications of a user" do
+    user = users(:pedro)
+    assert_equal 0, user.unread_notifications
+    user.notifications.create(subject: Service.first, message: "", email: "")
+    user.notifications.create(subject: Service.first, message: "", email: "")
+    assert_equal 2, user.unread_notifications
+  end
+
+  test ".unseen_notifications return if true if the user has unseen_notifications" do
+    user = users(:pedro)
+    assert_not user.unseen_notifications?
+    user.notifications.create(subject: Service.first, message: "", email: "")
+    user.notifications.create(subject: Service.first, message: "", email: "")
+    assert user.unseen_notifications?
   end
 
 end
