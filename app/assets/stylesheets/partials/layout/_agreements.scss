@@ -59,6 +59,7 @@
     background: none;
     border-top: 1px solid #e0e0e0;
   }
+
   .description{
     padding: 12px;
     font-size: $font-14;
@@ -74,6 +75,7 @@
       margin: 0;
     }
   }
+
   .visor{
     width: 98%;
     margin-bottom: 20px;
@@ -82,12 +84,18 @@
       width: 100%;
       height: 500px;
       border: 1px solid #d0d0d0;
+      background: white;
+      &:hover,
+      &:focus{
+        box-shadow: none;
+      }
     }
     .preview{
       overflow: hidden;
       overflow-y: auto;
     }
   }
+
   .actions{
     .btn{
       margin-right: 4px;
@@ -96,6 +104,33 @@
 
   .box{
     background: white;
-    padding: 12px;
+    padding: 0;
+    margin-bottom: 24px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    .header-box{
+      padding: 20px 16px;
+      border-bottom: 1px solid #e1e1e1;
+      font-size: 14px;
+      font-family: $font-bold;
+      span.btn-status{
+        float: right;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+    }
+    .body-box{
+      padding: 20px 16px;
+      .event{
+        margin: 0px 0 20px 0;
+        border-bottom: 1px dotted #ccc;
+        padding-bottom: 10px;
+        &:last-child{
+          border: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
   }
 }

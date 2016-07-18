@@ -1,2 +1,28 @@
-.container.new-schemas-container
-	EDIT
+.show-agreement.main-container
+  .container-fluid.main-title
+    .container
+      .col-md-12
+        %h1 Convenio entre Ministerio Secretaría General de la Presidencia y Servicio de Impuestos Internos
+        %a{:href => 'index', :title => 'Cancelar'}
+          %i.material-icons
+            close
+
+  .container-fluid.show-agreement-content
+    .container
+      .row
+        .col-md-9
+          .description
+            = render partial: "description_agreement"
+
+          %form
+            .visor#visor
+              %textarea
+
+            .actions
+              %input.btn.btn-success{:type => 'button', :value => 'Guardar', "data-link" => 'javascript:history.back();'}
+              %a{:href => 'javascript:history.back();', :class => 'cancel-btn'}
+                Cancelar
+
+        .col-md-3
+          = render partial: "next_step"
+          = render partial: "history"
