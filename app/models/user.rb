@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :roles
+  has_many :roles, dependent: :delete_all
   has_many :organizations, through: :roles
   has_many :service_versions
   has_many :schema_versions
