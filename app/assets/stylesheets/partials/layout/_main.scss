@@ -876,21 +876,21 @@ ul.list-operations {
         width: 50%;
         float: left;
         height: 100%;
-        padding: 30px;
         position: relative;
         white-space: nowrap;
         display: inline-block;
         text-overflow: ellipsis;
+        padding: 20px 30px 30px 30px;
         background-color: rgba(255, 255, 255, 1);
+        .collapseConsole {
+            width: 170px;
+            font-size: $font-18;
+            margin-bottom: 35px;
+            display: inline-block;
+        }
         &.in {
             width: 100%;
             display: inline-block;
-            .collapseConsole {
-                width: 170px;
-                font-size: $font-18;
-                display: inline-block;
-                margin-bottom: 50px;
-            }
         }
         &.out {
             width: 0px;
@@ -901,16 +901,23 @@ ul.list-operations {
             font-size: $font-24;
             color: $dark-black-text;
             font-family: $font-bold;
-            &.parameters{
-              text-transform: uppercase;
+            &.subtitle {
+                padding: 0px;
+                margin: 20px 0px 3px 0px;
+                text-transform: uppercase;
             }
         }
+        h3 {
+            padding-bottom: 10px;
+            margin: 20px 0px 20px 0px;
+            border-bottom: 1px solid rgba(232, 232, 232, 1);
+        }
         .description-summary {
-            margin-bottom: 40px;
+            margin-bottom: 15px;
             p {
                 font-size: $font-18;
-                font-family: $font-regular;
                 margin-bottom: 5px;
+                font-family: $font-regular;
             }
         }
         & > .schema-panel-set.detail {
@@ -934,7 +941,7 @@ ul.list-operations {
             width: 100%;
         }
         .inner-console {
-            padding: 30px;
+            padding: 20px 30px 30px 30px;
             i {
                 cursor: pointer;
             }

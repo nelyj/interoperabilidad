@@ -77,7 +77,7 @@
             - if @operation['description']
               %div= markdown.render(@operation['description']).html_safe
           %button.btn.btn-success.collapseConsole Probar
-          %h2.parameters= t(:parameters)
+          %h2.subtitle= t(:parameters)
           .schema-panel-set.detail
             - if @service_version.has_parameters?(@verb, @path)
               - @service_version.parameter_locations(@verb, @path).each do |location|
@@ -85,7 +85,7 @@
                 = service_operation_parameters_markup(@service_version, @verb, @path, location)
             - else
               %p= t(:operation_without_parameters)
-          %h2= t(:responses)
+          %h2.subtitle= t(:responses)
           .schema-panel-set.detail
             = service_operation_responses_markup(@service_version, @verb, @path)
         .console
