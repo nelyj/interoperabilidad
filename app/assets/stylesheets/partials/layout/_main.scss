@@ -858,6 +858,7 @@ ul.list-operations {
         }
         i {
             float: right;
+            transform: inherit;
         }
     }
     i {
@@ -869,6 +870,11 @@ ul.list-operations {
         cursor: pointer;
         color: $dark-black-text;
         background-color: rgba(240, 240, 240, 1);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        transform: rotate(180deg);
     }
 }
 
