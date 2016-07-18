@@ -73,22 +73,13 @@ class ServiceVersionTest < ActiveSupport::TestCase
   test '#make_current_version create 3 versions backwards_compatible'\
         'and make each one current only one current must exist and the other'\
         'two must be outdated' do
-    org = Organization.create!(
-      name: "Secretaría General de la Presidencia",
-      initials: "ASDR",
-      dipres_id: "ASDF31"
-      )
+          
     service = Service.create!(
       name: "Test Servicio 1",
-      organization: org,
+      organization: organizations(:segpres),
       spec_file: StringIO.new(VALID_SPEC)
       )
-    user = User.create!(
-      name: 'Perico de los Palotes',
-      rut: "33.333.333-3",
-      sub: "9",
-      id_token: "some-token"
-      )
+    user = users(:pablito)
     version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                      user: user,
@@ -112,55 +103,45 @@ class ServiceVersionTest < ActiveSupport::TestCase
   test '#make_current_version create 3 versions without backwards_compatible'\
         'and make each one current only one current must exist and the other'\
         'two must be retired' do
-    org = Organization.create!(
-      name: "Secretaría General de la Presidencia",
-      initials: "ASDR",
-      dipres_id: "ASDF31"
-      )
+
     service = Service.create!(
       name: "Test Servicio 1",
-      organization: org,
+      organization: organizations(:segpres),
       spec_file: StringIO.new(VALID_SPEC)
       )
-    user = User.create!(
-      name: 'Perico de los Palotes',
-      rut: "33.333.333-3",
-      sub: "9",
-      id_token: "some-token"
-      )
+    user = users(:pablito)
 
     version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
-                                     user: users(:perico))
+                                     user: user)
     version.make_current_version
     version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
-                                    user: users(:perico))
+                                    user: user)
     version.make_current_version
     version = service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
-                                    user: users(:perico))
+                                    user: user)
     version.make_current_version
     assert_equal 2, service.service_versions.retired.length
     assert_equal 1, service.service_versions.current.length
   end
 
-  test '#reject_version create 3 versions and reject them'\
-        'all 3 must be rejected' do
+  test '#reject_version create 3 versions and reject them all 3 must be rejected' do
     service = services(:servicio_1)
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
-                                    user: users(:perico),
+                                    user: users(:pablito),
                                     backwards_compatible: true)
     service.service_versions.last.reject_version
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
-                                    user: users(:perico),
+                                    user: users(:pablito),
                                     backwards_compatible: true)
     service.service_versions.last.reject_version
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
-                                    user: users(:perico),
+                                    user: users(:pablito),
                                     backwards_compatible: true)
     service.service_versions.last.reject_version
     assert_equal 3, service.service_versions.rejected.length
@@ -171,11 +152,59 @@ class ServiceVersionTest < ActiveSupport::TestCase
     service_version = service.service_versions.create!(
       spec_file: StringIO.new(VALID_SPEC),
       service: service,
-      user: users(:perico),
+      user: users(:pablito),
       backwards_compatible: true
     )
     url = service_version.generate_zipped_code(%w(java php csharp jaxrs-cxf slim aspnet5))
     assert !open(url).read.nil?
+  end
+
+  test ".make_current_version take a proposed version an makes it approved and send a notification" do
+    #def make_current_version
+    #self.current!
+    #update_old_versions_statuses
+    #create_state_change_notification(I18n.t(:approved))
+
+  end
+
+  test ".reject_version take a proposed version an makes it rejected and send a notification" do
+    #def reject_version
+    #self.rejected!
+    #create_state_change_notification(I18n.t(:rejected))
+  end
+
+  test ".create_new_notification generates a new notification about the service_version" do
+    #def create_new_notification
+    #org = Organization.where(dipres_id: "AB01")
+    #if version_number == 1
+    #  message = I18n.t(:create_new_service_notification, name: name)
+    #else
+    #  message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s)
+    #end
+    #Role.where(name: "Service Provider", organization: org).each do |role|
+    #  role.user.notifications.create(subject: self,
+    #    message: message
+    #  )
+    #end
+  end
+
+  test ".create_state_change_notification create a state change notification about to the service_version" do
+    #def create_state_change_notification(status)
+    #org = Organization.where(dipres_id: "AB01")
+    #user.notifications.create(subject: self,
+    #  message: I18n.t(:create_state_change_notification, name: name,
+    #    version: self.version_number.to_s, status: status)
+    #)
+  end
+
+  test ".retract_proposed mark al notification of older proposed versions as readed" do
+    #def retract_proposed
+    #service.service_versions.proposed.where(
+    #  "version_number != ?", self.version_number).each do |version|
+    #
+    #    version.update(status: ServiceVersion.statuses[:retracted])
+    #    version.notifications.update_all(read: true)
+    #end
   end
 
 end
