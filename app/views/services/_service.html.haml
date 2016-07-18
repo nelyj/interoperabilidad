@@ -2,9 +2,9 @@
   %td= service.created_at.strftime("%d/%m/%Y")
   %td= service.name
   %td
-    %span{ class: 'btn btn-tiny static full' }
+    %span{ class: 'btn btn-tiny static' }
       = 'R' + service.service_versions.last.version_number.to_s
   %td= service.service_versions.last.user.name
   %td
     %span{ class: css_class_for_status(service.service_versions.last.status) }
-      = t(:proposed)
+      = t(service.service_versions.last.status)
