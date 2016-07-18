@@ -3,7 +3,7 @@ class Service < ApplicationRecord
   belongs_to :organization
   has_and_belongs_to_many :agreement_revisions
   has_many :service_versions
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
   before_save :update_humanized_name
   validates :spec, swagger_spec: true
   delegate :description, to: :current_or_last_version
