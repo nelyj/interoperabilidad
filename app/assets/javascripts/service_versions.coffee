@@ -5,6 +5,7 @@
 document.addEventListener 'turbolinks:load', =>
   @windowWidth = $(window).width()
   @serviceWidth = $('.container-service').width()
+  $(".container-service").css("min-height", $(".container-verbs").height())
 
 #Verbs Col
 $(document).on 'click', '#collapseVerbs', =>
@@ -33,11 +34,21 @@ $(document).on 'click', '.collapseConsole', =>
         console.log "consola not in"
       else
         console.log "consola in"
+        $('.container-service').width( @windowWidth - @widthVerbsCollapsed )
+        $('.collapseConsole')
+          .removeClass('btn-success')
+          .addClass('default full')
+          .prop('disabled', true)
+        $('.container-verbs').removeClass('in')
       return
   return
 
 $(document).on 'click', '#closeConsole', ->
   $('.console').removeClass('in full')
+  $('.collapseConsole')
+    .removeClass('default full')
+    .addClass('btn-success')
+    .prop('disabled', false)
   $('.operation')
     .removeClass('out')
     .addClass('in')

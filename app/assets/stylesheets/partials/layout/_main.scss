@@ -533,6 +533,10 @@ ul.list-operations {
             .path {
                 font-size: $font-13;
                 padding: 3px 4px;
+                transition: width 0.3s ease;
+                -o-transition: width 0.3s ease;
+                -moz-transition: width 0.3s ease;
+                -webkit-transition: width 0.3s ease;
             }
         }
         .btn {
@@ -872,7 +876,7 @@ ul.list-operations {
     width: 80%;
     position: relative;
     display: inline-block;
-    background: rgba(252, 252, 252, 1);
+    background: rgba(255, 255, 255, 1);
     box-shadow: rgba(0, 0, 0, 0.329412) 0px -1px 1px 0px, rgba(0, 0, 0, 0.137255) 0px -1px 1px 0px;
     .operation {
         left: 0px;
