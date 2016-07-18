@@ -189,20 +189,28 @@ header {
         }
         li {
             &.institution {
-                color: $official-blue;
                 padding: 6px 12px;
+                font-family: $font-bold;
                 small {
                     display: block;
                     font-size: 12px;
+                    font-family: $font-light;
                 }
             }
-            &.new-schema {
-                background-color: rgba(161, 216, 255, 1);
+            &.new-schema,
+            &.pending-services,
+            &.logout {
                 a {
-                    color: rgba(255, 255, 255, 1);
                     overflow: hidden;
+                    color: $official-blue;
+                    font-family: $font-bold;
+                    border-top: 1px solid #e0e0e0;
+                    padding: 10px;
                     &:hover {
-                        background-color: rgba(161, 216, 255, 1);
+                        background-color: #e1e1e1;
+                    }
+                    &:focus{
+                      outline: 0px;
                     }
                     i, span{
                       padding-top: 0;
@@ -211,16 +219,24 @@ header {
                     }
                     span{
                       padding-top: 3px;
+                      margin-left: 6px;
                     }
                 }
+            &.pending-services{
+              a{
+                color: $official-green;
+              }
+            }
             }
             &.logout {
                 border-bottom: none;
                 background-color: rgba(246, 246, 246, 1);
+                a{
+                  color: $dark-black-text;
+                }
             }
             > a {
-                padding: 9px 20px;
-                color: rgba(155, 155, 155, 1);
+                padding: 8px 30px;
             }
         }
     }
