@@ -928,7 +928,10 @@ ul.list-operations {
         .description-summary {
             margin-bottom: 15px;
             p {
+                display: block;
+                overflow: hidden;
                 margin-bottom: 5px;
+                white-space: normal;
                 font-size: $font-18;
                 font-family: $font-regular;
             }
