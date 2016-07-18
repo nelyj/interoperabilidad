@@ -30,9 +30,15 @@
           = link_to new_schema_path, id: "menu-new-schema" do
             %i.material-icons
               add
-            %span
-              =t(:new_schema)
+            %span= t(:new_schema)
+      -if current_user.is_service_admin?
+        %li.pending-services
+          =link_to pending_approval_services_path do
+            %i.material-icons
+              check
+            %span= t(:services_pending_approval)
       %li.logout
         =link_to destroy_user_session_path, method: :delete, id: 'btn-logout' do
-          %i.glyphicon.glyphicon-log-out
-          =t(:logout)
+          %i.material-icons
+            exit_to_app
+          %span= t(:logout)
