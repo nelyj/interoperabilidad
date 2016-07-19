@@ -4,6 +4,7 @@
       %h2=@organization.name
     .col-md-6.no-gutter
       = select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name"), class: "form-control input-lg"
+
 - if user_signed_in? && current_user.is_service_admin? && @service_version.proposed?
   .container-fluid.panel-error.alert.warning
     .container
@@ -14,7 +15,7 @@
             = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put, class: "btn btn-success"
             %button.btn.btn-danger{"data-target" => "#modalServiceRejected", "data-toggle" => "modal", :type => "button"}
               =t(:reject)
-- else @service_version.rejected?
+- elsif @service_version.rejected?
   .container-fluid.panel-error
     .container
       .row
