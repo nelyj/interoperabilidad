@@ -2,7 +2,7 @@
   .container
     .col-md-12{:class => "text-center"}
       %h1= t(:schema_directory)
-      .form-group.col-md-6.container-form
+      .form-group.col-md-8.container-form
         = form_tag(search_schemas_path, method: "get") do
           .inner-addon.left-addon
             %i.glyphicon.glyphicon-search
@@ -10,10 +10,10 @@
 .container
   .row
     .col-md-12.schema-wrapper.text-left
-      = content_tag(:p, t(:no_results_found),
+      = content_tag(:h4, t(:no_results_found),
         class:"text-center") if @schemas.empty?
       - @schemas.each do |schema|
-        .box-schema
+        .box-service
           .title
             = link_to [schema, schema.last_version] do
               = truncate(schema.name, :length => 50)
