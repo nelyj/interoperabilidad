@@ -15,30 +15,33 @@
             %ul
               - @schema.errors.full_messages.each do |message|
                 %li= message
-    .instance-panel
+    .title-panel-pages
       .container
-        .col-md-12{:class => "text-center"}
-          .box-new-schema-file
-            .box-title
-              %span +
-              %p= t(:create_schema)
+        .row
+          .col-md-12
+            %h1 Nuevo Esquema
+
+    .content-pages.box-new-schema
+      .container
+        .row
+          .col-md-4
+            %p.box-title= t(:create_schema)
             .input-group.box-input-file
               %label#label-file.input-group-btn
-                %span#select-file.btn.btn-action-red.btn-lg= t(:choose_file)
+                %span#select-file.btn= t(:choose_file)
                 = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
               .field
                 %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
               %span#remove-file
-                %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
-    .container.new-schemas-container
-      .row
-        .col-md-6
-          %h3= t(:enter_new_schema_name)
-          = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:schema_name_example)}
-        .col-md-6
-          %h3= t(:enter_new_schema_category)
-          = f.collection_select 'schema_category_ids', SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
-          %br
-          .text-right
-            = f.submit t(:create_schema), class: 'btn btn-action-red btn-lg',
-              id: "create-schema"
+                %i.material-icons{":aria-hidden" => true}
+                  delete
+          .col-md-3
+            %p.box-title= t(:enter_new_schema_name)
+            = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:schema_name_example)}
+          .col-md-3
+            %p.box-title= t(:enter_new_schema_category)
+            = f.collection_select 'schema_category_ids', SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
+          .col-md-2
+            %p.box-title
+            = f.submit t(:create_schema), class: 'btn btn-action-red btn-lg', id: "create-schema"
+
