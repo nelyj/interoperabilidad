@@ -77,34 +77,14 @@ strong {
     font-family: $font-bold;
 }
 
-//labels
-.label-blue {
-    display: block;
-    padding: 3px;
-    @extend .font-bold;
-    text-transform: uppercase;
-    font-size: $font-10;
-    border: 1px solid $official-blue;
-    color: $official-blue;
-    text-align: center;
-    min-width: 75px;
-}
-
-.label-red {
-    @extend .label-blue;
-    color: $official-red;
-    border-color: $official-red;
-}
-
-.label-green {
-    @extend .label-blue;
-    color: $official-green;
-    border-color: $official-green;
+.header-container .navbar .navbar-header .navbar-toggle{
+  border: none;
 }
 
 //schemas
 .schema-wrapper {
     text-align: center;
+    padding-bottom: 40px;
     &.text-left {
         text-align: left;
     }
