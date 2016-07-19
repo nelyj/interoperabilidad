@@ -33,7 +33,7 @@
             %span= t(:new_schema)
       -if current_user.is_service_admin?
         %li.pending-services
-          =link_to pending_approval_services_path do
+          =link_to pending_approval_services_path, id: "menu-pending-approval" do
             %i.material-icons
               check
             %span= t(:services_pending_approval)
