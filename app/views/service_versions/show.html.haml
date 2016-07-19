@@ -4,6 +4,24 @@
       %h2=@organization.name
     .col-md-6.no-gutter
       = select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name"), class: "form-control input-lg"
+- if user_signed_in? && current_user.is_service_admin? && @service_version.proposed?
+  .container-fluid.panel-error.alert.warning
+    .container
+      .row
+        .col-md-12
+          %h1= display_service_alert_msg(@service_version.status)['title']
+          .actions
+            = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put, class: "btn btn-success"
+            %button.btn.btn-danger{"data-target" => "#modalServiceRejected", "data-toggle" => "modal", :type => "button"}
+              =t(:reject)
+- else @service_version.rejected?
+  .container-fluid.panel-error
+    .container
+      .row
+        .col-md-12
+          %h1= display_service_alert_msg(@service_version.status)['title']
+          %p= display_service_alert_msg(@service_version.status)['msg']
+
 .container-fluid.instance-panel-services
   .container
     .row
@@ -40,17 +58,14 @@
         %a.btn.btn-primary Solicitar Convenio
         =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
         %a.btn.btn-static Ver OAS
-        =link_to t(:generate_code), source_code_organization_service_service_version_path, class: "btn btn-static"
+        %button.btn.btn-static{"data-target" => "#modalDownloadCode", "data-toggle" => "modal", :type => "button"}
+          =t(:generate_code)
         %p.url-canonica
           %span
             %strong
               = t(:base_url) + ': '
             %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
               = organization_service_service_version_url(@service, @service_version, format: :json)
-
-      - if user_signed_in? && current_user.is_service_admin? && @service_version.proposed?
-        = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put
-        = button_to t(:reject), state_organization_service_service_version_path(state: 'rejected'), method: :put
 
 .container-fluid
   .row
@@ -76,20 +91,19 @@
               %p= @operation['summary']
             - if @operation['description']
               %div= markdown.render(@operation['description']).html_safe
-          %button.btn.btn-success.collapseConsole Probar
-          .parameters
-            %h2.subtitle= t(:parameters)
-            .schema-panel-set.detail
-              - if @service_version.has_parameters?(@verb, @path)
-                - @service_version.parameter_locations(@verb, @path).each do |location|
-                  %h3= parameter_section_name(location)
-                  = service_operation_parameters_markup(@service_version, @verb, @path, location)
-              - else
-                %p= t(:operation_without_parameters)
-          .responses
-            %h2.subtitle= t(:responses)
-            .schema-panel-set.detail
-              = service_operation_responses_markup(@service_version, @verb, @path)
+          %button.btn.btn-success.collapseConsole
+            =t(:test_service)
+          %h2.subtitle= t(:parameters)
+          .schema-panel-set.detail
+            - if @service_version.has_parameters?(@verb, @path)
+              - @service_version.parameter_locations(@verb, @path).each do |location|
+                %h3= parameter_section_name(location)
+                = service_operation_parameters_markup(@service_version, @verb, @path, location)
+            - else
+              %p= t(:operation_without_parameters)
+          %h2.subtitle= t(:responses)
+          .schema-panel-set.detail
+            = service_operation_responses_markup(@service_version, @verb, @path)
         .console
           .inner-console
             .title
@@ -102,3 +116,52 @@
                   = service_operation_parameters_markup(@service_version, @verb, @path, location)
               - else
                 %p= t(:operation_without_parameters)
+
+
+#modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4.modal-title
+          =t(:generate_code)
+      .modal-body
+        .row
+          .col-md-6
+            %h4
+              =t(:download_server)
+            %input{type: "checkbox", value: "PHP"} PHP
+            %input{type: "checkbox", value: "JAVA"} JAVA
+            %input{type: "checkbox", value: "#C"} #C
+          .col-md-6
+            %h4
+              =t(:download_client)
+            %input{type: "checkbox", value: "PHP"} PHP
+            %input{type: "checkbox", value: "JAVA"} JAVA
+            %input{type: "checkbox", value: "#C"} #C
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+          =t(:cancel)
+        =link_to t(:generate_code), source_code_organization_service_service_version_path, class: "btn btn-static"
+
+- if @service_version.proposed?
+  #modalServiceRejected.modal.fade{:role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          %h4.modal-title
+            =t(:reject_service)
+        = form_tag state_organization_service_service_version_path(state: 'rejected'), method: :put
+        .modal-body
+          %h3
+            =t(:rejection_reason)
+          %textarea
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+            =t(:cancel)
+          %button.btn.btn-danger{:type => "submit"}
+            = t(:reject)
+
