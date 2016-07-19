@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718141052) do
+ActiveRecord::Schema.define(version: 20160719184524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(version: 20160718141052) do
     t.integer  "user_id",                                 null: false
     t.boolean  "backwards_compatible",    default: false, null: false
     t.jsonb    "spec_with_resolved_refs"
+    t.text     "reject_message"
   end
 
   create_table "services", force: :cascade do |t|
