@@ -59,7 +59,15 @@ es:
   approve: Aprobar
   approved: aprobado
   reject: Rechazar
+  reject_service: Rechazar Servicio
   rejected: rechazado
+  rejection_reason: Ingresa la razón de rechazo
+  download: Descargar
+  download_server: Descarga Servidor
+  download_client: Descarga Cliente
+  test_service: Probar Servicio
+  send: Enviar
+  cancel: Cancelar
   proposed: propuesto
   current: vigente
   retired: retirado
