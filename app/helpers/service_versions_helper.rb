@@ -114,4 +114,19 @@ module ServiceVersionsHelper
         parameter, parameter['required'],  json_pointer, references)
     end
   end
+
+  def display_service_alert_msg(status)
+    {
+      'rejected' => {
+        'title' => t(:last_version_rejected),
+        'msg' => t(:last_version_rejected_msg),
+        },
+      'proposed' => {
+        'title' => t(:service_pending_approval),
+        'msg' => ''
+        }
+    }[status] || ''
+  end
+
+
 end

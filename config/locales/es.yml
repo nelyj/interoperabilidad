@@ -75,6 +75,9 @@ es:
   outdated: desactualizado
   no_description: Descripción no disponible
   services_pending_approval: Servicios por aprobar
+  service_pending_approval: Servicio pendiente de aprobación
+  last_version_rejected: Última versión del servicio rechazada
+  last_version_rejected_msg: "La última versión de este servicio ha sido rechazada por los siguientes motivos:"
   service_name: Nombre del servicio
   requesting_organization: Institución solicitante
   requester: Solicitante
