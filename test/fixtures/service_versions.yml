@@ -8,7 +8,7 @@ servicio1_v1:
           version: 0.0.0
           title: Simple API
         paths:
-          /:
+          /test:
             get:
               responses:
                 200:
