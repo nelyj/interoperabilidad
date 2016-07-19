@@ -12,8 +12,8 @@
           %h1
             = @service_version.service.name
             ="R" + @service_version.version_number.to_s
-          %span.label-blue
-            = @service_version.status.upcase
+          %span{class: css_class_for_status(@service_version.status)}
+            = t(@service_version.status)
         %br
         .description
           = t(:description) + ': '
