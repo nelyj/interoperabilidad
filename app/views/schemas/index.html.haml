@@ -9,7 +9,7 @@
             %input#search-schema.form-control{:placeholder => t(:enter_schema_name), :type => "text", :name => "text_search"}/
 .container
   .row
-    .col-md-2
+    .col-md-2.sidebar
       %h3.col-title=SchemaCategory.model_name.human(count: 2)
       %ul#categories-list.list-categories
         - @categories.with_schemas.each do |category|
@@ -20,11 +20,11 @@
     .col-md-10.schema-wrapper
       .schema-box-container
         - @schemas.each do |schema|
-          .box-schema.filtered{data: {categories:schema.schema_category_ids.join(' ')}}
+          .box-service.filtered{data: {categories:schema.schema_category_ids.join(' ')}}
             .title
               = link_to [schema, schema.last_version] do
                 = truncate(schema.name, :length => 50)
             .body
               %span
-                #{t(:description)}:
+                -#{t(:description)}:
               = truncate(schema.description, :length => 183)

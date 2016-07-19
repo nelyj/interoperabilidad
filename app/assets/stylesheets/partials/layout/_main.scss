@@ -378,12 +378,24 @@ h4 {
     }
 }
 
+.sidebar{
+  border-right: 1px solid #e1e1e1;
+  padding-right: 0;
+  h1, h2, h3, h4{
+    font-size: $font-18;
+    font-family: $font-bold;
+    display: block;
+    margin: 0;
+    padding: 12px 0;
+  }
+}
+
 ul.list-categories {
     list-style: none;
     padding: 5px 0px 15px 0px;
     li {
         font-family: $font-regular;
-        font-size: $font-18;
+        font-size: $font-14;
         line-height: $font-18;
         padding: 8px;
         margin-bottom: 1px;
