@@ -1005,6 +1005,13 @@ ul.list-operations {
             background: transparent;
         }
     }
+    .responses {
+        .schema-panel-set.detail {
+            h3 {
+                margin: 20px 0px 0px 0px;
+            }
+        }
+    }
     .console {
         top: 0px;
         width: 0px;
