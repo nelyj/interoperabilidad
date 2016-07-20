@@ -1,7 +1,7 @@
 class ServiceVersionsController < ApplicationController
   before_action :set_organization
   before_action :set_service
-  before_action :set_service_version, only: [:show, :source_code, :state]
+  before_action :set_service_version, only: [:show, :source_code, :state, :reject]
 
   def show
     if params[:verb].nil? || params[:path].nil?
@@ -48,6 +48,20 @@ class ServiceVersionsController < ApplicationController
     redirect_to @service_version.generate_zipped_code(
       params[:languages] || default_langs
     )
+  end
+
+  def reject
+    if user_signed_in? && current_user.is_service_admin?
+      @service_version.update(reject_message: params[:service_version][:reject_message])
+      reject_version
+    else
+      redirect_to(
+        organization_service_service_versions_path(
+          @organization, @service, @service_version
+          ),
+        notice: t(:not_enough_permissions)
+      )
+    end
   end
 
   def state

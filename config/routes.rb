@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         only: [:index, :new, :create, :show], param: :version_number,
         path: 'versions' do
           member do
+            patch 'reject'
             put 'state'
             get 'source_code'
             get 'operations/:verb*path', to: 'service_versions#show', as: 'operation'

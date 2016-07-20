@@ -118,8 +118,8 @@ module ServiceVersionsHelper
   def display_service_alert_msg(status)
     {
       'rejected' => {
-        'title' => t(:last_version_rejected),
-        'msg' => t(:last_version_rejected_msg),
+        'title' => t(:version_rejected),
+        'msg' => t(:version_rejected_msg),
         },
       'proposed' => {
         'title' => t(:service_pending_approval),

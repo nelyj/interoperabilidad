@@ -22,6 +22,7 @@
         .col-md-12
           %h1= display_service_alert_msg(@service_version.status)['title']
           %p= display_service_alert_msg(@service_version.status)['msg']
+          =@service_version.reject_message
 
 .container-fluid.instance-panel-services
   .container
@@ -155,14 +156,13 @@
             %span{"aria-hidden" => "true"} ×
           %h4.modal-title
             =t(:reject_service)
-        = form_tag state_organization_service_service_version_path(state: 'rejected'), method: :put
-        .modal-body
-          %h3
-            =t(:rejection_reason)
-          %textarea
-        .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
-            =t(:cancel)
-          %button.btn.btn-danger{:type => "submit"}
-            = t(:reject)
-
+        = form_for @service_version, :url => reject_organization_service_service_version_path do |f|
+          .modal-body
+            %h3
+              =t(:rejection_reason)
+            =f.text_area :reject_message, size: "105x10"
+            .modal-footer
+            %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+              =t(:cancel)
+            %button.btn.btn-danger{:type => "submit"}
+              = t(:reject)
