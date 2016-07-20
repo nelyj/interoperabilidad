@@ -827,6 +827,9 @@ ul.list-operations {
             font-size: $font-14;
         }
     }
+    button {
+        outline: 0px;
+    }
 }
 
 .wrapper-operation {
@@ -1061,8 +1064,13 @@ ul.list-operations {
 
 #modalServiceRejected {
     @extend #modalDownloadCode;
+    h3 {
+        margin: 0px 0px 5px 0px;
+        font-size: $font-18;
+    }
     textarea {
         width: 100%;
+        outline: 0px;
         height: 127px;
         border: 1px solid rgba(210, 210, 210, 1);
     }

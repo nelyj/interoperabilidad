@@ -6,20 +6,22 @@
       = select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name"), class: "form-control input-lg"
 
 - if user_signed_in? && current_user.is_service_admin? && @service_version.proposed?
-  .container-fluid.panel-error.alert.warning
+  .container-fluid.panel-error.warning.alert.fade.in{:"data-alert" => "alert"}
     .container
       .row
         .col-md-12
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
           %h1= display_service_alert_msg(@service_version.status)['title']
           .actions
             = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put, class: "btn btn-success"
             %button.btn.btn-danger{"data-target" => "#modalServiceRejected", "data-toggle" => "modal", :type => "button"}
               =t(:reject)
 - elsif @service_version.rejected?
-  .container-fluid.panel-error
+  .container-fluid.panel-error.alert.fade.in{:"data-alert" => "alert"}
     .container
       .row
         .col-md-12
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
           %h1= display_service_alert_msg(@service_version.status)['title']
           %p= display_service_alert_msg(@service_version.status)['msg']
           =@service_version.reject_message
