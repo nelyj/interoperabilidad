@@ -107,6 +107,9 @@
 .btn-status {
     @extend .btn-tiny;
     font-size: 12px;
+    min-width: 40px;
+    min-height: 17px;
+    text-align: center;
     border-radius: 0px;
     text-transform: uppercase;
 }

@@ -466,13 +466,13 @@ strong {
         vertical-align: middle;
     }
     #remove-file {
-        display: none;
-        float: right;
         margin: 0px;
+        float: right;
         padding: 0px;
-        font-size: $font-24;
-        line-height: 42px;
+        display: none;
         cursor: pointer;
+        line-height: 42px;
+        font-size: $font-24;
     }
 }
 
@@ -488,20 +488,20 @@ ul.list-categories {
     list-style: none;
     padding: 5px 0px 15px 0px;
     li {
-        font-family: $font-regular;
+        padding: 8px;
+        color: $gray-text;
+        margin-bottom: 1px;
         font-size: $font-18;
         line-height: $font-18;
-        padding: 8px;
-        margin-bottom: 1px;
-        color: $gray-text;
+        font-family: $font-regular;
         a {
             display: block;
             cursor: pointer;
             color: $gray-text;
             &:hover {
+                color: $gray-text;
                 text-decoration: none;
                 background-color: transparent;
-                color: $gray-text;
             }
         }
         &:hover {
@@ -518,26 +518,17 @@ ul.list-categories {
 
 ul.list-operations {
     @extend .list-categories;
-    padding: 14px 9px 15px 15px;
+    padding: 14px 9px 15px 21px;
     li {
         display: block;
         overflow: hidden;
         line-height: 13px;
         padding: 0px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         a {
-            span {
-                width: 50px;
-                text-align: center;
-                padding: 3px 0 4px;
-                line-height: 1.4em;
-                font-size: $font-14;
-                text-decoration: none;
-                color: $dark-black-text;
-            }
             .path {
-                font-size: $font-13;
                 padding: 3px 4px;
+                font-size: $font-13;
                 transition: width 0.3s ease;
                 -o-transition: width 0.3s ease;
                 -moz-transition: width 0.3s ease;
@@ -548,14 +539,14 @@ ul.list-operations {
             border-radius: 0px;
         }
         &:hover {
-            background: rgba(198, 198, 198, 0.10);
             border-radius: 0px;
             color: rgba(198, 198, 198, 1);
+            background: rgba(198, 198, 198, 0.10);
         }
         &.active {
-            background: rgba(198, 198, 198, 1);
-            color: white;
+            color: rgba(255, 255, 255, 1);
             border-radius: 0px;
+            background: rgba(198, 198, 198, 1);
         }
     }
 }
@@ -862,36 +853,41 @@ ul.list-operations {
         display: block;
         overflow: hidden;
         line-height: 30px;
-        padding: 18px 19px 13px 16px;
+        padding: 18px 19px 13px 17px;
         border-bottom: 1px solid rgba(203, 203, 203, 1);
         h3 {
+            display: none;
             font-size: $font-18;
             font-family: $font-bold;
             color: $dark-black-text;
-            display: none;
         }
     }
     .list-operations {
         li {
+            padding-top: 5px;
+            &:hover {
+                background-color: rgba(0, 149, 255, 0.15);
+            }
             a {
-                .btn {
-                    text-transform: uppercase;
+                label {
                     float: left;
+                    width: 40px;
                     margin-right: 5px;
-                    padding: 0px;
+                    padding-left: 8px;
+                    padding-right: 8px;
                     &.danger {
-                        padding: 0px;
+                        padding: 2px;
                     }
                 }
                 .path {
                     float: left;
+                    width: 163px;
                     display: none;
                     text-align: left;
-                    width: 163px;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
-                    padding: 0px;
+                    padding: 3px 0px 0px 0px;
                 }
             }
         }
@@ -901,7 +897,7 @@ ul.list-operations {
         .header {
             h3 {
                 display: inline;
-                padding: 18px 9px 13px 16px;
+                padding: 18px 9px 13px 4px;
             }
         }
         .list-operations {
@@ -958,6 +954,11 @@ ul.list-operations {
             margin-bottom: 35px;
             display: inline-block;
         }
+        .btn.disabled,
+        .btn[disabled],
+        fieldset[disabled] .btn {
+            cursor: default;
+        }
         &.in {
             width: 100%;
             display: inline-block;
@@ -975,6 +976,10 @@ ul.list-operations {
                 padding: 0px;
                 margin: 20px 0px 3px 0px;
                 text-transform: uppercase;
+            }
+            label {
+                margin-top: 2px;
+                vertical-align: middle;
             }
         }
         h3 {
