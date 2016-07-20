@@ -1,0 +1,252 @@
+---
+swagger: '2.0'
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version: v1
+  title: Micro Servicio de Roles
+  description: |
+    Micro Servicio para ver Roles y Cargos de personas en una determinada aplicacion e institucion
+
+################################################################################
+#                  Host, Base Path, Schemes and Content Types                  #
+################################################################################
+host: roles.digital.gob.cl
+basePath: /v1
+schemes:
+  - http
+produces:
+  - application/json; charse=utf-8
+consumes:
+  - application/json; charse=utf-8
+
+################################################################################
+#                                   Tags                                       #
+################################################################################
+tags:
+  - name: Lista de roles
+  - name: Cargo y rol de una persona en una aplicacion
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  id_app:
+    name: id_app
+    in: path
+    description: Identificador de la Aplicacion
+    type: integer
+    required: true
+  RUN:
+    name: RUN
+    in: path
+    description: RUN de la persona sin digito verificador
+    type: integer
+    required: true
+  rol:
+    name: rol
+    in: path
+    description: rol
+    type: string
+    required: true
+  institucion:
+    name: institucion
+    in: path
+    description: Institucion
+    type: string
+    required: true    
+################################################################################
+#                                           Paths                              #
+################################################################################
+paths:
+  /personas/{RUN}/apps/{id_app}:
+    parameters:
+      - $ref: '#/parameters/RUN'
+      - $ref: '#/parameters/id_app'      
+    get:
+      tags:
+        - Cargo y rol de una persona en una aplicacion
+      description: Obtener datos asociados al cargo de una persona
+      responses:
+        200:
+          description: Persona
+          schema:
+            type: object
+            properties:
+              nombre:
+                $ref: '#/definitions/nombre'            
+              RUN:
+                $ref: '#/definitions/RolUnico'
+              instituciones:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - cargo
+                    - rol
+                    - institucion
+                    - email
+                  properties:
+                    cargo:
+                      type: string
+                    rol:
+                      type: string  
+                    fecha_inicio:
+                      $ref: '#/definitions/fecha'
+                    fecha_termino:
+                      $ref: '#/definitions/fecha'
+                    jefe_RUN:
+                      $ref: '#/definitions/RolUnico'      
+                    fuera_oficina:
+                      type: boolean                  
+                    delegado_RUN:
+                      type: array
+                      items:
+                        $ref: '#/definitions/RolUnico'                        
+                    subrogando_RUN:
+                      $ref: '#/definitions/RolUnico'                                          
+                    institucion:
+                      $ref: '#/definitions/instituciones'  
+                    email:
+                        type: string
+                        format: email   
+                    telefono:
+                      type: array
+                      items:
+                        $ref: '#/definitions/telefono'                      
+  /roles/{rol}/instituciones/{institucion}/apps/{id_app}:
+    parameters:
+      - $ref: '#/parameters/rol'
+      - $ref: '#/parameters/id_app'      
+      - $ref: '#/parameters/institucion'            
+    get:
+      tags:
+        - Lista de roles
+      description: Obtener el listado de personas que cumplen un determinado rol asociado a una aplicacion en una institucion
+      responses:
+        200:
+          description: Lista de personas
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                nombre:
+                  $ref: '#/definitions/nombre'            
+                RUN:
+                  $ref: '#/definitions/RolUnico'
+                instituciones:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - cargo
+                      - rol
+                      - institucion
+                      - email
+                    properties:
+                      cargo:
+                        type: string
+                      rol:
+                        type: string  
+                      fecha_inicio:
+                        $ref: '#/definitions/fecha'
+                      fecha_termino:
+                        $ref: '#/definitions/fecha'
+                      jefe_RUN:
+                        $ref: '#/definitions/RolUnico'
+                      fuera_oficina:
+                        type: boolean                  
+                      delegado_RUN:
+                        type: array
+                        items:
+                          $ref: '#/definitions/RolUnico'                        
+                      subrogando_RUN:
+                        $ref: '#/definitions/RolUnico'                                          
+                      institucion:
+                        $ref: '#/definitions/instituciones'  
+                      email:
+                        type: string
+                        format: email
+                      telefono:
+                        type: array
+                        items:
+                          $ref: '#/definitions/telefono'                                                              
+                  
+ ################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  RolUnico:
+    required:
+      - numero
+      - dv
+      - tipo      
+    type: object
+    properties:
+      numero:
+        type: integer
+      dv:
+        type: string
+        pattern: \[0-9]{1}|K
+      tipo:
+        type: string
+        enum:
+          - RUT
+          - RUN
+  nombre:
+    required:
+      - nombres
+      - apellidos  
+    type: object
+    properties:
+      nombres:
+        description: Todos los nombres
+        type: array
+        items:
+          type: string
+      apellidos:
+        description: Todos los apellidos
+        type: array
+        items:
+          type: string
+  instituciones:
+    required:
+      - id
+      - nombre
+      - sigla    
+      - padre_id      
+    type: object
+    properties:
+      id:
+        description: Identificador Unico de la institucion
+        type: string      
+      nombre:
+        description: Nombre completo de la institucion
+        type: string
+      sigla:
+        description: Nombre abreviado de la institucion
+        type: string        
+      padre_id:
+        description: A quien pertenece la institucion
+        type: string 
+  fecha:
+    required:
+      - datetime  
+    type: object
+    properties:
+      datetime:
+        description: Fecha formato ISO8601 
+        type: string
+        format: dateTime
+  telefono:
+    required:
+      - numero  
+    type: object
+    properties:
+      numero:
+        description: Numero Telefonico estandar E.164
+        type: string
+        pattern: ^\+?\d{11,14}$
