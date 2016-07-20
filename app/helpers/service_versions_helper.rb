@@ -28,6 +28,25 @@ module ServiceVersionsHelper
     end)
   end
 
+  def service_operation_parameters_form(service_version, verb, path, location)
+    path_parameters = service_version.path_parameters(path, location)
+    operation_parameters = service_version.operation_parameters(verb, path, location)
+    join_markup(path_parameters.map do |index, parameter|
+      service_parameter_form(
+        location, parameter,
+        json_pointer_path('/paths', path, 'parameters', index.to_s),
+        service_version.spec_with_resolved_refs['references']
+      )
+    end) +
+    join_markup(operation_parameters.map do |index, parameter|
+      service_parameter_form(
+        location, parameter,
+        json_pointer_path('/paths', path, verb, 'parameters', index.to_s),
+        service_version.spec_with_resolved_refs['references']
+      )
+    end)
+  end
+
   def css_class_for_http_verb(verb)
     {
       'get' => 'info',
@@ -128,5 +147,128 @@ module ServiceVersionsHelper
     }[status] || ''
   end
 
+  def service_parameter_form(location, parameter, json_pointer, references)
+    if location == 'body'
+      if parameter['schema']['description'].blank?
+        parameter['schema'].merge!('description' => parameter['description'])
+      end
+      schema_object_property_form(parameter['name'],
+        parameter['schema'], parameter['required'],
+        json_pointer_path(json_pointer, 'schema'), references)
+    else
+      schema_object_property_form(parameter['name'],
+        parameter, parameter['required'],  json_pointer, references)
+    end
+  end
 
+  def schema_object_property_form(name, property_definition, required, json_pointer, references)
+    if property_definition["type"] == "object"
+      schema_object_complex_property_form(
+        name, property_definition, required, json_pointer, references
+      )
+    elsif property_definition["type"] == "array"
+      schema_object_array_property_form(
+        name, property_definition, required, json_pointer, references
+      )
+    else
+      schema_object_primitive_property_form(
+        name, property_definition, required, json_pointer, references
+      )
+    end
+  end
+
+  def dynamic_component_structure_form(s_name_markup, property_definition, required, json_pointer, references)
+    s_type_and_format = s(property_definition['type']) || ''
+    if property_definition.has_key?('format')
+      s_type_and_format += "(#{s(property_definition['format'])})"
+    end
+    content_tag(:div, nil, class: "panel-group", data: {pointer: json_pointer}) do
+      content_tag(:div, nil, class: "panel panel-schema") do
+        content_tag(:div, nil, class: "panel-heading clearfix") do
+          content_tag(:div, nil, class: "panel-title " + (required ? "required" : "")) do
+            content_tag(:div, nil, class: "col-md-6") do
+              s_name_markup
+            end +
+            content_tag(:div, nil, class: "col-md-6 text-right") do
+              text_field_tag(json_pointer) unless %w(object array).include?(property_definition['type'])
+            end
+          end
+        end +
+        content_tag(:div, nil, class: "panel-collapse collapse") do
+          yield if block_given?
+        end
+      end
+    end
+  end
+
+  def schema_object_primitive_property_form(name, primitive_property_definition, required, json_pointer, references)
+    css_class = "name"
+    css_class.concat(" anonymous") if name.empty?
+    s_name_markup = content_tag(:span, s(name), class: css_class)
+    dynamic_component_structure_form(
+      s_name_markup, primitive_property_definition, required,
+      json_pointer, references
+    )
+  end
+
+  def schema_object_complex_property_form(name, property_definition, required, json_pointer, references)
+    s_name_markup = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
+      content_tag(:span, s(name), class: "name")
+    end
+    dynamic_component_structure_form(
+      s_name_markup, property_definition, required, json_pointer, references
+    ) do
+      content_tag(:div, nil, class: "panel-body") do
+        schema_object_spec_form(property_definition, json_pointer, references)
+      end
+    end
+  end
+
+  def schema_object_array_property_form(name, property_definition, required, json_pointer, references)
+    s_name_markup = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
+      content_tag(:span, s(name), class: "name")
+    end
+    new_path = json_pointer_path(json_pointer, "items")
+    dynamic_component_structure_form(
+      s_name_markup, property_definition, required, json_pointer, references
+    ) do
+      content_tag(:div, nil, class: "panel-body") do
+        schema_object_property_form(
+          "(elementos)".html_safe, property_definition["items"], false,
+          new_path, references
+        )
+      end +
+      content_tag(:a, "Agregar Elemento", class: "add-element", data: {context: new_path})
+    end
+  end
+
+  def schema_object_spec_form(schema_object, json_pointer, references)
+    schema_object.merge!({ 'properties' => {}}) if schema_object['properties'].blank?
+    join_markup(schema_object['properties'].map do |name, property_definition|
+      required = (
+        schema_object.has_key?("required") &&
+        schema_object["required"].include?(name)
+      )
+      schema_object_property_form(
+        name, property_definition, required,
+        json_pointer_path(json_pointer, 'properties', name), references
+      )
+    end)
+  end
+
+  def schema_object_property_form(name, property_definition, required, json_pointer, references)
+    if property_definition["type"] == "object"
+      schema_object_complex_property_form(
+        name, property_definition, required, json_pointer, references
+      )
+    elsif property_definition["type"] == "array"
+      schema_object_array_property_form(
+        name, property_definition, required, json_pointer, references
+      )
+    else
+      schema_object_primitive_property_form(
+        name, property_definition, required, json_pointer, references
+      )
+    end
+  end
 end
