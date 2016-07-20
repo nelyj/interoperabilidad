@@ -36,8 +36,9 @@
         .panel-schema {
             //level 1
             .panel-heading {
-                margin: 3px 0px 0px 0px;
+                box-shadow: none;
                 padding: 10px 15px;
+                margin: 3px 0px 0px 0px;
             }
             .panel-schema {
                 //level 2
@@ -126,7 +127,7 @@
                                     //level 9+ (n > 8)
                                     background-color: rgba(255, 255, 255, 1);
                                     div.panel-heading {
-                                      border-radius: 0px;
+                                        border-radius: 0px;
                                         background-color: rgba(255, 255, 255, 1);
                                         border: 1px solid rgba(201, 212, 238, 1);
                                         color: rgba(82, 91, 114, 1);
@@ -157,23 +158,30 @@
     > .panel-heading {
         min-height: 75px;
         border-radius: 0px;
-        [class*='col-'] {
-            padding: 0px;
-            margin: 0px;
+        &.editable {
+            box-shadow: inset 0px 0px 2px 0px #46526F, inset 0px 1px 8px 0px rgba(46, 54, 74, 0.56);
+            input {
+              width: 100%;
+              border: none;
+              height: 25px;
+              outline: 0px;
+              text-align: right;
+              background: rgba(0, 0, 0, 0);
+            }
         }
         a {
-            text-decoration: none;
             cursor: pointer;
+            text-decoration: none;
             color: rgba(255, 255, 255, 1);
             &:before {
-                font-family: 'Glyphicons Halflings';
-                content: "\e250";
                 float: left;
-                color: rgba(229, 229, 229, 1);
+                font-size: 13px;
+                content: "\e250";
+                line-height: 20px;
                 margin-left: -28px;
                 padding-right: 10px;
-                line-height: 20px;
-                font-size: 13px;
+                color: rgba(229, 229, 229, 1);
+                font-family: 'Glyphicons Halflings';
             }
             &.down {
                 &:before {
@@ -198,13 +206,13 @@
                     padding: 0px;
                     color: rgba(255, 255, 255, 1);
                     &:before {
-                        margin-right: 6px;
-                        font-family: 'Glyphicons Halflings';
-                        content: "\e164";
-                        font-size: 13px;
-                        line-height: 16px;
                         padding: 0px;
+                        font-size: 13px;
+                        content: "\e164";
+                        margin-right: 6px;
+                        line-height: 16px;
                         vertical-align: middle;
+                        font-family: 'Glyphicons Halflings';
                     }
                 }
             }
@@ -266,6 +274,10 @@
                     }
                 }
             }
+        }
+        [class*='col-'] {
+            padding: 0px;
+            margin: 0px;
         }
     }
     > .panel-heading + .panel-collapse {
