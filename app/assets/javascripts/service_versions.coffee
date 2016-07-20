@@ -6,6 +6,7 @@ document.addEventListener 'turbolinks:load', =>
   @windowWidth = $(window).width()
   @verbsWidth = $('.container-verbs').width()
   $(".container-service").css("min-height", $(".container-verbs").height())
+  @urlSourceCode = $("#generate-code").attr("href")
 
 #Verbs Col
 $(document).on 'click', '#collapseVerbs', =>
@@ -67,4 +68,14 @@ $(document).on 'click', '#fullConsole', ->
       .addClass('in')
     $('.operation')
       .removeClass('out')
+
+$(document).on 'change', '#code-options input[type="checkbox"]', =>
+  data = $('#code-options').serializeArray()
+  @languages = ''
+  $.each data, (key, data) =>
+    item = if (key == 0) then ('languages[]=' + data.name) else ('&languages[]=' + data.name)
+    @languages += item
+    return
+  url = if @languages then @urlSourceCode + '?' + @languages else @urlSourceCode
+  $("#generate-code").attr("href", url)
 

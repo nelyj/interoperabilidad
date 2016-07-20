@@ -130,22 +130,23 @@
           =t(:generate_code)
       .modal-body
         .row
-          .col-md-6
-            %h4
-              =t(:download_server)
-            %input{type: "checkbox", value: "PHP"} PHP
-            %input{type: "checkbox", value: "JAVA"} JAVA
-            %input{type: "checkbox", value: "#C"} #C
-          .col-md-6
-            %h4
-              =t(:download_client)
-            %input{type: "checkbox", value: "PHP"} PHP
-            %input{type: "checkbox", value: "JAVA"} JAVA
-            %input{type: "checkbox", value: "#C"} #C
+          %form#code-options
+            .col-md-6
+              %h4
+                =t(:download_client)
+              %input{type: "checkbox", name: "java"} JAVA
+              %input{type: "checkbox", name: "php"} PHP
+              %input{type: "checkbox", name: "csharp"} #C
+            .col-md-6
+              %h4
+                =t(:download_server)
+              %input{type: "checkbox", name: "jaxrs-cxf"} JAXRS-CXF
+              %input{type: "checkbox", name: "slim"} SLIM
+              %input{type: "checkbox", name: "aspnet5"} ASPNET5
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
           =t(:cancel)
-        =link_to t(:generate_code), source_code_organization_service_service_version_path, class: "btn btn-static"
+        =link_to t(:generate_code), source_code_organization_service_service_version_path, class: "btn btn-static", id: "generate-code"
 
 - if @service_version.proposed?
   #modalServiceRejected.modal.fade{:role => "dialog", :tabindex => "-1"}
