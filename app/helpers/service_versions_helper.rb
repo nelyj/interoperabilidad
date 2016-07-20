@@ -184,7 +184,8 @@ module ServiceVersionsHelper
     end
     content_tag(:div, nil, class: "panel-group", data: {pointer: json_pointer}) do
       content_tag(:div, nil, class: "panel panel-schema") do
-        content_tag(:div, nil, class: "panel-heading clearfix") do
+        editable_css =  %w(object array).include?(property_definition['type']) ? '' : 'editable '
+        content_tag(:div, nil, class: "panel-heading #{editable_css}clearfix") do
           content_tag(:div, nil, class: "panel-title " + (required ? "required" : "")) do
             content_tag(:div, nil, class: "col-md-6") do
               s_name_markup
@@ -254,21 +255,5 @@ module ServiceVersionsHelper
         json_pointer_path(json_pointer, 'properties', name), references
       )
     end)
-  end
-
-  def schema_object_property_form(name, property_definition, required, json_pointer, references)
-    if property_definition["type"] == "object"
-      schema_object_complex_property_form(
-        name, property_definition, required, json_pointer, references
-      )
-    elsif property_definition["type"] == "array"
-      schema_object_array_property_form(
-        name, property_definition, required, json_pointer, references
-      )
-    else
-      schema_object_primitive_property_form(
-        name, property_definition, required, json_pointer, references
-      )
-    end
   end
 end
