@@ -79,3 +79,10 @@ $(document).on 'change', '#code-options input[type="checkbox"]', =>
   url = if @languages then @urlSourceCode + '?' + @languages else @urlSourceCode
   $("#generate-code").attr("href", url)
 
+$(document).on 'click', '.add-element', ->
+  context = $(this).data('context')
+  object = $(".console div[data-pointer='#{context}']")
+  $(object)
+    .first()
+    .clone()
+    .appendTo(object.parent())
