@@ -117,7 +117,9 @@
               - if @service_version.has_parameters?(@verb, @path)
                 - @service_version.parameter_locations(@verb, @path).each do |location|
                   %h3= parameter_section_name(location)
-                  = service_operation_parameters_markup(@service_version, @verb, @path, location)
+                  = form_tag(format: :json) do
+                    = service_operation_parameters_form(@service_version, @verb, @path, location)
+                    = submit_tag("Enviar")
               - else
                 %p= t(:operation_without_parameters)
 
