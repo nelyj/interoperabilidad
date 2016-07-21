@@ -1022,6 +1022,22 @@ ul.list-operations {
             }
         }
     }
+    h3 {
+        font-family: $font-bold;
+        text-transform: uppercase;
+    }
+    .bullet-required {
+        &:before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            margin-right: 10px;
+            display: inline-block;
+            background-color: rgba(100, 230, 80, 1);
+            border: 1px solid rgba(100, 230, 80, 1);
+        }
+    }
 }
 
 .responses {
@@ -1119,24 +1135,6 @@ ul.list-operations {
                 display: inline;
             }
         }
-    }
-}
-
-h3 {
-    font-family: $font-bold;
-    text-transform: uppercase;
-}
-
-.bullet-required {
-    &:before {
-        content: "";
-        width: 10px;
-        height: 10px;
-        border-radius: 10px;
-        margin-right: 10px;
-        display: inline-block;
-        background-color: rgba(100, 230, 80, 1);
-        border: 1px solid rgba(100, 230, 80, 1);
     }
 }
 

@@ -109,7 +109,7 @@ class NotificationsTest < Capybara::Rails::TestCase
     click_button 'Rechazar'
 
     within '.modal-body' do
-      assert_content 'Ingresa la razón de rechazo'
+      assert_content 'INGRESA LA RAZÓN DE RECHAZO'
       fill_in 'service_version_reject_message', with: "Test"
       click_button('Rechazar')
     end
