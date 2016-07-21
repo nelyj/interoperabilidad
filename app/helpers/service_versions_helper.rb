@@ -191,7 +191,7 @@ module ServiceVersionsHelper
               s_name_markup
             end +
             content_tag(:div, nil, class: "col-md-6 text-right") do
-              text_field_tag(json_pointer) unless %w(object array).include?(property_definition['type'])
+              form_primitive_specifics(property_definition, json_pointer, required)
             end
           end
         end +
@@ -200,6 +200,40 @@ module ServiceVersionsHelper
         end
       end
     end
+  end
+
+  def form_primitive_specifics(primitive, json_pointer, required)
+    case s(primitive['type'])
+    when "string"
+      string_primitive_form(primitive, json_pointer, required)
+    when "integer"
+      integer_primitive_form(primitive, json_pointer, required)
+    when "number"
+      number_primitive_form(primitive, json_pointer, required)
+    when "boolean"
+      boolean_primitive_form(primitive, json_pointer, required)
+    else
+      "".html_safe
+    end
+  end
+
+  def string_primitive_form(primitive, json_pointer, required)
+    options = {placeholder: "Ej: Hola", required: required}
+    text_field_tag(json_pointer, nil, options)
+  end
+
+  def integer_primitive_form(primitive, json_pointer, required)
+    options = {placeholder: 'Ej: 0', required: required}
+    number_field_tag(json_pointer, nil, options)
+  end
+
+  def number_primitive_form(primitive, json_pointer, required)
+    options = {step: 'any', placeholder: 'Ej: 2.4', required: required}
+    number_field_tag(json_pointer, nil, options)
+  end
+
+  def boolean_primitive_form(primitive, json_pointer, required)
+    check_box_tag(json_pointer, nil, required: required)
   end
 
   def schema_object_primitive_property_form(name, primitive_property_definition, required, json_pointer, references)
