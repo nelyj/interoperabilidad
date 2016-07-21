@@ -45,6 +45,7 @@ module SpecRenderHelper
   end
 
   def schema_object_property_markup(name, property_definition, required, json_pointer, references)
+    property_definition['type'] ||= 'object'
     if property_definition["type"] == "object"
       schema_object_complex_property_markup(
         name, property_definition, required, json_pointer, references
@@ -139,14 +140,18 @@ module SpecRenderHelper
   end
 
   def schema_object_complex_property_markup(name, property_definition, required, json_pointer, references)
-    s_name_markup = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
+    active_name = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, s(name), class: "name")
     end
+    inactive_name = content_tag(:span, s(name), class: "name")
+    s_name_markup = property_definition['properties'].present? ? active_name : inactive_name
     dynamic_component_structure(
       s_name_markup, property_definition, required, json_pointer, references
     ) do
-      content_tag(:div, nil, class: "panel-body") do
-        schema_object_spec_markup(property_definition, json_pointer, references)
+      if property_definition['properties'].present?
+        content_tag(:div, nil, class: "panel-body") do
+          schema_object_spec_markup(property_definition, json_pointer, references)
+        end
       end
     end
   end
