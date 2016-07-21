@@ -273,7 +273,9 @@ module ServiceVersionsHelper
           new_path, references
         )
       end +
-      content_tag(:a, "Agregar Elemento", class: "btn add-element", data: {context: new_path})
+      content_tag(:div, class: 'text-right') do
+        content_tag(:a, "Agregar Elemento", class: "btn add-element", data: {context: new_path})
+      end
     end
   end
 
