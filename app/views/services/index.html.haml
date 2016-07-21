@@ -27,6 +27,12 @@
         .row
           .col-md-12
             %table
+              %colgroup
+                %col{:width => "15%"}
+                %col
+                %col{:width => "10%"}
+                %col{:width => "20%"}
+                %col{:width => "10%"}
               %thead
                 %tr
                   %th= t(:dateString)
@@ -35,10 +41,4 @@
                   %th= t(:author)
                   %th Estado
               %tbody
-                %colgroup
-                  %col{:width => "15%"}
-                  %col
-                  %col{:width => "10%"}
-                  %col{:width => "20%"}
-                  %col{:width => "10%"}
-                  = render partial: "service", collection: @services
+                = render partial: "service", collection: @services

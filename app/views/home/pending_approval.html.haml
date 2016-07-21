@@ -25,6 +25,12 @@
           .row
             .col-md-12
               %table
+                %colgroup
+                  %col{:width => "10%"}
+                  %col
+                  %col{:width => "22%"}
+                  %col{:width => "12%"}
+                  %col{:width => "8%"}
                 %thead
                   %tr
                     %th Fecha
@@ -33,10 +39,4 @@
                     %th= t(:requester)
                     %th= t(:state)
                 %tbody
-                  %colgroup
-                    %col{:width => "10%"}
-                    %col
-                    %col{:width => "22%"}
-                    %col{:width => "12%"}
-                    %col{:width => "8%"}
-                    = render partial: "pending", collection: @pending_services_version
+                  = render partial: "pending", collection: @pending_services_version

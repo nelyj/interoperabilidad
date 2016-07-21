@@ -31,6 +31,12 @@
 				.row
 					.col-md-12
 						%table
+							%colgroup
+								%col{:width => "15%"}
+								%col{:width => "22%"}
+								%col
+								%col{:width => "12%"}
+								%col{:width => "10%"}
 							%thead
 								%tr
 									%th Institución solicitante
@@ -39,12 +45,6 @@
 									%th Fecha ult. movimiento
 									%th Estado
 							%tbody
-								%colgroup
-									%col{:width => "15%"}
-									%col{:width => "22%"}
-									%col
-									%col{:width => "12%"}
-									%col{:width => "10%"}
 								- (1..6).each do |i|
 									= render partial: "content_table"
 
@@ -60,6 +60,12 @@
 				.row
 					.col-md-12
 						%table
+							%colgroup
+								%col{:width => "15%"}
+								%col{:width => "22%"}
+								%col
+								%col{:width => "12%"}
+								%col{:width => "8%"}
 							%thead
 								%tr
 									%th Institución proveedora
@@ -68,11 +74,5 @@
 									%th Fecha ult. movimiento
 									%th Estado
 							%tbody
-								%colgroup
-									%col{:width => "15%"}
-									%col{:width => "22%"}
-									%col
-									%col{:width => "12%"}
-									%col{:width => "8%"}
 								- (1..6).each do |i|
 									= render partial: "content_table"
