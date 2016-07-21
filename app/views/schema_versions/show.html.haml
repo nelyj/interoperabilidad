@@ -46,7 +46,7 @@
       = schema_markup(@schema_version)
 
     .col-md-3.container-schema-action.no-gutter
-      %a.btn.btn-action-red.btn-lg{:href => schema_schema_version_url(@schema, @schema_version, format: :json), :role => "button", :target => '_blank'}=t(:show_oas)
+      %a.btn.btn-action-red.btn-lg{:href => schema_schema_version_url(@schema, @schema_version, format: :json), :role => "button", :target => '_blank'}= t(:view_oas)
       - if user_signed_in? && current_user.can_create_schemas
         %a.btn.btn-action-blue.btn-lg{:href => new_schema_schema_version_path(@schema)}
           =t(:new_version)

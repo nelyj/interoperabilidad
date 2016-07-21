@@ -270,4 +270,32 @@ class ServiceVersion < ApplicationRecord
     self.service.service_versions.where(version_number: self.version_number + 1).take
   end
 
+  def base_url
+    schemes.first + '://' + host + base_path
+  end
+
+  def schemes
+    self.spec_with_resolved_refs['definition']['schemes'] || ['http']
+  end
+
+  def host
+    self.spec_with_resolved_refs['definition']['host'] || 'example.org'
+  end
+
+  def base_path
+    self.spec_with_resolved_refs['definition']['basePath'] || ''
+  end
+
+  def invoke(verb, path, path_params, query_params, header_params, body_json)
+    operation = self.operation(verb, path)
+    if operation.nil?
+      raise ArgumentError,
+        "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
+    end
+    resolved_path = path
+    path_params.each do |name, value|
+      resolved_path.gsub!("{{#{name}}}", URI.escape(value))
+    end
+
+  end
 end

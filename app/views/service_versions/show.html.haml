@@ -61,15 +61,14 @@
       .col-md-12.principal-actions
         %a.btn.btn-primary Solicitar Convenio
         =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
-        %a.btn.btn-static Ver OAS
+        =link_to t(:view_oas), organization_service_service_version_url(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
         %button.btn.btn-static{"data-target" => "#modalDownloadCode", "data-toggle" => "modal", :type => "button"}
           =t(:generate_code)
         %p.url-canonica
           %span
             %strong
               = t(:base_url) + ': '
-            %a{href: organization_service_service_version_url(@service, @service_version, format: :json), target: "_blank"}
-              = organization_service_service_version_url(@service, @service_version, format: :json)
+            %a= @service_version.base_url
 
 .container-fluid
   .row

@@ -52,7 +52,7 @@ es:
   new_version: Nueva Versión
   example: Ejemplo
   no_example: Sin ejemplo.
-  show_oas: Ver OAS
+  view_oas: Ver OAS
   specification: Especificación
   schemas: Esquemas
   category: Categoria

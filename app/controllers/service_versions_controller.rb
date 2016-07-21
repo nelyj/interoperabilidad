@@ -4,16 +4,22 @@ class ServiceVersionsController < ApplicationController
   before_action :set_service_version, only: [:show, :source_code, :state, :reject]
 
   def show
-    if params[:verb].nil? || params[:path].nil?
-      default_verb, default_path = @service_version.operations.keys.first
-      redirect_to operation_organization_service_service_version_path(
-        path: default_path, verb: default_verb
-      )
-      return
+    respond_to do |format|
+      format.json { render :json => JSON.pretty_generate(@service_version.spec) }
+      format.html do
+        if params[:verb].nil? || params[:path].nil?
+          default_verb, default_path = @service_version.operations.keys.first
+          redirect_to operation_organization_service_service_version_path(
+            path: default_path, verb: default_verb
+          )
+          return
+        end
+        @verb = params[:verb]
+        @path =  params[:path]
+        @operation = @service_version.operation(@verb, @path)
+        # Fall into view rendering
+      end
     end
-    @verb = params[:verb]
-    @path =  params[:path]
-    @operation = @service_version.operation(@verb, @path)
   end
 
   def index
