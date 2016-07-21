@@ -60,7 +60,8 @@
     .row
       .col-md-12.principal-actions
         %a.btn.btn-primary Solicitar Convenio
-        =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
+        - if user_signed_in? && @service.can_be_updated_by?(current_user)
+          =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
         =link_to t(:view_oas), organization_service_service_version_url(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
         %button.btn.btn-static{"data-target" => "#modalDownloadCode", "data-toggle" => "modal", :type => "button"}
           =t(:generate_code)
