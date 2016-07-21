@@ -93,6 +93,7 @@ es:
   parameters: Parámetros
   responses: Respuestas
   operation_without_parameters: Operación sin parámetros
+  property_required: Propiedad Requerida
   error:
     one: 1 error
     other: "%{count} errores"

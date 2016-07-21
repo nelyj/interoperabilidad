@@ -114,17 +114,38 @@
             .title
               %i#fullConsole.material-icons.pull-left zoom_out_map
               %i#closeConsole.material-icons.pull-right clear
-              - if @service_version.has_parameters?(@verb, @path)
-                - @service_version.parameter_locations(@verb, @path).each do |location|
-                  .console-parameter-group{data: {location: location}}
-                    %h3= parameter_section_name(location)
-                    = form_tag(format: :json) do
-                      .schema-panel-set
-                        = service_operation_parameters_form(@service_version, @verb, @path, location)
-                        .raw-json
-              - else
-                %p= t(:operation_without_parameters)
-
+            %h3= t(:parameters)
+            - if @service_version.has_parameters?(@verb, @path)
+              - @service_version.parameter_locations(@verb, @path).each do |location|
+                .console-parameter-group{data: {location: location}}
+                  %ul.nav.nav-tabs
+                    %li.active
+                      %a{"data-toggle" => "tab", :href => ".form-panel"} Form
+                    %li
+                      %a{"data-toggle" => "tab", :href => ".json-panel"} JSON
+                  .tab-content
+                    .form-panel.tab-pane.active
+                      .subtitle
+                        .col-md-6.text-left
+                          %h3= parameter_section_name(location)
+                        .col-md-6.text-right
+                          %span.bullet-required
+                            =t(:property_required)
+                      = form_tag(format: :json) do
+                        .schema-panel-set
+                          = service_operation_parameters_form(@service_version, @verb, @path, location)
+                        .btn-group
+                          %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+                            =t(:download)
+                            %span.caret
+                          %ul.dropdown-menu
+                            %li
+                              %a{:href => "#"} Servicio Real
+                        = submit_tag t(:send), class: "btn btn-primary"
+                    .json-panel.tab-pane
+                      .raw-json
+            - else
+              %p= t(:operation_without_parameters)
 
 #modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
