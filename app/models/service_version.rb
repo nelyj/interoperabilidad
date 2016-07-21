@@ -286,16 +286,27 @@ class ServiceVersion < ApplicationRecord
     self.spec_with_resolved_refs['definition']['basePath'] || ''
   end
 
-  def invoke(verb, path, path_params, query_params, header_params, body_json)
+  def invoke(verb, path, path_params, query_params, header_params, raw_body)
     operation = self.operation(verb, path)
     if operation.nil?
       raise ArgumentError,
         "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
     end
-    resolved_path = path
+    RestClient::Request.execute(
+      method: verb,
+      url: base_path + _resolve_path(path, path_params),
+      # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
+      #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
+      headers: header_params.merge(params: query_params),
+      payload: raw_body
+    )
+  end
+
+  def _resolve_path(original_path, path_params)
+    resolved_path = path.dup
     path_params.each do |name, value|
       resolved_path.gsub!("{{#{name}}}", URI.escape(value))
     end
-
+    resolved_path
   end
 end

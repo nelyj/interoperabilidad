@@ -1,7 +1,7 @@
 class ServiceVersionsController < ApplicationController
   before_action :set_organization
   before_action :set_service
-  before_action :set_service_version, only: [:show, :source_code, :state, :reject]
+  before_action :set_service_version, only: [:show, :source_code, :state, :reject, :try]
 
   def show
     respond_to do |format|
@@ -54,6 +54,17 @@ class ServiceVersionsController < ApplicationController
     redirect_to @service_version.generate_zipped_code(
       params[:languages] || default_langs
     )
+  end
+
+  def try
+    render text: @service_version.invoke(
+      params[:verb],
+      params[:path],
+      JSON.parse(params[:path_params]),
+      JSON.parse(params[:query_params]),
+      JSON.parse(params[:header_params]),
+      params[:body]
+    ).to_s
   end
 
   def reject

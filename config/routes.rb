@@ -37,6 +37,7 @@ Rails.application.routes.draw do
             put 'state'
             get 'source_code'
             get 'operations/:verb*path', to: 'service_versions#show', as: 'operation'
+            post 'try'
           end
       end
     end
