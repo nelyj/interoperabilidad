@@ -235,17 +235,17 @@ module ServiceVersionsHelper
     ) do
       content_tag(:div, nil, class: "panel-body") do
         schema_object_property_form(
-          "(elementos)".html_safe, property_definition["items"], false,
+          "[0]".html_safe, property_definition["items"], false,
           new_path, references
         )
       end +
-      content_tag(:a, "Agregar Elemento", class: "add-element", data: {context: new_path})
+      content_tag(:a, "Agregar Elemento", class: "btn add-element", data: {context: new_path})
     end
   end
 
   def schema_object_spec_form(schema_object, json_pointer, references)
-    schema_object.merge!({ 'properties' => {}}) if schema_object['properties'].blank?
-    join_markup(schema_object['properties'].map do |name, property_definition|
+    properties = schema_object['properties'] || {}
+    join_markup(properties.map do |name, property_definition|
       required = (
         schema_object.has_key?("required") &&
         schema_object["required"].include?(name)
