@@ -1,22 +1,23 @@
-@widthVerbsCollapsed = 85
-@windowWidth = 0
-@verbsWidth = 0
+widthVerbsCollapsed = 85
+windowWidth = 0
+verbsWidth = 0
+urlSourceCode = null
 
-document.addEventListener 'turbolinks:load', =>
-  @windowWidth = $(window).width()
-  @verbsWidth = $('.container-verbs').width()
+document.addEventListener 'turbolinks:load', ->
+  windowWidth = $(window).width()
+  verbsWidth = $('.container-verbs').width()
   $(".container-service").css("min-height", $(".container-verbs").height())
-  @urlSourceCode = $("#generate-code").attr("href")
+  urlSourceCode = $("#generate-code").attr("href")
 
 #Verbs Col
-$(document).on 'click', '#collapseVerbs', =>
+$(document).on 'click', '#collapseVerbs', ->
   $('.container-verbs')
     .toggleClass('in')
     .promise().done =>
       unless $('.container-verbs').hasClass('in')
-        $('.container-service').width( @windowWidth - @widthVerbsCollapsed )
+        $('.container-service').width(windowWidth - widthVerbsCollapsed)
       else
-        $('.container-service').width( @windowWidth - @verbsWidth )
+        $('.container-service').width(windowWidth - verbsWidth)
         $('.operation')
           .removeClass('out')
           .addClass('in')
@@ -31,7 +32,7 @@ $(document).on 'click', '#collapseVerbs', =>
   return
 
 #Operation - Console Col
-$(document).on 'click', '.collapseConsole', =>
+$(document).on 'click', '.collapseConsole', ->
   $('.console, .operation')
     .toggleClass('in')
     .promise().done =>
@@ -39,7 +40,7 @@ $(document).on 'click', '.collapseConsole', =>
         console.log "consola not in"
       else
         console.log "consola in"
-        $('.container-service').width( @windowWidth - @widthVerbsCollapsed )
+        $('.container-service').width(windowWidth - widthVerbsCollapsed )
         $('.collapseConsole')
           .removeClass('btn-success')
           .addClass('default full')
@@ -69,14 +70,11 @@ $(document).on 'click', '#fullConsole', ->
     $('.operation')
       .removeClass('out')
 
-$(document).on 'change', '#code-options input[type="checkbox"]', =>
+$(document).on 'change', '#code-options input[type="checkbox"]', ->
   data = $('#code-options').serializeArray()
-  @languages = ''
-  $.each data, (key, data) =>
-    item = if (key == 0) then ('languages[]=' + data.name) else ('&languages[]=' + data.name)
-    @languages += item
-    return
-  url = if @languages then @urlSourceCode + '?' + @languages else @urlSourceCode
+  languagesParams = data.map (data) -> "languages[]=#{data.name}"
+  languages = languagesParams.join('&')
+  url = urlSourceCode + '?' + languages
   $("#generate-code").attr("href", url)
 
 $(document).on 'click', '.add-element', ->
