@@ -122,8 +122,7 @@
                     = form_tag(format: :json) do
                       .schema-panel-set
                         = service_operation_parameters_form(@service_version, @verb, @path, location)
-                      = submit_tag("Enviar")
-                    .raw-json
+                        .raw-json
               - else
                 %p= t(:operation_without_parameters)
 

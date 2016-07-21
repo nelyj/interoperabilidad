@@ -2,12 +2,24 @@ widthVerbsCollapsed = 85
 windowWidth = 0
 verbsWidth = 0
 urlSourceCode = null
+editors = {}
+
+resizeEditors = ->
+  for location, editor of editors
+    editor.resize()
+
 
 document.addEventListener 'turbolinks:load', ->
   windowWidth = $(window).width()
   verbsWidth = $('.container-verbs').width()
   $(".container-service").css("min-height", $(".container-verbs").height())
   urlSourceCode = $("#generate-code").attr("href")
+  $('.console-parameter-group .raw-json').each (index, element) ->
+    section = $(element).closest('.console-parameter-group').data('location')
+    editors[location] = ace.edit(element);
+    editors[location].setTheme("ace/theme/monokai");
+    editors[location].getSession().setMode("ace/mode/json");
+    editors[location].setValue("{}")
 
 #Verbs Col
 $(document).on 'click', '#collapseVerbs', ->
@@ -28,6 +40,7 @@ $(document).on 'click', '#collapseVerbs', ->
           .removeClass('default full')
           .addClass('btn-success')
           .prop('disabled', false)
+      resizeEditors()
       return
   return
 
@@ -46,6 +59,7 @@ $(document).on 'click', '.collapseConsole', ->
           .addClass('default full')
           .prop('disabled', true)
         $('.container-verbs').removeClass('in')
+      resizeEditors()
       return
   return
 
@@ -58,6 +72,7 @@ $(document).on 'click', '#closeConsole', ->
   $('.operation')
     .removeClass('out')
     .addClass('in')
+  resizeEditors()
 
 $(document).on 'click', '#fullConsole', ->
   unless $('.console').hasClass('full')
@@ -69,6 +84,7 @@ $(document).on 'click', '#fullConsole', ->
       .addClass('in')
     $('.operation')
       .removeClass('out')
+  resizeEditors()
 
 $(document).on 'change', '#code-options input[type="checkbox"]', ->
   data = $('#code-options').serializeArray()
