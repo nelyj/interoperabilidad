@@ -115,13 +115,15 @@
             .title
               %i#fullConsole.material-icons.pull-left zoom_out_map
               %i#closeConsole.material-icons.pull-right clear
-            .schema-panel-set
               - if @service_version.has_parameters?(@verb, @path)
                 - @service_version.parameter_locations(@verb, @path).each do |location|
-                  %h3= parameter_section_name(location)
-                  = form_tag(format: :json) do
-                    = service_operation_parameters_form(@service_version, @verb, @path, location)
-                    = submit_tag("Enviar")
+                  .console-parameter-group{data: {location: location}}
+                    %h3= parameter_section_name(location)
+                    = form_tag(format: :json) do
+                      .schema-panel-set
+                        = service_operation_parameters_form(@service_version, @verb, @path, location)
+                      = submit_tag("Enviar")
+                    .raw-json
               - else
                 %p= t(:operation_without_parameters)
 
