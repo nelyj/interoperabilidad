@@ -101,7 +101,12 @@
             %h2.subtitle= t(:parameters)
             - if @service_version.has_parameters?(@verb, @path)
               - @service_version.parameter_locations(@verb, @path).each do |location|
-                %h3= parameter_section_name(location)
+                .subtitle-service
+                  .col-md-6.text-left
+                    %h3= parameter_section_name(location)
+                  .col-md-6.text-right
+                    %span.bullet-required
+                      =t(:property_required)
                 .schema-panel-set.detail
                   = service_operation_parameters_markup(@service_version, @verb, @path, location)
             - else
@@ -134,16 +139,16 @@
                       = form_tag(format: :json) do
                         .schema-panel-set
                           = service_operation_parameters_form(@service_version, @verb, @path, location)
-                        .btn-group
-                          %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-                            =t(:download)
-                            %span.caret
-                          %ul.dropdown-menu
-                            %li
-                              %a{:href => "#"} Servicio Real
-                        = submit_tag t(:send), class: "btn btn-primary"
                     .json-panel.tab-pane
                       .raw-json
+                    .btn-group
+                      %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+                        =t(:download)
+                        %span.caret
+                      %ul.dropdown-menu
+                        %li
+                          %a{:href => "#"} Servicio Real
+                    = submit_tag t(:send), class: "btn btn-primary"
             - else
               %p= t(:operation_without_parameters)
 
