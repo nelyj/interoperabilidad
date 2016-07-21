@@ -1,18 +1,29 @@
-%p#notice
-%h1 ServiceVersion
-%table
-  %thead
-    %tr
-      %th Service ID
-      %th Version
-      %th Status
-      %th{:colspan => "3"}
-  %tbody
-    - @service_versions.each do |service_version|
-      %tr
-        %td= service_version.service_id
-        %td= service_version.version_number
-        %td= service_version.status
-        %td= link_to 'Ver', [@organization, @service, service_version]
-%br
-  = link_to 'New Version', new_organization_service_service_version_path
+.content-pages.content-tabs
+  .container
+    .tab-content
+      #servicios.tab-pane.active{:role => "tabpanel"}
+        %h1= @service.name
+        %h4= @organization.name
+        .row
+          .col-md-12
+            %table
+              %colgroup
+                %col{:width => "15%"}
+                %col
+                %col{:width => "10%"}
+                %col{:width => "20%"}
+                %col{:width => "10%"}
+              %thead
+                %tr
+                  %th= ServiceVersion.human_attribute_name(:version_number)
+                  %th= t(:dateString)
+                  %th= t(:author)
+                  %th
+              %tbody
+                - @service_versions.each do |service_version|
+                  %tr{"data-link" => organization_service_service_version_path(@organization, @service, service_version)}
+                    %td= service_version.version_number.to_s
+                    %td= service_version.created_at.strftime("%d/%m/%Y")
+                    %td= service_version.user.name
+                    %td
+                      %span{class: css_class_for_status(service_version.status)}= service_version.status
