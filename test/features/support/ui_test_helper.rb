@@ -30,4 +30,8 @@ module UITestHelper
       assert_no_css(".panel-title.required .name", text: pointer.split('/').last)
     end
   end
+
+  def find_service_row(service_name)
+    find(:css, "tr[data-name=#{service_name}]")
+  end
 end

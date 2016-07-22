@@ -2,6 +2,7 @@ servicio1_v1:
     service: servicio_1
     user: pablito
     version_number: 1
+    status: retracted
     spec: &spec_servicio1_v1
         swagger: '2.0'
         info:
@@ -21,6 +22,7 @@ servicio1_v2:
     service: servicio_1
     user: pablito
     version_number: 2
+    status: retracted
     spec: &spec_servicio1_v1
         swagger: '2.0'
         info:
@@ -40,6 +42,7 @@ servicio1_v3:
     service: servicio_1
     user: pablito
     version_number: 3
+    status: proposed
     spec: &spec_servicio1_v1
         swagger: '2.0'
         info:
