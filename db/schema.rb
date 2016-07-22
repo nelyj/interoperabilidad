@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719184524) do
+ActiveRecord::Schema.define(version: 20160722224652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20160719184524) do
     t.boolean  "public",          default: false
     t.tsvector "lexemes"
     t.string   "humanized_name"
+    t.boolean  "featured",        default: false
     t.index ["lexemes"], name: "services_lexemes_idx", using: :gin
   end
 

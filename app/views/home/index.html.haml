@@ -8,6 +8,38 @@
             %i.glyphicon.glyphicon-search
             %input#search-schema.form-control{:placeholder => t(:enter_service_name), :type => "text", :name => "text_search"}/
 .container
+
+  %h3 Directorio de Servicios
+  %p
+    Bienvenido al Directorio de Servicios y Esquemas, donde podrás encontrar los
+    servicios (APIs) ofrecidos por las entidades públicas con toda su
+    documentación. Incluso podrás probar las APIs públicas — marcadas con el ícono
+    = image_tag 'open-data', size: '16x16'
+    —
+    de manera interactiva y sin escribir una línea de código.
+  %p
+    Si eres parte de una repartición pública, puedes ingresar con tu Clave Única
+    y subir tus propios servicios. Te recomendamos también mirar los
+    = link_to t(:schemas), schemas_path
+    estandarizados que deben ser considerados en la construcción de servicios,
+    para facilitar la interoperabilidad entre las distintas entidades estatales.
+  %p
+    Puedes empezar mirando los servicios que hemos destacado, los mas usados, o
+    buscar libremente en la caja de texto de más arriba.
   .row
-    .col-md-12.schema-wrapper.text-left
-      = render partial: "boxes", locals: {services: @services}
+    .col-md-12
+      %ul.nav.nav-tabs{:role => "tablist"}
+        %li.active{:role => "presentation"}
+          %a{"aria-controls" => "#featured", "data-toggle" => "tab", :href => "#featured", :role => "tab"} Servicios Destacados
+        %li{:role => "presentation"}
+          %a{"aria-controls" => "#popular", "data-toggle" => "tab", :href => "#popular", :role => "tab"} Servicios Más Usados
+  .tab-content
+    #featured.tab-pane.active{role: 'tabpanel'}
+      .row
+        .col-md-12.schema-wrapper.text-left
+          = render partial: "boxes", locals: {services: @featured_services}
+
+    #popular.tab-pane{role: 'tabpanel'}
+      .row
+        .col-md-12.schema-wrapper.text-left
+          = render partial: "boxes", locals: {services: @popular_services}

@@ -217,6 +217,13 @@ strong {
                 text-decoration: none;
             }
         }
+        &.opendata {
+          background-image: image-url("open-data.png");
+          background-position: 95% 50%;
+          background-repeat: no-repeat;
+          background-size: auto 30%;
+        }
+
     }
     .body {
         padding: 5px 20px;

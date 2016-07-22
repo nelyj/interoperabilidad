@@ -9,6 +9,9 @@ class Service < ApplicationRecord
   delegate :description, to: :current_or_last_version
   attr_accessor :spec, :backwards_compatible
 
+  scope :featured, -> { where(featured: true) }
+  scope :popular, -> { last(8) } # To be replaced by actual popular services once we have agreements in place
+
   def spec_file
     @spec_file
   end
