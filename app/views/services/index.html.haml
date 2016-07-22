@@ -15,12 +15,12 @@
 .content-pages.content-tabs
   .container
     .tab-content
-      #servicios.tab-pane.active{:role => "tabpanel"}
+      #services.tab-pane.active{:role => "tabpanel"}
         .row
           .col-md-12.head-title-table
-            %h2 Listado de convenios
+            %h2=t(:service_directory)
             .search-table
-              %input{:type => 'text', :placeholder => 'Buscar por nombre'}
+              %input{:type => 'text', :placeholder => t(:name_search)}
               %button.search
                 %i.material-icons
                   search

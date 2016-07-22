@@ -27,6 +27,7 @@ es:
   enter_new_schema_name: Indica nombre para el esquema
   description: Descripción
   description_not_found: Descripción no disponible
+  name_search: Buscar por nombre
   to_upload_a_schema_please: Para subir un esquema por favor
   identify_with_clave_unica: identifíquese con su clave única
   create_schema: Crear Esquema
