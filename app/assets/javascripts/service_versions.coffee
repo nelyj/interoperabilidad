@@ -20,6 +20,7 @@ document.addEventListener 'turbolinks:load', ->
   $('.console-parameter-group .raw-json').each (index, element) ->
     location = $(element).closest('.console-parameter-group').data('location')
     editors[location] = ace.edit(element);
+    editors[location].$blockScrolling = Infinity
     editors[location].setTheme("ace/theme/monokai");
     editors[location].getSession().setMode("ace/mode/json");
     editors[location].setValue("{}")
