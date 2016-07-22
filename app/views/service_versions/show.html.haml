@@ -167,8 +167,9 @@
                 %li
                   %a Servicio Real
             %button#try-service.btn.btn-primary= t(:send)
-            %h3= t(:response)
-            %pre.code#response
+            .console-parameter-group
+              %h3= t(:response)
+              %pre.code#response
 #modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content
