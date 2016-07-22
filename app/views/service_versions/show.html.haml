@@ -64,7 +64,7 @@
           =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
         =link_to t(:view_oas), organization_service_service_version_url(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
         %button.btn.btn-static{"data-target" => "#modalDownloadCode", "data-toggle" => "modal", :type => "button"}
-          =t(:generate_code)
+          = t(:generate_code)
         %p.url-canonica
           %span
             %strong
@@ -181,7 +181,7 @@
                 =t(:download_server)
               .input-languages
                 %input{type: "checkbox", name: "jaxrs-cxf", id: "jaxrs-cxf"}
-                %label{for: "jaxrs-cxf"} Java: JAXRS-CXF
+                %label{for: "jaxrs-cxf"} JAVA: JAXRS-CXF
               .input-languages
                 %input{type: "checkbox", name: "slim", id: "input-slim"}
                 %label{for: "input-slim"} PHP: SLIM
