@@ -24,10 +24,11 @@ es:
     one: No se pudo guardar el servicio debido a 1 error
     other: No se pudo guardar el servicio debido a %{count} errores
   not_enough_permissions: No tiene permisos suficientes
+  notyamlenorjson: Archivo no está en formato JSON o YAML
   new_schema_created: Nuevo Esquema creado correctamente
   new_schema_version_created: Nueva Versión creada correctamente
   new_service_created: Servicio creado correctamente
-  new_service_version_created: Nueva versión creada correctamente
+  new_service_version_created: Nueva revisión creada correctamente
   service_updated: Servicio actualizado correctamente
   schema_directory: Directorio de Esquemas
   enter_schema_name: Ingresa nombre de Esquema

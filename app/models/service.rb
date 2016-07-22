@@ -8,6 +8,13 @@ class Service < ApplicationRecord
   validates :spec, swagger_spec: true
   delegate :description, to: :current_or_last_version
   attr_accessor :spec, :backwards_compatible
+  attr_accessor :spec_file_parse_exception
+
+  def spec_file_must_be_parseable
+    if self.spec_file_parse_exception
+      errors.add(:spec_file, "Archivo no está en formato JSON o YAML")
+    end
+  end
 
   scope :featured, -> { where(featured: true) }
   scope :popular, -> { last(8) } # To be replaced by actual popular services once we have agreements in place
@@ -17,8 +24,11 @@ class Service < ApplicationRecord
   end
 
   def spec_file=(spec_file)
+    self.spec_file_parse_exception = nil
     @spec_file = spec_file
     self.spec = YAML.safe_load(spec_file.read)
+  rescue Psych::SyntaxError => e
+    self.spec_file_parse_exception = e
   end
 
   def to_param

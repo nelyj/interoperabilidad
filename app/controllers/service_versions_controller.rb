@@ -40,6 +40,11 @@ class ServiceVersionsController < ApplicationController
   end
 
   def create
+    if params[:service_version].blank?
+      flash[:error] = "#{t(:cant_create_service_version)}: #{t(:must_upload_a_spec_file)}"
+      redirect_to organization_service_service_versions_path(@organization, @service)
+      return
+    end
     @service_version = @service.service_versions.build(service_version_params)
     @service_version.user = current_user
     if @service_version.save

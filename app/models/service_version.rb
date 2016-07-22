@@ -8,6 +8,8 @@ class ServiceVersion < ApplicationRecord
   belongs_to :user
   has_many :notifications, as: :subject
   validates :spec, swagger_spec: true
+  validate :spec_file_must_be_parseable
+  attr_accessor :spec_file_parse_exception
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
   after_save :update_search_metadata
@@ -37,8 +39,17 @@ class ServiceVersion < ApplicationRecord
   end
 
   def spec_file=(spec_file)
+    self.spec_file_parse_exception = nil
     @spec_file = spec_file
     self.spec = YAML.safe_load(spec_file.read)
+  rescue Psych::SyntaxError => e
+    self.spec_file_parse_exception = e
+  end
+
+  def spec_file_must_be_parseable
+    if self.spec_file_parse_exception
+      errors.add(:spec_file, I18n.t(:notyamlenorjson))
+    end
   end
 
   def to_param
