@@ -1022,10 +1022,6 @@ ul.list-operations {
             }
         }
     }
-    h3 {
-        font-family: $font-bold;
-        text-transform: uppercase;
-    }
     .bullet-required {
         &:before {
             content: "";
@@ -1107,6 +1103,9 @@ ul.list-operations {
             padding: 0px;
             background-color: transparent;
         }
+        hr {
+            border-top: 1px solid rgba(174, 174, 174, 1);
+        }
     }
     .console-parameter-group {
         margin-bottom: 35px;
@@ -1114,6 +1113,12 @@ ul.list-operations {
             min-width: 150px;
             margin-top: 20px;
             font-size: $font-18;
+        }
+        li.display-tab {
+            cursor: pointer;
+        }
+        li.display-tab.active {
+            cursor: default;
         }
     }
     .raw-json {

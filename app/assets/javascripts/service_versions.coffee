@@ -8,7 +8,6 @@ resizeEditors = ->
   for location, editor of editors
     editor.resize()
 
-
 document.addEventListener 'turbolinks:load', ->
   windowWidth = $(window).width()
   verbsWidth = $('.container-verbs').width()
@@ -100,3 +99,19 @@ $(document).on 'click', '.add-element', ->
     .first()
     .clone()
     .appendTo(object.parent())
+
+$(document).on 'click', '.display-tab', (e) ->
+  e.preventDefault()
+  thisTab = $(this).attr('data-tab')
+  parent = $(this).closest('.console-parameter-group')
+  $(parent)
+    .find('li.active')
+    .not(this)
+    .removeClass('active');
+  $(this).addClass('active');
+  $(parent)
+    .find('.tab-pane').not($(thisTab))
+    .removeClass('active')
+  $(parent)
+    .find($(thisTab))
+    .addClass('active')

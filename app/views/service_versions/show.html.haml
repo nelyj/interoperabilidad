@@ -124,12 +124,12 @@
               - @service_version.parameter_locations(@verb, @path).each do |location|
                 .console-parameter-group{data: {location: location}}
                   %ul.nav.nav-tabs
-                    %li.active
-                      %a{"data-toggle" => "tab", :href => ".form-panel"} Form
-                    %li
-                      %a{"data-toggle" => "tab", :href => ".json-panel"} JSON
+                    %li.display-tab.active{"data-tab": ".form-tab"}
+                      %a Form
+                    %li.display-tab{"data-tab": ".json-tab"}
+                      %a JSON
                   .tab-content
-                    .form-panel.tab-pane.active
+                    .form-tab.tab-pane.active
                       .subtitle
                         .col-md-6.text-left
                           %h3= parameter_section_name(location)
@@ -141,6 +141,8 @@
                           = service_operation_parameters_form(@service_version, @verb, @path, location)
                     .json-panel.tab-pane
                       .raw-json
+                    .json-tab.tab-pane
+                      .raw-json
                     .btn-group
                       %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
                         =t(:download)
@@ -149,6 +151,7 @@
                         %li
                           %a{:href => "#"} Servicio Real
                     = submit_tag t(:send), class: "btn btn-primary"
+                %hr
             - else
               %p= t(:operation_without_parameters)
 
