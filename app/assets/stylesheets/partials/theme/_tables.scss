@@ -35,8 +35,8 @@ table {
     }
     span {
         &.btn-status {
+            width: 78px;
             display: block;
-            min-width: 78px;
         }
     }
 }
