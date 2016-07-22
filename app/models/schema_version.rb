@@ -13,7 +13,7 @@ class SchemaVersion < ApplicationRecord
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception
-      errors.add(:spec_file, "Archivo no está en formato JSON o YAML")
+      errors.add(:spec_file, I18n.t(:notyamlenorjson))
     end
   end
 
