@@ -8,14 +8,21 @@ es:
   previous_version: Versión anterior
   base_url: URL Base
   cant_create_schema: No se pudo crear el esquema
+  cant_create_service: No se pudo crear el servicio
   cant_create_schema_version: No se pudo crear nueva versión
+  cant_create_service_version: No se pudo crear la revisión.
   cant_save_schema_version_error:
-    one: No se puedo guardar la nueva versión debido a 1 error
-    other: No se puedo guardar la nueva versión debido a %{count} errores
+    one: No se pudo guardar la nueva versión debido a 1 error
+    other: No se pudo guardar la nueva versión debido a %{count} errores
+  cant_save_service_version_error:
+    one: No se pudo guardar la nueva revisión debido a 1 error
+    other: No se pudo guardar la nueva revisión debido a %{count} errores
   cant_save_schema_error:
     one: No se pudo guardar el esquema debido a 1 error
     other: No se pudo guardar el esquema debido a %{count} errores
-  cant_create_service: No se pudo crear el servicio
+  cant_save_service_error:
+    one: No se pudo guardar el servicio debido a 1 error
+    other: No se pudo guardar el servicio debido a %{count} errores
   not_enough_permissions: No tiene permisos suficientes
   new_schema_created: Nuevo Esquema creado correctamente
   new_schema_version_created: Nueva Versión creada correctamente
@@ -25,6 +32,7 @@ es:
   schema_directory: Directorio de Esquemas
   enter_schema_name: Ingresa nombre de Esquema
   enter_new_schema_name: Indica nombre para el esquema
+  enter_new_service_name: Indica nombre para el servicio
   description: Descripción
   description_not_found: Descripción no disponible
   name_search: Buscar por nombre
@@ -33,7 +41,9 @@ es:
   identify_with_clave_unica: identifíquese con su clave única
   create_schema: Crear Esquema
   choose_file: Seleccionar Archivo
+  public: Público (no requiere convenio)
   schema_name_example: "Ej: PatenteComercial"
+  service_name_example: "Ej: Obtención de patente comercial"
   enter_new_schema_category: Indica Categoría
   create_schema: Crear Esquema
   create_service: Crear Servicio
@@ -45,6 +55,9 @@ es:
   services: Servicios
   agreements: Convenios
   notifications: Notificaciones
+  not_readed: No Leída
+  readed: Leída
+  message: Mensaje
   shownotifications: Ver Notificaciones
   create_new_service_notification: "Nuevo Servicio: %{name} creado."
   create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación."

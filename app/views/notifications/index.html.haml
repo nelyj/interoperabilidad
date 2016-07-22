@@ -4,7 +4,7 @@
       .col-md-12.head-title-table
         %h2=t(:notifications)
         .search-table
-          %input{:type => 'text', :placeholder => 'Buscar por nombre'}
+          %input{:type => 'text', :placeholder => t(:name_search)}
           %button.search
             %i.material-icons
               search
@@ -16,24 +16,24 @@
             %col{:width => "82%"}
             %col{:width => "8%"}
           %thead
-            %th Fecha
-            %th Mensaje
-            %th Estado
+            %th= t(:dateString)
+            %th= t(:message)
+            %th= t(:state)
           %tbody
             - @notifications.each do |notification|
-              %tr{"data-link" => user_notification_path(current_user, notification), :class => "#{'fila-no-leida' if !notification.read }" }
+              %tr{"data-link" => user_notification_path(current_user, notification), :class => "#{'fila-not-readed' if !notification.read }" }
                 %td
-                  = notification.created_at
+                  = notification.created_at.strftime("%d/%m/%Y")
                 %td
                   = notification.message
                 %td
                   - if !notification.read
-                    %span{:class => 'label-no-leida'}
+                    %span{:class => 'label-not-readed'}
                       %i.material-icons
                         email
-                      %p No Leída
+                      %p=t(:not_readed)
                   - else
-                    %span{:class => 'label-leida'}
+                    %span{:class => 'label-readed'}
                       %i.material-icons
                         check
-                      %p Leída
+                      %p= t(:readed)

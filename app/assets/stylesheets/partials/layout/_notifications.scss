@@ -1,13 +1,13 @@
 //Agreements partial stylesheet
 
-.fila-no-leida{
+.fila-not-readed{
   td, th{
     font-family: $font-bold;
   }
 }
 
-.label-no-leida,
-.label-leida{
+.label-not-readed,
+.label-readed{
   font-family: $font-bold;
   color: $official-blue;
   display: block;
@@ -22,7 +22,7 @@
   }
 }
 
-.label-leida{
+.label-readed{
   color: $official-green;
 }
 

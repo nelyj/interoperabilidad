@@ -39,6 +39,6 @@
                   %th= t(:service_name)
                   %th= ServiceVersion.human_attribute_name(:version_number)
                   %th= t(:author)
-                  %th= t(:status)
+                  %th= t(:state)
               %tbody
                 = render partial: "service", collection: @services
