@@ -86,24 +86,28 @@ module ServiceVersionsHelper
 
   def response_headers_markup(headers, json_pointer, references)
     if headers.present?
-      join_markup(headers.map do |name, header|
-        schema_object_property_markup(
-          name, header, false,
-          json_pointer_path(json_pointer, name), references
-        )
-      end)
+      content_tag(:div, class: 'schema-panel-set detail') do
+        join_markup(headers.map do |name, header|
+          schema_object_property_markup(
+            name, header, false,
+            json_pointer_path(json_pointer, name), references
+          )
+        end)
+      end
     end
   end
 
   def response_schema_object_markup(schema, json_pointer, references)
     if schema.present?
-      case schema["type"]
-      when "object"
-        schema_object_spec_markup(schema, json_pointer, references)
-      else
-        schema_object_property_markup(
-          '', schema, false, json_pointer, references
-        )
+      content_tag(:div, class: 'schema-panel-set detail') do
+        case schema["type"]
+        when "object"
+          schema_object_spec_markup(schema, json_pointer, references)
+        else
+          schema_object_property_markup(
+            '', schema, false, json_pointer, references
+          )
+        end
       end
     else
       return ''

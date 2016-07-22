@@ -99,17 +99,16 @@
             =t(:test_service)
           .parameters
             %h2.subtitle= t(:parameters)
-            .schema-panel-set.detail
-              - if @service_version.has_parameters?(@verb, @path)
-                - @service_version.parameter_locations(@verb, @path).each do |location|
-                  %h3= parameter_section_name(location)
+            - if @service_version.has_parameters?(@verb, @path)
+              - @service_version.parameter_locations(@verb, @path).each do |location|
+                %h3= parameter_section_name(location)
+                .schema-panel-set.detail
                   = service_operation_parameters_markup(@service_version, @verb, @path, location)
-              - else
-                %p= t(:operation_without_parameters)
+            - else
+              %p= t(:operation_without_parameters)
           .responses
             %h2.subtitle= t(:responses)
-            .schema-panel-set.detail
-              = service_operation_responses_markup(@service_version, @verb, @path)
+            = service_operation_responses_markup(@service_version, @verb, @path)
         .console
           .inner-console
             .title
