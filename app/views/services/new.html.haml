@@ -1,23 +1,46 @@
-%h1= t(:create_service)
-= form_for [@organization, @service] do |f|
-  - if @service.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@service.errors.count, "error")
-        prohibited this service from being saved:
-      %ul
-        - @service.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.hidden_field 'organization_id', value: @organization.id
-  .field
-    = f.label :spec_file
-    = f.file_field :spec_file
-  .field
-    = f.label :public
-    = f.check_box :public
-  .actions
-    = f.submit
+- if !user_signed_in?
+  .alert.info
+    .container
+      %p
+        #{t(:to_upload_a_service_please)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  = form_for [@organization, @service] do |f|
+    - if @service.errors.any?
+      .container-fluid.no-gutter{:class => "alert warning alert-dismissable fade in", :"data-alert" => "alert"}
+        .row
+          .container
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+            %p= t(:cant_save_service_error, count: @service.errors.count)
+            %ul
+              - @service.errors.full_messages.each do |message|
+                %li= message
+    .instance-panel
+      .container
+        .col-md-12{:class => "text-center"}
+          .box-new-service-file
+            .box-title
+              %span +
+              %p= t(:create_service)
+            .input-group.box-input-file
+              %label#label-file.input-group-btn
+                %span#select-file.btn.btn-action-red.btn-lg= t(:choose_file)
+                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
+              .field
+                %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
+              %span#remove-file
+                %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
+    .container.new-service-container
+      .row
+        .col-md-6
+          %h3= t(:enter_new_service_name)
+          = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:service_name_example)}
+          %h3= t(:public)
+          = f.check_box :public
+
+        .col-md-6
+          = f.hidden_field 'organization_id', value: @organization.id
+        .col-md-6
+          .text-right
+            = f.submit t(:create_service), class: 'btn btn-action-red btn-lg',
+              id: "create-service"

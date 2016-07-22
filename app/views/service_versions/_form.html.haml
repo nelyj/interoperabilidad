@@ -7,12 +7,9 @@
       %ul
         - service_version.errors.full_messages.each do |message|
           %li= message
+
   .field
-    = f.label @service.name
-  .field
-    = f.label @service.organization.name
-  .field
-    = f.label :spec_file
+    = t(:select_file)
     = f.file_field :spec_file
   .field
     = f.hidden_field :backwards_compatible, value: true

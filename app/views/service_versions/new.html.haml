@@ -1,2 +1,39 @@
-%h1 New service_version
-= render 'form', service_version: @service_version
+- if !user_signed_in?
+  .alert.info
+    .container
+      %p
+        #{t(:to_upload_a_service_please)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  =form_for([@organization, @service, @service_version]) do |f|
+    - if @service_version.errors.any?
+      .container-fluid.no-gutter{:class => "alert warning alert-dismissable fade in", :"data-alert" => "alert"}
+        .row
+          .container
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+            %p= t(:cant_save_service_version_error, count: @service_version.errors.count)
+            %ul
+              - @service_version.errors.full_messages.each do |message|
+                %li= message
+    .instance-panel
+      .container
+        .col-md-12{:class => "text-center"}
+          .box-new-service-file
+            .box-title
+              %span +
+              %p= t(:new_version)
+            .input-group.box-input-file
+              %label#label-file.input-group-btn
+                %span#select-file.btn.btn-action-red.btn-lg
+                  = t(:select_file)
+                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
+              .field
+                %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
+              %span#remove-file
+                %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
+    .container.new-service-container
+      .row
+        .col-md-12
+          %h1= t(:new_version_for, name: @service.name)
+          .text-right
+            = f.submit 'Subir Nueva Versión', class: 'btn btn-action-red btn-lg'
