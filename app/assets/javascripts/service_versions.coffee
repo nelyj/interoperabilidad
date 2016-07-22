@@ -8,13 +8,19 @@ resizeEditors = ->
   for location, editor of editors
     editor.resize()
 
+paramsFromEditors = ->
+  params = {}
+  for loc, editor of editors
+    params["#{loc}_params"] = JSON.parse(editor.getValue())
+  return params
+
 document.addEventListener 'turbolinks:load', ->
   windowWidth = $(window).width()
   verbsWidth = $('.container-verbs').width()
   $(".container-service").css("min-height", $(".container-verbs").height())
   urlSourceCode = $("#generate-code").attr("href")
   $('.console-parameter-group .raw-json').each (index, element) ->
-    section = $(element).closest('.console-parameter-group').data('location')
+    location = $(element).closest('.console-parameter-group').data('location')
     editors[location] = ace.edit(element);
     editors[location].setTheme("ace/theme/monokai");
     editors[location].getSession().setMode("ace/mode/json");
@@ -50,9 +56,7 @@ $(document).on 'click', '.collapseConsole', ->
     .toggleClass('in')
     .promise().done =>
       unless $('.console').hasClass('in')
-        console.log "consola not in"
       else
-        console.log "consola in"
         $('.container-service').width(windowWidth - widthVerbsCollapsed )
         $('.collapseConsole')
           .removeClass('btn-success')
@@ -125,3 +129,17 @@ setConsoleBtnOptions = (element) ->
 
 $(document).on 'click', '#btns-service-console li a', () ->
   setConsoleBtnOptions($(this))
+
+$(document).on 'click', '#try-service', ->
+  $('#response').text("\u21bb")
+  $.ajax(
+    method: 'POST'
+    contentType: 'application/json'
+    data: JSON.stringify(paramsFromEditors()),
+  ).done( (data, status, jqxhr) ->
+    $('#response').text(data)
+  ).fail( (jqxhr, status, error) ->
+    $('#response').text("Error: " + status + " " + error)
+  ).always( ->
+    hljs.highlightBlock document.getElementById('response')
+  )

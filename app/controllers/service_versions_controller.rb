@@ -57,13 +57,14 @@ class ServiceVersionsController < ApplicationController
   end
 
   def try
-    render text: @service_version.invoke(
+
+    render plain: @service_version.invoke(
       params[:verb],
-      params[:path],
-      JSON.parse(params[:path_params]),
-      JSON.parse(params[:query_params]),
-      JSON.parse(params[:header_params]),
-      params[:body]
+      params[:path] || '/',
+      params[:path_params].try(:to_unsafe_h) || {},
+      params[:query_params].try(:to_unsafe_h) || {},
+      params[:header_params].try(:to_unsafe_h) || {},
+      params[:body_params].try(:to_unsafe_h).to_json
     ).to_s
   end
 

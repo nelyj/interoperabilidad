@@ -150,8 +150,9 @@
               %ul#btns-service-console.dropdown-menu
                 %li
                   %a Servicio Real
-            = submit_tag t(:send), class: "btn btn-primary"
-
+            %button#try-service.btn.btn-primary= t(:send)
+            %h3= t(:response)
+            %pre.code#response
 #modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content

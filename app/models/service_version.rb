@@ -294,7 +294,7 @@ class ServiceVersion < ApplicationRecord
     end
     RestClient::Request.execute(
       method: verb,
-      url: base_path + _resolve_path(path, path_params),
+      url: base_url + _resolve_path(path, path_params),
       # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
       #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
       headers: header_params.merge(params: query_params),
@@ -303,9 +303,9 @@ class ServiceVersion < ApplicationRecord
   end
 
   def _resolve_path(original_path, path_params)
-    resolved_path = path.dup
+    resolved_path = original_path.dup
     path_params.each do |name, value|
-      resolved_path.gsub!("{{#{name}}}", URI.escape(value))
+      resolved_path.gsub!("{#{name}}", URI.escape(value))
     end
     resolved_path
   end

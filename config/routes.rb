@@ -38,7 +38,8 @@ Rails.application.routes.draw do
             get 'source_code'
             get 'operations/:verb*path', to: 'service_versions#show', as: 'operation', constraints: {path: /\/.*/}
             get 'operations/:verb', to: 'service_versions#show', as: 'operation_on_root_path'
-            post 'try'
+            post 'operations/:verb*path', to: 'service_versions#try', as: 'try_operation', constraints: {path: /\/.*/}
+            post 'operations/:verb', to: 'service_versions#try', as: 'try_operation_on_root_path'
           end
       end
     end

@@ -1,0 +1,40 @@
+---
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Echo
+  description: |
+    #### Echos back every URL, method, parameter and header
+    Feel free to make a path or an operation and use **Try Operation** to test it. The echo server will
+    render back everything.
+schemes:
+  - http
+host: mazimi-prod.apigee.net
+basePath: /echo
+paths:
+  /test/{route}:
+    post:
+      responses:
+        200:
+          description: Echo POST
+      parameters:
+        - name: route
+          in: path
+          required: true
+          type: string
+        - name: page
+          type: integer
+          in: query
+        - name: x-test-header
+          type: string
+          in: header
+        - name: body
+          in: body
+          description: Parameters
+          schema:
+            type: object
+            properties:
+              foo:
+                type: string
+              bar:
+                type: integer
