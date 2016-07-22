@@ -65,8 +65,9 @@ es:
   create_state_change_notification: "Servicio %{name}, versión %{version} ha sido %{status}."
   logout: Logout
   new_schema: Nuevo Esquema
-  new_version: Nueva Versión
-  new_version_for: "Nueva versión para %{name}"
+  new_version: Nueva Revisión
+  new_version_for: "Nueva revisión para %{name}"
+  upload_new_version: Subir Nueva Revisión
   example: Ejemplo
   no_example: Sin ejemplo.
   view_oas: Ver OAS

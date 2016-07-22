@@ -40,7 +40,7 @@ class GobDigitalUserCanManageSchemasTest < Capybara::Rails::TestCase
     within ".container-schema-detail" do
       assert_selector 'h1', text: 'Zona Norte'
     end
-    assert_link "Nueva Versión"
+    assert_link "Nueva Revisión"
   end
 
 end
