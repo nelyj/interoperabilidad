@@ -4,5 +4,4 @@
 //= require bootstrap
 //= require select2.full
 //= require highlight.min
-//= require jquery.sticky
 //= require_tree .

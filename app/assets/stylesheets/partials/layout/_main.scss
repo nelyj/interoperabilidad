@@ -331,45 +331,6 @@ strong {
     }
 }
 
-//sticky panel
-.sticky-wrapper {
-    transition: all 0.8s ease;
-    min-height: 320px;
-    &.is-sticky {
-        > .instance-panel.schema-detail {
-            .container {
-                margin-top: 8px;
-            }
-            height: 70px;
-            margin: 0px;
-            padding: 0px;
-            .box-detail-header {
-                padding-left: 20px;
-                padding-top: 10px;
-                transition: all 0.3s ease;
-            }
-            h3,
-            p {
-                display: none;
-                transition: all 0.3s ease;
-            }
-            h2 {
-                @media only screen and (max-width: 480px) {
-                    font-size: $font-24;
-                    line-height: 33px;
-                }
-            }
-            .category-icon {
-                padding: 10px;
-                transition: all 0.4s ease-in;
-                img {
-                    max-width: 30px;
-                }
-            }
-        }
-    }
-}
-
 #search-schema {
     height: 66px;
     background: #FFFFFF;
