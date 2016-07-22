@@ -29,6 +29,7 @@ es:
   description_not_found: Descripción no disponible
   name_search: Buscar por nombre
   to_upload_a_schema_please: Para subir un esquema por favor
+  to_upload_a_service_please: Para subir un esquema por favor
   identify_with_clave_unica: identifíquese con su clave única
   create_schema: Crear Esquema
   choose_file: Seleccionar Archivo
@@ -51,9 +52,11 @@ es:
   logout: Logout
   new_schema: Nuevo Esquema
   new_version: Nueva Versión
+  new_version_for: "Nueva versión para %{name}"
   example: Ejemplo
   no_example: Sin ejemplo.
   view_oas: Ver OAS
+  view_schema: Ver Esquema
   specification: Especificación
   schemas: Esquemas
   category: Categoria
@@ -94,6 +97,7 @@ es:
   responses: Respuestas
   operation_without_parameters: Operación sin parámetros
   property_required: Propiedad Requerida
+  select_file: Seleccionar Archivo
   error:
     one: 1 error
     other: "%{count} errores"
@@ -115,6 +119,7 @@ es:
         spec_file: Archivo de Especificación
       schema_version:
         spec: Especificación
+        version_number: Revisión
         spec_file: Archivo de Especificación
       service:
         name: Nombre

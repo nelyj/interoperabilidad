@@ -2,8 +2,8 @@
   .alert.info
     .container
       %p
-        Para subir un esquema por favor
-        = link_to 'identifíquese con su clave única', user_clave_unica_omniauth_authorize_path
+        =t(:to_upload_a_schema_please)
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
 - else
   = form_for([@schema, @schema_version]) do |f|
     - if @schema_version.errors.any?
@@ -21,11 +21,11 @@
           .box-new-schema-file
             .box-title
               %span +
-              %p Nueva Versión
+              %p= t(:new_version)
             .input-group.box-input-file
               %label#label-file.input-group-btn
                 %span#select-file.btn.btn-action-red.btn-lg
-                  Seleccionar Archivo
+                  = t(:select_file)
                 = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
               .field
                 %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
@@ -34,6 +34,6 @@
     .container.new-schemas-container
       .row
         .col-md-12
-          %h1 Nueva versión para #{@schema.name}
+          %h1= t(:new_version_for, name: @schema.name)
           .text-right
             = f.submit 'Subir Nueva Versión', class: 'btn btn-action-red btn-lg'

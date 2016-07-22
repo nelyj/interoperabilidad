@@ -6,9 +6,9 @@
       %table.table.schema-versions
         %thead
           %tr
-            %th Versión
-            %th Fecha
-            %th Autor
+            %th= SchemaVersion.human_attribute_name(:version_number)
+            %th= t(:dateString)
+            %th= t(:author)
             %th
         %tbody
           - @schema_versions.each do |schema_version|
@@ -16,4 +16,4 @@
               %td= schema_version.version_number
               %td= schema_version.created_at
               %td= schema_version.user.name
-              %td= link_to 'Ver Esquema', [@schema,schema_version], :class => "btn btn-status primary"
+              %td= link_to t(:view_schema), [@schema,schema_version], :class => "btn btn-status primary"
