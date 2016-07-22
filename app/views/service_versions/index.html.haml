@@ -9,21 +9,23 @@
             %table
               %colgroup
                 %col{:width => "15%"}
-                %col
                 %col{:width => "10%"}
                 %col{:width => "20%"}
                 %col{:width => "10%"}
               %thead
                 %tr
-                  %th= ServiceVersion.human_attribute_name(:version_number)
                   %th= t(:dateString)
+                  %th= ServiceVersion.human_attribute_name(:version_number)
                   %th= t(:author)
                   %th
               %tbody
                 - @service_versions.each do |service_version|
                   %tr{"data-link" => organization_service_service_version_path(@organization, @service, service_version)}
-                    %td= service_version.version_number.to_s
                     %td= service_version.created_at.strftime("%d/%m/%Y")
+                    %td
+                      %span{ class: 'btn btn-tiny static' }
+                        = 'R' + service_version.version_number.to_s
                     %td= service_version.user.name
                     %td
-                      %span{class: css_class_for_status(service_version.status)}= service_version.status
+                      %span{class: css_class_for_status(service_version.status)}
+                        = service_version.status
