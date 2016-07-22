@@ -36,7 +36,8 @@ Rails.application.routes.draw do
             patch 'reject'
             put 'state'
             get 'source_code'
-            get 'operations/:verb*path', to: 'service_versions#show', as: 'operation'
+            get 'operations/:verb*path', to: 'service_versions#show', as: 'operation', constraints: {path: /\/.*/}
+            get 'operations/:verb', to: 'service_versions#show', as: 'operation_on_root_path'
             post 'try'
           end
       end
