@@ -989,6 +989,9 @@ ul.list-operations {
         }
     }
     .bullet-required {
+        line-height: 0px;
+        margin-top: 16px;
+        display: block;
         &:before {
             content: "";
             width: 10px;
@@ -1072,6 +1075,9 @@ ul.list-operations {
         hr {
             border-top: 1px solid rgba(174, 174, 174, 1);
         }
+        .bullet-required {
+            margin-top: 13px;
+        }
     }
     .console-parameter-group {
         margin-bottom: 35px;
@@ -1095,9 +1101,9 @@ ul.list-operations {
     .subtitle {
         display: block;
         overflow: hidden;
-        line-height: 30px;
+        line-height: 0px;
         vertical-align: middle;
-        margin: 25px 0px 2px 0px;
+        margin: 25px 0px 7px 0px;
         div {
             margin: 0px;
             padding: 0px;
