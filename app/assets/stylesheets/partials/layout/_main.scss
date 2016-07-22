@@ -916,6 +916,15 @@ ul.list-operations {
         text-overflow: ellipsis;
         padding: 20px 30px 30px 30px;
         background-color: rgba(255, 255, 255, 1);
+        &:before {
+            width: 50%;
+            right: 0px;
+            z-index: -1;
+            content: ' ';
+            height: 100%;
+            background: #00F;
+            position: absolute;
+        }
         .collapseConsole {
             width: 170px;
             font-size: $font-18;
@@ -933,6 +942,7 @@ ul.list-operations {
         }
         &.out {
             width: 0px;
+            padding: 0px;
             overflow: hidden;
         }
         h2 {
@@ -1024,10 +1034,12 @@ ul.list-operations {
     &.in {
         right: 0px;
         width: 50%;
+        position: relative;
         display: inline-block;
     }
     &.full {
         width: 100%;
+        position: relative;
     }
     .inner-console {
         padding: 20px 30px 30px 30px;
@@ -1079,13 +1091,16 @@ ul.list-operations {
         .bullet-required {
             margin-top: 13px;
         }
-    }
-    .console-parameter-group {
-        margin-bottom: 35px;
         .btn {
             min-width: 150px;
             margin-top: 20px;
             font-size: $font-18;
+        }
+    }
+    .console-parameter-group {
+        margin-bottom: 35px;
+        ul.nav-tabs {
+            margin-bottom: 10px;
         }
         li.display-tab {
             cursor: pointer;

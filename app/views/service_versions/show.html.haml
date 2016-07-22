@@ -123,6 +123,12 @@
             - if @service_version.has_parameters?(@verb, @path)
               - @service_version.parameter_locations(@verb, @path).each do |location|
                 .console-parameter-group{data: {location: location}}
+                  .subtitle
+                    .col-md-6.text-left
+                      %h3= parameter_section_name(location)
+                    .col-md-6.text-right
+                      %span.bullet-required
+                        =t(:property_required)
                   %ul.nav.nav-tabs
                     %li.display-tab.active{"data-tab": ".form-tab"}
                       %a Form
@@ -130,28 +136,22 @@
                       %a JSON
                   .tab-content
                     .form-tab.tab-pane.active
-                      .subtitle
-                        .col-md-6.text-left
-                          %h3= parameter_section_name(location)
-                        .col-md-6.text-right
-                          %span.bullet-required
-                            =t(:property_required)
                       = form_tag(format: :json) do
                         .schema-panel-set
                           = service_operation_parameters_form(@service_version, @verb, @path, location)
                     .json-tab.tab-pane
                       .raw-json
-                    .btn-group
-                      %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-                        =t(:download)
-                        %span.caret
-                      %ul.dropdown-menu
-                        %li
-                          %a{:href => "#"} Servicio Real
-                    = submit_tag t(:send), class: "btn btn-primary"
                 %hr
             - else
               %p= t(:operation_without_parameters)
+            .btn-group
+              %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+                =t(:download)
+                %span.caret
+              %ul#btns-serviece-console.dropdown-menu
+                %li
+                  %a{:href => "#"} Servicio Real
+            = submit_tag t(:send), class: "btn btn-primary"
 
 #modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
