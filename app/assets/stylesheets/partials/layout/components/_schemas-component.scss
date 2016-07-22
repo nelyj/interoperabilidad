@@ -300,4 +300,10 @@
             border: none;
         }
     }
+    .panel-body {
+        a.btn.add-element {
+            margin: 20px;
+            box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.50);
+        }
+    }
 }
