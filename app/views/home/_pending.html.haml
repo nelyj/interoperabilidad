@@ -2,6 +2,9 @@
   %td= pending.created_at.strftime("%d/%m/%Y")
   %td= pending.name
   %td= pending.organization.name
+  %td
+    %span{ class: 'btn btn-tiny static' }
+      = 'R' + pending.version_number.to_s
   %td= pending.user.name
   %td
     %span.label-blue
