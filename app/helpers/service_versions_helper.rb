@@ -223,16 +223,33 @@ module ServiceVersionsHelper
 
   def string_primitive_form(primitive, json_pointer, required)
     options = {placeholder: "Ej: Hola", required: required}
-    text_field_tag(json_pointer, nil, options)
+    if primitive['format'].present?
+      case s(primitive['format'])
+      when 'password'
+        password_field_tag(json_pointer, nil, options)
+      when 'date-time'
+        datetime_local_field_tag(json_pointer, nil, options)
+      when 'date'
+        date_field_tag(json_pointer, nil, options)
+      else
+        text_field_tag(json_pointer, nil, options)
+      end
+    else
+      text_field_tag(json_pointer, nil, options)
+    end
   end
 
   def integer_primitive_form(primitive, json_pointer, required)
     options = {placeholder: 'Ej: 0', required: required}
-    number_field_tag(json_pointer, nil, options)
+    numeric_primitive_form(json_pointer, nil, options)
   end
 
   def number_primitive_form(primitive, json_pointer, required)
     options = {step: 'any', placeholder: 'Ej: 2.4', required: required}
+    numeric_primitive_form(primitive, json_pointer, options)
+  end
+
+  def numeric_primitive_form(primitive, json_pointer, options)
     number_field_tag(json_pointer, nil, options)
   end
 
