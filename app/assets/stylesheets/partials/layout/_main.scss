@@ -903,7 +903,8 @@ ul.list-operations {
     width: 80%;
     position: relative;
     display: inline-block;
-    background: rgba(255, 255, 255, 1);
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 50%, rgba(234, 234, 234, 2) 50%);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 50%, rgba(234, 234, 234, 2) 50%);
     box-shadow: rgba(0, 0, 0, 0.329412) 0px -1px 1px 0px, rgba(0, 0, 0, 0.137255) 0px -1px 1px 0px;
     .operation {
         left: 0px;
@@ -916,15 +917,6 @@ ul.list-operations {
         text-overflow: ellipsis;
         padding: 20px 30px 30px 30px;
         background-color: rgba(255, 255, 255, 1);
-        &:before {
-            width: 50%;
-            right: 0px;
-            z-index: -1;
-            content: ' ';
-            height: 100%;
-            background: #00F;
-            position: absolute;
-        }
         .collapseConsole {
             width: 170px;
             font-size: $font-18;
