@@ -77,7 +77,7 @@ es:
   no_description: Descripción no disponible
   services_pending_approval: Servicios por aprobar
   service_pending_approval: Servicio pendiente de aprobación
-  version_rejected: Revisón del servicio rechazada
+  version_rejected: Revisión del servicio rechazada
   version_rejected_msg: "La revisión de este servicio ha sido rechazada por los siguientes motivos:"
   service_name: Nombre del servicio
   requesting_organization: Institución solicitante
