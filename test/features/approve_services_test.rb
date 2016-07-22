@@ -7,7 +7,7 @@ class ApproveServiceTest < Capybara::Rails::TestCase
   after { Warden.test_reset! }
 
   test "GobDigital User can approve specific service version" do
-    service_v = service_versions(:servicio1_v1)
+    service_v = service_versions(:servicio1_v3)
     assert service_v.status == "proposed"
     login_as users(:pablito), scope: :user
 
@@ -29,7 +29,7 @@ class ApproveServiceTest < Capybara::Rails::TestCase
     assert_button ('Aprobar')
     click_button ('Aprobar')
     assert_content 'Servicios por aprobar'
-    assert ServiceVersion.where(id: service_versions(:servicio1_v1).id).first.status == "current"
+    assert ServiceVersion.where(id: service_versions(:servicio1_v3).id).first.status == "current"
     assert_equal 1, users(:pablito).unread_notifications
   end
 
