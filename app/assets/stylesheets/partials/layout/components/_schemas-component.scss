@@ -161,12 +161,12 @@
         &.editable {
             box-shadow: inset 0px 0px 2px 0px #46526F, inset 0px 1px 8px 0px rgba(46, 54, 74, 0.56);
             input {
-              width: 100%;
-              border: none;
-              height: 25px;
-              outline: 0px;
-              text-align: right;
-              background: rgba(0, 0, 0, 0);
+                width: 100%;
+                border: none;
+                height: 25px;
+                outline: 0px;
+                text-align: right;
+                background: rgba(0, 0, 0, 0);
             }
         }
         a {
@@ -222,10 +222,17 @@
             font-style: italic;
         }
         .description {
-            font-size: 13px;
             margin: 0px;
+            font-size: 13px;
             padding: 0px 0px 0px 18px;
             font-family: $font-courier;
+            p {
+                width: 100%;
+                display: block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
         }
         .panel-title {
             margin-top: 0px;
