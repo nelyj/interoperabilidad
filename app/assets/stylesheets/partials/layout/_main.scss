@@ -696,6 +696,11 @@ ul.list-operations {
         .btn {
             margin-right: 4px;
         }
+        &.whitout-permission {
+            .url-canonica {
+                max-width: 770px;
+            }
+        }
     }
     .detail-action {
         background-color: rgba(0, 149, 255, 0.1);

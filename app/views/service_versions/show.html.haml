@@ -58,7 +58,7 @@
         %br
 
     .row
-      .col-md-12.principal-actions
+      .col-md-12.principal-actions{:class => "#{'whitout-permission' unless user_signed_in? && @service.can_be_updated_by?(current_user) }"}
         %a.btn.btn-primary Solicitar Convenio
         - if user_signed_in? && @service.can_be_updated_by?(current_user)
           =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
