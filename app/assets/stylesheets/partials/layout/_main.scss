@@ -940,6 +940,9 @@ ul.list-operations {
             font-size: $font-24;
             color: $dark-black-text;
             font-family: $font-bold;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
             &.subtitle {
                 padding: 0px;
                 margin: 20px 0px 3px 0px;
@@ -971,11 +974,9 @@ ul.list-operations {
             background: transparent;
         }
         .subtitle-service {
-            margin: 0px;
-            padding: 0px;
+            margin: 20px 0px 13px 0px;
+            padding: 0px 0px 7px 0px;
             overflow: hidden;
-            padding-bottom: 7px;
-            margin-bottom: 13px;
             border-bottom: 1px solid rgba(232, 232, 232, 1) !important;
             div {
                 margin: 0px;
