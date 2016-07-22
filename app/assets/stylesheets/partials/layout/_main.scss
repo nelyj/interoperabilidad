@@ -801,15 +801,7 @@ ul.list-operations {
 
 .wrapper-operation {
     overflow: hidden;
-    background-color: rgba(252, 252, 252, 1);
-}
-
-.container-verbs,
-.container-service {
-    transition: all 0.3s easeInOut;
-    -o-transition: all 0.3s easeInOut;
-    -moz-transition: all 0.3s easeInOut;
-    -webkit-transition: all 0.3s easeInOut;
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .operation,
@@ -871,7 +863,7 @@ ul.list-operations {
         }
     }
     &.in {
-        width: 20%;
+        width: 256px;
         .header {
             h3 {
                 display: inline;
@@ -910,12 +902,12 @@ ul.list-operations {
 }
 
 .container-service {
-    width: 80%;
     position: relative;
     display: inline-block;
-    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 1) 50%, rgba(234, 234, 234, 2) 50%);
-    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 50%, rgba(234, 234, 234, 2) 50%);
-    box-shadow: rgba(0, 0, 0, 0.329412) 0px -1px 1px 0px, rgba(0, 0, 0, 0.137255) 0px -1px 1px 0px;
+    border-left: 1px solid rgba(203, 203, 203, 1);
+    &.console-full {
+        background-color: rgba(234, 234, 234, 1);
+    }
     .operation {
         left: 0px;
         width: 50%;
@@ -925,8 +917,11 @@ ul.list-operations {
         white-space: nowrap;
         display: inline-block;
         text-overflow: ellipsis;
-        padding: 20px 30px 30px 30px;
         background-color: rgba(255, 255, 255, 1);
+        padding: 0px;
+        .inner-operation {
+            padding: 20px 30px 30px 30px;
+        }
         .collapseConsole {
             width: 170px;
             font-size: $font-18;
@@ -944,7 +939,6 @@ ul.list-operations {
         }
         &.out {
             width: 0px;
-            padding: 0px;
             overflow: hidden;
         }
         h2 {
@@ -1036,7 +1030,7 @@ ul.list-operations {
     &.in {
         right: 0px;
         width: 50%;
-        position: relative;
+        position: absolute;
         display: inline-block;
     }
     &.full {

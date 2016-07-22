@@ -1,6 +1,6 @@
 widthVerbsCollapsed = 85
+verbsWidth = 256
 windowWidth = 0
-verbsWidth = 0
 urlSourceCode = null
 editors = {}
 
@@ -15,9 +15,7 @@ paramsFromEditors = ->
   return params
 
 document.addEventListener 'turbolinks:load', ->
-  windowWidth = $(window).width()
-  verbsWidth = $('.container-verbs').width()
-  $(".container-service").css("min-height", $(".container-verbs").height())
+  setContainerServicesWidth()
   urlSourceCode = $("#generate-code").attr("href")
   $('.console-parameter-group .raw-json').each (index, element) ->
     location = $(element).closest('.console-parameter-group').data('location')
@@ -26,6 +24,15 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].getSession().setMode("ace/mode/json");
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
+
+$(window).resize ->
+  setContainerServicesWidth()
+
+setContainerServicesWidth = () ->
+  windowWidth = ( $(window).width() - 1 )
+  $(".container-service").css("width", windowWidth - $('.container-verbs').width())
+  $(".operation, .console, .container-verbs").css("min-height", $(".wrapper-operation").height())
+  $(".container-service").css("min-height", $(".container-verbs").height())
 
 #Verbs Col
 $(document).on 'click', '#collapseVerbs', ->
@@ -42,6 +49,7 @@ $(document).on 'click', '#collapseVerbs', ->
         $('.console')
           .removeClass('in full')
           .addClass('out')
+        $('.container-service').removeClass('console-full')
         $('.collapseConsole')
           .removeClass('default full')
           .addClass('btn-success')
@@ -57,7 +65,8 @@ $(document).on 'click', '.collapseConsole', ->
     .promise().done =>
       unless $('.console').hasClass('in')
       else
-        $('.container-service').width(windowWidth - widthVerbsCollapsed )
+        console.log "consola in"
+        $('.container-service').width(windowWidth - widthVerbsCollapsed)
         $('.collapseConsole')
           .removeClass('btn-success')
           .addClass('default full')
@@ -81,11 +90,13 @@ $(document).on 'click', '#closeConsole', ->
 $(document).on 'click', '#fullConsole', ->
   unless $('.console').hasClass('full')
     $('.console').addClass('full')
+    $('.container-service').addClass('console-full')
     $('.operation').addClass('out')
   else
     $('.console')
       .removeClass('full')
       .addClass('in')
+    $('.container-service').removeClass('console-full')
     $('.operation')
       .removeClass('out')
   resizeEditors()

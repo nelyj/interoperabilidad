@@ -87,33 +87,34 @@
                 %span.path= path
       .container-service
         #operation-doc.operation.in
-          %h2
-            %label.btn-status.full{class: css_class_for_http_verb(@verb)}= @verb
-            = @path
-          .description-summary
-            - if @operation['summary']
-              %p= @operation['summary']
-            - if @operation['description']
-              %div= markdown.render(@operation['description']).html_safe
-          %button.btn.btn-success.collapseConsole
-            =t(:test_service)
-          .parameters
-            %h2.subtitle= t(:parameters)
-            - if @service_version.has_parameters?(@verb, @path)
-              - @service_version.parameter_locations(@verb, @path).each do |location|
-                .subtitle-service
-                  .col-md-6.text-left
-                    %h3= parameter_section_name(location)
-                  .col-md-6.text-right
-                    %span.bullet-required
-                      =t(:property_required)
-                .schema-panel-set.detail
-                  = service_operation_parameters_markup(@service_version, @verb, @path, location)
-            - else
-              %p= t(:operation_without_parameters)
-          .responses
-            %h2.subtitle= t(:responses)
-            = service_operation_responses_markup(@service_version, @verb, @path)
+          .inner-operation
+            %h2
+              %label.btn-status.full{class: css_class_for_http_verb(@verb)}= @verb
+              = @path
+            .description-summary
+              - if @operation['summary']
+                %p= @operation['summary']
+              - if @operation['description']
+                %div= markdown.render(@operation['description']).html_safe
+            %button.btn.btn-success.collapseConsole
+              =t(:test_service)
+            .parameters
+              %h2.subtitle= t(:parameters)
+              - if @service_version.has_parameters?(@verb, @path)
+                - @service_version.parameter_locations(@verb, @path).each do |location|
+                  .subtitle-service
+                    .col-md-6.text-left
+                      %h3= parameter_section_name(location)
+                    .col-md-6.text-right
+                      %span.bullet-required
+                        =t(:property_required)
+                  .schema-panel-set.detail
+                    = service_operation_parameters_markup(@service_version, @verb, @path, location)
+              - else
+                %p= t(:operation_without_parameters)
+            .responses
+              %h2.subtitle= t(:responses)
+              = service_operation_responses_markup(@service_version, @verb, @path)
         .console
           .inner-console
             .title
