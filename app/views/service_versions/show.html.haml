@@ -146,11 +146,10 @@
               %p= t(:operation_without_parameters)
             .btn-group
               %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-                =t(:download)
                 %span.caret
-              %ul#btns-serviece-console.dropdown-menu
+              %ul#btns-service-console.dropdown-menu
                 %li
-                  %a{:href => "#"} Servicio Real
+                  %a Servicio Real
             = submit_tag t(:send), class: "btn btn-primary"
 
 #modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}

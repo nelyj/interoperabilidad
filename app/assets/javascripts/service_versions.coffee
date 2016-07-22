@@ -19,6 +19,7 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].setTheme("ace/theme/monokai");
     editors[location].getSession().setMode("ace/mode/json");
     editors[location].setValue("{}")
+  setConsoleBtnOptions('#btns-service-console li a:first')
 
 #Verbs Col
 $(document).on 'click', '#collapseVerbs', ->
@@ -115,3 +116,12 @@ $(document).on 'click', '.display-tab', (e) ->
   $(parent)
     .find($(thisTab))
     .addClass('active')
+
+setConsoleBtnOptions = (element) ->
+  $(element)
+    .parents('.btn-group')
+    .find('.dropdown-toggle').attr('data-value', $(element).text())
+    .html($(element).text() + ' <span class="caret"></span>')
+
+$(document).on 'click', '#btns-service-console li a', () ->
+  setConsoleBtnOptions($(this))
