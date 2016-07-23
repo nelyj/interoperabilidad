@@ -11,7 +11,7 @@ class ShowServiceDetail < Capybara::Rails::TestCase
       name: "PetsServiceName",
       organization: organizations(:minsal),
       spec_file: File.open(Rails.root / "test/files/sample-services/petsfull.yaml")
-    ).create_first_version(users(:perico))
+    ).create_first_version(users(:pedro))
   end
 
   test "Show service " do
@@ -25,4 +25,39 @@ class ShowServiceDetail < Capybara::Rails::TestCase
     assert_button "Generar código fuente"
     assert_content "http://petstore.swagger.io/v2"
   end
+
+  test "Agreement button for User for another organization and Role Create Agreement" do
+    users(:pablito).roles.create(organization: organizations(:segpres), name: "Create Agreement", email: "mail@example.org")
+    login_as(users(:pablito))
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_content "PetsServiceName"
+    within ".principal-actions" do
+      assert_link "Solicitar Convenio"
+    end
+  end
+
+  test "No Agreement button for User for same organization" do
+    login_as(users(:pedro))
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_content "PetsServiceName"
+    within ".principal-actions" do
+      assert_no_link "Solicitar Convenio"
+    end
+  end
+
+  test "No Agreement button for User for another organization and Role Service Provider" do
+    login_as( users(:pablito) )
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_content "PetsServiceName"
+    within ".principal-actions" do
+      assert_no_link "Solicitar Convenio"
+    end
+  end
+
 end
