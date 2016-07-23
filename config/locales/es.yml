@@ -66,6 +66,7 @@ es:
   logout: Logout
   new_schema: Nuevo Esquema
   new_version: Nueva Revisión
+  new_agreement: Solicitar Convenio
   new_version_for: "Nueva revisión para %{name}"
   upload_new_version: Subir Nueva Revisión
   example: Ejemplo

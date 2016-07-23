@@ -61,7 +61,7 @@
       .col-md-12.principal-actions{:class => "#{'whitout-permission' unless user_signed_in? && @service.can_be_updated_by?(current_user) }"}
         - if user_signed_in?
           - if @organization.can_create_agreement?(current_user)
-            %a.btn.btn-primary Solicitar Convenio
+            =link_to t(:new_agreement), agreements_index_path, class: "btn btn-primary"
           - if @service.can_be_updated_by?(current_user)
             =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
         =link_to t(:view_oas), organization_service_service_version_url(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
