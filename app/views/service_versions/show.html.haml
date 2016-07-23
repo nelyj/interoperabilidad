@@ -82,11 +82,11 @@
         %ul.list-operations
           - @service_version.operations.each do |(verb, path), operation|
             %li
-              %a{href: operation_organization_service_service_version_path(verb: verb, path: path, anchor: 'operation-doc')}
+              %a{href: operation_organization_service_service_version_path(verb: verb, path: path, anchor: 'operation')}
                 %label.btn-status.full{class: css_class_for_http_verb(verb)}= verb
                 %span.path= path
       .container-service
-        #operation-doc.operation.in
+        #operation.operation.in
           .inner-operation
             %h2
               %label.btn-status.full{class: css_class_for_http_verb(@verb)}= @verb
