@@ -78,9 +78,9 @@ class User < ApplicationRecord
       when "Validador"
         "Service Provider"
       when "1"
-        "Can Check Agreement"
+        "Create Agreement"
       when "2"
-        "Can Sign Agreement"
+        "Sign Agreement"
       else
         "Service Provider"
       end

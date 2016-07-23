@@ -15,7 +15,7 @@
         = current_user.name
       %span.caret
     %ul.dropdown-menu.pull-right
-      - current_user.organizations.each do |org|
+      - current_user.organizations.distinct.each do |org|
         %li.institution
           %small
             =t(:institution)
