@@ -35,9 +35,10 @@
         .col-md-6
           %h3= t(:enter_new_service_name)
           = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:service_name_example)}
-          %h3= t(:public)
-          = f.check_box :public
-
+          %div{id: 'check_box_new'}
+            = f.check_box :public, style: "display: inline;"
+            = image_tag 'open-data', size: '16x16', style: "display: inline;"
+            %h3{style: "display: inline;"}= t(:public)
         .col-md-6
           = f.hidden_field 'organization_id', value: @organization.id
         .col-md-6
