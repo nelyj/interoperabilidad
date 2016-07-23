@@ -27,7 +27,8 @@ class ServiceVersionsController < ApplicationController
   end
 
   def new
-    if user_signed_in? && @service.can_be_updated_by?(current_user)
+    return unless user_signed_in?
+    if @service.can_be_updated_by?(current_user)
        @service_version = ServiceVersion.new
     else
       redirect_to(

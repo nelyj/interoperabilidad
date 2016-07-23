@@ -11,7 +11,8 @@ class ServicesController < ApplicationController
   end
 
   def new
-    if user_signed_in? && @organization.can_create_service_or_version?(current_user)
+    return unless user_signed_in?
+    if @organization.can_create_service_or_version?(current_user)
        @service = Service.new
     else
       redirect_to organization_services_path(@organization), notice: t(:not_enough_permissions)
