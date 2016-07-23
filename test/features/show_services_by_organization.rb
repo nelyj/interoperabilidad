@@ -6,22 +6,17 @@ class ShowServiceByOrganization < Capybara::Rails::TestCase
   include Warden::Test::Helpers
   after { Warden.test_reset! }
 
-  before do
-    Service.create!(
-      name: "FichaMedica",
-      organization: organizations(:minsal),
-      featured: true,
-      public: false,
-      spec_file: File.open(Rails.root / "test/files/sample-services/echo.yaml")
-    ).create_first_version(users(:perico))
+  test "Show User Organization Services last versions" do
+    login_as(users(:pablito))
+    visit root_path
+    find('#user-menu').click
+    within '.dropdown-menu' do
+      click_link('Servicios')
+    end
+    assert_content 'Crear Servicio'
+    assert page.all(:xpath, '//table/thead/tr')[0].text.include?('Fecha Nombre del servicio Revisión Autor Estado')
+    assert page.all(:xpath, '//table/tbody/tr').count == 1
+    assert page.all(:xpath, '//table/tbody/tr')[0].text.include?('servicio_1')
   end
 
-  test "Show organization services after clicking on organization name" do
-    visit root_path
-    assert_content "FichaMedica"
-    click_link "Ministerio de Salud"
-    assert_content "servicio_2"
-    assert_content "FichaMedica"
-    assert_equal 'Ministerio de Salud', find('#search-service').value
-  end
 end
