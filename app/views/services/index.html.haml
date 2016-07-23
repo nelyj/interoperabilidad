@@ -20,13 +20,13 @@
           .col-md-12.head-title-table
             %h2=t(:service_directory)
             .search-table
-              %input{:type => 'text', :placeholder => t(:name_search)}
+              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#services_table'}}
               %button.search
                 %i.material-icons
                   search
         .row
           .col-md-12
-            %table
+            %table#services_table
               %colgroup
                 %col{:width => "15%"}
                 %col

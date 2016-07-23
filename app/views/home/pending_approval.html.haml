@@ -18,13 +18,13 @@
             .col-md-12.head-title-table
               %h2= t(:new_requests_pending_approval, count: @pending_services_version.count)
               .search-table
-                %input{:type => 'text', :placeholder => 'Buscar por nombre'}
+                %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#services-table'}}
                 %button.search
                   %i.material-icons
                     search
           .row
             .col-md-12
-              %table
+              %table#services-table
                 %colgroup
                   %col{:width => "10%"}
                   %col

@@ -19,10 +19,10 @@
 							%option{:value => "SVU"} Ministerio de Vivienda y Urbanismo
 				.row
 					.col-md-6
-						%label Serivicios que involucra este convenio
+						%label Servicios que involucra este convenio
 						.list-selector
 							.input-group
-								%input.form-control{:type => 'text', :placeholder => 'Buscar por nombre'}
+								%input.form-control{:type => 'text', :placeholder => t(:name_search)}
 								%span.input-group-btn
 									%button.search
 										%i.material-icons
@@ -33,7 +33,7 @@
 										%label
 											%input{:type => 'checkbox'}
 											Fecha de inicio de actividades
-								
+
 					.col-md-6
 						%ul.services-list
 							%li Fecha de inicio de actividades
@@ -59,4 +59,3 @@
 				.row
 					.col-md-12
 						%input.btn.btn-primary{:type => 'button', :value => 'Crear Solicitud'}
-
