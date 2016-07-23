@@ -288,7 +288,7 @@ module ServiceVersionsHelper
     dynamic_component_structure_form(
       s_name_markup, property_definition, required, json_pointer, references
     ) do
-      content_tag(:div, nil, class: "panel-body") do
+      content_tag(:div, nil, class: "panel-body clonable") do
         schema_object_property_form(
           "[0]".html_safe, property_definition["items"], false,
           new_path, references
