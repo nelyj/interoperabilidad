@@ -149,7 +149,8 @@ class ServiceVersion < ApplicationRecord
       (operation(verb, path)['parameters'] || []) +
       (self.path(path)['parameters'] || [])
     )
-    params.map{ |p| p['in'] }.uniq
+    order = {'path' => 1, 'query' => 2, 'header' => 3, 'body' => 4}
+    params.map{ |p| p['in'] }.uniq.sort_by {|loc| order[loc] || 100}
   end
 
   def update_spec_with_resolved_refs
