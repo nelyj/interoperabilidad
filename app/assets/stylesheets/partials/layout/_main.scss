@@ -258,13 +258,6 @@ strong {
     padding: 40px 0px;
     margin-bottom: 60px;
     background-color: $official-blue;
-    #search-schemas {
-        max-width: 560px;
-        background: white;
-        .input-group {
-            width: 100%;
-        }
-    }
     h1 {
         font-size: $font-24;
         color: white;
@@ -338,7 +331,7 @@ strong {
     }
 }
 
-#search-schema {
+#search-schema, #search-service {
     height: 66px;
     background: #FFFFFF;
     box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.20);
