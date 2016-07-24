@@ -1,7 +1,3 @@
-document.addEventListener 'turbolinks:load', ->
-  $("tr[data-link]").click ->
-    window.location = @dataset.link
-
 $(document).on 'keyup', '.search-filter', ->
   $target = $($(this).data('target'))
   filter = $(this).val()

@@ -4,16 +4,6 @@ windowWidth = 0
 urlSourceCode = null
 editors = {}
 
-resizeEditors = ->
-  for location, editor of editors
-    editor.resize()
-
-paramsFromEditors = ->
-  params = {}
-  for loc, editor of editors
-    params["#{loc}_params"] = JSON.parse(editor.getValue())
-  return params
-
 document.addEventListener 'turbolinks:load', ->
   setContainerServicesWidth()
   urlSourceCode = $("#generate-code").attr("href")
@@ -25,6 +15,16 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].getSession().setMode("ace/mode/json");
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
+
+resizeEditors = ->
+  for location, editor of editors
+    editor.resize()
+
+paramsFromEditors = ->
+  params = {}
+  for loc, editor of editors
+    params["#{loc}_params"] = JSON.parse(editor.getValue())
+  return params
 
 $(window).resize ->
   setContainerServicesWidth()
