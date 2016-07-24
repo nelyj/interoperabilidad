@@ -20,18 +20,16 @@ $(document).on 'fileselect', ':file', (event, numFiles, label) ->
   if input.length
     input.val log
     $('#input-file, #remove-file').show()
-    $('#label-file').hide()
     return
 
 titleize = (string) ->
   string.split(/[\s|_]/).map((s) -> s[0].toUpperCase() + s.slice(1)).join('')
 
-
 $(document).on 'change', ':file', ->
   input = $(this)
   numFiles = if input.get(0).files then input.get(0).files.length else 1
   label = input.val().replace(/\\/g, '/').replace(/.*\//, '')
-  $('#schema_name').val(titleize(label.replace(/\..*$/, '')))
+  $('#schema_name, #service_name').val(titleize(label.replace(/\..*$/, '')))
   input.trigger 'fileselect', [
     numFiles
     label
@@ -39,10 +37,9 @@ $(document).on 'change', ':file', ->
   return
 
 $(document).on 'click', '#remove-file', ->
-  $('#input-file, #remove-file').hide()
-  $('#label-file').show()
-  $("#input-file, #schema_spec_file, #schema_version_spec_file").val ""
-
+  $('#remove-file').hide()
+  $("#input-file, #schema_spec_file, #schema_version_spec_file").val("")
+  $("#service_spec_file, #service_version_spec_file").val("")
 
 this.filterSchemas = filterSchemas = (category) ->
   dataCategory = '[data-categories*="' + category + '"]'

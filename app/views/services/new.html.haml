@@ -15,33 +15,40 @@
             %ul
               - @service.errors.full_messages.each do |message|
                 %li= message
-    .instance-panel
+    .title-panel-pages
       .container
-        .col-md-12{:class => "text-center"}
-          .box-new-service-file
-            .box-title
-              %span +
-              %p= t(:create_service)
+        .row
+          .col-md-12
+            %h1= @organization.name
+    .container-fluid.new-service-container
+      .container
+        .row
+          .col-md-6
+            %h3= t(:enter_new_service_file)
             .input-group.box-input-file
-              %label#label-file.input-group-btn
-                %span#select-file.btn.btn-action-red.btn-lg= t(:choose_file)
-                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
               .field
                 %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
-              %span#remove-file
-                %span.glyphicon.glyphicon-remove{":aria-hidden" => true}
-    .container.new-service-container
-      .row
-        .col-md-6
-          %h3= t(:enter_new_service_name)
-          = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:service_name_example)}
-          %div{id: 'check_box_new'}
-            = f.check_box :public, style: "display: inline;"
-            = image_tag 'open-data.png', size: '16x16', style: "display: inline;"
-            %h3{style: "display: inline;"}= t(:public)
-        .col-md-6
-          = f.hidden_field 'organization_id', value: @organization.id
-        .col-md-6
-          .text-right
-            = f.submit t(:create_service), class: 'btn btn-action-red btn-lg',
-              id: "create-service"
+              %label#label-file.input-group-btn
+                %span#select-file.btn= t(:choose_file)
+                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
+            %span#remove-file
+              %i.material-icons close
+              %span=t(:remove_file)
+        .row
+          .col-md-6
+            %h3= t(:enter_new_service_name)
+            = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:service_name_example)}
+            #check_box_new
+              = f.check_box :public, style: "display: inline;", id: "input-checkbox-new-service"
+              %label{for: "input-checkbox-new-service"}
+                = image_tag 'open-data.png', size: '16x16', style: "display: inline;"
+                = t(:public)
+            = f.hidden_field 'organization_id', value: @organization.id
+        .row
+          .col-md-12
+            .text-right
+              = f.submit t(:create_service), class: 'btn btn-primary btn-lg',
+                id: "create-service"
+          %br
+
+

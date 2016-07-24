@@ -1,136 +1,132 @@
 //Agreements partial stylesheet
-
-.title-panel-pages{
-	.container{
-		h1{
-			padding: 0 2px;
-			margin: 50px 0;
-			font-size: $font-24;
-			font-weight: 300;
-			color: $official-blue;
-		}
-	}
+.title-panel-pages {
+    min-height: 177px;
+    background-color: rgba(241, 241, 241, 1);
+    .container {
+        h1 {
+            padding: 0 2px;
+            margin: 50px 0;
+            font-size: $font-24;
+            font-weight: 300;
+            color: $official-blue;
+        }
+    }
 }
 
-.content-tabs{
-	background: $main-section-content;
+.content-tabs {
+    background: $main-section-content;
 }
 
 .new-agreement,
-.show-agreement{
-	.main-title{
-		background: $main-section-content;
-		border-bottom: 1px solid #f0f0f0;
-		position: relative;
-		padding: 18px 0;
-		.container{
-			position: relative;
-		}
-		h1{
-			color: $official-blue;
-			font-size: $font-18;
-			margin: 0;
-			padding: 0;
-		}
-		a{
-			position: absolute;
-	    right: 12px;
-	    top: -3px;
-		}
-	}
-	.new-agreement-content,
-  .show-agreement-content{
-		background: $main-section-content;
-		padding: 20px 0 40px 0;
-		.form-group{
-			.row{
-				padding: 20px 0 10px  0;
-			}
-			textarea{
-				min-height: 120px;
-			}
-		}
-		.services-list{
-			margin-top: 26px;
-			padding-left: 20px;
-		}
-	}
-  .show-agreement-content{
-    background: none;
-    border-top: 1px solid #e0e0e0;
-  }
-
-  .description{
-    padding: 12px;
-    font-size: $font-14;
-    margin-bottom: 24px;
-    p{
-      margin: 0 0 2px 0;
-      line-height: 130%;
-      strong{
-      }
-    }
-    ul{
-      padding-left: 20px;
-      margin: 0;
-    }
-  }
-
-  .visor{
-    width: 98%;
-    margin-bottom: 20px;
-    textarea,
-    .preview{
-      width: 100%;
-      height: 500px;
-      border: 1px solid #d0d0d0;
-      background: white;
-      &:hover,
-      &:focus{
-        box-shadow: none;
-      }
-    }
-    .preview{
-      overflow: hidden;
-      overflow-y: auto;
-    }
-  }
-
-  .actions{
-    .btn{
-      margin-right: 4px;
-    }
-  }
-
-  .box{
-    background: white;
-    padding: 0;
-    margin-bottom: 24px;
-    border: 1px solid #e1e1e1;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    .header-box{
-      padding: 20px 16px;
-      border-bottom: 1px solid #e1e1e1;
-      font-size: 14px;
-      font-family: $font-bold;
-      span.btn-status{
-        float: right;
-        text-transform: uppercase;
-        font-size: 12px;
-      }
-    }
-    .body-box{
-      padding: 20px 16px;
-      .event{
-        margin: 0px 0 20px 0;
-        border-bottom: 1px dotted #ccc;
-        padding-bottom: 10px;
-        &:last-child{
-          border: none;
-          margin-bottom: 0;
-          padding-bottom: 0;
+.show-agreement {
+    .main-title {
+        background: $main-section-content;
+        border-bottom: 1px solid #f0f0f0;
+        position: relative;
+        padding: 18px 0;
+        .container {
+            position: relative;
         }
-      }
+        h1 {
+            color: $official-blue;
+            font-size: $font-18;
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            position: absolute;
+            right: 12px;
+            top: -3px;
+        }
     }
-  }
+    .new-agreement-content,
+    .show-agreement-content {
+        background: $main-section-content;
+        padding: 20px 0 40px 0;
+        .form-group {
+            .row {
+                padding: 20px 0 10px 0;
+            }
+            textarea {
+                min-height: 120px;
+            }
+        }
+        .services-list {
+            margin-top: 26px;
+            padding-left: 20px;
+        }
+    }
+    .show-agreement-content {
+        background: none;
+        border-top: 1px solid #e0e0e0;
+    }
+    .description {
+        padding: 12px;
+        font-size: $font-14;
+        margin-bottom: 24px;
+        p {
+            margin: 0 0 2px 0;
+            line-height: 130%;
+            strong {}
+        }
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+    }
+    .visor {
+        width: 98%;
+        margin-bottom: 20px;
+        textarea,
+        .preview {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #d0d0d0;
+            background: white;
+            &:hover,
+            &:focus {
+                box-shadow: none;
+            }
+        }
+        .preview {
+            overflow: hidden;
+            overflow-y: auto;
+        }
+    }
+    .actions {
+        .btn {
+            margin-right: 4px;
+        }
+    }
+    .box {
+        background: white;
+        padding: 0;
+        margin-bottom: 24px;
+        border: 1px solid #e1e1e1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        .header-box {
+            padding: 20px 16px;
+            border-bottom: 1px solid #e1e1e1;
+            font-size: 14px;
+            font-family: $font-bold;
+            span.btn-status {
+                float: right;
+                text-transform: uppercase;
+                font-size: 12px;
+            }
+        }
+        .body-box {
+            padding: 20px 16px;
+            .event {
+                margin: 0px 0 20px 0;
+                border-bottom: 1px dotted #ccc;
+                padding-bottom: 10px;
+                &:last-child {
+                    border: none;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
 }

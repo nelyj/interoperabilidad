@@ -34,6 +34,8 @@ es:
   enter_schema_name: Ingresa nombre de Esquema
   enter_new_schema_name: Indica nombre para el esquema
   enter_new_service_name: Indica nombre para el servicio
+  enter_new_service_file: Selecciona un Archivo
+  remove_file: Remover archivo
   description: Descripción
   description_not_found: Descripción no disponible
   name_search: Buscar por nombre
