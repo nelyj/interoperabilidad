@@ -37,9 +37,9 @@ $(document).on 'change', ':file', ->
   return
 
 $(document).on 'click', '#remove-file', ->
-  $('#remove-file').hide()
   $("#input-file, #schema_spec_file, #schema_version_spec_file").val("")
   $("#service_spec_file, #service_version_spec_file").val("")
+  $(this).hide()
 
 this.filterSchemas = filterSchemas = (category) ->
   dataCategory = '[data-categories*="' + category + '"]'
