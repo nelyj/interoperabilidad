@@ -4,6 +4,18 @@ windowWidth = 0
 urlSourceCode = null
 editors = {}
 
+document.addEventListener 'turbolinks:load', ->
+  setContainerServicesWidth()
+  urlSourceCode = $('#generate-code').attr('href')
+  $('.console-parameter-group .raw-json').each (index, element) ->
+    location = $(element).closest('.console-parameter-group').data('location')
+    editors[location] = ace.edit(element);
+    editors[location].$blockScrolling = Infinity
+    editors[location].setTheme("ace/theme/monokai");
+    editors[location].getSession().setMode("ace/mode/json");
+    editors[location].setValue("{}")
+  setConsoleBtnOptions('#btns-service-console li a:first')
+  cloneObjectsForm()
 resizeEditors = ->
   for location, editor of editors
     editor.resize()
@@ -18,19 +30,6 @@ cloneObjectsForm = () ->
   $('.clonable').each (index, element) ->
     clonedElement = $(element).clone()
     $(clonedElement).insertBefore($(element)).addClass('template')
-
-document.addEventListener 'turbolinks:load', ->
-  setContainerServicesWidth()
-  urlSourceCode = $('#generate-code').attr('href')
-  $('.console-parameter-group .raw-json').each (index, element) ->
-    location = $(element).closest('.console-parameter-group').data('location')
-    editors[location] = ace.edit(element);
-    editors[location].$blockScrolling = Infinity
-    editors[location].setTheme("ace/theme/monokai");
-    editors[location].getSession().setMode("ace/mode/json");
-    editors[location].setValue("{}")
-  setConsoleBtnOptions('#btns-service-console li a:first')
-  cloneObjectsForm()
 
 resizeEditors = ->
   for location, editor of editors
