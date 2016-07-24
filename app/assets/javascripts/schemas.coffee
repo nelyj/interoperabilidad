@@ -23,7 +23,7 @@ $(document).on 'fileselect', ':file', (event, numFiles, label) ->
     return
 
 titleize = (string) ->
-  string = string.split(".")[0].replace(/[^\w\s]/gi, '').replace(/_/g, ' ').trim()
+  string = string.split(".")[0].replace(/-/g, ' ').replace(/[^\w\s]/gi, '').replace(/_/g, ' ').trim()
   string.toUpperCase()
 
 $(document).on 'change', ':file', ->
