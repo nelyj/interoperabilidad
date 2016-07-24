@@ -1,7 +1,7 @@
 require "test_helper"
 require_relative 'support/ui_test_helper'
 
-class ShowServiceOperations < Capybara::Rails::TestCase
+class ShowServiceOperationsTest < Capybara::Rails::TestCase
   include UITestHelper
   include Warden::Test::Helpers
   after { Warden.test_reset! }
