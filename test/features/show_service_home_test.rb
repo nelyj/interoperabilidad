@@ -13,7 +13,7 @@ class ShowServiceHomeTest < Capybara::Rails::TestCase
       featured: true,
       public: false,
       spec_file: File.open(Rails.root / "test/files/sample-services/echo.yaml")
-    ).create_first_version(users(:pedrito))
+    ).create_first_version(users(:pedro))
   end
 
   test "Show organization services after clicking on organization name" do
