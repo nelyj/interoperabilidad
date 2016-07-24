@@ -224,14 +224,20 @@
         .description {
             margin: 0px;
             font-size: 13px;
-            padding: 0px 0px 0px 18px;
+            padding: 0px;
             font-family: $font-courier;
             p {
                 width: 100%;
                 display: block;
                 overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
+                text-align: left;
+                padding-left: 18px;
+            }
+            ul {
+                list-style: inherit;
+            }
+            ul li {
+                text-align: left;
             }
         }
         .panel-title {
