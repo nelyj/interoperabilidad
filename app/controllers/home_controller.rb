@@ -19,6 +19,11 @@ class HomeController < ApplicationController
   end
 
   def pending_approval
-    @pending_services_version = ServiceVersion.proposed
+    return unless user_signed_in?
+    if current_user.is_service_admin?
+      @pending_services_version = ServiceVersion.proposed
+    else
+      redirect_to root_path, notice: t(:not_enough_permissions)
+    end
   end
 end
