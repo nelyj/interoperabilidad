@@ -74,7 +74,7 @@
       .col-md-12.principal-actions{:class => "#{'whitout-permission' unless user_signed_in? && @service.can_be_updated_by?(current_user) }"}
         - if @service.needs_agreement_to_be_used_by?(current_user)
           - if @organization.can_create_agreements_with_this_organization?(current_user)
-            = link_to t(:new_agreement), agreements_index_path, class: "btn btn-primary"
+            = link_to t(:new_agreement), new_agreement_path, class: "btn btn-primary"
         - if @service.can_be_updated_by?(current_user)
           =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
         =link_to t(:view_oas), organization_service_service_version_url(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
@@ -135,41 +135,48 @@
             .title
               %i#fullConsole.material-icons.pull-left zoom_out_map
               %i#closeConsole.material-icons.pull-right clear
-            %h3= t(:parameters)
-            - if @service_version.has_parameters?(@verb, @path)
-              - @service_version.parameter_locations(@verb, @path).each do |location|
-                .console-parameter-group{data: {location: location}}
-                  .subtitle
-                    .col-md-6.text-left
-                      %h3= parameter_section_name(location)
-                    .col-md-6.text-right
-                      %span.bullet-required
-                        =t(:property_required)
-                  %ul.nav.nav-tabs
-                    %li.display-tab.active{"data-tab": ".form-tab"}
-                      %a Form
-                    %li.display-tab{"data-tab": ".json-tab"}
-                      %a JSON
-                  .tab-content
-                    .form-tab.tab-pane.active
-                      = form_tag(format: :json) do
-                        .schema-panel-set
-                          = service_operation_parameters_form(@service_version, @verb, @path, location)
-                    .json-tab.tab-pane
-                      .raw-json
-                %hr
+            - if @service.needs_agreement_to_be_used_by?(current_user)
+              -# When we implement the mock server feature we shall remove this restriction
+              .alert
+                = t(:cant_test_service_without_agreement)
+              - if @organization.can_create_agreements_with_this_organization?(current_user)
+                = link_to t(:new_agreement), new_agreement_path, class: "btn btn-primary"
             - else
-              %p= t(:operation_without_parameters)
-            .btn-group
-              %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-                %span.caret
-              %ul#btns-service-console.dropdown-menu
-                %li
-                  %a Servicio Real
-            %button#try-service.btn.btn-primary= t(:send)
-            .console-parameter-group
-              %h3= t(:response)
-              %pre.code#response
+              %h3= t(:parameters)
+              - if @service_version.has_parameters?(@verb, @path)
+                - @service_version.parameter_locations(@verb, @path).each do |location|
+                  .console-parameter-group{data: {location: location}}
+                    .subtitle
+                      .col-md-6.text-left
+                        %h3= parameter_section_name(location)
+                      .col-md-6.text-right
+                        %span.bullet-required
+                          =t(:property_required)
+                    %ul.nav.nav-tabs
+                      %li.display-tab.active{"data-tab": ".form-tab"}
+                        %a Form
+                      %li.display-tab{"data-tab": ".json-tab"}
+                        %a JSON
+                    .tab-content
+                      .form-tab.tab-pane.active
+                        = form_tag(format: :json) do
+                          .schema-panel-set
+                            = service_operation_parameters_form(@service_version, @verb, @path, location)
+                      .json-tab.tab-pane
+                        .raw-json
+                  %hr
+              - else
+                %p= t(:operation_without_parameters)
+              .btn-group
+                %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+                  %span.caret
+                %ul#btns-service-console.dropdown-menu
+                  %li
+                    %a Servicio Real
+              %button#try-service.btn.btn-primary= t(:send)
+              .console-parameter-group
+                %h3= t(:response)
+                %pre.code#response
 #modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content

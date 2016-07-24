@@ -228,7 +228,7 @@ module ServiceVersionsHelper
 
   def string_primitive_form(primitive, json_pointer, required)
     options = {
-      placeholder: "[ingrese texto]",
+      placeholder: "[ingresa texto]",
       required: required,
       maxlength: primitive['maxLength'],
       pattern: primitive['pattern'],
@@ -253,12 +253,12 @@ module ServiceVersionsHelper
   end
 
   def integer_primitive_form(primitive, json_pointer, required)
-    options = {placeholder: '[ingrese numero]', required: required}
+    options = {placeholder: '[ingresa número]', required: required}
     numeric_primitive_form(primitive, json_pointer, options)
   end
 
   def number_primitive_form(primitive, json_pointer, required)
-    options = {step: 'any', placeholder: '[ingrese numero]', required: required}
+    options = {step: 'any', placeholder: '[ingresa número]', required: required}
     numeric_primitive_form(primitive, json_pointer, options)
   end
 

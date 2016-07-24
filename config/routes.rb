@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   get 'static_pages/visual_components'
-  get 'agreements/index'
-  get 'agreements/show'
-  get 'agreements/new'
-  get 'agreements/edit'
+  resources :agreements
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root to: 'home#root'
