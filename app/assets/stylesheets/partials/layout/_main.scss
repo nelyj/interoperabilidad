@@ -46,6 +46,11 @@ body {
             background-color: rgba(255, 255, 255, 1);
         }
     }
+    &.home_index {
+        .instance-panel {
+            margin-bottom: 30px;
+        }
+    }
 }
 
 .main-container {
@@ -211,7 +216,7 @@ strong {
         margin: 0px;
         a {
             font-family: $font-bold;
-            color: $official-blue;
+            color: rgba(0, 82, 140, 1);
             text-overflow: ellipsis;
             &:hover {
                 text-decoration: none;
@@ -330,7 +335,8 @@ strong {
     }
 }
 
-#search-schema, #search-service {
+#search-schema,
+#search-service {
     height: 66px;
     background: #FFFFFF;
     box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.20);
@@ -1167,5 +1173,20 @@ ul.list-operations {
         outline: 0px;
         height: 127px;
         border: 1px solid rgba(210, 210, 210, 1);
+    }
+}
+
+//Home services ( tab lists )
+.intro-services-home {
+    font-size: $font-14;
+}
+
+.list-services-home {
+    margin: 30px 0px 0px 0px;
+    .tab-content {
+        background-color: rgba(255, 255, 255, 1);
+    }
+    .tab-pane {
+        padding: 35px 0px;
     }
 }

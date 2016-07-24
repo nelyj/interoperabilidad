@@ -7,8 +7,7 @@
           .inner-addon.left-addon
             %i.glyphicon.glyphicon-search
             %input#search-service.form-control{:placeholder => t(:enter_service_name), :type => "text", :name => "text_search"}/
-.container
-
+.container.intro-services-home
   %h3 Directorio de Servicios
   %p
     Bienvenido al Directorio de Servicios y Esquemas, donde podrás encontrar los
@@ -26,20 +25,24 @@
   %p
     Puedes empezar mirando los servicios que hemos destacado, los mas usados, o
     buscar libremente en la caja de texto de más arriba.
-  .row
-    .col-md-12
-      %ul.nav.nav-tabs{:role => "tablist"}
-        %li.active{:role => "presentation"}
-          %a{"aria-controls" => "#featured", "data-toggle" => "tab", :href => "#featured", :role => "tab"} Servicios Destacados
-        %li{:role => "presentation"}
-          %a{"aria-controls" => "#popular", "data-toggle" => "tab", :href => "#popular", :role => "tab"} Servicios Más Usados
-  .tab-content
-    #featured.tab-pane.active{role: 'tabpanel'}
-      .row
-        .col-md-12.schema-wrapper.text-left
-          = render partial: "boxes", locals: {services: @featured_services}
 
+.container-fliud.list-services-home
+  .container
+    .row
+      .col-md-12
+        %ul.nav.nav-tabs{:role => "tablist"}
+          %li.active{:role => "presentation"}
+            %a{"aria-controls" => "#featured", "data-toggle" => "tab", :href => "#featured", :role => "tab"} Servicios Destacados
+          %li{:role => "presentation"}
+            %a{"aria-controls" => "#popular", "data-toggle" => "tab", :href => "#popular", :role => "tab"} Servicios Más Usados
+  .container-fluid.tab-content
+    #featured.tab-pane.active{role: 'tabpanel'}
+      .container
+        .row
+          .col-md-12.schema-wrapper.text-left
+            = render partial: "boxes", locals: {services: @featured_services}
     #popular.tab-pane{role: 'tabpanel'}
-      .row
-        .col-md-12.schema-wrapper.text-left
-          = render partial: "boxes", locals: {services: @popular_services}
+      .container
+        .row
+          .col-md-12.schema-wrapper.text-left
+            = render partial: "boxes", locals: {services: @popular_services}
