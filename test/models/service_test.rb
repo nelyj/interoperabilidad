@@ -54,6 +54,10 @@ class ServiceTest < ActiveSupport::TestCase
     assert_equal 3, service.last_version_number
   end
 
+  test "#can_be_updated_by? returns false if user is nil" do
+    assert_not create_valid_service!.can_be_updated_by?(nil)
+  end
+
   test "#can_be_updated_by? returns true for a user who belongs to the service's organization and is a Service Provider" do
     service = create_valid_service!
     perico = users(:perico)

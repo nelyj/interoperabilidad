@@ -114,6 +114,10 @@ es:
   operation_without_parameters: Operación sin parámetros
   property_required: Propiedad Requerida
   select_file: Seleccionar Archivo
+  public_service: Servicio Público
+  service_needs_agreement: Este servicio requiere un convenio activo para ser usado.
+  login_to_be_able_to_create_agreements: Identifíquese con su clave única para solicitar un convenio.
+  role_cant_create_agreement: No tiene permisos suficientes para solicitar convenios.
   error:
     one: 1 error
     other: "%{count} errores"

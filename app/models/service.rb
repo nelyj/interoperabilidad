@@ -45,7 +45,7 @@ class Service < ApplicationRecord
   end
 
   def can_be_updated_by?(user)
-    user.roles.where(organization_id: organization.id).exists?(name: "Service Provider")
+    !user.nil? && user.roles.where(organization_id: organization.id).exists?(name: "Service Provider")
   end
 
   def last_version
@@ -91,5 +91,13 @@ class Service < ApplicationRecord
 
   def update_humanized_name
     self.humanized_name = self.name.underscore.humanize
+  end
+
+  def needs_agreement_to_be_used_by?(user)
+    return false if self.public # Public services don't need agreements
+    return true if user.nil? # Logged out users can't access non-public services
+    return false if user.organizations.include?(self.organization) # Users can access services inside their own orgs (?)
+    # TODO: return false if any of the user orgs has a current agreement with this service
+    return true
   end
 end

@@ -5,6 +5,17 @@
     .col-md-6.no-gutter
       = select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name"), class: "form-control input-lg"
 
+- if @service.needs_agreement_to_be_used_by?(current_user)
+  .container
+    .row
+      .alert
+        = t(:service_needs_agreement)
+        - if user_signed_in?
+          - if !@organization.can_create_agreements_with_this_organization?(current_user)
+            = t(:role_cant_create_agreement)
+        - else
+          = t(:login_to_be_able_to_create_agreements)
+
 - if user_signed_in? && current_user.is_service_admin? && @service_version.proposed?
   .container-fluid.panel-error.warning.alert.fade.in{:"data-alert" => "alert"}
     .container
@@ -32,8 +43,10 @@
       .col-md-8
         .title
           %h1
-            = @service_version.service.name
+            = @service_version.name
             ="R" + @service_version.version_number.to_s
+            - if @service_version.service.public
+              = image_tag('open-data.png', size: '16x16', alt: t(:public_service), title: t(:public_service))
           %span{class: css_class_for_status(@service_version.status)}
             = t(@service_version.status)
         %br
@@ -59,11 +72,11 @@
 
     .row
       .col-md-12.principal-actions{:class => "#{'whitout-permission' unless user_signed_in? && @service.can_be_updated_by?(current_user) }"}
-        - if user_signed_in?
-          - if @organization.can_create_agreement?(current_user)
-            =link_to t(:new_agreement), agreements_index_path, class: "btn btn-primary"
-          - if @service.can_be_updated_by?(current_user)
-            =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
+        - if @service.needs_agreement_to_be_used_by?(current_user)
+          - if @organization.can_create_agreements_with_this_organization?(current_user)
+            = link_to t(:new_agreement), agreements_index_path, class: "btn btn-primary"
+        - if @service.can_be_updated_by?(current_user)
+          =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
         =link_to t(:view_oas), organization_service_service_version_url(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
         %button.btn.btn-static{"data-target" => "#modalDownloadCode", "data-toggle" => "modal", :type => "button"}
           = t(:generate_code)

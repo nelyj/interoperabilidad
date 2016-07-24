@@ -9,12 +9,12 @@ class ShowServiceDetail < Capybara::Rails::TestCase
   before do
     @service_v = Service.create!(
       name: "PetsServiceName",
-      organization: organizations(:minsal),
+      organization: organizations(:sii),
       spec_file: File.open(Rails.root / "test/files/sample-services/petsfull.yaml")
     ).create_first_version(users(:pedro))
   end
 
-  test "Show service " do
+  test "Show service" do
     visit organization_service_service_version_path(
       @service_v.organization, @service_v.service, @service_v
     )
@@ -36,6 +36,21 @@ class ShowServiceDetail < Capybara::Rails::TestCase
     within ".principal-actions" do
       assert_link "Solicitar Convenio"
     end
+    assert_content "Este servicio requiere un convenio activo para ser usado"
+  end
+
+  test "No Agreement button for public services" do
+    users(:pablito).roles.create(organization: organizations(:segpres), name: "Create Agreement", email: "mail@example.org")
+    @service_v.service.update!(public: true)
+    login_as(users(:pablito))
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_content "PetsServiceName"
+    within ".principal-actions" do
+      assert_no_link "Solicitar Convenio"
+    end
+    assert_no_content "Este servicio requiere un convenio activo para ser usado"
   end
 
   test "No Agreement button for User for same organization" do
@@ -47,9 +62,11 @@ class ShowServiceDetail < Capybara::Rails::TestCase
     within ".principal-actions" do
       assert_no_link "Solicitar Convenio"
     end
+    assert_no_content "Este servicio requiere un convenio activo para ser usado"
   end
 
-  test "No Agreement button for User for another organization and Role Service Provider" do
+
+  test "No Agreement button for User for another organization without Create Agreement role" do
     login_as( users(:pablito) )
     visit organization_service_service_version_path(
       @service_v.organization, @service_v.service, @service_v
@@ -58,6 +75,20 @@ class ShowServiceDetail < Capybara::Rails::TestCase
     within ".principal-actions" do
       assert_no_link "Solicitar Convenio"
     end
+    assert_content "Este servicio requiere un convenio activo para ser usado"
+    assert_content "No tiene permisos suficientes para solicitar convenios"
+  end
+
+  test "No Agreement button when user is not logged in" do
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_content "PetsServiceName"
+    within ".principal-actions" do
+      assert_no_link "Solicitar Convenio"
+    end
+    assert_content "Este servicio requiere un convenio activo para ser usado"
+    assert_content "Identifíquese con su clave única para solicitar un convenio"
   end
 
 end
