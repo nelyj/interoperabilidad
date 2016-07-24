@@ -726,7 +726,7 @@ ul.list-operations {
     }
     .description {
         max-height: 200px;
-        overflow-y: scroll;
+        overflow-y: auto;
         font-size: $font-18;
         margin-bottom: 30px;
         padding-right: 10px;
