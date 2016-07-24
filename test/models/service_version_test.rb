@@ -36,22 +36,22 @@ class ServiceVersionTest < ActiveSupport::TestCase
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                     user: users(:perico))
-    service.service_versions.last.rejected!
+    service.last_version.rejected!
 
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                      user: users(:perico))
-    service.service_versions.last.retired!
+    service.last_version.retired!
 
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                      user: users(:perico))
-    service.service_versions.last.outdated!
+    service.last_version.outdated!
 
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                      user: users(:perico))
-    service.service_versions.last.current!
+    service.last_version.current!
 
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
@@ -133,17 +133,17 @@ class ServiceVersionTest < ActiveSupport::TestCase
                                      service: service,
                                     user: users(:pablito),
                                     backwards_compatible: true)
-    service.service_versions.last.reject_version
+    service.last_version.reject_version
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                     user: users(:pablito),
                                     backwards_compatible: true)
-    service.service_versions.last.reject_version
+    service.last_version.reject_version
     service.service_versions.create!(spec_file: StringIO.new(VALID_SPEC),
                                      service: service,
                                     user: users(:pablito),
                                     backwards_compatible: true)
-    service.service_versions.last.reject_version
+    service.last_version.reject_version
     assert_equal 3, service.service_versions.rejected.length
   end
 
