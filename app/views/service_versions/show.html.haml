@@ -71,7 +71,7 @@
         %br
 
     .row
-      .col-md-12.principal-actions{:class => "#{'whitout-permission' unless user_signed_in? && @service.can_be_updated_by?(current_user) }"}
+      .col-md-12.principal-actions{:class => "#{'button-disabled' unless user_signed_in? && (@service.can_be_updated_by?(current_user) && (@service.needs_agreement_to_be_used_by?(current_user) && @organization.can_create_agreements_with_this_organization?(current_user))) }"}
         - if @service.needs_agreement_to_be_used_by?(current_user)
           - if @organization.can_create_agreements_with_this_organization?(current_user)
             = link_to t(:new_agreement), new_agreement_path, class: "btn btn-primary"
