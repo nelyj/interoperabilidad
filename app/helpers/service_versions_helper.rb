@@ -207,54 +207,74 @@ module ServiceVersionsHelper
   end
 
   def form_primitive_specifics(primitive, json_pointer, required)
-    case s(primitive['type'])
-    when "string"
-      string_primitive_form(primitive, json_pointer, required)
-    when "integer"
-      integer_primitive_form(primitive, json_pointer, required)
-    when "number"
-      number_primitive_form(primitive, json_pointer, required)
-    when "boolean"
-      boolean_primitive_form(primitive, json_pointer, required)
+    if primitive['enum']
+      options = required ? {} : {include_blank: true}
+      select_tag(json_pointer, options_for_select(primitive['enum']), options)
     else
-      "".html_safe
+      case s(primitive['type'])
+      when "string"
+        string_primitive_form(primitive, json_pointer, required)
+      when "integer"
+        integer_primitive_form(primitive, json_pointer, required)
+      when "number"
+        number_primitive_form(primitive, json_pointer, required)
+      when "boolean"
+        boolean_primitive_form(primitive, json_pointer, required)
+      else
+        "".html_safe
+      end
     end
   end
 
   def string_primitive_form(primitive, json_pointer, required)
-    options = {placeholder: "Ej: Hola", required: required}
+    options = {
+      placeholder: "[ingrese texto]",
+      required: required,
+      maxlength: primitive['maxLength'],
+      pattern: primitive['pattern'],
+      data: {
+        minLength: primitive['minLength']
+      }
+    }
     if primitive['format'].present?
       case s(primitive['format'])
       when 'password'
-        password_field_tag(json_pointer, nil, options)
+        password_field_tag(json_pointer, primitive['default'].to_s, options)
       when 'date-time'
-        datetime_local_field_tag(json_pointer, nil, options)
+        datetime_local_field_tag(json_pointer, primitive['default'].to_s, options)
       when 'date'
-        date_field_tag(json_pointer, nil, options)
+        date_field_tag(json_pointer, primitive['default'].to_s, options)
       else
-        text_field_tag(json_pointer, nil, options)
+        text_field_tag(json_pointer, primitive['default'].to_s, options)
       end
     else
-      text_field_tag(json_pointer, nil, options)
+      text_field_tag(json_pointer, primitive['default'].to_s, options)
     end
   end
 
   def integer_primitive_form(primitive, json_pointer, required)
-    options = {placeholder: 'Ej: 0', required: required}
-    numeric_primitive_form(json_pointer, nil, options)
+    options = {placeholder: '[ingrese numero]', required: required}
+    numeric_primitive_form(primitive, json_pointer, options)
   end
 
   def number_primitive_form(primitive, json_pointer, required)
-    options = {step: 'any', placeholder: 'Ej: 2.4', required: required}
+    options = {step: 'any', placeholder: '[ingrese numero]', required: required}
     numeric_primitive_form(primitive, json_pointer, options)
   end
 
   def numeric_primitive_form(primitive, json_pointer, options)
-    number_field_tag(json_pointer, nil, options)
+    options[:max] = primitive['maximum']
+    options[:min] = primitive['minimum']
+    options[:data] = {
+      exclusiveMaximum: primitive['exclusiveMaximum'],
+      exclusiveMinimum: primitive['exclusiveMinimum'],
+      multipleOf: primitive['multipleOf']
+    }
+    number_field_tag(json_pointer, primitive['default'].to_s, options)
   end
 
   def boolean_primitive_form(primitive, json_pointer, required)
-    check_box_tag(json_pointer, nil, required: required)
+    check_box_tag(json_pointer, primitive['default'].to_s, required: required)
   end
 
   def schema_object_primitive_property_form(name, primitive_property_definition, required, json_pointer, references)
