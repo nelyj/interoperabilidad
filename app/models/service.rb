@@ -100,4 +100,8 @@ class Service < ApplicationRecord
     # TODO: return false if any of the user orgs has a current agreement with this service
     return true
   end
+
+  def url
+    Rails.application.routes.url_helpers.organization_service_path(self.organization, self)
+  end
 end

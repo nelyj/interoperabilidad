@@ -3,7 +3,7 @@
     .col-md-6.no-gutter
       %h2=@organization.name
     .col-md-6.no-gutter
-      = select_tag "Otros servicios de esta institución", options_from_collection_for_select(@organization.services, "id", "name"), class: "form-control input-lg"
+      = select_tag "switch_service_select", options_from_collection_for_select(@organization.services, "url", "name"), class: "form-control input-lg", include_blank: "Otros servicios de esta institución"
 
 - if @service.needs_agreement_to_be_used_by?(current_user)
   .container

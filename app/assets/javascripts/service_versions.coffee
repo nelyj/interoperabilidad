@@ -155,3 +155,8 @@ $(document).on 'click', '#try-service', ->
   ).always( ->
     hljs.highlightBlock document.getElementById('response')
   )
+
+$(document).on 'change', '#switch_service_select', ->
+  targetURL = $(this).val()
+  if targetURL
+    location.href = targetURL
