@@ -206,7 +206,7 @@ strong {
         width: 98%;
     }
     .title {
-        height: 65px;
+        height: 64px;
         overflow: hidden;
         padding: 20px 20px 0px 20px;
         line-height: 21px;
@@ -223,10 +223,10 @@ strong {
             }
         }
         &.opendata {
-            background-image: image-url("open-data.png");
-            background-position: 95% 50%;
-            background-repeat: no-repeat;
             background-size: auto 30%;
+            background-repeat: no-repeat;
+            background-position: 95% 45%;
+            background-image: image-url("open-data.png");
         }
     }
     .body {
