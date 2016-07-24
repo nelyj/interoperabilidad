@@ -66,7 +66,6 @@ $(document).on 'click', '.collapseConsole', ->
     .promise().done =>
       unless $('.console').hasClass('in')
       else
-        console.log "consola in"
         $('.container-service').width(windowWidth - widthVerbsCollapsed)
         $('.collapseConsole')
           .removeClass('btn-success')

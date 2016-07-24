@@ -1,7 +1,6 @@
 $(document).on 'keyup', '.search-filter', ->
   $target = $($(this).data('target'))
   filter = $(this).val()
-  console.log $target.find('tr')
   if filter == ""
     $target.find('tbody tr').show()
   else
