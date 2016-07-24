@@ -218,12 +218,11 @@ strong {
             }
         }
         &.opendata {
-          background-image: image-url("open-data.png");
-          background-position: 95% 50%;
-          background-repeat: no-repeat;
-          background-size: auto 30%;
+            background-image: image-url("open-data.png");
+            background-position: 95% 50%;
+            background-repeat: no-repeat;
+            background-size: auto 30%;
         }
-
     }
     .body {
         padding: 5px 20px;
@@ -370,6 +369,7 @@ strong {
     }
 }
 
+
 /* File Schema Upload*/
 
 .box-new-schema-file {
@@ -444,7 +444,7 @@ strong {
 }
 
 .box-new-service-file {
-  @extend .box-new-schema-file
+    @extend .box-new-schema-file
 }
 
 h3,

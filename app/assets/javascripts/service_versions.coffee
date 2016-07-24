@@ -4,9 +4,24 @@ windowWidth = 0
 urlSourceCode = null
 editors = {}
 
+resizeEditors = ->
+  for location, editor of editors
+    editor.resize()
+
+paramsFromEditors = ->
+  params = {}
+  for loc, editor of editors
+    params["#{loc}_params"] = JSON.parse(editor.getValue())
+  return params
+
+cloneObjectsForm = () ->
+  $('.clonable').each (index, element) ->
+    clonedElement = $(element).clone()
+    $(clonedElement).insertBefore($(element)).addClass('template')
+
 document.addEventListener 'turbolinks:load', ->
   setContainerServicesWidth()
-  urlSourceCode = $("#generate-code").attr("href")
+  urlSourceCode = $('#generate-code').attr('href')
   $('.console-parameter-group .raw-json').each (index, element) ->
     location = $(element).closest('.console-parameter-group').data('location')
     editors[location] = ace.edit(element);
@@ -15,6 +30,7 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].getSession().setMode("ace/mode/json");
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
+  cloneObjectsForm()
 
 resizeEditors = ->
   for location, editor of editors
@@ -109,12 +125,14 @@ $(document).on 'change', '#code-options input[type="checkbox"]', ->
   $("#generate-code").attr("href", url)
 
 $(document).on 'click', '.add-element', ->
-  context = $(this).data('context')
-  object = $(".console div[data-pointer='#{context}']")
-  $(object)
-    .first()
-    .clone()
-    .appendTo(object.parent())
+  context = $('.console div[data-pointer="' + $(this).data('context') + '"]')
+  original = $(context).find('.template')
+  cloned = $(context).find('.template').clone()
+  value = 0
+  $(cloned).find('span.name:first').text("[#{value}]")
+  $(cloned)
+    .removeClass('template')
+    .insertAfter( $(original) )
 
 $(document).on 'click', '.display-tab', (e) ->
   e.preventDefault()

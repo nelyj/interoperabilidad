@@ -315,7 +315,7 @@ module ServiceVersionsHelper
         )
       end +
       content_tag(:div, class: 'text-right') do
-        content_tag(:a, "Agregar Elemento", class: "btn add-element", data: {context: new_path})
+        content_tag(:a, "Agregar Elemento", class: "btn add-element", data: {context: json_pointer})
       end
     end
   end
