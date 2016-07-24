@@ -37,7 +37,7 @@
           = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:service_name_example)}
           %div{id: 'check_box_new'}
             = f.check_box :public, style: "display: inline;"
-            = image_tag 'open-data', size: '16x16', style: "display: inline;"
+            = image_tag 'open-data.png', size: '16x16', style: "display: inline;"
             %h3{style: "display: inline;"}= t(:public)
         .col-md-6
           = f.hidden_field 'organization_id', value: @organization.id
