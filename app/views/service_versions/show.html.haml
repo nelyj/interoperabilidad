@@ -164,7 +164,7 @@
                         %a JSON
                     .tab-content
                       .form-tab.tab-pane.active
-                        = form_tag(format: :json) do
+                        = form_tag('#') do
                           .schema-panel-set
                             = service_operation_parameters_form(@service_version, @verb, @path, location)
                       .json-tab.tab-pane
