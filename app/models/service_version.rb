@@ -321,7 +321,7 @@ class ServiceVersion < ApplicationRecord
   def _resolve_path(original_path, path_params)
     resolved_path = original_path.dup
     path_params.each do |name, value|
-      resolved_path.gsub!("{#{name}}", URI.escape(value))
+      resolved_path.gsub!("{#{name}}", URI.escape(value.to_s))
     end
     resolved_path
   end

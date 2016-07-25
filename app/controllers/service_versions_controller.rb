@@ -72,6 +72,8 @@ class ServiceVersionsController < ApplicationController
       params[:header_params].try(:to_unsafe_h) || {},
       params[:body_params].try(:to_unsafe_h).to_json
     ).to_s
+  rescue Exception => e
+    render plain: (t(:error_while_invoking_service) + ":\n\t" +  e.to_s)
   end
 
   def reject

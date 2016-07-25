@@ -121,6 +121,7 @@ es:
   login_to_be_able_to_create_agreements: Identifíquese con su clave única para solicitar un convenio.
   role_cant_create_agreement: No tiene permisos suficientes para solicitar convenios.
   cant_test_service_without_agreement: Se requiere de un convenio activo para probar este servicio.
+  error_while_invoking_service: Error mientras se invocaba al servicio
   error:
     one: 1 error
     other: "%{count} errores"
