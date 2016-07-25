@@ -200,6 +200,7 @@ $(document).on 'click', '#btns-service-console li a', () ->
 
 $(document).on 'click', '#try-service', ->
   $.ajax(
+    url: location.href,
     method: 'POST'
     contentType: 'application/json'
     data: JSON.stringify(paramsFromEditors()),
