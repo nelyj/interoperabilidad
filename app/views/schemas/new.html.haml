@@ -15,33 +15,41 @@
             %ul
               - @schema.errors.full_messages.each do |message|
                 %li= message
-    .title-panel-pages
-      .container
-        .row
-          .col-md-12
-            %h1 Nuevo Esquema
+    .new-agreement.main-container
+      .container-fluid.main-title
+        .container
+          .row
+            .col-md-12
+              %h1
+                Creación de Nuevo Esquema
+              %a{:href => "javascript:history.back();"}
+                %i.material-icons
+                  close
 
-    .content-pages.box-new-schema
-      .container
-        .row
-          .col-md-4
-            %p.box-title= t(:create_schema)
-            .input-group.box-input-file
-              %label#label-file.input-group-btn
-                %span#select-file.btn= t(:choose_file)
-                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
-              .field
-                %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
+      .container-fluid
+        .container
+          .row.new-service-container
+            .col-md-4
+              %h4= t(:create_schema)
+              .input-group.box-input-file
+                .field
+                  %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
+                %label#label-file.input-group-btn
+                  %span#select-file.btn= t(:choose_file)
+                  = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
               %span#remove-file
-                %i.material-icons{":aria-hidden" => true}
-                  delete
-          .col-md-3
-            %p.box-title= t(:enter_new_schema_name)
-            = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:schema_name_example)}
-          .col-md-3
-            %p.box-title= t(:enter_new_schema_category)
-            = f.collection_select 'schema_category_ids', SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
-          .col-md-2
-            %p.box-title
-            = f.submit t(:create_schema), class: 'btn btn-action-red btn-lg', id: "create-schema"
+                %i.material-icons{":aria-hidden" => true} close
+                %span=t(:remove_file)
+
+            .col-md-4
+              %h4= t(:enter_new_schema_name)
+              = f.text_field :name, { :class => "form-control input-lg", :placeholder => t(:schema_name_example)}
+            .col-md-4
+              %h4= t(:enter_new_schema_category)
+              = f.collection_select 'schema_category_ids', SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
+
+          .row
+            .col-md-12
+              .text-right
+                = f.submit t(:create_schema), class: 'btn btn-primary btn-lg', id: "create-schema"
 
