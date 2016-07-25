@@ -214,3 +214,10 @@ $(document).on 'change', '#switch_service_select', ->
   targetURL = $(this).val()
   if targetURL
     location.href = targetURL
+
+$(document).on 'focus', 'form input[type=number]', (e) ->
+  $(this).on 'mousewheel.disableScroll', (e) ->
+    e.preventDefault()
+
+$(document).on 'blur', 'form input[type=number]', (e) ->
+  $(this).off('mousewheel.disableScroll')
