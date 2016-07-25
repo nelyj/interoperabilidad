@@ -34,14 +34,14 @@ module ServiceVersionsHelper
     join_markup(path_parameters.map do |index, parameter|
       service_parameter_form(
         location, parameter,
-        json_pointer_path('/paths', path, 'parameters', index.to_s),
+        json_pointer_path('/paths', path, 'parameters', index.to_s), '/',
         service_version.spec_with_resolved_refs['references']
       )
     end) +
     join_markup(operation_parameters.map do |index, parameter|
       service_parameter_form(
         location, parameter,
-        json_pointer_path('/paths', path, verb, 'parameters', index.to_s),
+        json_pointer_path('/paths', path, verb, 'parameters', index.to_s), '/',
         service_version.spec_with_resolved_refs['references']
       )
     end)
@@ -151,51 +151,53 @@ module ServiceVersionsHelper
     }[status] || ''
   end
 
-  def service_parameter_form(location, parameter, json_pointer, references)
+  def service_parameter_form(location, parameter, json_pointer, target_json_pointer, references)
     if location == 'body'
       if parameter['schema']['description'].blank?
         parameter['schema'].merge!('description' => parameter['description'])
       end
       schema_object_property_form(parameter['name'],
         parameter['schema'], parameter['required'],
-        json_pointer_path(json_pointer, 'schema'), references)
+        json_pointer_path(json_pointer, 'schema'), target_json_pointer, references)
     else
       schema_object_property_form(parameter['name'],
-        parameter, parameter['required'],  json_pointer, references)
+        parameter, parameter['required'],
+        json_pointer, json_pointer_path(target_json_pointer, parameter['name']),
+        references)
     end
   end
 
-  def schema_object_property_form(name, property_definition, required, json_pointer, references)
+  def schema_object_property_form(name, property_definition, required, json_pointer, target_json_pointer, references)
     if property_definition["type"] == "object"
       schema_object_complex_property_form(
-        name, property_definition, required, json_pointer, references
+        name, property_definition, required, json_pointer, target_json_pointer, references
       )
     elsif property_definition["type"] == "array"
       schema_object_array_property_form(
-        name, property_definition, required, json_pointer, references
+        name, property_definition, required, json_pointer, target_json_pointer, references
       )
     else
       schema_object_primitive_property_form(
-        name, property_definition, required, json_pointer, references
+        name, property_definition, required, json_pointer, target_json_pointer, references
       )
     end
   end
 
-  def dynamic_component_structure_form(s_name_markup, property_definition, required, json_pointer, references)
+  def dynamic_component_structure_form(field_name, s_name_markup, property_definition, required, json_pointer, target_json_pointer, references)
     s_type_and_format = s(property_definition['type']) || ''
     if property_definition.has_key?('format')
       s_type_and_format += "(#{s(property_definition['format'])})"
     end
-    content_tag(:div, nil, class: "panel-group", data: {pointer: json_pointer}) do
+    content_tag(:div, nil, class: "panel-group", data: {pointer: json_pointer, target: target_json_pointer }) do
       content_tag(:div, nil, class: "panel panel-schema") do
         editable_css =  %w(object array).include?(property_definition['type']) ? '' : 'editable '
         content_tag(:div, nil, class: "panel-heading #{editable_css}clearfix") do
           content_tag(:div, nil, class: "panel-title " + (required ? "required" : "")) do
-            content_tag(:div, nil, class: "col-md-6") do
+            content_tag(:div, nil, class: "col-md-4") do
               s_name_markup
             end +
-            content_tag(:div, nil, class: "col-md-6 text-right") do
-              form_primitive_specifics(property_definition, json_pointer, required)
+            content_tag(:div, nil, class: "col-md-8 text-right") do
+              form_primitive_specifics(property_definition, field_name, required)
             end
           end
         end +
@@ -206,27 +208,27 @@ module ServiceVersionsHelper
     end
   end
 
-  def form_primitive_specifics(primitive, json_pointer, required)
+  def form_primitive_specifics(primitive, name, required)
     if primitive['enum']
-      options = required ? {} : {include_blank: true}
-      select_tag(json_pointer, options_for_select(primitive['enum']), options)
+      options = {'data-type' => primitive['type'], include_blank: !required}
+      select_tag(name, options_for_select(primitive['enum']), options)
     else
       case s(primitive['type'])
       when "string"
-        string_primitive_form(primitive, json_pointer, required)
+        string_primitive_form(primitive, name, required)
       when "integer"
-        integer_primitive_form(primitive, json_pointer, required)
+        integer_primitive_form(primitive, name, required)
       when "number"
-        number_primitive_form(primitive, json_pointer, required)
+        number_primitive_form(primitive, name, required)
       when "boolean"
-        boolean_primitive_form(primitive, json_pointer, required)
+        boolean_primitive_form(primitive, name, required)
       else
         "".html_safe
       end
     end
   end
 
-  def string_primitive_form(primitive, json_pointer, required)
+  def string_primitive_form(primitive, name, required)
     options = {
       placeholder: "[ingresa texto]",
       required: required,
@@ -239,30 +241,34 @@ module ServiceVersionsHelper
     if primitive['format'].present?
       case s(primitive['format'])
       when 'password'
-        password_field_tag(json_pointer, primitive['default'].to_s, options)
+        password_field_tag(name, primitive['default'].to_s, options)
       when 'date-time'
-        datetime_local_field_tag(json_pointer, primitive['default'].to_s, options)
+        datetime_local_field_tag(name, primitive['default'].to_s, options)
       when 'date'
-        date_field_tag(json_pointer, primitive['default'].to_s, options)
+        date_field_tag(name, primitive['default'].to_s, options)
       else
-        text_field_tag(json_pointer, primitive['default'].to_s, options)
+        text_field_tag(name, primitive['default'].to_s, options)
       end
     else
-      text_field_tag(json_pointer, primitive['default'].to_s, options)
+      text_field_tag(name, primitive['default'].to_s, options)
     end
   end
 
-  def integer_primitive_form(primitive, json_pointer, required)
-    options = {placeholder: '[ingresa número]', required: required}
-    numeric_primitive_form(primitive, json_pointer, options)
+  def integer_primitive_form(primitive, name, required)
+    options = {
+      placeholder: '[ingresa número]',
+      required: required,
+      data: {type: 'integer'}
+    }
+    numeric_primitive_form(primitive, name, options)
   end
 
-  def number_primitive_form(primitive, json_pointer, required)
-    options = {step: 'any', placeholder: '[ingresa número]', required: required}
-    numeric_primitive_form(primitive, json_pointer, options)
+  def number_primitive_form(primitive, name, required)
+    options = {step: 'any', placeholder: '[ingresa número]', required: required, data: {type: 'number'}}
+    numeric_primitive_form(primitive, name, options)
   end
 
-  def numeric_primitive_form(primitive, json_pointer, options)
+  def numeric_primitive_form(primitive, name, options)
     options[:max] = primitive['maximum']
     options[:min] = primitive['minimum']
     options[:data] = {
@@ -270,57 +276,72 @@ module ServiceVersionsHelper
       exclusiveMinimum: primitive['exclusiveMinimum'],
       multipleOf: primitive['multipleOf']
     }
-    number_field_tag(json_pointer, primitive['default'].to_s, options)
+    number_field_tag(name, primitive['default'].to_s, options)
   end
 
-  def boolean_primitive_form(primitive, json_pointer, required)
-    check_box_tag(json_pointer, primitive['default'].to_s, required: required)
+  def boolean_primitive_form(primitive, name, required)
+    check_box_tag(name, "true", primitive['default'] == 'true', required: required)
   end
 
-  def schema_object_primitive_property_form(name, primitive_property_definition, required, json_pointer, references)
+  def schema_object_primitive_property_form(name, primitive_property_definition, required, json_pointer, target_json_pointer, references)
     css_class = "name"
     css_class.concat(" anonymous") if name.empty?
     s_name_markup = content_tag(:span, s(name), class: css_class)
     dynamic_component_structure_form(
-      s_name_markup, primitive_property_definition, required,
-      json_pointer, references
+      name, s_name_markup, primitive_property_definition, required,
+      json_pointer, target_json_pointer, references
     )
   end
 
-  def schema_object_complex_property_form(name, property_definition, required, json_pointer, references)
+  def schema_object_complex_property_form(name, property_definition, required, json_pointer, target_json_pointer, references)
     s_name_markup = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, s(name), class: "name")
     end
     dynamic_component_structure_form(
-      s_name_markup, property_definition, required, json_pointer, references
+      name, s_name_markup, property_definition, required, json_pointer, target_json_pointer, references
     ) do
       content_tag(:div, nil, class: "panel-body") do
-        schema_object_spec_form(property_definition, json_pointer, references)
+        schema_object_spec_form(property_definition, json_pointer, target_json_pointer, references)
       end
     end
   end
 
-  def schema_object_array_property_form(name, property_definition, required, json_pointer, references)
+  def schema_object_array_property_form(name, property_definition, required, json_pointer, target_json_pointer, references)
     s_name_markup = content_tag(:a, nil, data: {toggle: "collapse-next"}) do
       content_tag(:span, s(name), class: "name")
     end
-    new_path = json_pointer_path(json_pointer, "items")
     dynamic_component_structure_form(
-      s_name_markup, property_definition, required, json_pointer, references
+      name, s_name_markup, property_definition, required, json_pointer, target_json_pointer, references
     ) do
-      content_tag(:div, nil, class: "panel-body clonable") do
-        schema_object_property_form(
-          "[0]".html_safe, property_definition["items"], false,
-          new_path, references
-        )
-      end +
+      schema_object_array_property_initial_inputs_form(
+        0, property_definition, json_pointer, target_json_pointer, references,
+        is_template: true
+      ) +
+      (
+        if required
+          schema_object_array_property_initial_inputs_form(
+            0, property_definition, json_pointer, target_json_pointer, references,
+            is_template: false)
+        else
+          "".html_safe
+        end
+      ) +
       content_tag(:div, class: 'text-right') do
-        content_tag(:a, "Agregar Elemento", class: "btn add-element", data: {context: json_pointer})
+        content_tag(:a, "Agregar Elemento", class: "btn add-element", data: {context: target_json_pointer})
       end
     end
   end
 
-  def schema_object_spec_form(schema_object, json_pointer, references)
+  def schema_object_array_property_initial_inputs_form(index, property_definition, json_pointer, target_json_pointer, references, is_template: true)
+    content_tag(:div, nil, class: "panel-body #{is_template ? 'clonable' : 'clone'}") do
+      schema_object_property_form(
+        "[#{index}]".html_safe, property_definition["items"], false,
+        json_pointer_path(json_pointer, "items"), json_pointer_path(target_json_pointer, index.to_s), references
+      )
+    end
+  end
+
+  def schema_object_spec_form(schema_object, json_pointer, target_json_pointer, references)
     properties = schema_object['properties'] || {}
     join_markup(properties.map do |name, property_definition|
       required = (
@@ -329,7 +350,7 @@ module ServiceVersionsHelper
       )
       schema_object_property_form(
         name, property_definition, required,
-        json_pointer_path(json_pointer, 'properties', name), references
+        json_pointer_path(json_pointer, 'properties', name), json_pointer_path(target_json_pointer, name), references
       )
     end)
   end

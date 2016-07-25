@@ -25,6 +25,11 @@ paths:
         - name: page
           type: integer
           in: query
+        - name: count
+          type: integer
+          in: query
+          minimum: 1
+          maximum: 50
         - name: x-test-header
           type: string
           in: header
@@ -33,8 +38,29 @@ paths:
           description: Parameters
           schema:
             type: object
+            required:
+              - foo
             properties:
               foo:
-                type: string
+                type: array
+                items:
+                  type: object
+                  properties:
+                    nestedString:
+                      type: string
+                    nestedArray:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          nestedNumber:
+                            type: number
+
               bar:
                 type: integer
+              baz:
+                type: array
+                items:
+                  type: string
+              quux:
+                type: boolean

@@ -15,7 +15,36 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].getSession().setMode("ace/mode/json");
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
-  cloneObjectsForm()
+  convertFormsToJSON()
+
+window.convertFormsToJSON = ->
+  $('.console-parameter-group').each (index, paramGroup) ->
+    location = $(paramGroup).data('location')
+    return unless location
+    $formPanelSet = $(paramGroup).find('.schema-panel-set')
+    editor = editors[location]
+    $formPanelSet.find('input, select').each (index, inputWidget) ->
+      $inputWidget = $(inputWidget)
+      # Don't process array template elements:
+      return if $inputWidget.parents('.clonable').length > 0
+      baseTargetPointer = ""
+      targetPointer = $inputWidget.closest('.panel-group').attr('data-target')
+      propertyType = $inputWidget.attr('type') ||  $inputWidget.data('type')
+      propertyValue = $inputWidget.val()
+      # Don't set empty optional properties:
+      return if propertyValue == "" && !$inputWidget.attr('required')
+      return if propertyValue == "" && (inputWidget.tagName == "SELECT" && inputWidget.options[0].value == "")
+      switch propertyType
+        when "integer"
+          propertyValue = parseInt(propertyValue)
+        when "number"
+          propertyValue = parseFloat(propertyValue)
+        when "checkbox", "boolean"
+          propertyValue = $inputWidget.is(':checked')
+      console.log "SET:"
+      console.log targetPointer, propertyValue
+
+
 resizeEditors = ->
   for location, editor of editors
     editor.resize()
@@ -25,11 +54,6 @@ paramsFromEditors = ->
   for loc, editor of editors
     params["#{loc}_params"] = JSON.parse(editor.getValue())
   return params
-
-cloneObjectsForm = () ->
-  $('.clonable').each (index, element) ->
-    clonedElement = $(element).clone()
-    $(clonedElement).insertBefore($(element)).addClass('template')
 
 resizeEditors = ->
   for location, editor of editors
@@ -116,6 +140,23 @@ $(document).on 'click', '#fullConsole', ->
       .removeClass('out')
   resizeEditors()
 
+setArrayIndex = (arrayPanelBody, index) ->
+  panelGroup = arrayPanelBody.children('.panel-group')
+  originalTarget = panelGroup.attr('data-target')
+  newTarget = originalTarget.replace(/\/\d+$/, "/#{index}")
+  panelGroup.attr('data-target', newTarget)
+  panelGroup.children('.panel').children('.panel-heading').find('.name').text("[#{index}]")
+  panelGroup.find("[data-target^='#{originalTarget}']").each (index, panelGroupToFix) ->
+    $(panelGroupToFix).attr('data-target',
+      $(panelGroupToFix).attr('data-target').replace(originalTarget, newTarget)
+    )
+  panelGroup.find("[data-context^='#{originalTarget}']").each (index, buttonToFix) ->
+    $(buttonToFix).attr('data-context',
+      $(buttonToFix).attr('data-context').replace(originalTarget, newTarget)
+    )
+
+
+
 $(document).on 'change', '#code-options input[type="checkbox"]', ->
   data = $('#code-options').serializeArray()
   languagesParams = data.map (data) -> "languages[]=#{data.name}"
@@ -124,14 +165,13 @@ $(document).on 'change', '#code-options input[type="checkbox"]', ->
   $("#generate-code").attr("href", url)
 
 $(document).on 'click', '.add-element', ->
-  context = $('.console div[data-pointer="' + $(this).data('context') + '"]')
-  original = $(context).find('.template')
-  cloned = $(context).find('.template').clone()
-  value = 0
-  $(cloned).find('span.name:first').text("[#{value}]")
+  context = $(this).closest('[data-target="' + $(this).data('context') + '"]')
+  original = $(context).children('.panel').children('.panel-collapse').children('.clonable')
+  cloned = original.clone()
   $(cloned)
-    .removeClass('template')
-    .insertAfter( $(original) )
+    .removeClass('clonable').addClass('clone')
+    .insertBefore($(this).parent())
+  setArrayIndex(cloned, cloned.siblings('.clone').length)
 
 $(document).on 'click', '.display-tab', (e) ->
   e.preventDefault()
