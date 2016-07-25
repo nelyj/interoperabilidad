@@ -1083,6 +1083,7 @@ ul.list-operations {
         position: relative;
     }
     .inner-console {
+        margin-bottom: 50px;
         padding: 20px 30px 30px 30px;
         .title {
             display: block;
@@ -1149,6 +1150,10 @@ ul.list-operations {
         li.display-tab.active {
             cursor: default;
         }
+    }
+    .console-response-group {
+        display: none;
+        margin-bottom: 35px;
     }
     .raw-json {
         width: 100%;

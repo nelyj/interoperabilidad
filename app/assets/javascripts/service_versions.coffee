@@ -41,9 +41,8 @@ window.convertFormsToJSON = ->
           propertyValue = parseFloat(propertyValue)
         when "checkbox", "boolean"
           propertyValue = $inputWidget.is(':checked')
-      console.log "SET:"
+      console.info "SET:"
       console.log targetPointer, propertyValue
-
 
 resizeEditors = ->
   for location, editor of editors
@@ -155,8 +154,6 @@ setArrayIndex = (arrayPanelBody, index) ->
       $(buttonToFix).attr('data-context').replace(originalTarget, newTarget)
     )
 
-
-
 $(document).on 'change', '#code-options input[type="checkbox"]', ->
   data = $('#code-options').serializeArray()
   languagesParams = data.map (data) -> "languages[]=#{data.name}"
@@ -209,6 +206,7 @@ $(document).on 'click', '#try-service', ->
   ).fail( (jqxhr, status, error) ->
     $('#response').fadeTo(200, 0.1).text("Error: " + status + " " + error).fadeTo(200, 1.0)
   ).always( ->
+    $('.console-response-group').show()
     hljs.highlightBlock document.getElementById('response')
   )
 
