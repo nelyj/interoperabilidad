@@ -21,7 +21,7 @@
             =t(:institution)
           = org.name
         %li
-          = link_to t(:services), organization_services_path(org)
+          = link_to t(:services), organization_services_path(org), id: "services"
         %li
           %a{:href => "/agreements/index"}
             =t(:agreements)
