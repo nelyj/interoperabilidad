@@ -389,7 +389,6 @@ strong {
     }
 }
 
-
 /* File Schema Upload*/
 
 .box-new-schema-file {
@@ -403,6 +402,7 @@ strong {
     margin: 15px auto 0px auto;
     background: rgba(255, 255, 255, 0.10);
     box-shadow: 2px 2px 17px 0px rgba(0, 0, 0, 0.20);
+
     .box-title {
         width: 49%;
         float: left;
@@ -422,10 +422,10 @@ strong {
             margin-left: 23px;
         }
     }
+
     span#select-file {
         border: none;
-        @include bootstrap-btns($official-red,
-        18%);
+        @include bootstrap-btns($official-red, 18%);
     }
     .box-input-file {
         width: 48%;
@@ -464,6 +464,9 @@ strong {
         }
         span {
             cursor: pointer;
+        }
+    }
+}
 
 .box-new-service-file {
     @extend .box-new-schema-file
