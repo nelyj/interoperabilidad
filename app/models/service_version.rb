@@ -304,14 +304,18 @@ class ServiceVersion < ApplicationRecord
       raise ArgumentError,
         "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
     end
-    RestClient::Request.execute(
-      method: verb,
-      url: base_url + _resolve_path(path, path_params),
-      # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
-      #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
-      headers: header_params.merge(params: query_params),
-      payload: raw_body
-    )
+    begin
+      RestClient::Request.execute(
+        method: verb,
+        url: base_url + _resolve_path(path, path_params),
+        # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
+        #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
+        headers: header_params.merge(params: query_params),
+        payload: raw_body
+      )
+    rescue RestClient::Exception => e
+      e.response
+    end
   end
 
   def _resolve_path(original_path, path_params)
