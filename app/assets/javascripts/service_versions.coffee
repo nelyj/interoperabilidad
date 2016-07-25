@@ -218,8 +218,8 @@ $(document).on 'click', '#try-service', ->
   ).fail( (jqxhr, status, error) ->
     $('#response').fadeTo(200, 0.1).text("Error: " + status + " " + error).fadeTo(200, 1.0)
   ).always( ->
-    $('.console-response-group').show()
     hljs.highlightBlock document.getElementById('response')
+    $('.console-response-group').show()
   )
 
 $(document).on 'change', '#switch_service_select', ->

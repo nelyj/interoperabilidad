@@ -122,6 +122,7 @@ es:
   role_cant_create_agreement: No tiene permisos suficientes para solicitar convenios.
   cant_test_service_without_agreement: Se requiere de un convenio activo para probar este servicio.
   error_while_invoking_service: Error mientras se invocaba al servicio
+  response: Respuesta
   error:
     one: 1 error
     other: "%{count} errores"
