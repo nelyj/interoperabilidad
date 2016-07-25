@@ -159,15 +159,14 @@ $(document).on 'click', '#btns-service-console li a', () ->
   setConsoleBtnOptions($(this))
 
 $(document).on 'click', '#try-service', ->
-  $('#response').text("\u21bb")
   $.ajax(
     method: 'POST'
     contentType: 'application/json'
     data: JSON.stringify(paramsFromEditors()),
   ).done( (data, status, jqxhr) ->
-    $('#response').text(data)
+    $('#response').fadeTo(200, 0.1).text(data).fadeTo(200, 1.0)
   ).fail( (jqxhr, status, error) ->
-    $('#response').text("Error: " + status + " " + error)
+    $('#response').fadeTo(200, 0.1).text("Error: " + status + " " + error).fadeTo(200, 1.0)
   ).always( ->
     hljs.highlightBlock document.getElementById('response')
   )

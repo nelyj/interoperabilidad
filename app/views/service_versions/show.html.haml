@@ -128,7 +128,12 @@
               - else
                 %p= t(:operation_without_parameters)
             .responses
-              %h2.subtitle= t(:responses)
+              .subtitle-service.clearfix
+                .col-md-6.text-left
+                  %h3= t(:responses)
+                .col-md-6.text-right
+                  %span.bullet-required
+                    =t(:property_required)
               = service_operation_responses_markup(@service_version, @verb, @path)
         .console
           .inner-console
@@ -175,7 +180,7 @@
                     %a Servicio Real
               %button#try-service.btn.btn-primary= t(:send)
               .console-parameter-group
-                %h3= t(:response)
+                %h3=t(:response)
                 %pre.code#response
 #modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
