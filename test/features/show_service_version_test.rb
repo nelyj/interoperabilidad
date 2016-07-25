@@ -40,13 +40,11 @@ class ShowServiceTest < Capybara::Rails::TestCase
     visit organization_service_service_version_path(service_version.organization, service_version.service, service_version)
     within first(".title") do
       assert_selector 'h1', text: service_version.name + ' R' + service_version.version_number.to_s
-      assert_content service_version.description
     end
     click_link ("Versión siguiente")
     assert_content next_version.name + ' R' + next_version.version_number.to_s
     within first(".title") do
       assert_selector 'h1', text: next_version.name + ' R' + next_version.version_number.to_s
-      assert_content next_version.description
     end
   end
 
