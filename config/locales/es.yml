@@ -29,6 +29,11 @@ es:
   new_schema_version_created: Nueva Versión creada correctamente
   new_service_created: Servicio creado correctamente
   new_service_version_created: Nueva revisión creada correctamente
+  new_notification: Nueva notificación en Interoperabilidad
+  open_notification: Ver notificación
+  cant_see_link: "Si no puede ver el enlace, por favor copie y pegue la siguiente direccion en su navegador."
+  greetings: Un cordial saludo.
+  service_type_notification: Nueva notificacion de Servicios
   service_updated: Servicio actualizado correctamente
   schema_directory: Directorio de Esquemas
   enter_schema_name: Ingresa nombre de Esquema

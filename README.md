@@ -56,6 +56,8 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `S3_CODEGEN_BUCKET`: Pre-existing S3 Bucket where generated code (for API clients and server stubs) will be uploaded.
 
+- `APP_HOST_URL`: Application host URL, for mailers use.
+
 
 You can also set the `PORT` environment variable to change the port where the web server will listen (defaults to 80). See `config/puma.rb` for more options you can tune/override via environment variables.
 

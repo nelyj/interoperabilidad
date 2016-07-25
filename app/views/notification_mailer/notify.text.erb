@@ -1,6 +1,11 @@
-New Notification in: <%= @url %>
+<%= t(:new_notification) %>
 ===============================================
 
-This is a test notification
+<%= @notification.message %>
 
-Have a great day!
+<%= link_to t(:open_notification), user_notification_url(@notification.user, @notification) %>
+<%= t(:cant_see_link) %>
+
+<%= user_notification_url(@notification.user, @notification) %>
+
+<%= t(:greetings) %>

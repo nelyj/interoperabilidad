@@ -7,14 +7,7 @@ class Notification < ApplicationRecord
   # Add on AgreementVersion: has_many :notifications, as: :subject
 
   def send_by_email
-    # NotificationMailer.notify(self).deliver_now
-    # Use a mailer http://guides.rubyonrails.org/action_mailer_basics.html
-    #
-    # Important: The email link should point to user_notification_url(user, notification)
-    #
-    # And then the notification controller should call 'mark_as_read'
-    # before redirecting to 'subject.url'
-    # ServiceVersion, AgreementVersion, etc should implement an 'url' method
+    NotificationMailer.notify(self).deliver_now #.deliver_later
   end
 
   # Should be called by NotificationController#index

@@ -1,0 +1,17 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1
+      = t(:new_notification)
+    %p
+      = @notification.message
+      %br/
+    %p
+      = link_to t(:open_notification), user_notification_url(@notification.user, @notification)
+      %br/
+      = t(:cant_see_link)
+      %br/
+      = user_notification_url(@notification.user, @notification)
+
+    %p= t(:greetings)
