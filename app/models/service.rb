@@ -5,14 +5,14 @@ class Service < ApplicationRecord
   has_many :service_versions
   validates :name, uniqueness: true, presence: true
   before_save :update_humanized_name
-  validates :spec, swagger_spec: true
+  validates :spec, swagger_spec: true, presence: true
   delegate :description, to: :current_or_last_version
   attr_accessor :spec, :backwards_compatible
   attr_accessor :spec_file_parse_exception
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception
-      errors.add(:spec_file, "Archivo no está en formato JSON o YAML")
+      errors.add(:spec_file, I18n.t(:notyamlenorjson))
     end
   end
 

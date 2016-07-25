@@ -7,11 +7,11 @@ class ServiceVersion < ApplicationRecord
   belongs_to :service
   belongs_to :user
   has_many :notifications, as: :subject
-  validates :spec, swagger_spec: true
-  validate :spec_file_must_be_parseable
-  attr_accessor :spec_file_parse_exception
+  validates :spec, swagger_spec: true, presence: true
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
+  validate :spec_file_must_be_parseable
+  attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
   after_create :create_new_notification
   after_create :retract_proposed
