@@ -2,6 +2,7 @@ servicio_1:
   name: servicio_1
   organization: segpres
   featured: true
+  lexemes: "'descriptiv':1B 'sentenc':2B"
 
 servicio_2:
   name: servicio_2

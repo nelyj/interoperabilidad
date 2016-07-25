@@ -8,6 +8,7 @@ servicio1_v1:
         info:
           version: 0.0.0
           title: Simple API
+          description: descriptive sentence
         paths:
           /test:
             get:
