@@ -23,14 +23,17 @@ $(document).on 'fileselect', ':file', (event, numFiles, label) ->
     return
 
 titleize = (string) ->
-  string = string.split(".")[0].replace(/-/g, ' ').replace(/[^\w\s]/gi, '').replace(/_/g, ' ').trim()
-  string.toUpperCase()
+  string.split(/[\s|_|-]/).filter(
+    (s) -> s.length > 0
+  ).map(
+    (s) -> s[0].toUpperCase() + s.slice(1)
+  ).join('')
 
 $(document).on 'change', ':file', ->
   input = $(this)
   numFiles = if input.get(0).files then input.get(0).files.length else 1
-  label = input.val().replace(/\\/g, '/').replace(/.*\//, '')
-  $('#schema_name, #service_name').val( titleize( label ) )
+  label = input.val().replace(/\\/g, '/').replace(/.*\//, '').replace(/\.[^\.]*$/, '')
+  $('#schema_name, #service_name').val(titleize(label))
   input.trigger 'fileselect', [
     numFiles
     label
