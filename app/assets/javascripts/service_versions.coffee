@@ -15,34 +15,43 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].getSession().setMode("ace/mode/json");
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
-  convertFormsToJSON()
+  convertAllFormsToJSON()
 
-window.convertFormsToJSON = ->
+convertAllFormsToJSON = ->
   $('.console-parameter-group').each (index, paramGroup) ->
     location = $(paramGroup).data('location')
-    return unless location
-    $formPanelSet = $(paramGroup).find('.schema-panel-set')
-    editor = editors[location]
-    $formPanelSet.find('input, select').each (index, inputWidget) ->
-      $inputWidget = $(inputWidget)
-      # Don't process array template elements:
-      return if $inputWidget.parents('.clonable').length > 0
-      baseTargetPointer = ""
-      targetPointer = $inputWidget.closest('.panel-group').attr('data-target')
-      propertyType = $inputWidget.attr('type') ||  $inputWidget.data('type')
-      propertyValue = $inputWidget.val()
-      # Don't set empty optional properties:
-      return if propertyValue == "" && !$inputWidget.attr('required')
-      return if propertyValue == "" && (inputWidget.tagName == "SELECT" && inputWidget.options[0].value == "")
-      switch propertyType
-        when "integer"
-          propertyValue = parseInt(propertyValue)
-        when "number"
-          propertyValue = parseFloat(propertyValue)
-        when "checkbox", "boolean"
-          propertyValue = $inputWidget.is(':checked')
-      console.info "SET:"
-      console.log targetPointer, propertyValue
+    convertFormToJSON(location) if location
+
+convertActiveFormsToJSON = ->
+  $('.console .form-tab.active').each (index, activeFormTab) ->
+    location = $(activeFormTab).closest('.console-parameter-group').data('location')
+    convertFormToJSON(location)
+
+convertFormToJSON = (location) ->
+  paramGroup = $(".console-parameter-group[data-location=#{location}]")
+  $formPanelSet = $(paramGroup).find('.schema-panel-set')
+  editor = editors[location]
+  json = {}
+  $formPanelSet.find('input, select').each (index, inputWidget) ->
+    $inputWidget = $(inputWidget)
+    # Don't process array template elements:
+    return if $inputWidget.parents('.clonable').length > 0
+    baseTargetPointer = ""
+    targetPointer = $inputWidget.closest('.panel-group').attr('data-target')
+    propertyType = $inputWidget.attr('type') ||  $inputWidget.data('type')
+    propertyValue = $inputWidget.val()
+    # Don't set empty optional properties:
+    return if propertyValue == "" && !$inputWidget.attr('required')
+    return if propertyValue == "" && (inputWidget.tagName == "SELECT" && inputWidget.options[0].value == "")
+    switch propertyType
+      when "integer"
+        propertyValue = parseInt(propertyValue)
+      when "number"
+        propertyValue = parseFloat(propertyValue)
+      when "checkbox", "boolean"
+        propertyValue = $inputWidget.is(':checked')
+    jsonpointer.set(json, targetPointer, propertyValue, true)
+  editor.setValue(JSON.stringify(json, null, '  '))
 
 resizeEditors = ->
   for location, editor of editors
@@ -170,7 +179,7 @@ $(document).on 'click', '.add-element', ->
     .insertBefore($(this).parent())
   setArrayIndex(cloned, cloned.siblings('.clone').length)
 
-$(document).on 'click', '.display-tab', (e) ->
+$(document).on 'click', '.console .display-tab', (e) ->
   e.preventDefault()
   thisTab = $(this).attr('data-tab')
   parent = $(this).closest('.console-parameter-group')
@@ -185,6 +194,8 @@ $(document).on 'click', '.display-tab', (e) ->
   $(parent)
     .find($(thisTab))
     .addClass('active')
+  if $(this).attr('data-tab') == '.json-tab'
+    convertFormToJSON($(this).closest('.console-parameter-group').data('location'))
 
 setConsoleBtnOptions = (element) ->
   $(element)
@@ -196,6 +207,7 @@ $(document).on 'click', '#btns-service-console li a', () ->
   setConsoleBtnOptions($(this))
 
 $(document).on 'click', '#try-service', ->
+  convertActiveFormsToJSON()
   $.ajax(
     url: location.href,
     method: 'POST'
