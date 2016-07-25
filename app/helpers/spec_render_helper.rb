@@ -302,7 +302,7 @@ module SpecRenderHelper
   def string_primitive_markup_pattern(primitive)
     if primitive['pattern'].present?
       content_tag(:li, class: "reg-exp") do
-        content_tag(:span, "#{s(primitive['pattern'])}")
+        content_tag(:span, "/#{s(primitive['pattern'])}/")
       end
     else
       "".html_safe
