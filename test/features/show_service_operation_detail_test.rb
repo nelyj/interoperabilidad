@@ -57,6 +57,26 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
     end
   end
 
+  test "Test a service using the console" do
+    echo_version = Service.create!(
+      name: "SimpleEchoServiceToTest",
+      public: true,
+      organization: organizations(:sii),
+      spec_file: File.open(Rails.root / "test/files/sample-services/echo.yaml")
+    ).create_first_version(users(:pedro))
+    visit organization_service_service_version_path(
+      echo_version.organization, echo_version.service, echo_version
+    )
+    find(".container-verbs a", text: "GET/test-path/{id}").click
+    click_button "Probar Servicio"
+    within ".console" do
+      fill_in 'id', with: "value-for-param-id"
+      click_button "Enviar"
+      assert_content 'Respuesta'
+      assert_content "http://mazimi-prod.apigee.net/test-path/value-for-param-id"
+    end
+  end
+
   test "Don't show test service form for users not allowed to use the service" do
     login_as users(:pablito)
     visit organization_service_service_version_path(
