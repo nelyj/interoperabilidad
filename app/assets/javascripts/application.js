@@ -1,8 +1,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require modernizr.min
 //= require bootstrap
 //= require select2.full
 //= require highlight.min
 //= require jsonpointer
+//= require polyfiller
 //= require_tree .

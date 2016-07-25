@@ -164,7 +164,7 @@
                         %a JSON
                     .tab-content
                       .form-tab.tab-pane.active
-                        = form_tag('#') do
+                        = form_tag('#', class: "ws-validate") do
                           .schema-panel-set
                             = service_operation_parameters_form(@service_version, @verb, @path, location)
                       .json-tab.tab-pane

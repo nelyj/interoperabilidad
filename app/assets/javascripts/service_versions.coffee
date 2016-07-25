@@ -16,6 +16,7 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
   convertAllFormsToJSON()
+  formPolyfill()
 
 convertAllFormsToJSON = ->
   $('.console-parameter-group').each (index, paramGroup) ->
@@ -81,6 +82,53 @@ setContainerServicesWidth = () ->
   $(".container-service").css("width", windowWidth - $('.container-verbs').width())
   $(".operation, .console, .container-verbs").css("min-height", $(".wrapper-operation").height())
   $(".container-service").css("min-height", $(".container-verbs").height())
+
+
+formPolyfill = () ->
+  webshim.setOptions('basePath', '/assets/shims/')
+  webshim.setOptions("forms", {
+    iVal: {
+      "sel": ".ws-validate",
+      "handleBubble": "hide",
+      "recheckDelay": 400,
+      "fieldWrapper": ":not(span):not(label):not(em):not(strong):not(p)",
+      "events": "focusout change",
+      "errorClass": "user-error",
+      "errorWrapperClass": "ws-invalid",
+      "successWrapperClass": "ws-success",
+      "errorBoxClass": "ws-errorbox",
+      "errorMessageClass": "ws-errormessage",
+      "fx": "slide",
+      "submitCheck": false
+    }
+  })
+  webshim.setOptions("forms-ext", {
+    replaceValidationUI: false,
+    replaceUI: 'auto',
+    "widgets": {
+      "startView": 2,
+      "minView": 0,
+      "inlinePicker": false,
+      "size": 1,
+      "splitInput": true,
+      "yearSelect": true,
+      "monthSelect": true,
+      "daySelect": true,
+      "noChangeDismiss": true,
+      "openOnFocus": true,
+      "buttonOnly": true,
+      "classes": "",
+      "popover": {
+        "constrainWidth": true
+      },
+      "calculateWidth": true,
+      "animate": true,
+      "toFixed": 0,
+      "onlyFixFloat": true
+    }
+  })
+  webshim.polyfill('forms forms-ext')
+
 
 #Verbs Col
 $(document).on 'click', '#collapseVerbs', ->
@@ -207,20 +255,21 @@ $(document).on 'click', '#btns-service-console li a', () ->
   setConsoleBtnOptions($(this))
 
 $(document).on 'click', '#try-service', ->
-  convertActiveFormsToJSON()
-  $.ajax(
-    url: location.href,
-    method: 'POST'
-    contentType: 'application/json'
-    data: JSON.stringify(paramsFromEditors()),
-  ).done( (data, status, jqxhr) ->
-    $('#response').fadeTo(200, 0.1).text(data).fadeTo(200, 1.0)
-  ).fail( (jqxhr, status, error) ->
-    $('#response').fadeTo(200, 0.1).text("Error: " + status + " " + error).fadeTo(200, 1.0)
-  ).always( ->
-    hljs.highlightBlock document.getElementById('response')
-    $('.console-response-group').show()
-  )
+  if( $('form.ws-validate').checkValidity() )
+    convertActiveFormsToJSON()
+    $.ajax(
+      url: location.href,
+      method: 'POST'
+      contentType: 'application/json'
+      data: JSON.stringify(paramsFromEditors()),
+    ).done( (data, status, jqxhr) ->
+      $('#response').fadeTo(200, 0.1).text(data).fadeTo(200, 1.0)
+    ).fail( (jqxhr, status, error) ->
+      $('#response').fadeTo(200, 0.1).text("Error: " + status + " " + error).fadeTo(200, 1.0)
+    ).always( ->
+      hljs.highlightBlock document.getElementById('response')
+      $('.console-response-group').show()
+    )
 
 $(document).on 'change', '#switch_service_select', ->
   targetURL = $(this).val()
