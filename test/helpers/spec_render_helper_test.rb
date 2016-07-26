@@ -197,7 +197,7 @@ class SpecRenderHelperTest < ActionView::TestCase
   test "#schema_object_specific_markup returns html to represent a string primitive" do
     spec = schema_versions(:complex_v1).spec
     html = schema_object_specific_markup(spec["properties"]["hora"])
-    assert_equal "<li class=\"reg-exp\"><span>/[0-9] {2}/</span></li>", html
+    assert_equal "<li class=\"reg-exp\"><span>//[0-9] {2}//</span></li>", html
   end
 
   test "#schema_object_specific_markup represents a number primitive" do

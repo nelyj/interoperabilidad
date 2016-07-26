@@ -132,10 +132,11 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
       assert_content "405"
       assert_content "Validation exception"
     end
-    find(".container-verbs a", text: "POST/users").click
+    find(".container-verbs a", text: "POST/pets/{petId}").click
+    assert_content "Updates a pet in the store with form data"
     within ".responses" do
-      assert_content "default"
-      assert_content "successful operation"
+      assert_content "405"
+      assert_content "Invalid input"
     end
   end
 
