@@ -6,5 +6,4 @@
 //= require select2.full
 //= require highlight.min
 //= require jsonpointer
-//= require polyfiller
 //= require_tree .

@@ -16,6 +16,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js'
+    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.10/dev/polyfiller.js'
+    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.10/dev/shims/i18n/formcfg-es.js'
+
   %body{:class => controller.controller_path + '_' + controller.action_name}
     %header
       .container-fluid

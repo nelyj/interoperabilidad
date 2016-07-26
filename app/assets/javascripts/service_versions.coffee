@@ -16,7 +16,17 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
   convertAllFormsToJSON()
-  formPolyfill()
+  webshim.setOptions
+    'waitReady': true
+    'debug': false
+    'forms':
+      lazyCustomMessages: true
+      replaceValidationUI: true
+    'forms-ext': replaceUI: 'auto'
+  webshim.activeLang()
+  webshim.activeLang 'es'
+  webshim.polyfill 'forms forms-ext'
+  $(this).updatePolyfill()
 
 convertAllFormsToJSON = ->
   $('.console-parameter-group').each (index, paramGroup) ->
@@ -83,52 +93,21 @@ setContainerServicesWidth = () ->
   $(".operation, .console, .container-verbs").css("min-height", $(".wrapper-operation").height())
   $(".container-service").css("min-height", $(".container-verbs").height())
 
-
-formPolyfill = () ->
-  webshim.setOptions('basePath', '/assets/shims/')
-  webshim.setOptions("forms", {
-    iVal: {
-      "sel": ".ws-validate",
-      "handleBubble": "hide",
-      "recheckDelay": 400,
-      "fieldWrapper": ":not(span):not(label):not(em):not(strong):not(p)",
-      "events": "focusout change",
-      "errorClass": "user-error",
-      "errorWrapperClass": "ws-invalid",
-      "successWrapperClass": "ws-success",
-      "errorBoxClass": "ws-errorbox",
-      "errorMessageClass": "ws-errormessage",
-      "fx": "slide",
-      "submitCheck": false
-    }
-  })
-  webshim.setOptions("forms-ext", {
-    replaceValidationUI: false,
-    replaceUI: 'auto',
-    "widgets": {
-      "startView": 2,
-      "minView": 0,
-      "inlinePicker": false,
-      "size": 1,
-      "splitInput": true,
-      "yearSelect": true,
-      "monthSelect": true,
-      "daySelect": true,
-      "noChangeDismiss": true,
-      "openOnFocus": true,
-      "buttonOnly": true,
-      "classes": "",
-      "popover": {
-        "constrainWidth": true
-      },
-      "calculateWidth": true,
-      "animate": true,
-      "toFixed": 0,
-      "onlyFixFloat": true
-    }
-  })
-  webshim.polyfill('forms forms-ext')
-
+jQuery.swap = (elem, options, callback, args) ->
+  ret = undefined
+  name = undefined
+  old = {}
+  # Remember the old values, and insert the new ones
+  for name of options
+    `name = name`
+    old[name] = elem.style[name]
+    elem.style[name] = options[name]
+  ret = callback.apply(elem, args or [])
+  # Revert the old values
+  for name of options
+    `name = name`
+    elem.style[name] = old[name]
+  return
 
 #Verbs Col
 $(document).on 'click', '#collapseVerbs', ->
@@ -282,3 +261,6 @@ $(document).on 'focus', 'form input[type=number]', (e) ->
 
 $(document).on 'blur', 'form input[type=number]', (e) ->
   $(this).off('mousewheel.disableScroll')
+
+
+
