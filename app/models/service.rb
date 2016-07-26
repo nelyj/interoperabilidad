@@ -6,6 +6,7 @@ class Service < ApplicationRecord
   validates :name, uniqueness: true, presence: true
   before_save :update_humanized_name
   validates :spec, swagger_spec: true, presence: true
+  validate :spec_file_must_be_parseable
   delegate :description, to: :current_or_last_version
   attr_accessor :spec, :backwards_compatible
   attr_accessor :spec_file_parse_exception
