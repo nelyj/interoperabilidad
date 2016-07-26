@@ -20,7 +20,7 @@
     .col-md-10.schema-wrapper
       .schema-box-container
         - @schemas.each do |schema|
-          .box-service.filtered{data: {categories:schema.schema_category_ids.join(' ')}}
+          .box-schema.filtered{data: {categories:schema.schema_category_ids.join(' ')}}
             .title
               = link_to [schema, schema.last_version] do
                 = truncate(schema.name, :length => 50)
