@@ -22,7 +22,7 @@ class CreateServiceTest < Capybara::Rails::TestCase
   test "Attempt to create a service with an invalid file" do
     attach_file 'service_spec_file', Rails.root.join('README.md')
     click_button "Crear Servicio"
-    assert_content page, "No se pudo crear el servicio"
+    assert_content page, "Spec file Archivo no está en formato JSON o YAML"
   end
 
   test "Create a valid service" do
