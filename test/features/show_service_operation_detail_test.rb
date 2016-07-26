@@ -93,4 +93,67 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
       assert_content "Se requiere de un convenio activo para probar este servicio"
     end
   end
+
+  test "Body parameters are displayed correctly" do
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    find(".container-verbs a", text: "PUT/pets").click
+    assert_content "Update an existing pet"
+    find(".parameters a", text: "body").trigger('click')
+    within ".schema-panel-set" do
+      assert_content "name"
+      assert_content "pet status in the store"
+      find("a", text: "photoUrls").trigger('click')
+      assert_content "(elementos)"
+    end
+    find(".container-verbs a", text: "POST/users/createWithList").click
+    assert_content "Creates list of users with given input array"
+    find(".parameters a", text: "body").trigger('click')
+    within ".schema-panel-set" do
+      assert_content "(elementos)"
+      find("a", text: "(elementos)").trigger('click')
+      assert_content "email"
+      assert_content "password"
+    end
+  end
+
+  test "Responses are displayed correctly" do
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    find(".container-verbs a", text: "PUT/pets").click
+    assert_content "Update an existing pet"
+    within ".responses" do
+      assert_content "400"
+      assert_content "Invalid ID supplied"
+      assert_content "404"
+      assert_content "Pet not found"
+      assert_content "405"
+      assert_content "Validation exception"
+    end
+    find(".container-verbs a", text: "POST/users").click
+    within ".responses" do
+      assert_content "default"
+      assert_content "successful operation"
+    end
+  end
+
+  test "URL: Query parameters are displayed correctly" do
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    find(".container-verbs a", text: "GET/users/login").click
+    assert_content "Logs user into the system"
+    assert_content "URL: Query"
+    within ".parameters" do
+      assert_content "username"
+      assert_content "password"
+    end
+    find(".container-verbs a", text: "GET/pets/findByStatus").click
+    within ".parameters" do
+      assert_content "username"
+      assert_content "password"
+    end
+  end
 end
