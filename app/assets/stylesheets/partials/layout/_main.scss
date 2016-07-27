@@ -576,17 +576,13 @@ ul.list-operations {
     }
 }
 
-.container-schema-detail{
+.container-schema-detail-spcs{
   padding: 20px 0;
 }
 
-.container-schema-action {
+.container-schema-action,
+.container-schema-secondactions{
     padding: 10px 12px;
-    .btn {
-        width: 100%;
-        font-size: $font-18;
-        margin-bottom: 12px;
-    }
     pre {
         background-color: rgba(241, 239, 238, 1);
     }

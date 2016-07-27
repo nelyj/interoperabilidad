@@ -5,10 +5,9 @@ class ShowSchemaTest < Capybara::Rails::TestCase
    test "Schema Version Name description version url next and previous versions history and spec" do
      schema_version = schema_versions(:rut_v2)
      visit schema_schema_version_path(schema_version.schema, schema_version)
-
-     within ".container-schema-detail" do
+     within(:css, "#schema-description") do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + schema_version.version_number.to_s
+       assert_selector 'span', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
 
        within '.url-canonica' do
@@ -20,11 +19,12 @@ class ShowSchemaTest < Capybara::Rails::TestCase
          assert find_link('Versión siguiente')
          assert find_link('Historial')
        end
-
-       within '.schema-panel-set.detail' do
-         assert_selector 'h3', text: schema_version.schema.name
-       end
      end
+
+     within '.schema-panel-set.detail' do
+         assert_selector 'h3', text: schema_version.schema.name
+      end
+
    end
 
    test "Schema Version OAS and new version buttons and example" do
@@ -33,10 +33,12 @@ class ShowSchemaTest < Capybara::Rails::TestCase
 
      within ".container-schema-action" do
        assert find_link('Ver OAS')
-       within ".box-code-example" do
-         assert_text "Sin ejemplo."
-       end
      end
+
+     within ".box-code-example" do
+         assert_text "Sin ejemplo."
+      end
+
    end
 
    test "Schema Version does not have previous_version" do
@@ -44,7 +46,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      visit schema_schema_version_path(schema_version.schema, schema_version)
      within ".container-schema-detail" do
        within '.history-version' do
-         assert_text 'VERSIÓN ANTERIOR'
+         assert_text 'Versión anterior'
          assert find_link('Versión siguiente')
        end
      end
@@ -56,7 +58,7 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      within ".container-schema-detail" do
        within '.history-version' do
          assert find_link('Versión anterior')
-         assert_text 'VERSIÓN SIGUIENTE'
+         assert_text 'Versión siguiente'
        end
      end
    end
@@ -65,15 +67,15 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      schema_version = schema_versions(:rut_v3)
      previous_version = schema_version.previous_version
      visit schema_schema_version_path(schema_version.schema, schema_version)
-     within ".container-schema-detail" do
+     within(:css, "#schema-description") do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + schema_version.version_number.to_s
+       assert_selector 'span', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
      end
      click_link ("Versión anterior")
-     within ".container-schema-detail" do
+     within(:css, "#schema-description") do
        assert_selector 'h1', text: previous_version.schema.name
-       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + previous_version.version_number.to_s
+       assert_selector 'span', text: 'R' + previous_version.version_number.to_s
        assert_selector 'p', text: previous_version.description
      end
    end
@@ -82,15 +84,15 @@ class ShowSchemaTest < Capybara::Rails::TestCase
      schema_version = schema_versions(:rut_v2)
      next_version = schema_version.next_version
      visit schema_schema_version_path(schema_version.schema, schema_version)
-     within ".container-schema-detail" do
+     within(:css, "#schema-description") do
        assert_selector 'h1', text: schema_version.schema.name
-       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + schema_version.version_number.to_s
+       assert_selector 'span', text: 'R' + schema_version.version_number.to_s
        assert_selector 'p', text: schema_version.description
      end
      click_link ("Versión siguiente")
-     within ".container-schema-detail" do
+     within(:css, "#schema-description") do
        assert_selector 'h1', text: next_version.schema.name
-       assert_selector 'a.btn.btn-tiny.blue', text: 'R' + next_version.version_number.to_s
+       assert_selector 'span', text: 'R' + next_version.version_number.to_s
        assert_selector 'p', text: next_version.description
      end
    end

@@ -1,46 +1,47 @@
-.container-fluid.container-schema-detail.instance-schemas
-  .container
-    .row
-      .col-md-9
-        .row
-          .col-md-9
-            .title
-              %h1
-                =@schema.name
-              %span.primary.btn-status
-                ="R" + @schema_version.version_number.to_s
-            .description
-              %p
-                =t(:description) + ': '
-              - if @schema_version.description.present?
-                = markdown.render(@schema_version.description).html_safe
-              -else
-                =t(:no_description)
-          .col-md-3.container-schema-action.no-gutter.text-right
-            .history-version
-              - if @schema_version.has_previous_version?
-                =link_to [@schema_version.schema, @schema_version.previous_version], class: 'detail-action' do
-                  %i.material-icons redo
-                  = t(:previous_version)
-              -else
-                %a{class: 'detail-action deactivate'}
-                  %i.material-icons undo
-                  =t(:previous_version)
-              - if @schema_version.has_next_version?
-                =link_to [@schema_version.schema, @schema_version.next_version], class: "detail-action" do
-                  %i.material-icons redo
-                  = t(:next_version)
-              - else
-                %a{class: 'detail-action deactivate'}
-                  %i.material-icons redo
-                  = t(:next_version)
-              =link_to schema_schema_versions_path, class: "detail-action" do
-                %i.material-icons list
-                = t(:history)
-          .col-md-12
-            - if user_signed_in? && current_user.can_create_schemas
-              %a.btn.btn-primary{:href => new_schema_schema_version_path(@schema)}
-                =t(:new_version)
+.container-schema-detail
+  .container-fluid.instance-schemas
+    .container
+      .row
+        .col-md-9
+          .row{id: "schema-description"}
+            .col-md-9
+              .title
+                %h1
+                  =@schema.name
+                %span.primary.btn-status
+                  ="R" + @schema_version.version_number.to_s
+              .description
+                %p
+                  =t(:description) + ': '
+                - if @schema_version.description.present?
+                  = markdown.render(@schema_version.description).html_safe
+                -else
+                  =t(:no_description)
+            .col-md-3.container-schema-secondactions.no-gutter.text-right
+              .history-version
+                - if @schema_version.has_previous_version?
+                  =link_to [@schema_version.schema, @schema_version.previous_version], class: 'detail-action' do
+                    %i.material-icons redo
+                    = t(:previous_version)
+                -else
+                  %a{class: 'detail-action deactivate'}
+                    %i.material-icons undo
+                    =t(:previous_version)
+                - if @schema_version.has_next_version?
+                  =link_to [@schema_version.schema, @schema_version.next_version], class: "detail-action" do
+                    %i.material-icons redo
+                    = t(:next_version)
+                - else
+                  %a{class: 'detail-action deactivate'}
+                    %i.material-icons redo
+                    = t(:next_version)
+                =link_to schema_schema_versions_path, class: "detail-action" do
+                  %i.material-icons list
+                  = t(:history)
+            .col-md-12.container-schema-action
+              - if user_signed_in? && current_user.can_create_schemas
+                %a.btn.btn-primary{:href => new_schema_schema_version_path(@schema)}
+                  =t(:new_version)
               %a.btn.btn-static{:href => schema_schema_version_url(@schema, @schema_version, format: :json), :role => "button", :target => '_blank'}= t(:view_oas)
               %p.url-canonica
                 %span
@@ -48,29 +49,29 @@
                     %a{href: schema_schema_version_url(@schema, @schema_version, format: :json), target: "_blank"}
                       = schema_schema_version_url(@schema, @schema_version, format: :json)
 
-      .col-md-3.container-schema-rel
-        %h2
-          #{t(:related_schemas)}
-        .row
-          - @schema.schema_categories.each do |schema_category|
-            %h3.col-title=schema_category.name
-            %ul.list-categories
-              - schema_category.schemas.each do |schema|
-                %li=link_to schema.name, schema_schema_version_path(schema, schema.last_version)
+        .col-md-3.container-schema-rel
+          %h2
+            #{t(:related_schemas)}
+          .row
+            - @schema.schema_categories.each do |schema_category|
+              %h3.col-title=schema_category.name
+              %ul.list-categories
+                - schema_category.schemas.each do |schema|
+                  %li=link_to schema.name, schema_schema_version_path(schema, schema.last_version)
 
-.container-fluid.container-schema-detail
-  .container
-    .row
-      .col-md-8
-        %h2=t(:specification)
-        .field
-          = schema_markup(@schema_version)
-      .col-md-4
-        %h2=t(:example)
-        .box-code-example
-          %pre
-            - if @schema_version.example.present?
-              %code.json
-                = preserve(JSON.pretty_generate @schema_version.example)
-            - else
-              =t(:no_example)
+  .container-fluid.container-schema-detail-spcs
+    .container
+      .row
+        .col-md-8
+          %h2=t(:specification)
+          .field
+            = schema_markup(@schema_version)
+        .col-md-4
+          %h2=t(:example)
+          .box-code-example
+            %pre
+              - if @schema_version.example.present?
+                %code.json
+                  = preserve(JSON.pretty_generate @schema_version.example)
+              - else
+                =t(:no_example)
