@@ -13,6 +13,12 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
       organization: organizations(:sii),
       spec_file: File.open(Rails.root / "test/files/sample-services/petsfull.yaml")
     ).create_first_version(users(:pedro))
+    @service_v2 = Service.create!(
+      name: "PetsComplex",
+      public: false,
+      organization: organizations(:sii),
+      spec_file: File.open(Rails.root / "test/files/sample-services/petsfull-complex.json")
+    ).create_first_version(users(:pedro))
   end
 
   test "Show service operation detail" do
@@ -155,6 +161,26 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
     within ".parameters" do
       assert_content "username"
       assert_content "password"
+    end
+  end
+
+  test "Parameter restriccions are displayed correctly" do
+    visit organization_service_service_version_path(
+      @service_v2.organization, @service_v2.service, @service_v2
+    )
+    find(".container-verbs a", text: "POST/stores/order").click
+    assert_content "Place an order for a pet"
+    within ".parameters" do
+      find("a", text: "body").trigger('click')
+      assert_content '/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/'
+      assert_content '3 < x < 7'
+      assert_content 'default 5'
+      assert_content 'x ≥ 3'
+      assert_content 'elementos únicos'
+      find(".parameters a", text: "estadosMensajes").trigger('click')
+      assert_content '(elementos)'
+      find(".parameters a", text: "(elementos)").trigger('click')
+      assert_content 'enum: TXT'
     end
   end
 end
