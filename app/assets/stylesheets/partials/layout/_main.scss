@@ -576,6 +576,10 @@ ul.list-operations {
     }
 }
 
+.container-schema-detail{
+  padding: 20px 0;
+}
+
 .container-schema-action {
     padding: 10px 12px;
     .btn {
@@ -586,6 +590,17 @@ ul.list-operations {
     pre {
         background-color: rgba(241, 239, 238, 1);
     }
+}
+
+.box-code-example{
+  pre{
+    border: 1px solid rgba(225,225,225,1);
+    border-radius: 0;
+    padding: 0;
+    code{
+
+    }
+  }
 }
 
 .container-schema-rel{

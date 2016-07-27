@@ -2,6 +2,7 @@
 .schema-panel-set {
     background-color: rgba(246, 246, 246, 1);
     padding: 20px;
+    border: 1px solid rgba(225, 225, 225, 1);
     @media only screen and (max-width: 480px) {
         padding: 0px;
     }

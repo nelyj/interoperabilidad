@@ -58,17 +58,15 @@
               - schema_category.schemas.each do |schema|
                 %li=link_to schema.name, schema_schema_version_path(schema, schema.last_version)
 
-
-
-.container-fluid
+.container-fluid.container-schema-detail
   .container
     .row
       .col-md-8
         %h2=t(:specification)
         .field
-        = schema_markup(@schema_version)
+          = schema_markup(@schema_version)
       .col-md-4
-        %h3=t(:example)
+        %h2=t(:example)
         .box-code-example
           %pre
             - if @schema_version.example.present?
