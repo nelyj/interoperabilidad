@@ -37,10 +37,7 @@ body {
     font-size: $font-13;
     &.schema_versions_show {
         @media only screen and (min-width: 1200px) {
-            background-color: $gray-background;
-            background-image: image-url('bg.jpg');
-            background-repeat: repeat-y;
-            background-position: center;
+            background-color: rgba(255, 255, 255, 1);
         }
         @media only screen and (max-width: 1200px) {
             background-color: rgba(255, 255, 255, 1);
@@ -109,71 +106,8 @@ strong {
     }
 }
 
+.box-service,
 .box-schema {
-    width: 270px;
-    text-align: left;
-    border-radius: 4px;
-    display: inline-block;
-    margin: 0px 5px 20px 5px;
-    background: rgba(255, 255, 255, 1);
-    -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
-    -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
-    @media only screen and (max-width: 480px) {
-        width: 98%;
-    }
-    .title {
-        color: white;
-        height: 77px;
-        max-height: 77px;
-        overflow: hidden;
-        padding: 17px;
-        line-height: 21px;
-        font-size: $font-18;
-        font-family: $font-regular;
-        border-radius: 4px 4px 0px 0px;
-        background-color: $schemas-background-color;
-        margin: 0px;
-        a {
-            color: white;
-            &:hover {
-                text-decoration: none;
-            }
-        }
-    }
-    .body {
-        padding: 17px;
-        font-size: $font-13;
-        min-height: 130px;
-        height: 130px;
-        overflow: hidden;
-        font-family: $font-regular;
-        position: relative;
-        span {
-            font-family: $font-bold;
-        }
-        .organization {
-            display: block;
-            position: absolute;
-            width: auto;
-            background: rgba(239, 239, 239, 1);
-            border-radius: 4px;
-            color: rgba(145, 145, 145, 1);
-            bottom: 0px;
-            font-size: $font-18;
-            padding: 5px 7px;
-            max-width: 235px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-    }
-    &.filtered {
-        display: none;
-    }
-}
-
-.box-service {
     margin: 0px 5px 20px 5px;
     border-radius: 0;
     background: rgba(255, 255, 255, 1);
@@ -235,6 +169,12 @@ strong {
             color: $official-lightblue;
         }
     }
+}
+
+.box-schema {
+  &.filtered {
+    display: none;
+  }
 }
 
 .instance-panel {
@@ -477,6 +417,9 @@ h4 {
     &.col-title {
         font-family: $font-bold;
         margin: 0px 0px 5px 0px;
+        font-size: $font-14;
+        display: block;
+        padding: 12px 0;
     }
 }
 
@@ -499,7 +442,7 @@ ul.list-categories {
         padding: 8px;
         color: $gray-text;
         margin-bottom: 1px;
-        font-size: $font-18;
+        font-size: $font-14;
         line-height: $font-18;
         font-family: $font-regular;
         a {
@@ -581,7 +524,7 @@ ul.list-operations {
     }
 }
 
-.container-schema-detail {
+.container-schema-action {
     color: rgba(94, 94, 94, 1);
     @media only screen and (min-width: 768px) {
         padding: 0px 40px 0px 60px;
@@ -599,17 +542,7 @@ ul.list-operations {
         }
     }
     .history-version {
-        text-transform: uppercase;
-        margin-bottom: 30px;
-        a {
-            text-decoration: underline;
-            &:first-child {
-                margin-right: 10px;
-            }
-        }
-        .historic {
-            float: right;
-        }
+      margin-right: 8px;
     }
     h2 {
         text-transform: uppercase;
@@ -655,6 +588,39 @@ ul.list-operations {
     }
 }
 
+.container-schema-rel{
+  border-left: 1px solid rgba(204, 204, 204, 1);
+  padding-left: 30px;
+  .row{
+    min-height: 160px;
+    max-height: 160px;
+    overflow-y: auto;
+    margin-left: 0;
+  }
+  h2{
+    font-size: $font-18;
+    font-family: $font-bold;
+    margin: 4px 0 20px 0;
+  }
+  h3{
+    font-size: $font-14;
+    margin: 0;
+    padding: 6px 0;
+  }
+  ul{
+    padding: 0 0 14px 24px;
+    margin: 0;
+    list-style: initial;
+    li{
+      padding: 3px 0;
+      a{
+        text-decoration: none;
+        color: rgba(94, 94, 94, 1);
+      }
+    }
+  }
+}
+
 .alert {
     margin: 0px;
     @include alert-variant($alert-info-bg,
@@ -695,12 +661,14 @@ ul.list-operations {
 @import "components/_schemas-component.scss";
 @import "components/_tables.scss";
 //Services
+.instance-schemas,
 .instance-panel-services {
     background-color: $gray-background;
     padding: 30px 0px;
     .title {
         display: block;
         line-height: 125%;
+        overflow: hidden;
         h1 {
             float: left;
             font-size: $font-24;
@@ -722,6 +690,7 @@ ul.list-operations {
         font-size: $font-18;
         margin-bottom: 30px;
         padding-right: 10px;
+        padding-top: 10px;
         color: $dark-black-text;
         font-family: $font-regular;
         h1 {
@@ -777,6 +746,12 @@ ul.list-operations {
             }
         }
     }
+}
+
+.instance-schemas{
+  .description {
+    height: 110px;
+  }
 }
 
 .institution-detail {
