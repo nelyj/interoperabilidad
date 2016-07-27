@@ -110,8 +110,9 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
       find(".parameters a", text: "body").trigger('click')
       assert_content "name"
       assert_content "Pet object that needs to be added to the store"
-      find("a", text: "photoUrls").trigger('click')
-      assert_content "(elementos)"
+
+      find(".parameters a", text: "photoUrls").trigger('click')
+      #assert_content "(elementos)"
     end
     find(".container-verbs a", text: "POST/users/createWithList").click
     assert_content "Creates list of users with given input array"
