@@ -100,8 +100,8 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
     )
     find(".container-verbs a", text: "PUT/pets").click
     assert_content "Update an existing pet"
-    find(".parameters a", text: "body").trigger('click')
     within ".schema-panel-set" do
+      find(".parameters a", text: "body").trigger('click')
       assert_content "name"
       assert_content "pet status in the store"
       find("a", text: "photoUrls").trigger('click')
