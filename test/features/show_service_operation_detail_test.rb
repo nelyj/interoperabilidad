@@ -109,7 +109,7 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
     within ".schema-panel-set" do
       find(".parameters a", text: "body").trigger('click')
       assert_content "name"
-      assert_content "pet status in the store"
+      assert_content "Pet object that needs to be added to the store"
       find("a", text: "photoUrls").trigger('click')
       assert_content "(elementos)"
     end
@@ -138,7 +138,7 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
       assert_content "405"
       assert_content "Validation exception"
     end
-    find(".container-verbs a", text: "POST/pets/{petId}").click
+    find(".container-verbs a", text: "POST/pets/{petId}").trigger('click')
     assert_content "Updates a pet in the store with form data"
     within ".responses" do
       assert_content "405"
