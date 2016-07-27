@@ -16,17 +16,8 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
   convertAllFormsToJSON()
-  webshim.setOptions
-    'waitReady': true
-    'debug': false
-    'forms':
-      lazyCustomMessages: true
-      replaceValidationUI: true
-    'forms-ext': replaceUI: 'auto'
-  webshim.activeLang()
-  webshim.activeLang 'es'
-  webshim.polyfill 'forms forms-ext'
-  $(this).updatePolyfill()
+  webshims.setOptions('forms-ext', {types: 'datetime-local time date number month range'})
+  webshims.polyfill('forms forms-ext')
 
 convertAllFormsToJSON = ->
   $('.console-parameter-group').each (index, paramGroup) ->
@@ -233,8 +224,9 @@ setConsoleBtnOptions = (element) ->
 $(document).on 'click', '#btns-service-console li a', () ->
   setConsoleBtnOptions($(this))
 
-$(document).on 'click', '#try-service', ->
-  if( $('form.ws-validate').checkValidity() )
+$(document).on 'submit', '#consoleForm', (e) ->
+  e.preventDefault()
+  if  $(this).callProp('checkValidity')
     convertActiveFormsToJSON()
     $.ajax(
       url: location.href,

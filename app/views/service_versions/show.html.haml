@@ -147,38 +147,39 @@
               - if @organization.can_create_agreements_with_this_organization?(current_user)
                 = link_to t(:new_agreement), new_agreement_path, class: "btn btn-primary"
             - else
-              %h3= t(:parameters)
-              - if @service_version.has_parameters?(@verb, @path)
-                - @service_version.parameter_locations(@verb, @path).each do |location|
-                  .console-parameter-group{data: {location: location}}
-                    .subtitle
-                      .col-md-6.text-left
-                        %h3= parameter_section_name(location)
-                      .col-md-6.text-right
-                        %span.bullet-required
-                          =t(:property_required)
-                    %ul.nav.nav-tabs
-                      %li.display-tab.active{"data-tab": ".form-tab"}
-                        %a Form
-                      %li.display-tab{"data-tab": ".json-tab"}
-                        %a JSON
-                    .tab-content
-                      .form-tab.tab-pane.active
-                        = form_tag('#', class: "ws-validate") do
+              %form#consoleForm
+                %h3= t(:parameters)
+                - if @service_version.has_parameters?(@verb, @path)
+                  - @service_version.parameter_locations(@verb, @path).each do |location|
+                    .console-parameter-group{data: {location: location}}
+                      .subtitle
+                        .col-md-6.text-left
+                          %h3= parameter_section_name(location)
+                        .col-md-6.text-right
+                          %span.bullet-required
+                            =t(:property_required)
+                      %ul.nav.nav-tabs
+                        %li.display-tab.active{"data-tab": ".form-tab"}
+                          %a Form
+                        %li.display-tab{"data-tab": ".json-tab"}
+                          %a JSON
+                      .tab-content
+                        .form-tab.tab-pane.active
                           .schema-panel-set
                             = service_operation_parameters_form(@service_version, @verb, @path, location)
-                      .json-tab.tab-pane
-                        .raw-json
-                  %hr
-              - else
-                %p= t(:operation_without_parameters)
-              .btn-group
-                %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-                  %span.caret
-                %ul#btns-service-console.dropdown-menu
-                  %li
-                    %a Servicio Real
-              %button#try-service.btn.btn-primary= t(:send)
+                        .json-tab.tab-pane
+                          .raw-json
+                    %hr
+                - else
+                  %p= t(:operation_without_parameters)
+                .btn-group
+                  %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+                    %span.caret
+                  %ul#btns-service-console.dropdown-menu
+                    %li
+                      %a Servicio Real
+                %button#try-service.btn.btn-primary{type: 'submit'}
+                  = t(:send)
               .console-response-group
                 %h3=t(:response)
                 %pre.code#response
