@@ -1,6 +1,18 @@
+.show-agreement
+  .container-fluid.main-title
+    .container
+      .row
+        .col-md-12
+          %h1 Historial del Esquema
+          %a{:href => 'javascript:history.back();', :title => 'Cancelar'}
+            %i.material-icons
+              close
+
 .container.new-schemas-container
-  %h1= @schema.name
-  %h4= @schema.schema_categories.map(&:name).join(', ')
+  .row
+    .col-md-12
+      %h3= @schema.name
+      %h5=@schema.schema_categories.map(&:name).join(', ')
   .row
     .col-md-12
       %table.table.schema-versions

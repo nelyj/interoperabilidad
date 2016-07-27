@@ -1,5 +1,6 @@
 // All tables style
-table {
+table,
+.table{
     color: $gray-text;
     width: 100%;
     thead {
@@ -10,6 +11,8 @@ table {
                 padding: 12px;
                 font-size: $font-14;
                 line-height: 120%;
+                vertical-align: middle;
+                border-bottom: 2px solid #ddd;
             }
         }
     }
