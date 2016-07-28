@@ -44,15 +44,12 @@ table,
     }
 }
 
-//Aditionals
+//For all tables
 .head-title-table {
     overflow: hidden;
     h2 {
-        float: left;
-        @extend .font-bold;
-        font-size: $font-18;
-        margin: 0;
-        padding: 20px 0;
+        margin: 5px 0 20px;
+        float: left
     }
     .search-table {
         float: right;
