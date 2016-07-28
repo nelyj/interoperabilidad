@@ -16,6 +16,7 @@ document.addEventListener 'turbolinks:load', ->
     editors[location].setValue("{}")
   setConsoleBtnOptions('#btns-service-console li a:first')
   convertAllFormsToJSON()
+  webshims.setOptions({debug: false})
   webshims.setOptions('forms-ext', {types: 'datetime-local time date number month range'})
   webshims.polyfill('forms forms-ext')
 
