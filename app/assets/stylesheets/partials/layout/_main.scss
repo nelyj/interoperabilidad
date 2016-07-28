@@ -299,7 +299,8 @@ strong {
     }
 }
 
-.new-service-container {
+.new-service-container,
+.new-schemas-container {
     padding: 45px 0px 30px 0px;
     background-color: rgba(255, 255, 255, 1);
     input {
@@ -339,7 +340,7 @@ strong {
     }
 }
 
-/* File Schema Upload*/
+/* File Schema Upload
 
 .box-new-schema-file {
     height: 120px;
@@ -420,7 +421,7 @@ strong {
 
 .box-new-service-file {
     @extend .box-new-schema-file
-}
+}*/
 
 h3,
 h4 {
