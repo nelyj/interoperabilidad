@@ -5,15 +5,6 @@
         #{t(:to_review_services_please)}
         = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
 - else
-  .show-agreement
-    .container-fluid.main-title
-      .container
-        .row
-          .col-md-12
-            %h1= t(:services_pending_approval)
-            %a{:href => 'javascript:history.back();', :title => 'Cancelar'}
-              %i.material-icons
-                close
 
   .content-pages.content-tabs
     .container
