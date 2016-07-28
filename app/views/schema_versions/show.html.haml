@@ -46,8 +46,9 @@
               %p.url-canonica
                 %span
                   %strong
-                    %a{href: schema_schema_version_url(@schema, @schema_version, format: :json), target: "_blank"}
-                      = schema_schema_version_url(@schema, @schema_version, format: :json)
+                    URL Base
+                  %a{href: schema_schema_version_url(@schema, @schema_version, format: :json), target: "_blank"}
+                    = schema_schema_version_url(@schema, @schema_version, format: :json)
 
         .col-md-3.container-schema-rel
           %h2
