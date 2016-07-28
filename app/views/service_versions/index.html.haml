@@ -1,31 +1,41 @@
-.content-pages.content-tabs
-  .container
-    .tab-content
-      #services.tab-pane.active{:role => "tabpanel"}
-        %h1= @service.name
-        %h4= @organization.name
-        .row
-          .col-md-12
-            %table
-              %colgroup
-                %col{:width => "15%"}
-                %col{:width => "10%"}
-                %col{:width => "20%"}
-                %col{:width => "10%"}
-              %thead
-                %tr
-                  %th= t(:dateString)
-                  %th= ServiceVersion.human_attribute_name(:version_number)
-                  %th= t(:author)
-                  %th
-              %tbody
-                - @service_versions.each do |service_version|
-                  %tr{"data-link" => organization_service_service_version_path(@organization, @service, service_version)}
-                    %td= service_version.created_at.strftime("%d/%m/%Y")
-                    %td
-                      %span{ class: 'btn btn-tiny static' }
-                        = 'R' + service_version.version_number.to_s
-                    %td= service_version.user.name
-                    %td
-                      %span{class: css_class_for_status(service_version.status)}
-                        = t(service_version.status)
+.show-agreement
+  .container-fluid.main-title
+    .container
+      .row
+        .col-md-12
+          %h1
+            Historial del Servicio de
+            = @organization.name
+          %a{:href => 'javascript:history.back();', :title => 'Cancelar'}
+            %i.material-icons
+              close
+
+.container.service-container
+  .row
+    .col-md-12
+      %h3= @service.name
+  .row
+    .col-md-12
+      %table.table
+        %colgroup
+          %col{:width => "10%"}
+          %col{:width => "6%"}
+          %col
+          %col{:width => "10%"}
+        %thead
+          %tr
+            %th= t(:dateString)
+            %th= ServiceVersion.human_attribute_name(:version_number)
+            %th= t(:author)
+            %th
+        %tbody
+          - @service_versions.each do |service_version|
+            %tr{"data-link" => organization_service_service_version_path(@organization, @service, service_version)}
+              %td= service_version.created_at.strftime("%d/%m/%Y")
+              %td
+                %span{ class: 'btn btn-tiny static' }
+                  = 'R' + service_version.version_number.to_s
+              %td= service_version.user.name
+              %td
+                %span{class: css_class_for_status(service_version.status)}
+                  = t(service_version.status)
