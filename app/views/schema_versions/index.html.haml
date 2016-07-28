@@ -16,6 +16,11 @@
   .row
     .col-md-12
       %table.table.schema-versions
+        %colgroup
+          %col{:width => "6%"}
+          %col{:width => "20%"}
+          %col
+          %col{:width => "10%"}
         %thead
           %tr
             %th= SchemaVersion.human_attribute_name(:version_number)
