@@ -15,28 +15,35 @@
             %ul
               - @service_version.errors.full_messages.each do |message|
                 %li= message
-    .title-panel-pages
-      .container
-        .row
-          .col-md-12
-            %h1= @organization.name
-    .container-fluid.new-service-container
-      .container
-        .row
-          .col-md-6
-            %h2= t(:new_version_for, name: @service.name)
-            %h3= t(:enter_new_service_file)
-            .input-group.box-input-file
-              .field
-                %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
-              %label#label-file.input-group-btn
-                %span#select-file.btn= t(:choose_file)
-                = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
-            %span#remove-file
-              %i.material-icons close
-              %span=t(:remove_file)
-        .row
-          .col-md-12
-            .text-right
-              = f.submit t(:upload_new_version), class: 'btn btn-primary btn-lg'
-          %br
+
+    .new-agreement.main-container
+      .container-fluid.main-title
+        .container
+          .row
+            .col-md-12
+              %h1
+                = t(:new_version_for, name: @service.name)
+                de
+                = @organization.name
+              %a{:href => "javascript:history.back();"}
+                %i.material-icons
+                  close
+      .container-fluid
+        .container
+          .row.new-service-container
+            .col-md-12
+              %h4= t(:enter_new_service_file)
+              .input-group.box-input-file
+                .field
+                  %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
+                %label#label-file.input-group-btn
+                  %span#select-file.btn= t(:choose_file)
+                  = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
+              %span#remove-file
+                %i.material-icons close
+                %span=t(:remove_file)
+          .row
+            .col-md-12
+              .text-right
+                = f.submit t(:upload_new_version), class: 'btn btn-primary btn-lg'
+            %br
