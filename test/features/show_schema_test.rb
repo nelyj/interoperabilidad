@@ -105,13 +105,13 @@ class ShowSchemaTest < Capybara::Rails::TestCase
        assert_selector 'h3', text: schema_version.schema.name
        assert_selector 'h5', text: "Información de Personas"
        assert_text schema_version.previous_version.version_number
-       assert_text schema_version.previous_version.created_at.to_s
+       assert_text schema_version.previous_version.created_at.strftime("%d/%m/%Y")
        assert_text schema_version.previous_version.user.name
        assert_text schema_version.version_number
-       assert_text schema_version.created_at.to_s
+       assert_text schema_version.created_at.strftime("%d/%m/%Y")
        assert_text schema_version.user.name
        assert_text schema_version.next_version.version_number
-       assert_text schema_version.next_version.created_at.to_s
+       assert_text schema_version.next_version.created_at.strftime("%d/%m/%Y")
        assert_text schema_version.next_version.user.name
      end
    end

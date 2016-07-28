@@ -26,6 +26,6 @@
           - @schema_versions.each do |schema_version|
             %tr
               %td= schema_version.version_number
-              %td= schema_version.created_at
+              %td= schema_version.created_at.strftime("%d/%m/%Y")
               %td= schema_version.user.name
               %td= link_to t(:view_schema), [@schema,schema_version], :class => "btn btn-status primary"
