@@ -52,9 +52,8 @@ class ShowServiceTest < Capybara::Rails::TestCase
     service_version = service_versions(:servicio1_v3)
     visit organization_service_service_version_path(service_version.organization, service_version.service, service_version)
     click_link ("Historial")
-    within "#services" do
-      assert_selector 'h1', text: service_version.name
-      assert_selector 'h4', text: service_version.organization.name
+    within ".service-container" do
+      assert_selector 'h3', text: service_version.name
       rows = page.all(:xpath, '//table/tbody/tr')
       assert rows.count == 3
 
@@ -62,6 +61,7 @@ class ShowServiceTest < Capybara::Rails::TestCase
       assert rows[1].text.include?("R2")
       assert rows[2].text.include?("R1")
     end
+    assert_selector 'h1', text: service_version.organization.name
   end
 
 end

@@ -14,7 +14,7 @@ class ApproveServiceTest < Capybara::Rails::TestCase
     visit organization_service_service_version_path(service_v.organization, service_v.service, service_v)
     assert_button ('Aprobar')
     click_button ('Aprobar')
-    assert_content 'Servicios por aprobar'
+    assert_content 'Solicitud pendiente de validación'
     assert ServiceVersion.where(id: service_v.id).first.status == "current"
     assert_equal 1, users(:pablito).unread_notifications
   end
@@ -28,7 +28,7 @@ class ApproveServiceTest < Capybara::Rails::TestCase
     #find(:xpath, "//table/tr").click
     assert_button ('Aprobar')
     click_button ('Aprobar')
-    assert_content 'Servicios por aprobar'
+    assert_content 'Solicitud pendiente de validación'
     assert ServiceVersion.where(id: service_versions(:servicio1_v3).id).first.status == "current"
     assert_equal 1, users(:pablito).unread_notifications
   end

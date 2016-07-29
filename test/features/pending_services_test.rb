@@ -13,7 +13,7 @@ class PendingServicesTest < Capybara::Rails::TestCase
     find('#user-menu').click
     find('#menu-pending-approval').click
 
-    assert_content "Servicios por aprobar"
+    assert_content "Solicitudes pendientes de validación"
     assert_content "servicio_1"
     assert_content "R3"
     assert_content "servicio_2"
@@ -27,7 +27,7 @@ class PendingServicesTest < Capybara::Rails::TestCase
     find('#user-menu').click
     find('#menu-pending-approval').click
 
-    assert_content "Servicios por aprobar"
+    assert_content "Solicitudes pendientes de validación"
     rows = page.all(:xpath, '//table/tbody/tr')
     rows[0].click
 
