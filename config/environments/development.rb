@@ -57,7 +57,9 @@
     :domain => ENV['APP_HOST_URL'],
     :user_name => ENV['SMTP_USER'],
     :password => ENV['SMTP_SECRET'],
-    :authentication => :login
+    :authentication => :login,
+    :enable_starttls_auto => false,
+    :openssl_verify_mode => 'none'
   }
 
 end
