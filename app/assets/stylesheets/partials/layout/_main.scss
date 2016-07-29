@@ -1095,18 +1095,17 @@ ul.list-operations {
             li {
                 width: 50%;
                 text-align: center;
-                border: 1px solid rgba(80, 87, 103, 1);
                 a {
                     margin: 0px;
                     padding: 10px 20px;
                     font-family: $font-regular;
-                    color: rgba(80, 87, 103, 1);
+                    color: rgba(153, 153, 153, 1);
                 }
                 &.active {
                     a {
-                        font-family: $font-regular;
-                        color: rgba(255, 255, 255, 1);
-                        background-color: rgba(80, 87, 103, 1);
+                        font-family: $font-bold;
+                        background: none;
+                        color: $official-blue;
                     }
                 }
             }
@@ -1131,12 +1130,15 @@ ul.list-operations {
         margin-bottom: 35px;
         ul.nav-tabs {
             margin-bottom: 10px;
+            border-bottom: 1px solid rgba(153, 153, 153, 1);
+            margin-top: 20px;
         }
         li.display-tab {
             cursor: pointer;
         }
         li.display-tab.active {
             cursor: default;
+            border-bottom: 5px solid $official-blue;
         }
     }
     .console-response-group {
