@@ -1,0 +1,15 @@
+servicio_2_created_notification:
+  user: perico
+  subject: servicio_2
+  subject_type: "ServiceVersion"
+  message: "Mensaje de Prueba"
+  read: false
+  seen: false
+  email: mail@example.org
+
+subject_invalido:
+  user: perico
+  subject: servicio_2
+  subject_type: "Service Version"
+  message: ''
+  email: mail@example.org
