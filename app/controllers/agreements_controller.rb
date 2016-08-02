@@ -1,4 +1,5 @@
 class AgreementsController < ApplicationController
+
   def index
   end
 

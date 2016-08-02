@@ -23,8 +23,7 @@
         %li
           = link_to t(:services), organization_services_path(org), id: "services"
         %li
-          %a{:href => "/agreements/index"}
-            =t(:agreements)
+          = link_to t(:agreements), agreements_path, id: "agreements"
       -if current_user.can_create_schemas
         %li.new-schema
           = link_to new_schema_path, id: "menu-new-schema" do
