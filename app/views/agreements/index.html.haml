@@ -2,19 +2,21 @@
 	.container
 		.row
 			.col-md-12
-				%h1 Convenios Ministerio Secretaría General de la Presidencia
+				%h1= t(:agreements) + ' ' + @organization.name
 		.row
 			.col-md-12
 				%ul.nav.nav-tabs{:role => "tablist"}
 					%li.active{:role => "presentation"}
-						%a{"aria-controls" => "proveedor", "data-toggle" => "tab", :href => "#proveedor", :role => "tab"} Proveedor
+						%a{"aria-controls" => "proveedor", "data-toggle" => "tab", :href => "#proveedor", :role => "tab"}
+							= t(:provider)
 					%li{:role => "presentation"}
-						%a{"aria-controls" => "consumidor", "data-toggle" => "tab", :href => "#consumidor", :role => "tab"} Consumidor
+						%a{"aria-controls" => "consumidor", "data-toggle" => "tab", :href => "#consumidor", :role => "tab"}
+							= t(:consumer)
 					%li{:role => "presentation", :class => "tab-to-new"}
-						%a{:href => 'new', :title => 'Crear Nuevo Convenio'}
+						= link_to new_agreement_path(@organization), :title => t(:create_agreement) do
 							%i.material-icons
 								note_add
-							%span Crear Nuevo Convenio
+							%span= t(:create_agreement)
 
 .content-pages.content-tabs
 	.container
@@ -22,7 +24,7 @@
 			#proveedor.tab-pane.active{:role => "tabpanel"}
 				.row
 					.col-md-12.head-title-table
-						%h2 Listado de convenios
+						%h2= t(:agreements_list)
 						.search-table
 							%input{:type => 'text', :placeholder => t(:name_search)}
 							%button.search
@@ -39,19 +41,19 @@
 								%col{:width => "10%"}
 							%thead
 								%tr
-									%th Institución solicitante
-									%th Servicios involucrados
-									%th Propósito
-									%th Fecha ult. movimiento
-									%th Estado
+									%th= t(:requesting_organization)
+									%th= t(:involved_services)
+									%th= t(:purpose)
+									%th= t(:last_movement_date)
+									%th= t(:state)
 							%tbody
 								- (1..6).each do |i|
-									= render partial: "content_table"
+									= render partial: "table_row"
 
 			#consumidor.tab-pane{:role => "tabpanel"}
 				.row
 					.col-md-12.head-title-table
-						%h2 Listado de convenios
+						%h2= t(:agreements_list)
 						.search-table
 							%input{:type => 'text', :placeholder => t(:name_search)}
 							%button.search
@@ -68,11 +70,11 @@
 								%col{:width => "8%"}
 							%thead
 								%tr
-									%th Institución proveedora
-									%th Servicios involucrados
-									%th Propósito
-									%th Fecha ult. movimiento
-									%th Estado
+									%th= t(:provider_organization)
+									%th= t(:involved_services)
+									%th= t(:purpose)
+									%th= t(:last_movement_date)
+									%th= t(:state)
 							%tbody
 								- (1..6).each do |i|
-									= render partial: "content_table"
+									= render partial: "table_row"

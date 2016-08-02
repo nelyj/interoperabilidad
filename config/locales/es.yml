@@ -56,13 +56,19 @@ es:
   enter_new_schema_category: Indica Categoría
   create_schema: Crear Esquema
   create_service: Crear Servicio
-  create_agreement: Crear Convenio
+  create_agreement: Crear Nuevo Convenio
   no_results_found: "No se han encontrado resultados"
   service_directory: Directorio de Servicios
   enter_service_name: "Ingresa nombre de Servicio"
   institution: Institución
   services: Servicios
   agreements: Convenios
+  agreements_list: Listado de convenios
+  last_movement_date: Fecha ult. movimiento
+  purpose: Propósito
+  involved_services: Servicios involucrados
+  provider: Proveedor
+  consumer: Consumidor
   notifications: Notificaciones
   not_readed: No Leída
   readed: Leída
@@ -108,6 +114,8 @@ es:
   version_rejected_msg: "La revisión de este servicio ha sido rechazada por los siguientes motivos:"
   service_name: Nombre del servicio
   requesting_organization: Institución solicitante
+  provider_organization: Institución proveedora
+  agreement_state: Estado del convenio
   requester: Solicitante
   state: Estado
   new_requests_pending_approval:
