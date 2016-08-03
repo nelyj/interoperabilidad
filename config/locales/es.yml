@@ -69,6 +69,11 @@ es:
   involved_services: Servicios involucrados
   provider: Proveedor
   consumer: Consumidor
+  create_new_agreement: Crear Nuevo Convenio
+  services_involved_in_agreement: Servicios que involucra este convenio
+  create_request: Crear Solicitud
+  provider_organization: Institución proveedora
+  select_organization: Seleccione una Institución
   notifications: Notificaciones
   not_readed: No Leída
   readed: Leída
@@ -134,6 +139,7 @@ es:
   service_needs_agreement: Este servicio requiere un convenio activo para ser usado.
   login_to_be_able_to_create_agreements: Identifíquese con su clave única para solicitar un convenio.
   role_cant_create_agreement: No tiene permisos suficientes para solicitar convenios.
+  cant_create_agreement: No se pudo crear el convenio
   cant_test_service_without_agreement: Se requiere de un convenio activo para probar este servicio.
   error_while_invoking_service: Error mientras se invocaba al servicio
   response: Respuesta
