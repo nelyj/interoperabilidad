@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160722224652) do
+ActiveRecord::Schema.define(version: 20160803205028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160722224652) do
     t.string  "log"
     t.string  "file"
     t.text    "objection_message"
+    t.integer "revision_number"
     t.index ["agreement_id"], name: "index_agreement_revisions_on_agreement_id", using: :btree
     t.index ["user_id"], name: "index_agreement_revisions_on_user_id", using: :btree
   end
