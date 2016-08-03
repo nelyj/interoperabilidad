@@ -2,51 +2,41 @@
 	.container-fluid.main-title
 		.container
 			.col12
-				%h1 Creación de Nuevo Convenio
-				%a{:href => 'index', :title => 'Cancelar'}
+				%h1= t(:create_new_agreement)
+				= link_to agreements_path do
 					%i.material-icons
 						close
 	.container-fluid.new-agreement-content
 		.container
-			%form.form-group
+			= form_for(@agreement, :html => {class: 'form-group'}) do |f|
 				.row
 					.col-md-6
-						%label Institución proveedora
-						%select.form-control.input-lg
-							%option{:value => "AA"} Seleccione una institución
-							%option{:value => "SS"} Servicio de Salud
-							%option{:value => "SII"} Servicio de Impuestos Internos
-							%option{:value => "SVU"} Ministerio de Vivienda y Urbanismo
+						%label= t(:provider_organization)
+						= f.collection_select(:service_provider_organization_id, Organization.all, :id, :name, {prompt: t(:select_organization)}, {class: 'form-control input-lg'})
 				.row
 					.col-md-6
-						%label Servicios que involucra este convenio
+						%label= t(:services_involved_in_agreement)
 						.list-selector
 							.input-group
-								%input.form-control{:type => 'text', :placeholder => t(:name_search)}
+								%input.form-control.list-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#services_list'}}
 								%span.input-group-btn
 									%button.search
 										%i.material-icons
 											search
-							.content-list
-								- (1..10).each do |i|
-									.row-list
-										%label
-											%input{:type => 'checkbox'}
-											Fecha de inicio de actividades
-
+							.content-list#services_list
+								= f.collection_check_boxes(:services, Service.all, :id, :name) do |s|
+									.row-list{"data-organization" => "#{Service.find(s.value).organization.id}"}
+										= s.label{ s.check_box + s.text}
 					.col-md-6
 						%ul.services-list
-							%li Fecha de inicio de actividades
-							%li Dirección empleador
-							%li Declaraciones patrimoniales
 				.row
 					.col-md-12
 						%label Propósito
-						%textarea.form-control
+						= f.text_area :purpose, class: 'form-control'
 				.row
 					.col-md-12
 						%label Marco Legal
-						%textarea.form-control
+						= f.text_area :legal_base, class: 'form-control'
 				.row
 					.col-md-12
 						%label Términos y condiciones
@@ -58,4 +48,4 @@
 							%li Cumplir y hacer cumplir a los funcionarios de la institución con lo establecido en la Ley Nº 19.628 sobre protección de la vida privada y con el debido resguardo del secreto estadístico  establecido en la Ley Nº 17.374 y demás leyes especiales que regulen el tema.
 				.row
 					.col-md-12
-						%input.btn.btn-primary{:type => 'button', :value => 'Crear Solicitud'}
+						= f.submit class: 'btn btn-primary', value: t(:create_request)
