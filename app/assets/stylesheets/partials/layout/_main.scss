@@ -179,7 +179,6 @@ strong {
 
 .instance-panel {
     width: 100%;
-    height: 200px;
     padding: 40px 0px;
     margin-bottom: 60px;
     background-color: $official-blue;
@@ -188,6 +187,18 @@ strong {
         color: white;
         margin-top: 0px;
         margin-bottom: 25px;
+    }
+    .title-panel-pages{
+      background: none;
+      min-height: initial;
+      color: rgba(255, 255, 255, 1);
+      font-size: $font-14;
+      line-height: 130%;
+      padding: 50px 0 0;
+      text-align: center;
+      a{
+        color: rgba(255, 255, 255, 1);
+      }
     }
     //search-box-input
     .inner-addon {
@@ -709,7 +720,8 @@ ul.list-operations {
     .description {
         max-height: 200px;
         overflow-y: auto;
-        font-size: $font-18;
+        font-size: $font-14;
+        line-height: 120%;
         margin-bottom: 30px;
         padding-right: 10px;
         padding-top: 10px;
@@ -725,7 +737,7 @@ ul.list-operations {
         h5,
         h6 {
             font-size: $font-18;
-            font-family: $font-bold;
+            margin-bottom: 2px;
         }
         p {
             margin: 0px;
@@ -742,18 +754,19 @@ ul.list-operations {
         }
     }
     .detail-action {
-        background-color: rgba(0, 149, 255, 0.1);
+        background: none;
         font-family: $font-regular;
-        font-size: $font-18;
+        font-size: $font-14;
         color: $official-blue;
         display: inline-block;
-        padding: 5px 11px;
+        padding: 0;
         margin-bottom: 6px;
-        width: 183px;
+        width: 130px;
         text-align: left;
         i {
             float: left;
             margin-right: 10px;
+            font-size: $font-18;
         }
         &.deactivate {
             cursor: default;
@@ -780,7 +793,7 @@ ul.list-operations {
     border-bottom: 1px solid $official-grey;
     background-color: rgba(255, 255, 255, 1);
     h2 {
-        font-size: $font-18;
+        font-size: $font-24;
         margin-bottom: 16px;
         color: $official-blue;
     }
@@ -808,8 +821,7 @@ ul.list-operations {
     h1 {
         padding-top: 10px;
         font-size: $font-24;
-        font-family: $font-bold;
-        text-transform: uppercase;
+        color: #888;
     }
     p {
         max-width: 80%;
