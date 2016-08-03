@@ -14,10 +14,12 @@ class AgreementsController < ApplicationController
 
   def create
     @agreement = Agreement.new(agreement_params)
+    @agreement.service_consumer_organization_id = @organization.id
     if @agreement.save
+      @agreement.create_first_revision(current_user)
       redirect_to(agreements_path)
     else
-      flash.now[:error] = t(:cant_create_service)
+      flash.now[:error] = t(:cant_create_agreement)
       render action: "new"
     end
   end
@@ -29,7 +31,7 @@ private
 
   def agreement_params
     params.require(:agreement).permit(:service_provider_organization_id,
-      :service_consumer_organization_id)
+      :service_consumer_organization_id, :purpose, :legal_base, :services => [])
   end
 
   def set_organization
