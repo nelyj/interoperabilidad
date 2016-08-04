@@ -7,6 +7,6 @@ class Agreement <ApplicationRecord
 
   def create_first_revision(user)
     revision = agreement_revisions.create(purpose: self.purpose, user: user,
-      legal_base: self.legal_base, service_ids: self.services)
+      legal_base: self.legal_base, service_ids: self.services, revision_number: 1)
   end
 end

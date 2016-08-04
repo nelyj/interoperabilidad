@@ -2,13 +2,14 @@
 	.container-fluid.main-title
 		.container
 			.col12
-				%h1= t(:create_new_agreement)
+				%h1= t(:create_new_agreement) + ' ' + @organization.name + @organization.id.to_s
 				= link_to agreements_path do
 					%i.material-icons
 						close
 	.container-fluid.new-agreement-content
 		.container
 			= form_for(@agreement, :html => {class: 'form-group'}) do |f|
+				= f.hidden_field :service_consumer_organization_id, :value => @organization.id
 				.row
 					.col-md-6
 						%label= t(:provider_organization)

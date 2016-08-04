@@ -14,10 +14,12 @@ class AgreementsController < ApplicationController
 
   def create
     @agreement = Agreement.new(agreement_params)
-    @agreement.service_consumer_organization_id = @organization.id
-    if @agreement.save
-      @agreement.create_first_revision(current_user)
-      redirect_to(agreements_path)
+     if @agreement.save
+      @agreement_revision = @agreement.create_first_revision(current_user)
+      redirect_to(
+        agreement_agreement_revision_path(@agreement, revision_number: @agreement_revision.revision_number),
+        notice: t(:new_agreement_created)
+      )
     else
       flash.now[:error] = t(:cant_create_agreement)
       render action: "new"
