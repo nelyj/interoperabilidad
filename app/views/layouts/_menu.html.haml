@@ -23,7 +23,7 @@
         %li
           = link_to t(:services), organization_services_path(org), id: "services"
         %li
-          = link_to t(:agreements), agreements_path(organization_name: org), id: "agreements"
+          = link_to t(:agreements), organization_agreements_path(org), id: "agreements"
       -if current_user.can_create_schemas
         %li.new-schema
           = link_to new_schema_path, id: "menu-new-schema" do

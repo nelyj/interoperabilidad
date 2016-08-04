@@ -39,16 +39,17 @@ Rails.application.routes.draw do
           end
       end
     end
-  end
 
-  resources :agreements, only: [:index, :new, :create, :show] do
-    resources :agreement_revisions, only: [:show, :new, :create], param: :revision_number,
-      path: 'revisions' do
-        member do
-          put 'state'
-          get 'pdf'
+    resources :agreements, only: [:index, :new, :create, :show] do
+      resources :agreement_revisions, only: [:show, :new, :create], param: :revision_number,
+        path: 'revisions' do
+          member do
+            put 'state'
+            get 'pdf'
+          end
         end
-      end
+    end
+
   end
 
   resources :users, only: [:index] do

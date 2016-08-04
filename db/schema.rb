@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< d929f4a1c7009bd1a6e53354d355addb9b033283
 ActiveRecord::Schema.define(version: 20160804204717) do
+=======
+ActiveRecord::Schema.define(version: 20160804203436) do
+>>>>>>> Move Agreements inside Consumer Organization
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
   create_table "agreement_revisions", force: :cascade do |t|
+<<<<<<< d929f4a1c7009bd1a6e53354d355addb9b033283
     t.integer  "agreement_id"
     t.integer  "user_id"
     t.integer  "state"
@@ -28,20 +33,36 @@ ActiveRecord::Schema.define(version: 20160804204717) do
     t.integer  "revision_number"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+=======
+    t.integer "agreement_id",                  null: false
+    t.integer "user_id",                       null: false
+    t.integer "state",             default: 0, null: false
+    t.text    "purpose"
+    t.text    "legal_base"
+    t.string  "log"
+    t.string  "file"
+    t.text    "objection_message"
+    t.integer "revision_number",               null: false
+>>>>>>> Move Agreements inside Consumer Organization
     t.index ["agreement_id"], name: "index_agreement_revisions_on_agreement_id", using: :btree
     t.index ["user_id"], name: "index_agreement_revisions_on_user_id", using: :btree
   end
 
   create_table "agreement_revisions_services", force: :cascade do |t|
-    t.integer "agreement_revision_id"
-    t.integer "service_id"
+    t.integer "agreement_revision_id", null: false
+    t.integer "service_id",            null: false
     t.index ["agreement_revision_id"], name: "index_agreement_revisions_services_on_agreement_revision_id", using: :btree
     t.index ["service_id"], name: "index_agreement_revisions_services_on_service_id", using: :btree
   end
 
   create_table "agreements", force: :cascade do |t|
+<<<<<<< d929f4a1c7009bd1a6e53354d355addb9b033283
     t.integer  "service_provider_organization_id"
     t.integer  "service_consumer_organization_id"
+=======
+    t.integer  "service_provider_organization_id", null: false
+    t.integer  "service_consumer_organization_id", null: false
+>>>>>>> Move Agreements inside Consumer Organization
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["service_consumer_organization_id"], name: "index_agreements_on_service_consumer_organization_id", using: :btree
