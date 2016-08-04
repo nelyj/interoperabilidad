@@ -14,11 +14,10 @@ class AgreementsController < ApplicationController
   end
 
   def create
-    @agreement = Agreement.new(agreement_params)
-     if @agreement.save
-      @agreement_revision = @agreement.create_first_revision(current_user)
+    @agreement = Agreement.new(agreement_params.merge(user: current_user))
+     if @agreement.save!
       redirect_to(
-        agreement_agreement_revision_path(@agreement, revision_number: @agreement_revision.revision_number),
+        organization_agreement_agreement_revision_path(@organization, @agreement,  @agreement.agreement_revisions.last.revision_number),
         notice: t(:new_agreement_created)
       )
     else
