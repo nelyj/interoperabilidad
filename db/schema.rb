@@ -10,22 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803205028) do
+ActiveRecord::Schema.define(version: 20160804204717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
   create_table "agreement_revisions", force: :cascade do |t|
-    t.integer "agreement_id"
-    t.integer "user_id"
-    t.integer "state"
-    t.text    "purpose"
-    t.text    "legal_base"
-    t.string  "log"
-    t.string  "file"
-    t.text    "objection_message"
-    t.integer "revision_number"
+    t.integer  "agreement_id"
+    t.integer  "user_id"
+    t.integer  "state"
+    t.text     "purpose"
+    t.text     "legal_base"
+    t.string   "log"
+    t.string   "file"
+    t.text     "objection_message"
+    t.integer  "revision_number"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.index ["agreement_id"], name: "index_agreement_revisions_on_agreement_id", using: :btree
     t.index ["user_id"], name: "index_agreement_revisions_on_user_id", using: :btree
   end
@@ -38,8 +40,10 @@ ActiveRecord::Schema.define(version: 20160803205028) do
   end
 
   create_table "agreements", force: :cascade do |t|
-    t.integer "service_provider_organization_id"
-    t.integer "service_consumer_organization_id"
+    t.integer  "service_provider_organization_id"
+    t.integer  "service_consumer_organization_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.index ["service_consumer_organization_id"], name: "index_agreements_on_service_consumer_organization_id", using: :btree
     t.index ["service_provider_organization_id"], name: "index_agreements_on_service_provider_organization_id", using: :btree
   end
