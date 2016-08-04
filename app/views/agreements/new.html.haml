@@ -3,7 +3,7 @@
 		.container
 			.col12
 				%h1= t(:create_new_agreement) + ' ' + @organization.name + @organization.id.to_s
-				= link_to agreements_path do
+				= link_to agreements_path(organization_name: @organization) do
 					%i.material-icons
 						close
 	.container-fluid.new-agreement-content
