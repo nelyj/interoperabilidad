@@ -31,7 +31,7 @@ class PendingServicesTest < Capybara::Rails::TestCase
     rows = page.all(:xpath, '//table/tbody/tr')
     rows[0].click
 
-    assert_content "SERVICIO PENDIENTE DE APROBACIÓN"
+    assert_content "Servicio pendiente de aprobación"
     assert_content "servicio_1"
 
   end
