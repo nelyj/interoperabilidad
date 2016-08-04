@@ -2,7 +2,8 @@ class AgreementsController < ApplicationController
   before_action :set_organization
 
   def index
-    @agreements = Agreement.all
+    @provided_agreements = Agreement.where(service_provider_organization: @organization)
+    @consumed_agreements = Agreement.where(service_consumer_organization: @organization)
   end
 
   def show

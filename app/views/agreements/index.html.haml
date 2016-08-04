@@ -1,80 +1,79 @@
 .title-panel-pages
-	.container
-		.row
-			.col-md-12
-				%h1= t(:agreements) + ' ' + @organization.name
-		.row
-			.col-md-12
-				%ul.nav.nav-tabs{:role => "tablist"}
-					%li.active{:role => "presentation"}
-						%a{"aria-controls" => "proveedor", "data-toggle" => "tab", :href => "#proveedor", :role => "tab"}
-							= t(:provider)
-					%li{:role => "presentation"}
-						%a{"aria-controls" => "consumidor", "data-toggle" => "tab", :href => "#consumidor", :role => "tab"}
-							= t(:consumer)
-					%li{:role => "presentation", :class => "tab-to-new"}
-						= link_to new_agreement_path(organization_name: @organization.name) do
-							%i.material-icons
-								note_add
-							%span= t(:create_agreement)
+  .container
+    .row
+      .col-md-12
+        %h1= t(:agreements) + ' ' + @organization.name
+    .row
+      .col-md-12
+        %ul.nav.nav-tabs{:role => "tablist"}
+          %li.active{:role => "presentation"}
+            %a{"aria-controls" => "proveedor", "data-toggle" => "tab", :href => "#proveedor", :role => "tab"}
+              = t(:provider)
+          %li{:role => "presentation"}
+            %a{"aria-controls" => "consumidor", "data-toggle" => "tab", :href => "#consumidor", :role => "tab"}
+              = t(:consumer)
+          %li{:role => "presentation", :class => "tab-to-new"}
+            = link_to new_agreement_path(@organization), :title => t(:create_agreement) do
+              %i.material-icons
+                note_add
+              %span= t(:create_agreement)
+>>>>>>> Show real information on Agreements#Index
 
 .content-pages.content-tabs
-	.container
-		.tab-content
-			#proveedor.tab-pane.active{:role => "tabpanel"}
-				.row
-					.col-md-12.head-title-table
-						%h2= t(:agreements_list)
-						.search-table
-							%input{:type => 'text', :placeholder => t(:name_search)}
-							%button.search
-								%i.material-icons
-									search
-				.row
-					.col-md-12
-						%table
-							%colgroup
-								%col{:width => "15%"}
-								%col{:width => "22%"}
-								%col
-								%col{:width => "12%"}
-								%col{:width => "10%"}
-							%thead
-								%tr
-									%th= t(:requesting_organization)
-									%th= t(:involved_services)
-									%th= t(:purpose)
-									%th= t(:last_movement_date)
-									%th= t(:state)
-							%tbody
-								- (1..6).each do |i|
-									= render partial: "table_row"
+  .container
+    .tab-content
+      #proveedor.tab-pane.active{:role => "tabpanel"}
+        .row
+          .col-md-12.head-title-table
+            %h2= t(:agreements_list)
+            .search-table
+              %input{:type => 'text', :placeholder => t(:name_search)}
+              %button.search
+                %i.material-icons
+                  search
+        .row
+          .col-md-12
+            %table
+              %colgroup
+                %col{:width => "15%"}
+                %col{:width => "22%"}
+                %col
+                %col{:width => "12%"}
+                %col{:width => "10%"}
+              %thead
+                %tr
+                  %th= t(:requesting_organization)
+                  %th= t(:involved_services)
+                  %th= t(:purpose)
+                  %th= t(:last_movement_date)
+                  %th= t(:state)
+              %tbody
+                = render partial: "provided_table_row", collection: @provided_agreements
 
-			#consumidor.tab-pane{:role => "tabpanel"}
-				.row
-					.col-md-12.head-title-table
-						%h2= t(:agreements_list)
-						.search-table
-							%input{:type => 'text', :placeholder => t(:name_search)}
-							%button.search
-								%i.material-icons
-									search
-				.row
-					.col-md-12
-						%table
-							%colgroup
-								%col{:width => "15%"}
-								%col{:width => "22%"}
-								%col
-								%col{:width => "12%"}
-								%col{:width => "8%"}
-							%thead
-								%tr
-									%th= t(:provider_organization)
-									%th= t(:involved_services)
-									%th= t(:purpose)
-									%th= t(:last_movement_date)
-									%th= t(:state)
-							%tbody
-								- (1..6).each do |i|
-									= render partial: "table_row"
+      #consumidor.tab-pane{:role => "tabpanel"}
+        .row
+          .col-md-12.head-title-table
+            %h2= t(:agreements_list)
+            .search-table
+              %input{:type => 'text', :placeholder => t(:name_search)}
+              %button.search
+                %i.material-icons
+                  search
+        .row
+          .col-md-12
+            %table
+              %colgroup
+                %col{:width => "15%"}
+                %col{:width => "22%"}
+                %col
+                %col{:width => "12%"}
+                %col{:width => "8%"}
+              %thead
+                %tr
+                  %th= t(:provider_organization)
+                  %th= t(:involved_services)
+                  %th= t(:purpose)
+                  %th= t(:last_movement_date)
+                  %th= t(:state)
+              %tbody
+                = render partial: "consumed_table_row", collection: @consumed_agreements
