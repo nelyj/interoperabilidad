@@ -1,12 +1,12 @@
 %p
   Solicitante:
-  %strong Servicio de Impuestos Internos
+  %strong= @consumer_organization.name
 %p
   Proveedor:
-  %strong Ministerio Secretaría General de la Presidencia
+  %strong= @provider_organization.name
 %p
   Fecha de solicitud:
-  %strong 10/06/2016
+  %strong= @agreement.created_at.strftime("%d/%m/%Y")
 %br
 %p
   %strong Servicios involucrados

@@ -2,7 +2,7 @@
   .container-fluid.main-title
     .container
       .col-md-12
-        %h1 Convenio entre Ministerio Secretaría General de la Presidencia y Servicio de Impuestos Internos
+        %h1= "Convenio entre #{@provider_organization.name} y #{@consumer_organization.name}"
         %a{:href => 'index', :title => 'Cancelar'}
           %i.material-icons
             close
@@ -16,7 +16,7 @@
 
           .visor
             .preview
-              %embed{:src => 'http://www.colegiomanuelbaquedano.cl/download/Libros/Narraciones%20Extraordinarias.pdf', :width => '100%', :height => '500'}
+              %embed{:src => 'http://www.pdf995.com/samples/pdf.pdf', :width => '100%', :height => '500'}
 
           .actions
             %input.btn.btn-default{:type => 'button', :value => 'Editar', "data-link" => '/agreements/edit#visor'}
