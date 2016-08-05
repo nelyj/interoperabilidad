@@ -7,7 +7,7 @@ class ListSchemasTest < Capybara::Rails::TestCase
   test "Schema#Index list all schemas on first category" do
     visit schemas_path
     within ".list-categories" do
-      assert_selector 'li.active', text: schema_categories(:anotaciones).name
+      assert_selector 'li', text: schema_categories(:anotaciones).name
     end
     assert_content page, "AnotacionesSchema1"
     assert_content page, "AnotacionesSchema2"

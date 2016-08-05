@@ -5,8 +5,8 @@ document.addEventListener 'turbolinks:load', ->
     width: 'resolve'
   $('pre code').each (i, block) ->
     hljs.highlightBlock(block)
-  $('#categories-list li:first').addClass("active")
-  filterSchemas($('#categories-list li:first a').attr("data-category"))
+  #$('#categories-list li:first').addClass("active")
+  #filterSchemas($('#categories-list li:first a').attr("data-category"))
 
 $(document).on 'click', '#categories-list li a', (e) ->
   e.preventDefault()
@@ -47,8 +47,8 @@ $(document).on 'click', '#remove-file', ->
 
 this.filterSchemas = filterSchemas = (category) ->
   dataCategory = '[data-categories*="' + category + '"]'
-  $('.box-schema.filtered').hide().filter(dataCategory).css("display","inline-block")
-  if $('.box-schema.filtered').filter(dataCategory).length == 0
+  $('.box-schema.active').hide().filter(dataCategory).css("display","inline-block")
+  if $('.box-schema.avtice').filter(dataCategory).length == 0
     $('.schema-wrapper .empty-state').show();
   else
     $('.schema-wrapper .empty-state').hide();

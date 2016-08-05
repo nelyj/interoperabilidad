@@ -132,4 +132,16 @@ class User < ApplicationRecord
     self.notifications.exists?(seen: false)
   end
 
+  def agreement_creation_organization(org)
+    roles.where(['name = ? AND organization_id <>?',"Create Agreement", org.id]).first.organization
+  end
+
+  def can_create_agreemento_to_many_organizations?(org)
+    organizations_where_can_create_agreement(org).count > 1
+  end
+
+  def organizations_where_can_create_agreement(org)
+    organizations.where(['roles.name = ? AND roles.organization_id <> ?',"Create Agreement", org.id])
+  end
+
 end
