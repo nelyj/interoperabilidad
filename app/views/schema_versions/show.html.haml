@@ -21,7 +21,7 @@
               .history-version
                 - if @schema_version.has_previous_version?
                   =link_to [@schema_version.schema, @schema_version.previous_version], class: 'detail-action' do
-                    %i.material-icons redo
+                    %i.material-icons undo
                     = t(:previous_version)
                 -else
                   %a{class: 'detail-action deactivate'}
