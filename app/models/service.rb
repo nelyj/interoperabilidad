@@ -5,7 +5,7 @@ class Service < ApplicationRecord
   has_many :service_versions
   validates :name, uniqueness: true, presence: true
   before_save :update_humanized_name
-  validates :spec, swagger_spec: true, presence: true
+  validates :spec, swagger_spec: true, presence: true , :on => :create
   validate :spec_file_must_be_parseable
   delegate :description, to: :current_or_last_version
   attr_accessor :spec, :backwards_compatible
@@ -97,7 +97,7 @@ class Service < ApplicationRecord
   def needs_agreement_to_be_used_by?(user)
     return false if self.public # Public services don't need agreements
     return true if user.nil? # Logged out users can't access non-public services
-    return false if user.organizations.include?(self.organization) # Users can access services inside their own orgs (?)
+    return false if user.organizations.include?(self.organization) # Users can access services inside their own orgs
     # TODO: return false if any of the user orgs has a current agreement with this service
     return true
   end

@@ -25,7 +25,7 @@
 										%i.material-icons
 											search
 							.content-list#services_list
-								= f.collection_check_boxes(:services, Service.all, :id, :name) do |s|
+								= f.collection_check_boxes(:services_list, Service.all, :id, :name) do |s|
 									.row-list{"data-organization" => "#{Service.find(s.value).organization.id}"}
 										= s.label{ s.check_box + s.text}
 					.col-md-6

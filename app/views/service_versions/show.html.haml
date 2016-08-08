@@ -73,13 +73,13 @@
       .col-md-12.principal-actions{:class => "#{'button-disabled' unless user_signed_in? && (@service.can_be_updated_by?(current_user) && (@service.needs_agreement_to_be_used_by?(current_user) && @organization.can_create_agreements_with_this_organization?(current_user))) }"}
         - if @service.needs_agreement_to_be_used_by?(current_user)
           - if @organization.can_create_agreements_with_this_organization?(current_user)
-            - if current_user.can_create_agreemento_to_many_organizations?(@organization)
+            - if current_user.can_create_agreements_to_many_organizations?(@organization)
               .btn-group
                 %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                   = t(:new_agreement)
                   %span.caret
                 %ul.dropdown-menu
-                  - current_user.organizations_where_can_create_agreement(@organization).each do |org|
+                  - current_user.organizations_where_can_create_agreements(@organization).each do |org|
                     %li
                       =link_to org.name, new_organization_agreement_path(org)
             - else
@@ -154,13 +154,13 @@
               .alert
                 = t(:cant_test_service_without_agreement)
               - if @organization.can_create_agreements_with_this_organization?(current_user)
-                - if current_user.can_create_agreemento_to_many_organizations?(@organization)
+                - if current_user.can_create_agreements_to_many_organizations?(@organization)
                   .btn-group
                     %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                       = t(:new_agreement)
                       %span.caret
                     %ul.dropdown-menu
-                      - current_user.organizations_where_can_create_agreement(@organization).each do |org|
+                      - current_user.organizations_where_can_create_agreements(@organization).each do |org|
                         %li
                           =link_to org.name, new_organization_agreement_path(org)
                 - else

@@ -15,6 +15,7 @@ class AgreementsController < ApplicationController
 
   def create
     @agreement = Agreement.new(agreement_params.merge(user: current_user))
+
      if @agreement.save!
       redirect_to(
         organization_agreement_agreement_revision_path(@organization, @agreement,  @agreement.agreement_revisions.last.revision_number),
@@ -33,7 +34,7 @@ private
 
   def agreement_params
     params.require(:agreement).permit(:service_provider_organization_id,
-      :service_consumer_organization_id, :purpose, :legal_base, :services => [])
+      :service_consumer_organization_id, :purpose, :legal_base, :services_list => [])
   end
 
   def set_organization

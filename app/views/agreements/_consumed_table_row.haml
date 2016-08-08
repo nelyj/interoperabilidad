@@ -1,4 +1,4 @@
-%tr{"data-link" => '/agreements/show'}
+%tr{"data-link" => organization_agreement_agreement_revision_path(@organization, consumed_table_row, consumed_table_row.last_revision ) }
   %td= consumed_table_row.service_consumer_organization.name
   %td
     %ul
