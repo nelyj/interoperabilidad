@@ -1,0 +1,564 @@
+%html
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "CONTENT-TYPE"}/
+    %title
+    :css
+      <!--
+        @page { margin-left: 1in; margin-right: 1in; margin-top: 0.5in; margin-bottom: 1in }
+        P { margin-bottom: 0.08in }
+        -->
+  %body{:bgcolor => "#ffffff", :dir => "LTR", :lang => "es-CL"}
+    %div{:type => "HEADER"}
+      %p{:style => "margin-bottom: 0.46in"}
+        %br
+    %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%; page-break-inside: avoid; widows: 0; orphans: 0; page-break-after: avoid"}
+      %br
+      %br
+      %br
+      %br
+    %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%; page-break-inside: avoid; widows: 0; orphans: 0; page-break-after: avoid"}
+      %font{:size => "6", :style => "font-size: 26pt"}
+        %font{:face => "Verdana, serif"}
+          %font{:size => "2"}
+            %b
+              CONVENIO PARA INTEROPERAR DATOS ELECTRÓNICAMENTE
+    %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%; page-break-inside: avoid; widows: 0; orphans: 0; page-break-after: avoid"}
+      %font{:size => "6", :style => "font-size: 26pt"}
+        %font{:face => "Verdana, serif"}
+          %font{:size => "2"}
+            %b ENTRE
+    %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %span{:style => "font-variant: small-caps"}
+        %font{:face => "Verdana, serif"}
+          %font{:size => "2"}
+            %b
+              %span= @agreement.service_provider_organization.name.upcase
+    %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%; page-break-inside: avoid; widows: 0; orphans: 0; page-break-after: avoid"}
+      %font{:size => "6", :style => "font-size: 26pt"}
+        %font{:face => "Verdana, serif"}
+          %font{:size => "2"}
+            %b
+              Y EL
+    %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %span{:style => "font-variant: small-caps"}
+        %font{:face => "Verdana, serif"}
+          %font{:size => "2"}
+            %b
+              %span= @agreement.service_consumer_organization.name.upcase
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br
+      %br
+      %br
+      %br
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          = "En Santiago de Chile, a #{l(@agreement.created_at, format: '%d de %B de %Y')}, entre el Ministerio"
+          Secretaría General de la Presidencia, rol único tributario
+          Nº 60.100.003-2, en adelante “MINSEGPRES”, representado para estos
+          efectos por su Subsecretaria, doña Patricia Silva Meléndez, cédula
+          nacional de identidad N° 8.944.520-5, ambos domiciliados para estos
+          efectos en calle Moneda N° 1160, entrepiso, de la comuna y ciudad de
+          Santiago, Región Metropolitana, y el _______________, rol único
+          tributario Nº _______________, en adelante la “Institución”,
+          representado para estos efectos por _______________, ______________,
+          ambos domiciliados para estos efectos en calle _________________, de
+          la comuna y ciudad de Santiago, se ha convenido:
+    %br
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b PRIMERO: ANTECEDENTES.
+    %ol
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              La ley N° 19.799, sobre
+              documentos electrónicos, firma electrónica y servicios de
+              certificación de ésta, señala en sus artículos 6° inciso
+              primero y 7° que los órganos del Estado podrán ejecutar o
+              realizar actos, celebrar contratos o expedir cualquier documento,
+              dentro de su ámbito de competencia, suscribiéndolos por medio de
+              firma electrónica. Estos documentos serán válidos de la misma
+              manera y producirán los mismos efectos que los expedidos por
+              escrito y en soporte de papel. Sin embargo, para que posean la
+              calidad de instrumento público o surtan los efectos propios de
+              éste, deberán ser suscritos por medio de firma electrónica
+              avanzada.
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              De acuerdo con el artículo
+              9º de la ley N° 19.799, que establece la forma en que las firmas
+              electrónicas avanzadas deben certificarse al interior del Estado,
+              señalando que la certificación de las firmas electrónicas
+              avanzadas de las autoridades o funcionarios de los órganos del
+              Estado se realizará por los respectivos ministros de fe. Lo mismo
+              se reitera en el el artículo 40 del Decreto Supremo N° 181, de
+              2002, del Ministerio de Economía, Fomento y Reconstrucción, que
+              aprueba el reglamento de la ley Nº 19.799, en adelante el
+              “Reglamento”.
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              En razón de la
+              habilitación legal reseñada, los órganos del Estado se encuentran
+              facultados para certificar las firmas electrónicas avanzadas de sus
+              funcionarios o autoridades a través de sus respectivos ministros de
+              fe.
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              Es por esto que MINSEGPRES
+              ha implementado una ”plataforma” que facilita el uso de firmas
+              electrónicas avanzadas, para sus propios funcionarios y
+              autoridades, así como también para otros servicios públicos a los
+              que pudiese resultar conveniente. En este sentido, MINSEGPRES pone a
+              disposición la herramienta necesaria para que se desarrolle una
+              atribución que el propio ordenamiento reconoce a cada ente público,
+              lo que se enmarca dentro de dos principios básicos que rigen a la
+              Administración del Estado: la eficiente y eficaz gestión de los
+              recursos públicos, y el deber de coordinación que pesa sobre toda
+              la organización administrativa, siendo la coordinación una función
+              especial de MINSEGPRES.
+    %p{:align => "JUSTIFY", :style => "margin-left: 0.5in; margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br
+      %br
+      %br
+      %br
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %br
+          %b SEGUNDO: PROPOSITO.
+    %ol
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-bottom: 0in; line-height: 100%"}
+          %span{:style => "font-variant: small-caps"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"}
+                %b
+                  %span{:style => "background: #ffff00"}
+                    Proposito
+    %p{:align => "JUSTIFY", :style => "margin-bottom: 0in; line-height: 100%"}
+    %p{:align => "JUSTIFY", :style => "margin-left: 0.5in; margin-bottom: 0in; line-height: 100%"}
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            TERCERO: SERVICIOS A
+            INTEGRAR DE LA INSTITUCION ___________.
+    %ol
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+          %span{:style => "font-variant: small-caps"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"}
+                %b
+                  %span{:style => "background: #ffff00"}
+                    Servicios
+                    a interoperar
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-bottom: 0in; line-height: 100%"}
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            CUARTO: CARACTERÍSTICAS
+            DEL SERVICIO A INTEGRAR.
+    %ol
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+          %a{:name => "h.gjdgxs"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"} Pendiente definición
+    %p{:align => "JUSTIFY", :style => "margin-left: 0.2in; margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            QUINTO: OBLIGACIONES DE
+            ___________ (Proveedor)
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          Sin perjuicio de las
+          obligaciones que emanan de diversas disposiciones del presente
+          Convenio, serán obligaciones específicas de MINSEGPRES
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          las
+          siguientes:
+    %ol
+      %ol
+        %li
+          %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"}
+                Velar por la operatividad
+                de la plataforma, debiendo solucionar cualquier desperfecto en el
+                menor tiempo posible. Los niveles de operación de la plataforma,
+                se encontrarán informados y disponibles en el sitio web
+                http://firma.digital.gob.cl
+        %li
+          %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"}
+                Realizar las acciones
+                tendientes a facilitar a la Institución la emisión de los
+                certificados de firmas electrónicas avanzadas de sus autoridades o
+                funcionarios, a través de la plataforma, para lo cual otorgará la
+                asesoría, capacitación y soporte técnico y operacional necesario
+        %li
+          %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"}
+                Velar para que el
+                Repositorio de Firmas mantenga disponible todas las funcionalidades
+                señaladas en la cláusula cuarta.
+        %li
+          %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"}
+                Respetar y velar por la
+                propiedad y confidencialidad de la información contenida en el
+                Repositorio de Firmas.
+        %li
+          %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"}
+                Velar para que los
+                certificados de firma electrónica avanzada sean generados
+                utilizando un algoritmo reconocido por la industria y, asimismo,
+                que estos sean generados y almacenados en forma segura.
+        %li
+          %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"}
+                Mantener las condiciones
+                técnicas para cumplir con los requisitos técnicos exigidos por la
+                la ley Nº 19.799 y su Reglamento.
+    %p{:align => "JUSTIFY", :style => "margin-left: 0.5in; margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:style => "margin-left: 0.5in; margin-bottom: 0in; line-height: 100%"}
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            SEXTO: OBLIGACIONES DE LA
+            INSTITUCIÓN (Consumidor).
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          Sin perjuicio de las
+          obligaciones que emanan de diversas disposiciones del presente
+          Convenio, serán obligaciones específicas de la Institución
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          las
+          siguientes:
+    %ol
+      %ol
+        %li
+          %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+            %font{:face => "Verdana, serif"}
+              %font{:size => "2"} Pendiente definición
+    %p{:align => "JUSTIFY", :style => "margin-left: 0.49in; margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b SÉPTIMO: DECLARACIONES.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          Se deja constancia de las
+          siguientes declaraciones:
+    %ol
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              La Institución, consiente
+              que la plataforma de MINSEGPRES guarde la información utilizada
+              para el servicio de registro, suministro del dispositivo seguro y
+              cualquier revocación posterior.
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              La Institución confirma
+              que la información utilizada para la emisión de los certificados
+              es completa y exacta.
+    %p{:align => "JUSTIFY", :style => "margin-left: 0.5in; margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            OCTAVO: CONFIDENCIALIDAD
+            DE LA INFORMACIÓN.
+    %ol
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              Las partes convienen que
+              cualquier información intercambiada, facilitada o creada entre
+              ellas de carácter tecnológico, técnico, financiero y, en general,
+              toda otra información o recurso que se deriven del presente
+              Convenio, recibirán un trato estrictamente confidencial, por lo que
+              no podrán, bajo ningún concepto, ser transferidos o divulgados a
+              terceras personas ajenas a este instrumento, exceptuando al personal
+              involucrado cuando éste requiera información, únicamente para la
+              ejecución del Convenio.
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              No aplicará deber alguno
+              de confidencialidad para las partes en los casos en que la
+              información sea pública en términos de la ley N° 20.285 sobre
+              Acceso a la Información Pública.
+    %p{:align => "JUSTIFY", :style => "margin-left: 0.2in; margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%"}
+      %a{:name => "h.30j0zll"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            NOVENO: PROTECCIÓN DE
+            DATOS PERSONALES.
+    %ol
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              Las partes se obligan a dar
+              cumplimiento en todo momento a la ley N° 19.628, sobre Protección
+              de la Vida Privada o cualquier otra que la reemplace.
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              Las partes se obligan a
+              utilizar los datos personales a los cuales tengan acceso con ocasión
+              de la ejecución del Convenio, única y exclusivamente para los
+              fines de éste y a guardar secreto respecto de ellos. Igualmente, se
+              obligan a custodiar e impedir el acceso a los datos de carácter
+              personal cuyo acceso sea provisto por la otra parte a cualquier
+              tercero ajeno al Convenio.
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              Las anteriores obligaciones
+              se extienden a toda persona que pudiera intervenir en cualquier fase
+              del tratamiento de datos por cuenta de cualquiera de las partes y
+              subsistirán aun después de terminados los tratamientos efectuados
+              en el marco del Convenio.
+      %li
+        %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+          %font{:face => "Verdana, serif"}
+            %font{:size => "2"}
+              Cualquier uso de los datos
+              que no se ajuste a lo dispuesto en la presente cláusula, será
+              responsabilidad exclusiva de la parte infractora frente a terceros y
+              frente a la parte que cumple, ante la que responderá por los daños
+              y perjuicios que le hubiere podido causar, siendo considerado
+              también responsable del tratamiento a estos efectos.
+    %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            DÉCIMO: CONTRAPARTE
+            TÉCNICA
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"} .
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          Con el objeto de velar por
+          el fiel cumplimiento del presente Convenio, cada una de las partes
+          designará formalmente una Contraparte Técnica.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          Por parte de MINSEGPRES,
+          actuará como contraparte técnica, su Jefe de Servicio o la persona
+          que lo subrogue o reemplace o que éste designe para tal efecto. Por
+          parte de la Institución, actuará como contraparte técnica
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %span{:style => "background: #ffff00"} ___________.
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          Las partes se encuentran obligadas a comunicar los datos de contacto
+          de sus contrapartes técnicas, así como cualquier modificación que
+          haya en el nombramiento.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          La función de cada
+          contraparte técnica será controlar y coordinar las actividades
+          necesarias para la correcta ejecución del Convenio y el cumplimiento
+          de las obligaciones que de éste se derivan, canalizando la relación
+          institucional.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          En particular corresponderá
+          a la contraparte técnica de la Institución coordinar la integración
+          de sus propios sistemas de información con el Repositorio de Firmas.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            UNDÉCIMO: VALIDEZ Y
+            VIGENCIA.
+    %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          El presente convenio tendrá
+          plena validez y vigencia desde la fecha en que se encuentre
+          totalmente tramitado el último acto administrativo que lo apruebe y
+          se extenderá por el plazo de un año, renovándose automáticamente
+          por plazos consecutivos de un año, si las partes no manifiestan su
+          voluntad por escrito de ponerle término anticipado, a lo menos, con
+          30 días corridos de anticipación a su fecha de término.
+    %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b DUODÉCIMO: MODIFICACIÓN.
+    %p{:align => "JUSTIFY", :style => "margin-top: 0.08in; line-height: 100%; widows: 0; orphans: 0"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          El presente Convenio podrá
+          modificarse de común acuerdo. Cualquier modificación realizada
+          tendrá vigencia a contar de la total tramitación del último acto
+          administrativo que la apruebe.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            DÉCIMO PRIMERO:
+            COMUNICACIONES.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          Las comunicaciones que las
+          Partes sostengan durante la vigencia del presente Convenio, deberán
+          realizarse en la forma que las contrapartes técnicas acuerden,
+          debiendo siempre quedar registro de ellas, salvo que una cláusula
+          específica del presente Convenio señale una forma distinta de
+          practicarse las comunicaciones.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            DÉCIMO SEGUNDO:
+            EJEMPLARES DEL CONVENIO.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          Se deja constancia que este
+          Convenio se firma en dos ejemplares de igual tenor y fecha, quedando
+          uno en poder de cada parte.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          %b
+            DÉCIMO TERCERO:
+            PERSONERÍAS.
+    %p{:align => "JUSTIFY", :style => "margin-bottom: 0in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          La
+          personería de doña Patricia Silva Meléndez para representar al
+          Ministerio consta en el Decreto Supremo N° 20, de fecha 11 de marzo
+          de 2014, del Ministerio Secretaría General de la Presidencia.
+    %p{:align => "JUSTIFY", :style => "margin-bottom: 0in; line-height: 100%"}
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %font{:face => "Verdana, serif"}
+        %font{:size => "2"}
+          La personería de ______
+          para representar a la Institución consta en _____________.
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %table{:cellpadding => "7", :cellspacing => "0", :width => "576"}
+      %col{:width => "273"}/
+      %col{:width => "273"}/
+      %tr{:valign => "TOP"}
+        %td{:style => "border: 1px solid #000001; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in", :width => "273"}
+          %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in"}
+            %font{:face => "Verdana, serif"}
+              %b ___________________
+          %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in"}
+            %font{:face => "Verdana, serif"}
+              %b
+                INSTITUCIÓN
+                (Proveedor)
+        %td{:style => "border: 1px solid #000001; padding-top: 0in; padding-bottom: 0in; padding-left: 0.08in; padding-right: 0.08in", :width => "273"}
+          %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in"}
+            %font{:face => "Verdana, serif"}
+              %b ___________________
+          %p{:align => "CENTER", :style => "margin-right: 0.1in; margin-top: 0.08in"}
+            %font{:face => "Verdana, serif"}
+              %b
+                INSTITUCIÓN
+                (Consumidor)
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+      %br/
+      %br/
+    %p{:style => "margin-bottom: 0in"}
+      %br/
