@@ -34,7 +34,7 @@ private
 
   def agreement_params
     params.require(:agreement).permit(:service_provider_organization_id,
-      :service_consumer_organization_id, :purpose, :legal_base, :services_list => [])
+      :service_consumer_organization_id, :purpose, :legal_base, :service_ids => [])
   end
 
   def set_organization

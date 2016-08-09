@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804204717) do
+ActiveRecord::Schema.define(version: 20160809153251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,13 +32,6 @@ ActiveRecord::Schema.define(version: 20160804204717) do
     t.index ["user_id"], name: "index_agreement_revisions_on_user_id", using: :btree
   end
 
-  create_table "agreement_revisions_services", force: :cascade do |t|
-    t.integer "agreement_revision_id", null: false
-    t.integer "service_id",            null: false
-    t.index ["agreement_revision_id"], name: "index_agreement_revisions_services_on_agreement_revision_id", using: :btree
-    t.index ["service_id"], name: "index_agreement_revisions_services_on_service_id", using: :btree
-  end
-
   create_table "agreements", force: :cascade do |t|
     t.integer  "service_provider_organization_id", null: false
     t.integer  "service_consumer_organization_id", null: false
@@ -46,6 +39,13 @@ ActiveRecord::Schema.define(version: 20160804204717) do
     t.datetime "updated_at",                       null: false
     t.index ["service_consumer_organization_id"], name: "index_agreements_on_service_consumer_organization_id", using: :btree
     t.index ["service_provider_organization_id"], name: "index_agreements_on_service_provider_organization_id", using: :btree
+  end
+
+  create_table "agreements_services", force: :cascade do |t|
+    t.integer "agreement_id", null: false
+    t.integer "service_id",   null: false
+    t.index ["agreement_id"], name: "index_agreements_services_on_agreement_id", using: :btree
+    t.index ["service_id"], name: "index_agreements_services_on_service_id", using: :btree
   end
 
   create_table "notifications", force: :cascade do |t|
