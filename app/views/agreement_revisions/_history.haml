@@ -2,4 +2,4 @@
   .header-box
     %span Historial del convenio
   .body-box
-    = render partial: "event_history"
+    = render partial: "history_event", collection: @agreement.agreement_revisions
