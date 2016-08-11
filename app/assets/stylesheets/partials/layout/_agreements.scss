@@ -130,3 +130,13 @@
         }
     }
 }
+
+.new-agreement {
+    .select2 {
+        min-width: inherit;
+        width: auto !important;
+    }
+    .select2-container--bootstrap .select2-selection {
+        border-radius: 0px;
+    }
+}

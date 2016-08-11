@@ -1,3 +1,9 @@
+document.addEventListener 'turbolinks:load', ->
+  providerOrg = getParameterByName('provider_org')
+  serviceId = getParameterByName('service_id')
+  if providerOrg && serviceId
+    setOptionsOnInit(providerOrg, serviceId)
+
 $(document).on 'keyup change', '.list-filter', ->
   $target = $($(this).data('target'))
   filter = $(this).val()
@@ -30,3 +36,26 @@ showRelatedElements = () ->
     $('.services-list').html('')
     if $(element).attr('data-organization') == organizationID || !organizationID
       $(element).show()
+
+getParameterByName = (name, url) ->
+  if !url
+    url = window.location.href
+  name = name.replace(/[\[\]]/g, '\\$&')
+  regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)')
+  results = regex.exec(url)
+  if !results
+    return null
+  if !results[2]
+    return ''
+  decodeURIComponent results[2].replace(/\+/g, ' ')
+
+setOptionsOnInit = (providerOrg, serviceId) =>
+  $('#agreement_service_provider_organization_id').val(providerOrg)
+  $('.content-list .row-list').each (index, element) =>
+    if $(element).attr('data-organization') == providerOrg
+      $(element).show()
+  $('.list-selector .content-list input[type=checkbox]').each (index, element) =>
+    if $(element).val() == serviceId
+      $(element).prop('checked', true)
+      $('.services-list').append '<li data-list="' + $(element).val() + '">' + $(element).parent().text() + '</li>'
+
