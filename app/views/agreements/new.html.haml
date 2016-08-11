@@ -13,7 +13,7 @@
 				.row
 					.col-md-6
 						%label= t(:provider_organization)
-						= f.collection_select(:service_provider_organization_id, Organization.all, :id, :name, {prompt: t(:select_organization)}, {class: 'form-control input-lg'})
+						= f.collection_select(:service_provider_organization_id, @provider_organizations, :id, :name, {prompt: t(:select_organization)}, {class: 'form-control input-lg'})
 				.row
 					.col-md-6
 						%label= t(:services_involved_in_agreement)

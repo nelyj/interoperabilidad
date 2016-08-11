@@ -10,6 +10,7 @@ class AgreementsController < ApplicationController
   end
 
   def new
+    @provider_organizations = Organization.where.not(id: @organization)
     @agreement = Agreement.new
   end
 
