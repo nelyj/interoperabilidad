@@ -13,10 +13,9 @@
         .col-md-9
           .description
             = render partial: "description_agreement"
-
           .visor
             .preview
-              %embed{:src => 'http://www.pdf995.com/samples/pdf.pdf', :width => '100%', :height => '500'}
+              %embed{:src => @agreement_revision.file, :width => '100%', :height => '500'}
 
           .actions
             %input.btn.btn-default{:type => 'button', :value => 'Editar', "data-link" => '/agreements/edit#visor'}
