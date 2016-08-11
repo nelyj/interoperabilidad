@@ -4,6 +4,12 @@ perico_sii_schema_admin:
   name: "Service Provider"
   email: "mail@example.org"
 
+perico_sii_agreement_create:
+  user: pedro
+  organization: sii
+  name: "Create Agreement"
+  email: "mail@example.org"
+
 pablito_segpres:
   user: pablito
   organization: segpres
