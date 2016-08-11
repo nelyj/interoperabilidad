@@ -99,6 +99,7 @@ class Service < ApplicationRecord
     return true if user.nil? # Logged out users can't access non-public services
     return false if user.organizations.include?(self.organization) # Users can access services inside their own orgs
     # TODO: return false if any of the user orgs has a current agreement with this service
+    return false if user.organizations_with_agreement?(self)
     return true
   end
 

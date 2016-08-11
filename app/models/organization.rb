@@ -26,4 +26,8 @@ class Organization <ApplicationRecord
     )
   end
 
+  def has_agreement_for?(service)
+    service.agreements.exists?(service_consumer_organization: self)
+  end
+
 end

@@ -132,16 +132,31 @@ class User < ApplicationRecord
     self.notifications.exists?(seen: false)
   end
 
-  def agreement_creation_organization(org)
-    organizations_where_can_create_agreements(org).first
+  def agreement_creation_organization(service)
+    organizations_where_can_create_agreements(service).first
   end
 
-  def can_create_agreements_to_many_organizations?(org)
-    organizations_where_can_create_agreements(org).count > 1
+  def can_create_agreements_to_many_organizations?(service)
+    organizations_where_can_create_agreements(service).count > 1
   end
 
-  def organizations_where_can_create_agreements(org)
-    organizations.where(['roles.name = ? AND roles.organization_id <> ?',"Create Agreement", org.id])
+  def organizations_where_can_create_agreements(service)
+    array = [service.organization_id]
+    organizations.find_each do |org|
+      array << org.id if org.has_agreement_for?(service)
+    end
+    organizations.where(['roles.name = ? AND roles.organization_id NOT IN (?)',"Create Agreement", array])
+  end
+
+  def organizations_with_agreement?(service)
+    service.agreements.exists?(service_consumer_organization: self.organization_ids)
+  end
+
+  def organizations_have_agreements_for_all_orgs(service)
+    organizations.find_each do |org|
+      return false unless org.has_agreement_for?(service)
+    end
+    return true
   end
 
 end
