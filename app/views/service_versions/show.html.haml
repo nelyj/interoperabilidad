@@ -80,9 +80,9 @@
                 %ul.dropdown-menu
                   - current_user.organizations_where_can_create_agreements(@service).each do |org|
                     %li
-                      =link_to org.name, new_organization_agreement_path(org)
+                      =link_to org.name, new_organization_agreement_path(org, provider_org: @service.organization_id, service_id: @service.id )
             - else
-              = link_to t(:new_agreement), new_organization_agreement_path(current_user.agreement_creation_organization(@service)), class: "btn btn-primary"
+              = link_to t(:new_agreement), new_organization_agreement_path(current_user.agreement_creation_organization(@service), provider_org: @service.organization_id, service_id: @service.id), class: "btn btn-primary"
         - if @service.can_be_updated_by?(current_user)
           =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
         =link_to t(:view_oas), organization_service_service_version_url(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
@@ -153,17 +153,18 @@
               .alert
                 = t(:cant_test_service_without_agreement)
               - if @organization.can_create_agreements_with_this_organization?(current_user)
-                - if current_user.can_create_agreements_to_many_organizations?(@service)
-                  .btn-group
-                    %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-                      = t(:new_agreement)
-                      %span.caret
-                    %ul.dropdown-menu
-                      - current_user.organizations_where_can_create_agreements(@service).each do |org|
-                        %li
-                          =link_to org.name, new_organization_agreement_path(org)
-                - else
-                  = link_to t(:new_agreement), new_organization_agreement_path(current_user.agreement_creation_organization(@service)), class: "btn btn-primary"
+                - if @service.needs_agreement_to_be_used_by?(current_user) || !current_user.organizations_have_agreements_for_all_orgs(@service)
+                  - if current_user.can_create_agreements_to_many_organizations?(@service)
+                    .btn-group
+                      %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                        = t(:new_agreement)
+                        %span.caret
+                      %ul.dropdown-menu
+                        - current_user.organizations_where_can_create_agreements(@service).each do |org|
+                          %li
+                            =link_to org.name, new_organization_agreement_path(org, provider_org: @service.organization_id, service_id: @service.id)
+                  - else
+                    = link_to t(:new_agreement), new_organization_agreement_path(current_user.agreement_creation_organization(@service), provider_org: @service.organization_id, service_id: @service.id), class: "btn btn-primary"
             - else
               %form#consoleForm
                 %h3= t(:parameters)

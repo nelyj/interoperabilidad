@@ -153,6 +153,7 @@ class User < ApplicationRecord
   end
 
   def organizations_have_agreements_for_all_orgs(service)
+    return true if service.public
     organizations.find_each do |org|
       return false unless org.has_agreement_for?(service)
     end

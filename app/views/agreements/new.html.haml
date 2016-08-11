@@ -13,7 +13,7 @@
 				.row
 					.col-md-6
 						%label= t(:provider_organization)
-						= f.collection_select(:service_provider_organization_id, @provider_organizations, :id, :name, {prompt: t(:select_organization)}, {class: 'form-control input-lg'})
+						= f.collection_select(:service_provider_organization_id, @provider_organizations, :id, :name, {prompt: t(:select_organization), class: 'form-control input-lg', selected: params[:provider_org]})
 				.row
 					.col-md-6
 						%label= t(:services_involved_in_agreement)
@@ -25,7 +25,7 @@
 										%i.material-icons
 											search
 							.content-list#services_list
-								= f.collection_check_boxes(:service_ids, Service.all, :id, :name) do |s|
+								= f.collection_check_boxes(:service_ids, Service.all, :id, :name, checked: @cheked_services) do |s|
 									.row-list{"data-organization" => "#{Service.find(s.value).organization.id}"}
 										= s.label{ s.check_box + s.text}
 					.col-md-6
