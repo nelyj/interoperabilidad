@@ -1,21 +1,19 @@
 %p
-  Solicitante:
+  =t(:applicant)+':'
   %strong= @consumer_organization.name
 %p
-  Proveedor:
+  =t(:provider)+':'
   %strong= @provider_organization.name
 %p
-  Fecha de solicitud:
+  =t(:application_date)+':'
   %strong= @agreement.created_at.strftime("%d/%m/%Y")
 %br
 %p
-  %strong Servicios involucrados
+  %strong= t(:involved_services)
 %ul
-  %li Fecha de inicio de actividades
-  %li Dirección empleador
-  %li Declaraciones patrimoniales
+  - @agreement.services.each do |service|
+    = content_tag(:li, service.name)
 %br
 %p
-  %strong
-    Propósito:
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sed suscipit urna, sed molestie orci. Integer pharetra eget ligula elementum ultricies. Suspendisse blandit id odio eget molestie. Mauris risus orci, tempor eu nunc vitae, iaculis molestie diam. Vestibulum et massa eu lorem placerat efficitur id at mi. Fusce posuere nisi quis augue congue, eget varius mauris feugiat.
+  %strong= t(:purpose)+':'
+  = @agreement_revision.purpose

@@ -70,6 +70,9 @@ es:
   involved_services: Servicios involucrados
   provider: Proveedor
   consumer: Consumidor
+  applicant: Solicitante
+  application_date: Fecha de solicitud
+  involved_services: Servicios involucrados
   create_new_agreement: Crear Nuevo Convenio
   services_involved_in_agreement: Servicios que involucra este convenio
   create_request: Crear Solicitud
