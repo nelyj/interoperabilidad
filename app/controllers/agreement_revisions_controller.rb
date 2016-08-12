@@ -27,4 +27,5 @@ class AgreementRevisionsController < ApplicationController
 
   def edit
   end
+
 end
