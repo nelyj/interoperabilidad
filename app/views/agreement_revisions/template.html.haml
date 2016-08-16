@@ -152,15 +152,15 @@
             TERCERO: SERVICIOS A
             INTEGRAR DE LA INSTITUCION ___________.
     %ol
-      %li
-        %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
-          %span{:style => "font-variant: small-caps"}
-            %font{:face => "Verdana, serif"}
-              %font{:size => "2"}
-                %b
-                  %span{:style => "background: #ffff00"}
-                    Servicios
-                    a interoperar
+      - @agreement.services.each do |service|
+        %li
+          %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
+            %span{:style => "font-variant: small-caps"}
+              %font{:face => "Verdana, serif"}
+                %font{:size => "2"}
+                  %span
+                    =service.name
+
     %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-bottom: 0in; line-height: 100%"}
       %br/
     %p{:align => "JUSTIFY", :style => "margin-right: 0.1in; margin-top: 0.08in; line-height: 100%"}
