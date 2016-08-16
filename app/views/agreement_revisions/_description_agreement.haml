@@ -13,7 +13,3 @@
 %ul
   - @agreement.services.each do |service|
     = content_tag(:li, service.name)
-%br
-%p
-  %strong= t(:purpose)+':'
-  = @agreement_revision.purpose

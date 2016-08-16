@@ -2,7 +2,7 @@ class Agreement <ApplicationRecord
   belongs_to :service_provider_organization, :class_name => 'Organization'
   belongs_to :service_consumer_organization, :class_name => 'Organization'
   has_many :organizations
-  has_many :agreement_revisions
+  has_many :agreement_revisions, -> { order('revision_number DESC') }
   has_and_belongs_to_many :services
   after_create :create_first_revision
   attr_accessor :purpose, :legal_base, :user
@@ -17,7 +17,7 @@ class Agreement <ApplicationRecord
   end
 
   def last_revision
-    agreement_revisions.order('revision_number desc').first
+    agreement_revisions.first
   end
 
 end

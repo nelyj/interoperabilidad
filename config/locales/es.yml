@@ -70,6 +70,7 @@ es:
   involved_services: Servicios involucrados
   provider: Proveedor
   consumer: Consumidor
+  legal_base: Marco legal
   applicant: Solicitante
   application_date: Fecha de solicitud
   involved_services: Servicios involucrados
@@ -82,6 +83,7 @@ es:
   not_readed: No Leída
   readed: Leída
   message: Mensaje
+  save: Guardar
   shownotifications: Ver Notificaciones
   create_new_service_notification: "Nuevo Servicio: %{name} creado."
   create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación."
