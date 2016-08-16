@@ -92,6 +92,11 @@
             overflow: hidden;
             overflow-y: auto;
         }
+        &.form_content {
+            textarea{
+                max-height: 100px;
+            }
+        }
     }
     .actions {
         .btn {
