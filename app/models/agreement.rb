@@ -5,6 +5,8 @@ class Agreement <ApplicationRecord
   has_many :agreement_revisions, -> { order('revision_number DESC') }
   has_and_belongs_to_many :services
   after_create :create_first_revision
+  validates :service_provider_organization, presence: true
+  validates :services, presence: true
   attr_accessor :purpose, :legal_base, :user
 
   def create_first_revision

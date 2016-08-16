@@ -1,6 +1,7 @@
 class AgreementsController < ApplicationController
   include PdfGenerator
   before_action :set_organization
+  before_action :set_provider_orgs, only:[:create, :new]
 
   def index
     @provided_agreements = Agreement.where(service_provider_organization: @organization)
@@ -11,13 +12,12 @@ class AgreementsController < ApplicationController
   end
 
   def new
-    @provider_organizations = Organization.where.not(id: @organization)
     @agreement = Agreement.new
   end
 
   def create
     @agreement = Agreement.new(agreement_params.merge(user: current_user))
-    if @agreement.save!
+    if @agreement.save
       generate_pdf(@agreement, @agreement.agreement_revisions.first)
       redirect_to(
         organization_agreement_agreement_revision_path(@organization, @agreement,  @agreement.agreement_revisions.last.revision_number),
@@ -42,4 +42,9 @@ private
   def set_organization
       @organization = Organization.where(name: params[:organization_name]).first
   end
+
+  def set_provider_orgs
+    @provider_organizations = Organization.where.not(id: @organization)
+  end
+
 end

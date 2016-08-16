@@ -1,52 +1,62 @@
 .new-agreement.main-container
-	.container-fluid.main-title
-		.container
-			.col12
-				%h1= t(:create_new_agreement) + ' ' + @organization.name
-				= link_to organization_agreements_path(@organization) do
-					%i.material-icons
-						close
-	.container-fluid.new-agreement-content
-		.container
-			= form_for([@organization, @agreement], :html => {class: 'form-group'}) do |f|
-				= f.hidden_field :service_consumer_organization_id, :value => @organization.id
-				.row
-					.col-md-6
-						%label= t(:provider_organization)
-						= f.collection_select(:service_provider_organization_id, @provider_organizations, :id, :name, {prompt: t(:select_organization), class: 'form-control input-lg', selected: params[:provider_org]})
-				.row
-					.col-md-6
-						%label= t(:services_involved_in_agreement)
-						.list-selector
-							.input-group
-								%input.form-control.list-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#services_list'}}
-								%span.input-group-btn
-									%button.search
-										%i.material-icons
-											search
-							.content-list#services_list
-								= f.collection_check_boxes(:service_ids, Service.all, :id, :name, checked: @cheked_services) do |s|
-									.row-list{"data-organization" => "#{Service.find(s.value).organization.id}"}
-										= s.label{ s.check_box + s.text}
-					.col-md-6
-						%ul.services-list
-				.row
-					.col-md-12
-						%label Propósito
-						= f.text_area :purpose, class: 'form-control'
-				.row
-					.col-md-12
-						%label Marco Legal
-						= f.text_area :legal_base, class: 'form-control'
-				.row
-					.col-md-12
-						%label Términos y condiciones
-						%ul
-							%li Contar con competencia y atribuciones legales para acceder y tratar la información consultada.
-							%li Mantener las plataformas para intercambio de información con niveles de seguridad acorde a estándares internacionales y con las normas particulares que se dicten sobre seguridad de información para los órganos del Estado.
-							%li Utilizar la información proporcionada sólo para los fines propios que fue entregada.
-							%li Velar por la confidencialidad de la información, limitando su divulgación a sólo aquellos funcionarios, que estrictamente tengan la obligación de conocerla evitando el acceso a terceros  no autorizados.
-							%li Cumplir y hacer cumplir a los funcionarios de la institución con lo establecido en la Ley Nº 19.628 sobre protección de la vida privada y con el debido resguardo del secreto estadístico  establecido en la Ley Nº 17.374 y demás leyes especiales que regulen el tema.
-				.row
-					.col-md-12
-						= f.submit class: 'btn btn-primary', value: t(:create_request)
+  .container-fluid.main-title
+    .container
+      .col12
+        %h1= t(:create_new_agreement) + ' ' + @organization.name
+        = link_to organization_agreements_path(@organization) do
+          %i.material-icons
+            close
+  .container-fluid.new-agreement-content
+    .container
+      = form_for([@organization, @agreement], :html => {class: 'form-group'}) do |f|
+        - if @agreement.errors.any?
+          .container-fluid.no-gutter{:class => "alert warning alert-dismissable fade in", :"data-alert" => "alert"}
+            .row
+              .container
+                %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+                %p= t(:cant_save_agreement_error, count: @agreement.errors.count)
+                %ul
+                  - @agreement.errors.full_messages.each do |message|
+                    %li= message
+
+        = f.hidden_field :service_consumer_organization_id, :value => @organization.id
+        .row
+          .col-md-6
+            %label= t(:provider_organization)
+            = f.collection_select(:service_provider_organization_id, @provider_organizations, :id, :name, {prompt: t(:select_organization), class: 'form-control input-lg', selected: params[:provider_org]})
+        .row
+          .col-md-6
+            %label= t(:services_involved_in_agreement)
+            .list-selector
+              .input-group
+                %input.form-control.list-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#services_list'}}
+                %span.input-group-btn
+                  %button.search
+                    %i.material-icons
+                      search
+              .content-list#services_list
+                = f.collection_check_boxes(:service_ids, Service.all, :id, :name, checked: @cheked_services) do |s|
+                  .row-list{"data-organization" => "#{Service.find(s.value).organization.id}"}
+                    = s.label{ s.check_box + s.text}
+          .col-md-6
+            %ul.services-list
+        .row
+          .col-md-12
+            %label Propósito
+            = f.text_area :purpose, class: 'form-control'
+        .row
+          .col-md-12
+            %label Marco Legal
+            = f.text_area :legal_base, class: 'form-control'
+        .row
+          .col-md-12
+            %label Términos y condiciones
+            %ul
+              %li Contar con competencia y atribuciones legales para acceder y tratar la información consultada.
+              %li Mantener las plataformas para intercambio de información con niveles de seguridad acorde a estándares internacionales y con las normas particulares que se dicten sobre seguridad de información para los órganos del Estado.
+              %li Utilizar la información proporcionada sólo para los fines propios que fue entregada.
+              %li Velar por la confidencialidad de la información, limitando su divulgación a sólo aquellos funcionarios, que estrictamente tengan la obligación de conocerla evitando el acceso a terceros  no autorizados.
+              %li Cumplir y hacer cumplir a los funcionarios de la institución con lo establecido en la Ley Nº 19.628 sobre protección de la vida privada y con el debido resguardo del secreto estadístico  establecido en la Ley Nº 17.374 y demás leyes especiales que regulen el tema.
+        .row
+          .col-md-12
+            = f.submit class: 'btn btn-primary', value: t(:create_request)
