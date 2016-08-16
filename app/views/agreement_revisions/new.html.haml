@@ -1,0 +1,32 @@
+.show-agreement.main-container
+  .container-fluid.main-title
+    .container
+      .col-md-12
+        %h1 Convenio entre Ministerio Secretaría General de la Presidencia y Servicio de Impuestos Internos
+        %a{:href => 'index', :title => 'Cancelar'}
+          %i.material-icons
+            close
+
+  .container-fluid.show-agreement-content
+    .container
+      .row
+        .col-md-9
+          .description
+            = render partial: "description_agreement"
+          %form
+          = form_for([@organization, @agreement, @agreement_revision], :html => {class: 'form-group'}) do |f|
+            .visor.form_content
+              %p
+                %strong= t(:purpose)+':'
+                = f.text_area :purpose, class: 'form-control', value: @last_revision.purpose
+            .visor.form_content
+              %p
+                %strong= t(:legal_base)+':'
+                = f.text_area :legal_base, class: 'form-control', value: @last_revision.legal_base
+            .actions
+              = f.submit class: 'btn btn-success', value: t(:save)
+              = link_to t(:cancel), :back
+
+        .col-md-3
+          = render partial: "next_step"
+          = render partial: "history"
