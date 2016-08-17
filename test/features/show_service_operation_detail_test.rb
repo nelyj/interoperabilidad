@@ -73,7 +73,7 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
     visit organization_service_service_version_path(
       echo_version.organization, echo_version.service, echo_version
     )
-    find(".container-verbs a", text: "GET/test-path/{id}").click
+    find(".container-verbs a", text: "GET/test-path/{id}").trigger('click')
     click_button "Probar Servicio"
     within ".console" do
       fill_in 'id', with: "value-for-param-id"
