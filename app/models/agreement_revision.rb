@@ -40,4 +40,28 @@ class AgreementRevision <ApplicationRecord
     new_object.save
     self.file = new_object.url
   end
+
+  def responsable_email
+    case state
+    when 'draft', 'objected','validated_draft', 'signed_draft'
+      role = user.roles.where(name: state_to_role, organization: agreement.service_consumer_organization).first
+      return role.email unless role.nil?
+    when 'validated', 'rejected_sign', 'signed'
+      role = user.roles.where(name: state_to_role, organization: agreement.service_provider_organization).first
+      return role.email unless role.nil?
+    end
+    return ''
+  end
+
+  def state_to_role
+    case state
+    when 'draft', 'objected'
+      return "Create Agreement"
+    when 'validated_draft', 'validated', 'rejected_sign'
+      return "Validate Agreement"
+    when 'signed_draft', 'signed'
+      return "Sign Agreement"
+    end
+  end
+
 end
