@@ -91,6 +91,7 @@ es:
   create_new_service_notification: "Nuevo Servicio: %{name} creado."
   create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación."
   create_state_change_notification: "Servicio %{name}, versión %{version} ha sido %{status}."
+  agreement_between: Convenio entre {consumer} y {provider}
   logout: Logout
   new_schema: Nuevo Esquema
   new_version: Nueva Revisión
@@ -153,6 +154,9 @@ es:
   cant_test_service_without_agreement: Se requiere de un convenio activo para probar este servicio.
   error_while_invoking_service: Error mientras se invocaba al servicio
   response: Respuesta
+  responsable: Responsable
+  contact: Contacto
+  agreement_history: Historial del convenio
   error:
     one: 1 error
     other: "%{count} errores"

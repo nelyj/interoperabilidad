@@ -2,9 +2,9 @@
   %p
     %strong= history_event.log
   %p
-    Responsable: Gonzalo Carrasco
+    = t(:responsable) + ': ' + history_event.user.name
     %br
-    Contacto: gcarrasco@sii.cl
+    = t(:contact) + ': ' +  history_event.responsable_email
     %br
     %small
-      10/06/2016 - 09:42 AM
+      = history_event.created_at.strftime("%d/%m/%Y")

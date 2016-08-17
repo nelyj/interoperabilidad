@@ -1,5 +1,5 @@
 .box.history
   .header-box
-    %span Historial del convenio
+    %span= t(:agreement_history)
   .body-box
     = render partial: "history_event", collection: @agreement.agreement_revisions

@@ -2,7 +2,7 @@
   .container-fluid.main-title
     .container
       .col-md-12
-        %h1 Convenio entre Ministerio Secretaría General de la Presidencia y Servicio de Impuestos Internos
+        %h1= t(:agreement_between, consumer: @agreement.service_consumer_organization, provider: @agreement.service_consumer_organization)
         %a{:href => 'index', :title => 'Cancelar'}
           %i.material-icons
             close

@@ -4,8 +4,8 @@
     %ul
       - consumed_table_row.services.each do |service|
         %li= service.name
-  %td= consumed_table_row.agreement_revisions.last.purpose
-  %td= consumed_table_row.agreement_revisions.last.updated_at.strftime("%d/%m/%Y")
+  %td= consumed_table_row.last_revision.purpose
+  %td= consumed_table_row.last_revision.updated_at.strftime("%d/%m/%Y")
   %td
     %span.btn-status.blue
-      = consumed_table_row.agreement_revisions.last.state
+      = consumed_table_row.state
