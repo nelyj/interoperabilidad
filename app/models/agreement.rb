@@ -7,11 +7,17 @@ class Agreement <ApplicationRecord
   after_create :create_first_revision
   validates :service_provider_organization, presence: true
   validates :services, presence: true
+  delegate :state, to: :last_revision
   attr_accessor :purpose, :legal_base, :user
 
   def create_first_revision
-    agreement_revisions.create!(purpose: self.purpose, user: self.user,
-      legal_base: self.legal_base, revision_number: 1)
+    agreement_revisions.create!(
+      purpose: self.purpose,
+      user: self.user,
+      legal_base: self.legal_base,
+      revision_number: 1,
+      log: "First Revision Created"
+      )
   end
 
   def last_revision_number
