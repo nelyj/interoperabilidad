@@ -24,6 +24,7 @@
           .actions
             %input.btn.btn-default{:type => 'button', :value => 'Editar', "data-link" => new_organization_agreement_agreement_revision_path}
             %input.btn.btn-primary{:type => 'button', :value => 'Enviar Borrador'}
+            = link_to "Descargar PDF", @agreement_revision.file, download: ''
 
         .col-md-3
           = render partial: "next_step"
