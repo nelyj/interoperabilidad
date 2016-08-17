@@ -4,6 +4,7 @@
       .col-md-12
         %h1= "Convenio entre #{@provider_organization.name} y #{@consumer_organization.name}"
         %a{:href => 'index', :title => 'Cancelar'}
+        = link_to organization_agreements_path(@consumer_organization) do
           %i.material-icons
             close
 
