@@ -3,20 +3,26 @@ class AgreementRevision <ApplicationRecord
   belongs_to :agreement
   belongs_to :user
   before_create :set_revision_number
+  attr_readonly :state
+  default_scope -> { order('created_at DESC') }
 
-  # draft: 0, validated_draft: 1, rejected: 2, signed_draft:3 , validated:4 , rejected_sign:5, signed:6
+  # draft: 0, validated_draft: 1, objected: 2, signed_draft:3 , validated:4 , rejected_sign:5, signed:6
   #
   # The lifecycle is as follows:
   #
   # A new agreement revision is born as "draft".
-  # Until it is validated by same organization fiscal, where it becomes "validated_draft".
-  # Then, it is reviewed by same Organization undersecretary,
-  # Also, once a subsequent version is accepted and becomes "current", the
-  # previously current version becomes "outdated" if the change is backwards
-  # compatible. If the change is NOT backwards compatible, it becomes "retired"
+  # Until it is "validated" by consumer fiscal, where a "validated_draft" is generated.
+  # Then, it is reviewed by consumer undersecretary, and a "signed_draft" is crated.
+  # If the "validated_draft" isn't approved, it becomes objected and can ve reviewed again by the fiscal.
+  # A "signed_draft" is reviewed by the provider fiscal.
+  # If it's approved a "validated" revision is born.
+  # and it's send to the provider organization undersecretary.
+  # If the "signed_draft" is objected by the provider organization fiscal, it can be reviewed again by the consumer organization fiscal.
+  # An "approved" agreement, can be "signed" by provider organization undersecretary, and the it's send to the "Signing Proces".
+  # If the "approved" agreement, is "objected" by the undersecretary, it goes back to the fiscal, who can "validate" it again, or "object" again, so it goes back to the consumer fiscal.
   #
   # ALWAYS add new states at the end.
-  enum state: [:draft, :validated_draft, :rejected, :signed_draft, :validated, :rejected_sign, :signed]
+  enum state: [:draft, :validated_draft, :objected, :signed_draft, :validated, :rejected_sign, :signed]
 
   def to_param
     revision_number.to_s
