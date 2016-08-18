@@ -35,10 +35,31 @@ class AgreementRevision <ApplicationRecord
   def upload_pdf(file_name, file_path)
     new_object = codegen_bucket.objects.build(file_name)
     new_object.content = open(file_path)
-    new_object.acl = :public_read
     new_object.content_type = 'application/pdf'
     new_object.save
-    self.file = new_object.url
+    self.file = file_name
+  end
+
+  def request_pdf_url
+    object = codegen_bucket.objects.find(self.file)
+    object.temporary_url
+  end
+
+  def create_new_notification
+    org = Organization.where(dipres_id: "AB01")
+    Role.where(name: "Service Provider", organization: org).each do |role|
+      role.user.notifications.create(subject: self,
+        message: log, email: role.email
+      )
+    end
+  end
+
+  def create_state_change_notification(status)
+    email = user.roles.where(organization: organization, name: "Service Provider").first.email
+    user.notifications.create(subject: self,
+      message: I18n.t(:create_state_change_notification, name: name,
+        version: self.version_number.to_s, status: status), email: email
+    )
   end
 
   def responsable_email
