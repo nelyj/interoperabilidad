@@ -29,6 +29,13 @@ class AgreementRevisionsController < ApplicationController
     end
   end
 
+  def request_validation
+    @organization = Organization.find_by_name(params[:organization_name])
+    @agreement_revision = @agreement.validate_draft(current_user)
+    generate_pdf(@agreement, @agreement_revision)
+    redirect_to [@organization, @agreement, @agreement_revision], notice: 'Convenio enviado correctamente'
+  end
+
 private
 
   def agreement_revision_params

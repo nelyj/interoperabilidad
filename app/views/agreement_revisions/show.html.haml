@@ -23,8 +23,7 @@
               %embed{:src => @agreement_revision.request_pdf_url, :width => '100%', :height => '493'}
 
           .actions
-            %input.btn.btn-default{:type => 'button', :value => 'Editar', "data-link" => new_organization_agreement_agreement_revision_path}
-            %input.btn.btn-primary{:type => 'button', :value => 'Enviar Borrador'}
+            = agreement_allowed_actions
             = link_to "Descargar PDF", @agreement_revision.request_pdf_url, download: ''
 
         .col-md-3

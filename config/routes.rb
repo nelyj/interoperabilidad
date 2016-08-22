@@ -46,6 +46,7 @@ Rails.application.routes.draw do
           member do
             put 'state'
             get 'pdf'
+            get 'request_validation'
           end
         end
     end
