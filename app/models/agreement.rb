@@ -16,7 +16,7 @@ class Agreement <ApplicationRecord
       user: self.user,
       legal_base: self.legal_base,
       revision_number: 1,
-      log: "First Revision Created"
+      log: I18n.t(:created_draft)
       )
   end
 
@@ -38,7 +38,7 @@ class Agreement <ApplicationRecord
         state: AgreementRevision.states['validated_draft'],
         purpose: last_revision.purpose,
         legal_base: last_revision.legal_base,
-        log: "Draft validated",
+        log: I18n.t(:sent_draft),
         file: last_revision.file
       )
     else

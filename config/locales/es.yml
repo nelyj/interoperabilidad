@@ -80,6 +80,7 @@ es:
   create_new_agreement: Crear Nuevo Convenio
   services_involved_in_agreement: Servicios que involucra este convenio
   create_request: Crear Solicitud
+  request_signature: Solicitar Firma
   provider_organization: Institución proveedora
   select_organization: Seleccione una Institución
   notifications: Notificaciones
@@ -108,6 +109,7 @@ es:
   category: Categoria
   approve: Aprobar
   approved: aprobado
+  sign_request: Firmar Solicitud
   reject: Rechazar
   reject_service: Rechazar Servicio
   rejected: rechazado
@@ -115,9 +117,13 @@ es:
   download: Descargar
   download_server: Descarga Servidor
   download_client: Descarga Cliente
+  send_draft: Enviar Borrador
+  sent_draft: Borrador enviado
+  created_draft: Borrador creado
   test_service: Probar Servicio
   send: Enviar
   cancel: Cancelar
+  edit: Editar
   proposed: propuesto
   current: vigente
   retired: retirado
