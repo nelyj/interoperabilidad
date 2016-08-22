@@ -1,7 +1,7 @@
 .box.next-step
   .header-box
     %span= t(:agreement_state)
-    %span.btn-status.blue En trámite
+    %span.btn-status.blue= @agreement_revision.state
   .body-box
     .event
       %p
