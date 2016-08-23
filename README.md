@@ -70,6 +70,12 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `MINSEGPRES_DIPRES_ID`: ID of MINSEGPRES in the DIPRES
 
+- `SIGNER_APP_HOST`: URL for SIGNER API.
+
+- `SIGNER_API_TOKEN_KEY`: Token Key to use SIGNER API.
+
+- `SIGNER_JWT_SECRET`: Symmetric key to sign the JWT of the SIGNER API.
+
 You can also set the `PORT` environment variable to change the port where the web server will listen (defaults to 80). See `config/puma.rb` for more options you can tune/override via environment variables.
 
 Putting it all together, after building the image you can run it like this:

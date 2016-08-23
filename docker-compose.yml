@@ -35,7 +35,13 @@ services:
       - SMTP_PORT=25
       - SMTP_USER=user
       - SMTP_SECRET=secret
+<<<<<<< bc6cfad68b1a5a15769d3e441b128e9e1ddf1cb0
       - MINSEGPRES_DIPRES_ID=AB01
+=======
+      - SIGNER_APP_HOST=https://proxy-banco.modernizacion.gob.cl
+      - SIGNER_API_TOKEN_KEY
+      - SIGNER_API_SECRET
+>>>>>>> Add a new class in lib, to manage the conection to the signer API.
   bundle_cache:
     image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
     volumes:
