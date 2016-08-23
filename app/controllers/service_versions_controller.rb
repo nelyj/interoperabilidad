@@ -17,6 +17,20 @@ class ServiceVersionsController < ApplicationController
         @verb = params[:verb]
         @path =  params[:path] || '/'
         @operation = @service_version.operation(@verb, @path)
+        if @operation.nil?
+          # Rails removes trailing slashes from URLs
+          # https://github.com/rails/journey/issues/17
+          # If the path had a trailing slash, we wouldn't find the operation
+          # so lets try again adding a slash before giving up
+          @operation = @service_version.operation(@verb, @path + '/')
+          if @operation.nil?
+            render status: :not_found
+            return
+          else
+            @path = @path + '/'
+          end
+
+        end
         # Fall into view rendering
       end
     end

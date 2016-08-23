@@ -114,6 +114,7 @@ class ServiceVersion < ApplicationRecord
   end
 
   def operation(verb, path)
+    return nil unless spec_with_resolved_refs['definition']['paths'].has_key?(path)
     spec_with_resolved_refs['definition']['paths'][path][verb]
   end
 

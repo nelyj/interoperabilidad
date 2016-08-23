@@ -1,0 +1,786 @@
+swagger: '2.0'
+info:
+  description: Esquema en el que estarán construidos los servicios para la aplicación de
+    agendador de citas
+  version: 0.0.1
+  title: Agenda
+host: localhost
+basePath: /v1
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  '/calendars':
+    post:
+      summary: Crea instancias de agenda para un usuario o grupo
+      operationId: createCalendar
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Calendar'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+    get:
+      summary: Lista todas las instancias de agenda
+      operationId: listarAgendas
+      parameters:
+        - name: app_key
+          in: header
+          required: true
+          type: string
+          description: App key
+        - name: domain
+          in: header
+          required: true
+          type: string
+          description: Dominios de una App
+        - name: limit
+          in: query
+          required: true
+          type: integer
+          description: Parámetros para paginación
+        - name: offset
+          in: query
+          required: true
+          type: integer
+          description: Parámetros para paginación
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Calendar'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/calendars/{calendar_id}/':
+    put:
+      summary: Actualiza una instancia de agenda
+      operationId: UpdateCalendar
+      parameters:
+        - name: calendar_id
+          in: path
+          type: integer
+          required: true
+          description: ID de la agenda
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Calendar'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/calendars/disable/{calendar_id}/':
+    put:
+      summary: Deshabilita una agenda
+      operationId: DisableCalendar
+      parameters:
+        - name: calendar_id
+          in: path
+          required: true
+          type: integer
+          description: ID de la agenda
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/calendars/listByOwner/{owner_id}/':
+    get:
+      summary: Lista todas las instancias de agenda que pertenecen a un usuario
+      operationId: listCalendarByOwner
+      parameters:
+        - name: app_key
+          in: header
+          required: true
+          type: string
+          description: App key
+        - name: domain
+          in: header
+          required: true
+          type: string
+          description: Dominios de una App
+        - name: owner_id
+          in: path
+          required: true
+          type: integer
+          description: ID del usuario al que le pertenece la agenda
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Calendar'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/calendars/searchByName/':
+    get:
+      parameters:
+        - name: app_key
+          in: header
+          required: true
+          type: string
+          description: App key
+        - name: domain
+          in: header
+          required: true
+          type: string
+          description: Dominios de una App
+        - name: text
+          in: query
+          required: true
+          type: string
+          description: Texto coincidente a buscar en el campo pertenece a o nombre agenda
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Calendar'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/daysOff':
+    post:
+      summary: Crea días no laborables
+      operationId: CreateDaysOff
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/DaysOff'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+    get:
+      summary: Lista todos los días no laborables futuros
+      operationId: listDaysOff
+      parameters:
+        - name: app_key
+          in: header
+          required: true
+          type: string
+          description: App key
+        - name: domain
+          in: header
+          required: true
+          type: string
+          description: Dominios de una App
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/DaysOff'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/daysOff/{day_off_id}/':
+    put:
+      summary: Actualiza los días no laborables
+      operationId: UpdateDayOff
+      parameters:
+        - name: day_off_id
+          in: path
+          type: integer
+          required: true
+          description: ID del registro a modificar
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/DaysOff'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+    delete:
+      summary: Elimina un día no laboral
+      operationId: deleteDayOff
+      parameters:
+        - name: day_off_id
+          in: path
+          type: integer
+          required: true
+          description: ID del registro a modificar
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/appointments/listByUser/{owner_id}/':
+    get:
+      summary: Lista todas las citas futuras solicitadas
+      operationId: listAppointmentsByUser
+      parameters:
+        - name: app_key
+          in: header
+          required: true
+          type: string
+          description: App key
+        - name: domain
+          in: header
+          required: true
+          type: string
+          description: Dominios de una App
+        - name: owner_id
+          in: path
+          description: ID del usuario logueado
+          required: true
+          type: integer
+        - name: limit
+          in: query
+          description: Parámetros de paginación
+          required: true
+          type: integer
+        - name: offset
+          in: query
+          description: Parámetros de paginación
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Appointment'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/appointments/available/{calendar_id}/':
+    get:
+      summary: Lista la disponiblidad de citas en una fecha dada
+      operationId: listarAvailableAppointment
+      parameters:
+        - name: calendar_id
+          in: path
+          required: true
+          type: integer
+          description: ID de la agenda
+        - name: date
+          in: query
+          required: true
+          type: integer
+          description: Fecha a obtener disponibildad (AAAA-MM-DD)
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/appointments/cancel/{appointment_id}/':
+    put:
+      summary: Cancela una cita
+      operationId: CancelAppointment
+      parameters:
+        - name: appointment_id
+          in: path
+          description: ID de la cita a cancelar
+          required: true
+          type: integer
+        - name: data
+          in: body
+          description: data a modificar
+          required: true
+          schema:
+            $ref: '#/definitions/AppointmentsCancel'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/appointments/reserve/':
+    post:
+      summary: Reserva una cita
+      operationId: ReserveAppointment
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Appointment'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/appointments/confirm/{appointment_id}/':
+    put:
+      summary: Confirmar una cita
+      operationId: ConfirmAppointment
+      parameters:
+        - name: appointment_id
+          in: path
+          required: true
+          type: integer
+          description: ID de la cita a confirmar
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/appointments/listByCalendar/{calendar_id}/':
+    get:
+      summary: Lista todas las citas futuras de un usuario por agenda
+      operationId: listAppointmentsByCalendar
+      parameters:
+        - name: calendar_id
+          in: path
+          required: true
+          type: integer
+          description: ID del calendario
+        - name: limit
+          in: query
+          required: true
+          type: integer
+          description: Parámetros de paginación
+        - name: offset
+          in: query
+          required: true
+          type: integer
+          description: Parámetros de paginación
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Appointment'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/appointment/assists/{appointment_id}/':
+    put:
+      summary: Actualiza una cita a asistió o no asistió
+      operationId: UpdateAppointmentAttended
+      parameters:
+        - name: appointment_id
+          in: path
+          description: ID de la cita a actualizar
+          required: true
+          type: integer
+        - name: data
+          in: body
+          required: true
+          description: Data a modificar
+          schema:
+            $ref: '#/definitions/AppointmentAttended'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+  '/blockSchedules':
+    post:
+      summary: Crea Bloqueo de días sobre una agenda
+      operationId: createBlockSchedules
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BlockSchedules'
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+        default:
+          description: Unknown Error
+          schema:
+            $ref: '#/definitions/GenericResponse'
+definitions:
+  GenericResponse:
+    type: object
+    required:
+      - status_code
+      - status_message
+    properties:
+      status_code:
+        type: integer
+        format: int32
+        description: Código de status interno para operaciones request
+      status_message:
+        type: string
+        description: Mensaje de status interno para operaciones request
+  Calendar:
+    type: object
+    required:
+      - name
+      - owner_name
+      - is_group
+      - schedule
+      - time_attention
+      - concurrency
+      - app_key
+      - domain
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: ID del calendario
+      name:
+        type: string
+        description: Nombre de la agenda
+      owner_id:
+        type: integer
+        format: int32
+        description: ID del usuario o grupo al que se le va a asignar la agenda
+      owner_name:
+        type: string
+        description: Nombre a quién pertenece la agenda
+      is_group:
+        type: integer
+        format: int32
+        description: Si es grupo se coloca en 1 sino entonces es un usuario y se coloca 0
+      schedule:
+        type: string
+        description: Horario del trámite (Data serializada)
+      time_attention:
+        type: integer
+        format: int32
+        description:
+          Duración que puede tener una cita dentro de la agenda (Definido en
+          minutos)
+      concurrency:
+        type: integer
+        format: int32
+        description: Cantidad de citas que se pueden agendar en la misma hora
+      ignore_non_working_days:
+        type: integer
+        format: int32
+        description:
+          Si este campo esta en 1, entonces este calendario ignora los feriados
+          globales
+      app_key:
+        type: string
+        description: Si este campo esta en 1, entonces este calendario ignora los feriados
+          globales
+      domain:
+        type: string
+        description: Dominio de la App
+      status:
+        type: integer
+        format: int32
+        description: Status de la agenda
+  DaysOff:
+    type: object
+    required:
+      - name
+      - date_off
+      - app_key
+      - domain
+    properties:
+      id:
+        type: string
+        format: int32
+        description: ID del día no laboral
+      name:
+        type: string
+        description: Nombre del día no laboral
+      date_off:
+        type: string
+        format: date
+        description: Fecha del día no laboral (AAAA-MM-DD)
+      app_key:
+        type: string
+        description: Si este campo esta en 1, entonces este calendario ignora los feriados
+          globales
+      domain:
+        type: string
+        description: Dominio de la App
+  Appointment:
+    type: object
+    required:
+      - applyer_name
+      - applyer_email
+      - calendar_id
+      - subject
+      - appointment_time
+    properties:
+      id: 
+        type: integer
+        format: int32
+        description: ID de la cita
+      applyer_id:
+        type: integer
+        format: int32
+        description: ID del solicitante de la cita
+      applyer_name:
+        type: string
+        description: Nombre del solicitante de la cita
+      applyer_email:
+        type: string
+        description: Email del solicitante de la cita
+      calendar_id:
+        type: integer
+        format: int32
+        description: ID de la agenda a la que se hace la cita
+      subject:
+        type: string
+        description: Descripción del trámite por el cual se realiza la cita
+      appointment_time:
+        type: string
+        format: date
+        description: Horario de la cita (AAAA-MM-DD HH:NN)
+      created_date:
+        type: string
+        format: date
+        description: Fecha en que se crea la cita (AAAA-MM-DD HH:NN)
+      is_reserved:
+        type: integer
+        format: int32
+        description: Es una reserva 1 o 0
+      reservation_date:
+        type: string
+        format: date
+        description: Fecha de moficación de la reserva (AAAA-MM-DD HH:NN)
+      confirmation_date:
+        type: string
+        format: date
+        description: Fecha de modificación de la cita (AAAA-MM-DD HH:NN)
+      user_id_cancel:
+        type: integer
+        format: int32
+        description: ID del usuario que canceló la cita
+      is_canceled:
+        type: integer
+        format: int32
+        description: Está cancelada 1 o 0
+      cancelation_date:
+        type: string
+        format: date
+        description: Fecha de cancelación de la cita (AAAA-MM-DD HH:NN)
+      cancelation_cause:
+        type: string
+        format: date
+        description: Motivo cancelación de la cita
+      applyer_attended:
+        type: integer
+        format: int32
+        description: Si la cita fue atendida por el solicitante 1 o 0
+  AppointmentsCancel:
+    type: object
+    required:
+      - user_id_cancel
+      - is_canceled
+      - cancelation_date
+      - cancelation_cause
+    properties:
+      user_id_cancel:
+        type: integer
+        format: int32
+        description: ID del usuario que canceló la cita
+      user_name_cancel:
+        type: string
+        description: Nombre del usuario que canceló la cita
+      is_canceled:
+        type: integer
+        format: int32
+        description: Está cancelada 1 o 0
+      cancelation_date:
+        type: string
+        format: date
+        description: 'Fecha de cancelación de la cita (AAAA-MM-DD HH:NN)'
+      cancelation_cause:
+        type: string
+        format: date
+        description: Motivo cancelación de la cita
+  AppointmentAttended:
+    type: object
+    required:
+      - applyer_attended
+    properties:
+      applyer_attended:
+        type: integer
+        format: int32
+        description: Si la cita fue atendida por el solicitante 1 o 0
+  BlockSchedules:
+    type: object
+    required:
+      - calendar_id
+      - owner_id
+      - start_date
+      - end_date
+      - cause
+      - created_date
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Identificador único autoincrementable del bloqueo de la cita
+      calendar_id:
+        type: integer
+        format: int32
+        description: ID de la agenda a la que se le hace el bloqueo
+      owner_id:
+        type: integer
+        format: int32
+        description: ID de usuario que bloquea la cita
+      start_date:
+        type: string
+        format: date
+        description: 'Fecha en que inicia el bloqueo de la cita (AAAA-MM-DD HH:NN)'
+      end_date:
+        type: string
+        format: date
+        description: 'Fecha en que finaliza el bloqueo de la cita (AAAA-MM-DD HH:NN)'
+      cause:
+        type: string
+        format: date
+        description: Motivo de bloqueo de la cita
+      created_date:
+        type: string
+        format: date
+        description: 'Fecha en que se crea el bloqueo de la cita (AAAA-MM-DD HH:NN)'

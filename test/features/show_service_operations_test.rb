@@ -39,4 +39,17 @@ class ShowServiceOperationsTest < Capybara::Rails::TestCase
       assert_selector("a", text: "DELETE/stores/order/{orderId}")
     end
   end
+
+  test "We don't fail on operations with paths ending with a slash" do
+    test_service = Service.create!(
+      name: "TrickyService",
+      organization: organizations(:minsal),
+      spec_file: File.open(Rails.root / "test/files/sample-services/with-trailing-slashes.yaml")
+    ).create_first_version(users(:perico))
+    visit organization_service_service_version_path(
+      test_service.organization, test_service.service, test_service
+    )
+    find(".container-verbs a", text: "GET/calendars/searchByName/").click
+    assert_content "Texto coincidente a buscar en el campo pertenece a o nombre"
+  end
 end
