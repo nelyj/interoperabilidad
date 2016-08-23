@@ -13,10 +13,11 @@
             %a{"aria-controls" => "consumidor", "data-toggle" => "tab", :href => "#consumidor", :role => "tab"}
               = t(:consumer)
           %li{:role => "presentation", :class => "tab-to-new"}
-            = link_to new_organization_agreement_path(@organization), :title => t(:create_agreement) do
-              %i.material-icons
-                note_add
-              %span= t(:create_agreement)
+            - if current_user.can_create_agreements?(@organization)
+              = link_to new_organization_agreement_path(@organization), :title => t(:create_agreement) do
+                %i.material-icons
+                  note_add
+                %span= t(:create_agreement)
 
 .content-pages.content-tabs
   .container

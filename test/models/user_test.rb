@@ -177,4 +177,14 @@ class UserTest < ActiveSupport::TestCase
     assert user.unseen_notifications?
   end
 
+  test ".can_create_agreements? return true if the user can create agreement for the organization" do
+    user = users(:pedro)
+    assert user.can_create_agreements?(organizations(:sii))
+  end
+
+  test ".can_create_agreements? return false if the user can't create agreement for the organization" do
+    user = users(:pedro)
+    assert_not user.can_create_agreements?(organizations(:segpres))
+  end
+
 end

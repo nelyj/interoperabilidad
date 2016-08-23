@@ -160,4 +160,8 @@ class User < ApplicationRecord
     return true
   end
 
+  def can_create_agreements?(org)
+    roles.where(organization: org, name: "Create Agreement").exists?
+  end
+
 end
