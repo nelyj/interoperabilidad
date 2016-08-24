@@ -28,108 +28,77 @@ class Agreement <ApplicationRecord
     agreement_revisions.first
   end
 
-  def validate_draft(user)
-    #check if user is a fiscal
-    #check if state permits
-    if last_revision.draft?
-      #create new revision with validated_draft state
-      agreement_revisions.create(
-        user: user,
-        state: AgreementRevision.states['validated_draft'],
-        purpose: last_revision.purpose,
-        legal_base: last_revision.legal_base,
-        log: I18n.t(:sent_draft),
-        file: last_revision.file
-      )
+  def new_revision(user,new_state,log,message)
+    agreement_revisions.create(
+      user: user,
+      state: new_state,
+      purpose: last_revision.purpose,
+      legal_base: last_revision.legal_base,
+      log: log,
+      file: last_revision.file,
+      objection_message: message
+    )
+  end
+
+  def next_step
+    case state
+    when 'draft'
+      'validated_draft'
+    when 'validated_draft'
+      'signed_draft'
+    when 'objected'
+      'draft'
+    when 'signed_draft'
+      'validated'
+    when 'validated'
+      'signed'
+    when 'rejected_sign'
+      'signed'
     else
-      return nil
+      ''
     end
   end
 
-  def object_revision(user, message)
-    #check if state permits
-    if last_revision.validated_draft?
-      #create new objected revision
-      agreement_revisions.create(
-        user: user,
-        state: AgreementRevision.states['objected'],
-        purpose: last_revision.purpose,
-        legal_base: last_revision.legal_base,
-        log: "Draft objected",
-        file: last_revision.file,
-        objection_message: message
-      )
-    else
-      return nil
-    end
+  def user_can_update_agreement_status?(user, org)
+    role = AgreementRevision.state_to_role(next_step)
+    user.roles.where(organization: org, name: role).exists?
+  end
+
+  def validate_draft(user)
+    new_state = AgreementRevision.states['validated_draft']
+    #check if user is a prosecutor and state alows the change.
+    return nil unless user_can_update_agreement_status?(user, service_consumer_organization) && last_revision.draft?
+    new_revision(user,new_state, I18n.t(:sent_draft),"")
+  end
+
+  def object_draft(user, message)
+    new_state = AgreementRevision.states['objected']
+    return nil unless user_can_update_agreement_status?(user, service_consumer_organization) && last_revision.validated_draft?
+    new_revision(user, new_state, I18n.t(:objected_draft), message)
   end
 
   def sign_draft(user)
-    #check if state permits
-    if last_revision.validated_draft?
-      #create new object as signed_draft
-      agreement_revisions.create(
-        user: user,
-        state: AgreementRevision.states['signed_draft'],
-        purpose: last_revision.purpose,
-        legal_base: last_revision.legal_base,
-        log: "Draft Signed",
-        file: last_revision.file,
-      )
-    else
-      return nil
-    end
+    new_state = AgreementRevision.states['signed_draft']
+    return nil unless user_can_update_agreement_status?(user, service_consumer_organization) && last_revision.validated_draft?
+    new_revision(user, new_state, I18n.t(:signed_draft), "")
   end
 
   def validate_revision(user)
-    #check if state permits
-    if last_revision.signed_draft?
-      #create new object as validated
-      agreement_revisions.create(
-        user: user,
-        state: AgreementRevision.states['validated'],
-        purpose: last_revision.purpose,
-        legal_base: last_revision.legal_base,
-        log: "Agreement Validated",
-        file: last_revision.file,
-      )
-    else
-      return nil
-    end
+    new_state = AgreementRevision.states['validated']
+    return nil unless user_can_update_agreement_status?(user, service_provider_organization) && last_revision.signed_draft?
+    new_revision(user, new_state, I18n.t(:validated_agreement), "")
   end
 
   def sign(user)
-    #check if state permits
-    if last_revision.validated?
-      #create new object as signed
-      agreement_revisions.create(
-        user: user,
-        state: AgreementRevision.states['signed'],
-        purpose: last_revision.purpose,
-        legal_base: last_revision.legal_base,
-        log: "Agreement Signed",
-        file: last_revision.file,
-      )
-    else
-      return nil
-    end
+    new_state = AgreementRevision.states['signed']
+    return nil unless user_can_update_agreement_status?(user, service_provider_organization) && last_revision.validated?
+    new_revision(user, new_state, I18n.t(:signed_agreement), "")
   end
 
   def reject_sign(user, message)
-    #check if state permits
-    if last_revision.validated?
-      #create new object as rejected_sign
-      agreement_revisions.create(
-        user: user,
-        state: AgreementRevision.states['rejected_sign'],
-        purpose: last_revision.purpose,
-        legal_base: last_revision.legal_base,
-        log: "Agreement Signature Rejected",
-        file: last_revision.file,
-      )
-    else
-      return nil
-    end
+    new_state = AgreementRevision.states['rejected_sign']
+    return nil unless user_can_update_agreement_status?(user, service_provider_organization) && last_revision.validated?
+    new_revision(user, new_state, I18n.t(:rejected_sign), message)
   end
 
 end

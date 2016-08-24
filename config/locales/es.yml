@@ -118,9 +118,14 @@ es:
   download_server: Descarga Servidor
   download_client: Descarga Cliente
   send_draft: Enviar Borrador
-  sent_draft: Borrador enviado
-  created_draft: Borrador creado
-  test_service: Probar Servicio
+  rejected_sign: Firma de convenio rechazada.
+  signed_agreement: Convenio firmado.
+  validated_agreement: Convenio validado.
+  signed_draft: Borrador firmado.
+  objected_draft: Borrador objetado.
+  sent_draft: Borrador enviado.
+  created_draft: Borrador creado.
+  test_service: Probar Servicio.
   send: Enviar
   cancel: Cancelar
   edit: Editar
