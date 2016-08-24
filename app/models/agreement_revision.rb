@@ -8,18 +8,51 @@ class AgreementRevision <ApplicationRecord
 
   # draft: 0, validated_draft: 1, objected: 2, signed_draft:3 , validated:4 , rejected_sign:5, signed:6
   #
-  # The lifecycle is as follows:
+  # The lifecycle is handled by methods in the Agreement class. Those methods
+  # create a new revision with the next state in the lifecycle — DO NOT change
+  # the state of a specific revision in methods of this class. The possible
+  # states are the following:
   #
-  # A new agreement revision is born as "draft".
-  # Until it is "validated" by consumer prosecutor, where a "validated_draft" is generated.
-  # Then, it is reviewed by consumer undersecretary, and a "signed_draft" is crated.
-  # If the "validated_draft" isn't approved, it becomes objected and can ve reviewed again by the prosecutor.
-  # A "signed_draft" is reviewed by the provider prosecutor.
-  # If it's approved a "validated" revision is born.
-  # and it's send to the provider organization undersecretary.
-  # If the "signed_draft" is objected by the provider organization prosecutor, it can be reviewed again by the consumer organization prosecutor.
-  # An "approved" agreement, can be "signed" by provider organization undersecretary, and the it's send to the "Signing Proces".
-  # If the "approved" agreement, is "objected" by the undersecretary, it goes back to the prosecutor, who can "validate" it again, or "object" again, so it goes back to the consumer prosecutor.
+  # 1. The initial agreement revision of a new agreement is born as "draft".
+  #
+  # 2. Next it is validated by consumer attorney, a new revision with the
+  #   state "validated_draft" (See Agreement#validate_draft) is generated. Note
+  #   that the attorney can't send the agreement back to the creator. If any
+  #   change is required, it has to edit the agreement himself.
+  #
+  # 3. Then it is reviewed/signed by consumer undersecretary. Here a new revision
+  #   with the state "signed_draft" (See Agreement#sign_draft) is created.
+  #   Note that the undersecretary can't edit the agreement. If any change is
+  #   required it has to object the agreement...
+  #
+  # 4. ...In which case a new agreement revision is created with the state
+  #   "objected" (See Agreement#object_revision) and should be reviewed again by
+  #   the attorney (Back to step 2)
+  #
+  # 5. Back to the happy path, a "signed_draft" from step 3 is then reviewed by
+  #    the attorney of the provider organization. If everything looks OK to him,
+  #    a new agreement revision will be created with the "validated" state
+  #    (See Agreement#validate_revision). If something DOES NOT look OK to him,
+  #    he can also object a revision...
+  #
+  # 6. ...In which case just like in step 4, a new agreement revision is created
+  #    with the state  "objected" (See Agreement#object_revision) and the
+  #    objections have to be reviewed by the attorney of the consumer (Back to
+  #    step 2).
+  #
+  # 7. Again on the happy path: A "validated" agreement revision has to be
+  #    signed by the provider organization's undersecretary, in which case the
+  #    final revision of the agreement will be created with the "signed" state.
+  #    (See Agreement#sign). But of course the undersecretary might NOT want to
+  #    sign it...
+  #
+  # 8. ...In which case, a new agreement revision is created sith the
+  #    "rejected_sign" state (See Agreement#reject_sign). Note that this is a
+  #    different state than "objected" because the *provider*'s attorney has to
+  #    look at the comments from his undersecretary and either edit/forward them
+  #    to his counterpart (the consumer's attorney) or disagree with those
+  #    comments and still recommend the agreement to be signed. In other words,
+  #    we are back to step 5.
   #
   # ALWAYS add new states at the end.
   enum state: [:draft, :validated_draft, :objected, :signed_draft, :validated, :rejected_sign, :signed]
