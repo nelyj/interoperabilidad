@@ -41,7 +41,7 @@ class AgreementRevisionsController < ApplicationController
   end
 
   def objection_request
-    @agreement_revision = @agreement.object_revision(current_user, agreement_revision_params[:objection_message])
+    @agreement_revision = @agreement.object_draft(current_user, agreement_revision_params[:objection_message])
     generate_pdf(@agreement, @agreement_revision)
     redirect_to [@organization, @agreement, @agreement_revision], notice: t(:objection_correctly_sent)
   end
