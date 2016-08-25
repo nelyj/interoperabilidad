@@ -2,7 +2,7 @@
   .container-fluid.main-title
     .container
       .col-md-12
-        %h1= t(:agreement_between, consumer: @agreement.service_consumer_organization, provider: @agreement.service_consumer_organization)
+        %h1= t(:agreement_between, consumer: @agreement.service_consumer_organization.name, provider: @agreement.service_provider_organization.name)
         %a{:href => 'index', :title => 'Cancelar'}
           %i.material-icons
             close

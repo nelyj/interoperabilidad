@@ -68,6 +68,10 @@ es:
   services: Servicios
   agreements: Convenios
   agreements_list: Listado de convenios
+  agreement_revision_edited: Convenio creado correctamente
+  agreement_correctly_sent: Convenio enviado correctamente
+  agreement_correctly_signed: Convenio firmado correctamente
+  objection_correctly_sent: Convenio observado correctamente
   last_movement_date: Fecha ult. movimiento
   purpose: Propósito
   involved_services: Servicios involucrados
@@ -92,7 +96,7 @@ es:
   create_new_service_notification: "Nuevo Servicio: %{name} creado."
   create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación."
   create_state_change_notification: "Servicio %{name}, versión %{version} ha sido %{status}."
-  agreement_between: Convenio entre {consumer} y {provider}
+  agreement_between: Convenio entre %{consumer} y %{provider}
   logout: Logout
   new_schema: Nuevo Esquema
   new_version: Nueva Revisión
@@ -112,6 +116,7 @@ es:
   sign_request: Firmar Solicitud
   reject: Rechazar
   reject_service: Rechazar Servicio
+  object_agreement: Observar Convenio
   rejected: rechazado
   rejection_reason: Ingresa la razón de rechazo
   download: Descargar

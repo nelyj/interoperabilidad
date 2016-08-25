@@ -2,11 +2,20 @@
   .container-fluid.main-title
     .container
       .col-md-12
-        %h1= "Convenio entre #{@provider_organization.name} y #{@consumer_organization.name}"
+        %h1= t(:agreement_between, consumer: @agreement.service_consumer_organization.name, provider: @agreement.service_consumer_organization.name)
         %a{:href => 'index', :title => 'Cancelar'}
         = link_to organization_agreements_path(@consumer_organization) do
           %i.material-icons
             close
+
+  - if user_signed_in? && @agreement_revision.objected?
+    .container-fluid.panel-error.alert.fade.in{:"data-alert" => "alert"}
+      .container
+        .row
+          .col-md-12
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+            %h1= t(:objected_draft)
+            %p= @agreement_revision.objection_message
 
   .container-fluid.show-agreement-content
     .container
@@ -29,3 +38,22 @@
         .col-md-3
           = render partial: "next_step"
           = render partial: "history"
+
+- if @agreement_revision.validated_draft?
+  #modalAgreementObjected.modal.fade{:role => "dialog", :tabindex => "-1"}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          %h1=t(:object_agreement)
+        .modal-body
+          = form_for @agreement_revision, url: objection_request_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision) do |f|
+            %h3
+              =t(:rejection_reason)
+            = f.text_area :objection_message
+            .modal-footer
+              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+                =t(:cancel)
+              %button.btn.btn-danger{:type => "submit"}
+                =t(:reject)

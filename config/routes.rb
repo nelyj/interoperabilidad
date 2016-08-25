@@ -46,7 +46,9 @@ Rails.application.routes.draw do
           member do
             put 'state'
             get 'pdf'
-            get 'request_validation'
+            get 'validation_request'
+            get 'consumer_signature'
+            patch 'objection_request'
           end
         end
     end

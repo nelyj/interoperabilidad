@@ -3,30 +3,31 @@ module AgreementRevisionsHelper
   def agreement_allowed_actions
     case @agreement_revision.state
     when 'draft'
-      agreement_request_actions +
       agreement_validate_actions
     when 'validated_draft'
       agreement_sign_actions
-    when 'signed_draft'
-      ''
+    when 'objected'
+      agreement_objected_actions
     end
   end
 
-  def agreement_request_actions
-    content_tag(:button, t(:edit), class: 'btn btn-default') +
-    content_tag(:a, t(:send_draft), class: 'btn btn-primary',
-      href: request_validation_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision))
-  end
-
   def agreement_validate_actions
-    content_tag(:button, t(:edit), class: 'btn btn-default') +
-    content_tag(:button, t(:request_signature),{:controller => :agreement_revisions,
-      :action => 'request_validation'}, class: 'btn btn-primary')
+    content_tag(:a, t(:edit), class: 'btn btn-default',
+      href: new_organization_agreement_agreement_revision_path) +
+    content_tag(:a, t(:send_draft), class: 'btn btn-primary',
+      href: validation_request_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision))
   end
 
   def agreement_sign_actions
-    content_tag(:button, t(:reject), class: 'btn btn-danger') +
-    content_tag(:button, t(:sign_request), class: 'btn btn-success')
+    content_tag(:a, t(:reject), class: 'btn btn-danger',
+      "data-target" => "#modalAgreementObjected", "data-toggle" => "modal", :type => "button") +
+    content_tag(:a, t(:sign_request), class: 'btn btn-success',
+      href: consumer_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision))
+  end
+
+  def agreement_objected_actions
+    content_tag(:a, t(:edit), class: 'btn btn-default',
+      href: new_organization_agreement_agreement_revision_path)
   end
 
   def css_class_for_agreement_status(status)

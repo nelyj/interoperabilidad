@@ -5,15 +5,16 @@
     .col-md-6.no-gutter
       = select_tag "switch_service_select", options_from_collection_for_select(@organization.services, "url", "name"), class: "form-control input-lg", include_blank: "Otros servicios de esta institución"
 - if @service.needs_agreement_to_be_used_by?(current_user)
-  .container
-    .row
-      .alert
-        = t(:service_needs_agreement)
-        - if user_signed_in?
-          - if !@organization.can_create_agreements_with_this_organization?(current_user)
-            = t(:role_cant_create_agreement)
-        - else
-          = t(:login_to_be_able_to_create_agreements)
+  .container-fluid
+    .cotainer
+      .row
+        .alert
+          = t(:service_needs_agreement)
+          - if user_signed_in?
+            - if !@organization.can_create_agreements_with_this_organization?(current_user)
+              = t(:role_cant_create_agreement)
+          - else
+            = t(:login_to_be_able_to_create_agreements)
 
 - if user_signed_in? && current_user.is_service_admin? && @service_version.proposed?
   .container-fluid.panel-error.warning.alert.fade.in{:"data-alert" => "alert"}
