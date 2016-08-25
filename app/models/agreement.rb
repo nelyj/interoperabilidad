@@ -60,7 +60,7 @@ class Agreement <ApplicationRecord
   end
 
   def user_can_update_agreement_status?(user, org)
-    role = AgreementRevision.state_to_role(next_step)
+    role = AgreementRevision.state_to_role(next_step, last_revision_number)
     user.roles.where(organization: org, name: role).exists?
   end
 
