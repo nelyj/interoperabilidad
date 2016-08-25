@@ -73,7 +73,7 @@ class UserTest < ActiveSupport::TestCase
           "nombre" => "Espacio-cohetes espaciales Espacio S.A.",
           "sigla" => "ECEESA"
         },
-        "rol" => "Validador",
+        "rol" => "Service Provider",
       }
     ])
 
@@ -106,7 +106,7 @@ class UserTest < ActiveSupport::TestCase
           "nombre" => "Espacio-cohetes espaciales Espacio S.A.",
           "sigla" => "ECEESA"
         },
-        "rol" => "Validador",
+        "rol" => "Service Provider",
       }
     ])
 
@@ -145,7 +145,7 @@ class UserTest < ActiveSupport::TestCase
           padre_id: "AB01",
           sigla: "Segpres"
         },
-        rol: "Validador",
+        rol: "Service Provider",
       }
     ])
     user = User.where(rut: "11.111.111-1").first

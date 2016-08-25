@@ -62,7 +62,7 @@ class ListOrganizationAgreementsTest < Capybara::Rails::TestCase
     end
     within '#consumidor' do
       assert find(:xpath, '//table/thead/tr').text.include?('Institución proveedora Servicios involucrados Propósito Fecha ult. movimiento Estado')
-      assert find(:xpath, '//table/tbody/tr[1]').text.include?('Servicio de Impuestos Internos test-service')
+      assert find(:xpath, '//table/tbody/tr[1]').text.include?('Secretaría General de la Presidencia test-service')
     end
   end
 
