@@ -102,7 +102,7 @@ class User < ApplicationRecord
 
   def call_roles_service(url)
     path = '/personas/' + rut_number +
-      '/instituciones/segpres/aplicaciones/' + APP_ID.to_s
+      '/aplicaciones/' + APP_ID.to_s
     begin
       RestClient.get(url + path)
     rescue => e
