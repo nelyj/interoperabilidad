@@ -28,4 +28,17 @@ module AgreementRevisionsHelper
     content_tag(:button, t(:reject), class: 'btn btn-danger') +
     content_tag(:button, t(:sign_request), class: 'btn btn-success')
   end
+
+  def css_class_for_agreement_status(status)
+    {
+      'draft' => 'static',
+      'validated_draft' => 'primary',
+      'objected' => 'danger',
+      'signed_draft' => 'primary',
+      'validated' => 'primary',
+      'rejected_sign' => 'danger',
+      'signed' => 'success'
+    }[status] + ' btn-status' || ''
+  end
+
 end

@@ -1,7 +1,8 @@
 .box.next-step
   .header-box
     %span= t(:agreement_state)
-    %span.btn-status.blue= @agreement_revision.state
+    %span{class: css_class_for_agreement_status(@agreement_revision.state)}
+      = t(@agreement_revision.state)
   .body-box
     .event
       %p

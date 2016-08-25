@@ -134,6 +134,13 @@ es:
   retired: retirado
   retracted: retractado
   outdated: desactualizado
+  draft: borrador
+  validated_draft: En progreso
+  objected: objetado
+  signed_draft: En progreso
+  validated: En progreso
+  rejected_sign: objetado
+  signed: Firmado
   no_description: Descripción no disponible
   services_pending_approval: Servicios por aprobar
   service_pending_approval: Servicio pendiente de aprobación

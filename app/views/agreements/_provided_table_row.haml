@@ -7,5 +7,5 @@
   %td= provided_table_row.last_revision.purpose
   %td= provided_table_row.last_revision.updated_at.strftime("%d/%m/%Y")
   %td
-    %span.btn-status.blue
-      = provided_table_row.state
+    %span{class: css_class_for_agreement_status(provided_table_row.state)}
+      = t(provided_table_row.state)
