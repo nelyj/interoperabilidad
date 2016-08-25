@@ -843,6 +843,21 @@ ul.list-operations {
     button {
         outline: 0px;
     }
+    &.alert {
+        h1 {
+            padding-top: 10px;
+            font-size: $font-24;
+            font-weight: bold;
+            color: white;
+        }
+    }
+    &.warning {
+        h1 {
+        padding-top: 10px;
+        font-size: $font-24;
+        color: #888;
+        }
+    }
 }
 
 .wrapper-operation {
@@ -1220,6 +1235,9 @@ ul.list-operations {
         height: 127px;
         border: 1px solid rgba(210, 210, 210, 1);
     }
+}
+#modalAgreementObjected {
+    @extend #modalServiceRejected
 }
 
 //Home services ( tab lists )
