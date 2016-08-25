@@ -70,20 +70,7 @@ class User < ApplicationRecord
     org = Organization.where(dipres_id: org_id ).first_or_create!(
       name: organization['nombre'],
       initials: organization['sigla'])
-    self.roles.create(organization: org, name: parse_role(role), email: email)
-  end
-
-  def parse_role(role)
-    case role
-      when "Validador"
-        "Service Provider"
-      when "1"
-        "Create Agreement"
-      when "2"
-        "Sign Agreement"
-      else
-        "Service Provider"
-      end
+    self.roles.create(organization: org, name: role, email: email)
   end
 
   def parse_email(email)
