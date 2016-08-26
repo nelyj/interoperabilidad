@@ -49,6 +49,7 @@ Rails.application.routes.draw do
             get 'validation_request'
             get 'consumer_signature'
             patch 'objection_request'
+            get 'document_validation'
           end
         end
     end

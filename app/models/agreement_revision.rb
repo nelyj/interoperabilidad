@@ -109,9 +109,9 @@ class AgreementRevision <ApplicationRecord
 
   def self.state_to_role(state)
     case state
-    when 'draft', 'objected', 'signed_draft',  'rejected_sign'
+    when 'draft', 'validated_draft','objected',  'rejected_sign'
       return "Validate Agreement"
-    when 'validated_draft', 'validated', 'signed'
+    when  'validated', 'signed', 'signed_draft'
       return "Sign Agreement"
     end
   end

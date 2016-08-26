@@ -32,7 +32,7 @@
               %embed{:src => @agreement_revision.request_pdf_url, :width => '100%', :height => '493'}
 
           .actions
-            = agreement_allowed_actions
+            = agreement_allowed_actions if @agreement.user_can_update_agreement_status?(current_user, current_active_organization)
             = link_to "Descargar PDF", @agreement_revision.request_pdf_url, download: ''
 
         .col-md-3

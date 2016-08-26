@@ -143,20 +143,8 @@ es:
 
   next_step: Próximo Paso
   send_draft: Enviar Borrador
-<<<<<<< HEAD
 
   test_service: Probar Servicio.
-=======
-  rejected_sign: Firma de convenio rechazada.
-  signed_agreement: Convenio firmado.
-  validated_agreement: Convenio validado.
-  sent_draft: Borrador enviado
-  signed_draft: Borrador firmado
-  created_draft: Borrador creado
-  modified_draft: Borrador modificado
-  objected_draft: Borrador pendiente con observaciones
-  test_service: Probar Servicio
->>>>>>> Modify message when agreement state is objected
   send: Enviar
   cancel: Cancelar
   edit: Editar

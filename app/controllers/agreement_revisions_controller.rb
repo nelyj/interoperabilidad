@@ -46,6 +46,11 @@ class AgreementRevisionsController < ApplicationController
     redirect_to [@organization, @agreement, @agreement_revision], notice: t(:objection_correctly_sent)
   end
 
+  def document_validation
+    @agreement_revision = @agreement.validate_revision(current_user)
+    redirect_to [@organization, @agreement, @agreement_revision], notice: t(:objection_correctly_sent)
+  end
+
 private
 
   def agreement_revision_params
