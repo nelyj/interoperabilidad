@@ -98,17 +98,16 @@ class AgreementRevision <ApplicationRecord
   def responsable_email
     case state
     when 'draft', 'objected','validated_draft', 'signed_draft'
-      role = user.roles.where(name: AgreementRevision.state_to_role(state, revision_number), organization: agreement.service_consumer_organization).first
+      role = user.roles.where(name: AgreementRevision.state_to_role(state), organization: agreement.service_consumer_organization).first
       return role.email unless role.nil?
     when 'validated', 'rejected_sign', 'signed'
-      role = user.roles.where(name: AgreementRevision.state_to_role(state, revision_number), organization: agreement.service_provider_organization).first
+      role = user.roles.where(name: AgreementRevision.state_to_role(state), organization: agreement.service_provider_organization).first
       return role.email unless role.nil?
     end
     return ''
   end
 
-  def self.state_to_role(state, revision)
-    return "Create Agreement" if revision == 1
+  def self.state_to_role(state)
     case state
     when 'draft', 'objected', 'signed_draft',  'rejected_sign'
       return "Validate Agreement"
