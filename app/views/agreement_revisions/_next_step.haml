@@ -3,12 +3,13 @@
     %span= t(:agreement_state)
     %span{class: css_class_for_agreement_status(@agreement_revision.state)}
       = t(@agreement_revision.state)
-  .body-box
-    .event
-      %p
-        %strong Próximo Paso
-        %br Revisión borrador Fiscal
-      %p
-        Responsable: Alberto Fuenzalida
-        %br
-        Contacto: alberto@mail.com
+  - unless @agreement.state == 'signed'
+    .body-box
+      .event
+        %p
+          %strong= t(:next_step)
+          %br= t(@agreement.next_step + '_log')
+        %p
+          Responsable: Alberto Fuenzalida
+          %br
+          Contacto: alberto@mail.com
