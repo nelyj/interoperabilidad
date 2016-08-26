@@ -117,14 +117,28 @@ es:
   download: Descargar
   download_server: Descarga Servidor
   download_client: Descarga Cliente
+
+  # Agreement Status
+  draft: Borrador
+  validated_draft: En progreso
+  objected: Objetado
+  signed_draft: En progreso
+  validated: En progreso
+  signed: Firmado
+  rejected_sign: Objetado
+
+  # Agreement Logs/Messages
+  draft_log: Borrador creado.
+  validated_draft_log: Borrador enviado.
+  objected_log: Borrador objetado.
+  signed_draft_log: Borrador firmado.
+  validated_log: Convenio validado.
+  signed_log: Convenio firmado.
+  rejected_sign_log: Firma objetada
+
+  next_step: Próximo Paso
   send_draft: Enviar Borrador
-  rejected_sign: Firma de convenio rechazada.
-  signed_agreement: Convenio firmado.
-  validated_agreement: Convenio validado.
-  signed_draft: Borrador firmado.
-  objected_draft: Borrador objetado.
-  sent_draft: Borrador enviado.
-  created_draft: Borrador creado.
+
   test_service: Probar Servicio.
   send: Enviar
   cancel: Cancelar
@@ -134,13 +148,6 @@ es:
   retired: retirado
   retracted: retractado
   outdated: desactualizado
-  draft: borrador
-  validated_draft: En progreso
-  objected: objetado
-  signed_draft: En progreso
-  validated: En progreso
-  rejected_sign: objetado
-  signed: Firmado
   no_description: Descripción no disponible
   services_pending_approval: Servicios por aprobar
   service_pending_approval: Servicio pendiente de aprobación

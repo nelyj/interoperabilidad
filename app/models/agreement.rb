@@ -16,7 +16,7 @@ class Agreement <ApplicationRecord
       user: self.user,
       legal_base: self.legal_base,
       revision_number: 1,
-      log: I18n.t(:created_draft)
+      log: I18n.t(:draft_log)
       )
   end
 
@@ -68,37 +68,37 @@ class Agreement <ApplicationRecord
     new_state = AgreementRevision.states['validated_draft']
     #check if user is a prosecutor and state alows the change.
     return nil unless user_can_update_agreement_status?(user, service_consumer_organization) && last_revision.draft?
-    new_revision(user,new_state, I18n.t(:sent_draft),"")
+    new_revision(user,new_state, I18n.t(:validated_draft_log),"")
   end
 
   def object_draft(user, message)
     new_state = AgreementRevision.states['objected']
     return nil unless user_can_update_agreement_status?(user, service_consumer_organization) && last_revision.validated_draft?
-    new_revision(user, new_state, I18n.t(:objected_draft), message)
+    new_revision(user, new_state, I18n.t(:objected_log), message)
   end
 
   def sign_draft(user)
     new_state = AgreementRevision.states['signed_draft']
     return nil unless user_can_update_agreement_status?(user, service_consumer_organization) && last_revision.validated_draft?
-    new_revision(user, new_state, I18n.t(:signed_draft), "")
+    new_revision(user, new_state, I18n.t(:signed_draft_log), "")
   end
 
   def validate_revision(user)
     new_state = AgreementRevision.states['validated']
     return nil unless user_can_update_agreement_status?(user, service_provider_organization) && last_revision.signed_draft?
-    new_revision(user, new_state, I18n.t(:validated_agreement), "")
+    new_revision(user, new_state, I18n.t(:validated_log), "")
   end
 
   def sign(user)
     new_state = AgreementRevision.states['signed']
     return nil unless user_can_update_agreement_status?(user, service_provider_organization) && last_revision.validated?
-    new_revision(user, new_state, I18n.t(:signed_agreement), "")
+    new_revision(user, new_state, I18n.t(:signed_log), "")
   end
 
   def reject_sign(user, message)
     new_state = AgreementRevision.states['rejected_sign']
     return nil unless user_can_update_agreement_status?(user, service_provider_organization) && last_revision.validated?
-    new_revision(user, new_state, I18n.t(:rejected_sign), message)
+    new_revision(user, new_state, I18n.t(:rejected_sign_log), message)
   end
 
 end
