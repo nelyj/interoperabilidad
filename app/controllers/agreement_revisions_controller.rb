@@ -19,7 +19,7 @@ class AgreementRevisionsController < ApplicationController
   def create
     @agreement_revision = @agreement.agreement_revisions.build(agreement_revision_params)
     @agreement_revision.user = current_user
-    @agreement_revision.log = t(:modified_draft)
+    @agreement_revision.log = t(:modified_draft_log)
     if @agreement_revision.save!
       generate_pdf(@agreement, @agreement_revision)
       redirect_to [@organization, @agreement, @agreement_revision], notice: t(:agreement_revision_edited)
@@ -48,7 +48,12 @@ class AgreementRevisionsController < ApplicationController
 
   def document_validation
     @agreement_revision = @agreement.validate_revision(current_user)
-    redirect_to [@organization, @agreement, @agreement_revision], notice: t(:objection_correctly_sent)
+    redirect_to [@organization, @agreement, @agreement_revision], notice: t(:agreement_correctly_sent)
+  end
+
+  def provider_signature
+    @agreement_revision = @agreement.sign(current_user)
+    redirect_to [@organization, @agreement, @agreement_revision], notice: t(:agreement_correctly_signed)
   end
 
 private

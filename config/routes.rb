@@ -50,6 +50,7 @@ Rails.application.routes.draw do
             get 'consumer_signature'
             patch 'objection_request'
             get 'document_validation'
+            get 'provider_signature'
           end
         end
     end

@@ -133,18 +133,19 @@ es:
   rejected_sign: Objetado
 
   # Agreement Logs/Messages
-  draft_log: Borrador creado.
-  validated_draft_log: Borrador enviado.
-  objected_log: Borrador objetado.
-  signed_draft_log: Borrador firmado.
-  validated_log: Convenio validado.
-  signed_log: Convenio firmado.
+  draft_log: Borrador creado
+  validated_draft_log: Borrador enviado
+  objected_log: Borrador objetado
+  signed_draft_log: Borrador firmado
+  validated_log: Convenio validado
+  signed_log: Convenio firmado
   rejected_sign_log: Firma objetada
+  modified_draft_log: Borrador modificado
 
   next_step: Próximo Paso
   send_draft: Enviar Borrador
 
-  test_service: Probar Servicio.
+  test_service: Probar Servicio
   send: Enviar
   cancel: Cancelar
   edit: Editar
