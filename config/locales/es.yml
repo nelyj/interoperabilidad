@@ -70,8 +70,13 @@ es:
   agreements_list: Listado de convenios
   agreement_revision_edited: Convenio creado correctamente
   agreement_correctly_sent: Convenio enviado correctamente
+  agreement_wrongly_sent: Convenio no se pudo enviar
   agreement_correctly_signed: Convenio firmado correctamente
+  agreement_wrongly_signed: Convenio no se pudo firmar
   objection_correctly_sent: Convenio observado correctamente
+  objection_wrongly_sent: Convenio no se pudo observar
+  rejection_correctly_sent: Convenio rechazado correctamente
+  rejection_wrongly_sent: Convenio no se pudo rechazar
   last_movement_date: Fecha ult. movimiento
   purpose: Propósito
   involved_services: Servicios involucrados
