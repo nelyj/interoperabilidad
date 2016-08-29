@@ -35,6 +35,7 @@ services:
       - SMTP_PORT=25
       - SMTP_USER=user
       - SMTP_SECRET=secret
+      - MINSEGPRES_DIPRES_ID=AB01
   bundle_cache:
     image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
     volumes:

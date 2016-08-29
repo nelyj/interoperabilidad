@@ -59,10 +59,16 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 - `APP_HOST_URL`: Application host URL, for mailers use.
 
 - `SMTP_ADDRESS`: SMTP server address.
+
 - `SMTP_PORT`: SMTP server port.
+
 - `SMTP_DOMAIN`: SMTP server domain.
+
 - `SMTP_USER`: SMTP server user name.
+
 - `SMTP_SECRET`: SMTP server password.
+
+- `MINSEGPRES_DIPRES_ID`: ID of MINSEGPRES in the DIPRES
 
 You can also set the `PORT` environment variable to change the port where the web server will listen (defaults to 80). See `config/puma.rb` for more options you can tune/override via environment variables.
 

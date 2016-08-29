@@ -10,7 +10,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable, omniauth_providers: [:clave_unica]
 
-  GOB_DIGITAL_ID = "AB01"
+  GOB_DIGITAL_ID = ENV['MINSEGPRES_DIPRES_ID']
 
   URL = ENV['ROLE_SERVICE_URL']
   APP_ID = ENV['ROLE_APP_ID']
