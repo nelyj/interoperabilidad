@@ -1,3 +1,5 @@
+require './lib/role_service.rb'
+
 class Agreement <ApplicationRecord
   belongs_to :service_provider_organization, :class_name => 'Organization'
   belongs_to :service_consumer_organization, :class_name => 'Organization'
@@ -56,6 +58,47 @@ class Agreement <ApplicationRecord
       'signed'
     else
       ''
+    end
+  end
+
+  def parse_persons(persons, role, org)
+    users = Array.new
+    return [{name: "", email: [""]}] if persons.nil?
+    persons.map do |p|
+      first_name = p["nombre"]["nombres"].join(' ')
+      last_name = p["nombre"]["apellidos"].join(' ')
+      name = first_name.strip + ' ' + last_name.strip
+
+      emails = Array.new
+      last_email = ""
+      p["instituciones"].map do |i|
+        if i["institucion"]["id"] == org.dipres_id && i["rol"] == role
+          emails << i["email"]
+        end
+      end
+
+      users << {name: name, email: emails}
+    end
+    users
+  end
+
+  def next_step_responsables
+    next_role = AgreementRevision.state_to_role(next_step)
+    response = RoleService.get_organization_users(active_organization_in_flow, next_role)
+
+    if response.nil?
+      Rollbar.error('Call to Role Service for organization: ' + active_organization_in_flow.name +
+       ' role: ' + next_role + ' Returned: nil')
+       return nil
+    else
+      if response.code == 200
+        response = JSON.parse(response)
+        parse_persons(response["personas"], next_role, active_organization_in_flow )
+      else
+        Rollbar.error('Call to Role Service for organization: ' + active_organization_in_flow.name +
+        ' role: ' + next_role + ' Returned: ' + response.code.to_s)
+        return nil
+      end
     end
   end
 
