@@ -77,6 +77,7 @@ es:
   objection_wrongly_sent: Convenio no se pudo observar
   rejection_correctly_sent: Convenio rechazado correctamente
   rejection_wrongly_sent: Convenio no se pudo rechazar
+  one_time_password: One time password
   last_movement_date: Fecha ult. movimiento
   purpose: Propósito
   involved_services: Servicios involucrados

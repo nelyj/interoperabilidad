@@ -14,7 +14,7 @@
         .row
           .col-md-12
             %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
-            %h1= t(:objected_draft)
+            %h1= t(:objected_log)
             %p= @agreement_revision.objection_message
 
   .container-fluid.show-agreement-content
@@ -38,22 +38,6 @@
         .col-md-3
           = render partial: "next_step"
           = render partial: "history"
-
-- if @agreement_revision.validated_draft? || @agreement_revision.signed_draft?
-  #modalAgreementObjected.modal.fade{:role => "dialog", :tabindex => "-1"}
-    .modal-dialog
-      .modal-content
-        .modal-header
-          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-            %span{"aria-hidden" => "true"} ×
-          %h1=t(:object_agreement)
-        .modal-body
-          = form_for @agreement_revision, url: objection_request_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision) do |f|
-            %h3
-              =t(:rejection_reason)
-            = f.text_area :objection_message
-            .modal-footer
-              %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
-                =t(:cancel)
-              %button.btn.btn-danger{:type => "submit"}
-                =t(:reject)
+= render partial: "modal_agreement_objected", locals: {url: objection_request_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision)} if @agreement_revision.validated_draft? ||  @agreement_revision.signed_draft?
+= render partial: "modal_agreement_objected", locals: {url: reject_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision)} if @agreement_revision.validated?
+= render partial: "modal_agreement_one_time_password" if %w(validated_draft validated).include?(@agreement_revision.state)

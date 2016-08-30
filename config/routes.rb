@@ -44,13 +44,14 @@ Rails.application.routes.draw do
       resources :agreement_revisions, only: [:show, :new, :create], param: :revision_number,
         path: 'revisions' do
           member do
-            put 'state'
-            get 'pdf'
+            patch 'state'
+            
             get 'validation_request'
             get 'consumer_signature'
             patch 'objection_request'
             get 'document_validation'
             get 'provider_signature'
+            patch 'reject_signature'
           end
         end
     end

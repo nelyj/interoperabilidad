@@ -26,7 +26,7 @@ module AgreementRevisionsHelper
     content_tag(:a, t(:reject), class: 'btn btn-danger',
       "data-target" => "#modalAgreementObjected", "data-toggle" => "modal", :type => "button") +
     content_tag(:a, t(:sign_request), class: 'btn btn-success',
-      href: consumer_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision))
+      "data-target" => "#modalAgreementOneTimePassword", "data-toggle" => "modal", :type => "button")
   end
 
   def agreement_objected_actions
@@ -45,7 +45,7 @@ module AgreementRevisionsHelper
     content_tag(:a, t(:reject), class: 'btn btn-danger',
       "data-target" => "#modalAgreementObjected", "data-toggle" => "modal", :type => "button") +
     content_tag(:a, t(:sign_request), class: 'btn btn-success',
-      href: provider_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision))
+      "data-target" => "#modalAgreementOneTimePassword", "data-toggle" => "modal", :type => "button")
   end
 
   def css_class_for_agreement_status(status)
@@ -60,4 +60,21 @@ module AgreementRevisionsHelper
     }[status] + ' btn-status' || ''
   end
 
+  def objection_path
+    case @agreement.state
+    when 'validated_draft' || 'signed_draft'
+      objection_request_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision)
+    when 'validated'
+      reject_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision)
+    end
+  end
+
+  def one_time_password_path(password)
+    case @agreement.state
+    when 'validated_draft'
+      consumer_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision, one_time_password: password)
+    when 'validated'
+      provider_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision, one_time_password: password)
+    end
+  end
 end

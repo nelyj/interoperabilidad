@@ -1236,8 +1236,16 @@ ul.list-operations {
         border: 1px solid rgba(210, 210, 210, 1);
     }
 }
+
 #modalAgreementObjected {
     @extend #modalServiceRejected
+}
+
+#modalAgreementOneTimePassword {
+    @extend #modalDownloadCode;
+    .modal-dialog {
+        max-width: 260px;
+    }
 }
 
 //Home services ( tab lists )
