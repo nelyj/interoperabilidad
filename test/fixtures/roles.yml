@@ -15,3 +15,9 @@ pablito_segpres:
   organization: segpres
   name: "Service Provider"
   email: "mail@example.org"
+
+pedro_sii_agreement_validate:
+  user: pedro
+  organization: sii
+  name: "Validate Agreement"
+  email: "mail@example.org"
