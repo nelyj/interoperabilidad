@@ -24,4 +24,4 @@
 *.sublime-workspace
 .DS_Store
 
-/test/files/test-agreement/*
+/test/files/test-agreement/*.pdf
