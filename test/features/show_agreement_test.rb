@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DownloadPDFTest < Capybara::Rails::TestCase
+class ShowAgreementTest < Capybara::Rails::TestCase
   include Warden::Test::Helpers
   after { Warden.test_reset! }
 
@@ -35,7 +35,7 @@ class DownloadPDFTest < Capybara::Rails::TestCase
     agreement
   end
 
-  test 'Download agreement PDF' do
+  setup do
     login_as users(:pedro), scope: :user
     create_valid_agreement!(organizations(:segpres), organizations(:sii))
     visit root_path
@@ -43,6 +43,10 @@ class DownloadPDFTest < Capybara::Rails::TestCase
     within '#user-menu' do
       find('#agreements').click
     end
+  end
+
+  test 'Download agreement PDF' do
+
     assert_content 'Convenios Servicio de Impuestos Internos'
     assert_link 'Crear Nuevo Convenio'
     within '.nav.nav-tabs' do
@@ -57,5 +61,24 @@ class DownloadPDFTest < Capybara::Rails::TestCase
 
     assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
     click_link "Descargar PDF"
+  end
+
+  test 'Next Step' do
+    assert_content 'Convenios Servicio de Impuestos Internos'
+    assert_link 'Crear Nuevo Convenio'
+    within '.nav.nav-tabs' do
+      find(:xpath, 'li[2]').click
+      assert_text find('li.active')[:text], 'Consumidor'
+    end
+
+    within '#consumidor' do
+      assert find(:xpath, '//table/thead/tr').text.include?('Institución proveedora Servicios involucrados Propósito Fecha ult. movimiento Estado')
+      find(:xpath, '//table/tbody/tr[1]').click
+    end
+
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    assert_content 'Próximo Paso Borrador enviado'
+    assert_content 'Responsable: Contacto: '
+
   end
 end
