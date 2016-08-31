@@ -54,14 +54,13 @@ class User < ApplicationRecord
       response['instituciones'].each do |organization|
         org = organization['institucion']
         role = organization['rol']
-        address = organization['direccion']
         email = parse_email(organization['email'])
-        parse_organization_role(org, role, email, address)
+        parse_organization_role(org, role, email)
       end
     end
   end
 
-  def parse_organization_role(organization, role, email, address)
+  def parse_organization_role(organization, role, email)
     org_id = organization['id']
     self.can_create_schemas = (org_id == GOB_DIGITAL_ID)
     org = Organization.where(dipres_id: org_id ).first_or_create!(
@@ -70,7 +69,7 @@ class User < ApplicationRecord
     org.update(
       name: organization['nombre'],
       initials: organization['sigla'],
-      address: address
+      address: organization['direccion']
       )
     self.roles.create(organization: org, name: role, email: email)
   end
@@ -82,10 +81,6 @@ class User < ApplicationRecord
   def refresh_name(full_name)
     first_name = full_name['nombres'].join(' ')
     second_name = full_name['apellidos'].join(' ')
-
-    first_name = 'Perico' if first_name.empty?
-    second_name = 'de los Palotes' if second_name.empty?
-
     name = first_name.strip + ' ' + second_name.strip
   end
 
