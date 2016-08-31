@@ -130,6 +130,9 @@
                     border: none;
                     margin-bottom: 0;
                     padding-bottom: 0;
+                    box-sizing: border-box;
+                    width: 100%;
+                    overflow: hidden;
                 }
             }
         }
@@ -143,5 +146,28 @@
     }
     .select2-container--bootstrap .select2-selection {
         border-radius: 0px;
+    }
+}
+
+.actions .to-link,
+.actions .to-link:hover,
+.actions .to-link:focus {
+    float: right;
+    @extend .font-bold;
+    background: none;
+    display: block;
+    overflow: hidden;
+    padding: 12px;
+    font-size: 16px;
+    i {
+        display: block;
+        float: left;
+        font-size: 18px;
+        padding: 4px;
+    }
+    span {
+        display: block;
+        float: left;
+        padding: 3px;
     }
 }

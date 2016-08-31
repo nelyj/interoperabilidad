@@ -34,7 +34,7 @@
           .actions
             = agreement_allowed_actions if @agreement.user_can_update_agreement_status?(current_user)
 
-            = link_to @agreement_revision.request_pdf_url, download: '', :title => t(:download_pdf), :style => 'float: right;' do
+            = link_to @agreement_revision.request_pdf_url, download: '', :title => t(:download_pdf), :class => 'to-link' do
               %i.material-icons
                 get_app
               %span= t(:download_pdf)
