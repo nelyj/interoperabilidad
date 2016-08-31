@@ -7,3 +7,6 @@
 //= require highlight.min
 //= require jsonpointer
 //= require_tree .
+<% if Rails.env.test? %>
+ <%= require_asset 'capybara_turbolinks.js' %>
+<% end %>

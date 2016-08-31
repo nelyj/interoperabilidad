@@ -61,6 +61,7 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'capybara-screenshot'
   gem 'database_cleaner'
+  gem 'capybara_turbolinks'
 end
 
 group :development, :test do

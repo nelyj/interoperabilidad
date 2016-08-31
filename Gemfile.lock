@@ -62,6 +62,8 @@ GEM
     capybara-screenshot (1.0.13)
       capybara (>= 1.0, < 3)
       launchy
+    capybara_turbolinks (0.1.4)
+      capybara (>= 2.4)
     cliver (0.3.2)
     codeclimate-test-reporter (0.6.0)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -321,6 +323,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.6)
   byebug
   capybara-screenshot
+  capybara_turbolinks
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   database_cleaner
