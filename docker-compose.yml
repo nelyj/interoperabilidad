@@ -36,7 +36,7 @@ services:
       - SMTP_USER=user
       - SMTP_SECRET=secret
       - MINSEGPRES_DIPRES_ID=AB01
-      - SIGNER_APP_HOST=https://proxy-banco.modernizacion.gob.cl
+      - SIGNER_APP_HOST=http://proxy-banco.modernizacion.gob.cl
       - SIGNER_API_TOKEN_KEY
       - SIGNER_API_SECRET
   bundle_cache:

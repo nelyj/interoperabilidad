@@ -1,4 +1,5 @@
 require './lib/role_service.rb'
+require './lib/signer.rb'
 
 class Agreement <ApplicationRecord
   belongs_to :service_provider_organization, :class_name => 'Organization'
@@ -30,14 +31,14 @@ class Agreement <ApplicationRecord
     agreement_revisions.first
   end
 
-  def new_revision(user,new_state,log,message)
+  def new_revision(user,new_state,log,message, file)
     agreement_revisions.create(
       user: user,
       state: new_state,
       purpose: last_revision.purpose,
       legal_base: last_revision.legal_base,
       log: log,
-      file: last_revision.file,
+      file: file,
       objection_message: message
     )
   end
@@ -119,38 +120,75 @@ class Agreement <ApplicationRecord
     new_state = AgreementRevision.states['validated_draft']
     #check if user is a prosecutor and state alows the change.
     return nil unless user_can_update_agreement_status?(user) && last_revision.draft?
-    new_revision(user,new_state, I18n.t(:validated_draft_log),"")
+    new_revision(user,new_state, I18n.t(:validated_draft_log),"", last_revision.file)
   end
 
   def object_draft(user, message)
     new_state = AgreementRevision.states['objected']
     valid_state = last_revision.validated_draft? || last_revision.signed_draft?
     return nil unless user_can_update_agreement_status?(user) && valid_state
-    new_revision(user, new_state, I18n.t(:objected_log), message)
+    new_revision(user, new_state, I18n.t(:objected_log), message, last_revision.file)
   end
 
-  def sign_draft(user)
+  def sign_draft(user, otp)
     new_state = AgreementRevision.states['signed_draft']
     return nil unless user_can_update_agreement_status?(user) && last_revision.validated_draft?
-    new_revision(user, new_state, I18n.t(:signed_draft_log), "")
+    new_revision(user, new_state, I18n.t(:signed_draft_log), "", last_revision.file)
+    sign_pdf(otp)
+    #last_revision.delete
   end
 
   def validate_revision(user)
     new_state = AgreementRevision.states['validated']
     return nil unless user_can_update_agreement_status?(user) && last_revision.signed_draft?
-    new_revision(user, new_state, I18n.t(:validated_log), "")
+    new_revision(user, new_state, I18n.t(:validated_log), "", last_revision.file)
   end
 
-  def sign(user)
+  def sign(user, otp)
     new_state = AgreementRevision.states['signed']
     return nil unless user_can_update_agreement_status?(user) && last_revision.validated?
-    new_revision(user, new_state, I18n.t(:signed_log), "")
+    new_revision(user, new_state, I18n.t(:signed_log), "", last_revision.file)
+    sign_pdf(otp)
+    #last_revision.delete
   end
 
   def reject_sign(user, message)
     new_state = AgreementRevision.states['rejected_sign']
     return nil unless user_can_update_agreement_status?(user) && last_revision.validated?
-    new_revision(user, new_state, I18n.t(:rejected_sign_log), message)
+    new_revision(user, new_state, I18n.t(:rejected_sign_log), message, last_revision.file)
+  end
+
+  def sign_pdf(otp)
+    file_path = "#{Rails.root}/tmp/"+ last_revision.file
+    org = state.include?("signed_draft") ? service_consumer_organization : service_provider_organization
+    file = File.read(file_path)
+
+    result = SignerApi.upload_file(file, last_revision.user, org)
+    if result.code == 200
+      jresult = JSON.parse(result)
+      result = SignerApi.sign_document(jresult["session_token"], otp)
+
+      if result.code == 200
+        jresult = JSON.parse(result)
+        return false unless jresult["files"].first["status"] == "OK"
+
+        encodedfile = jresult["files"].first["content"]
+        rchecksum = jresult["files"].first["checksum"]
+        checksum = Digest::SHA256.hexdigest encodedfile
+        return false unless rchecksum.include?(checksum)
+
+        new_file_name = "CID-#{id}-#{last_revision_number}_#{service_provider_organization.initials.upcase}_#{service_consumer_organization.initials.upcase}.pdf"
+        new_file_path = "#{Rails.root}/tmp/" + new_file_name
+
+        File.open(new_file_path, 'wb') {|f| f.write(Base64.decode64(encodedfile))}
+        last_revision.upload_pdf(new_file_name, new_file_path)
+      else
+        return false
+      end
+    else
+      return false
+    end
+    return true
   end
 
 end

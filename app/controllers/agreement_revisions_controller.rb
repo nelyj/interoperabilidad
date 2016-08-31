@@ -22,6 +22,7 @@ class AgreementRevisionsController < ApplicationController
     @agreement_revision.log = t(:modified_draft_log)
     if @agreement_revision.save!
       generate_pdf(@agreement, @agreement_revision)
+      #TODO: notify here
       redirect_to [@organization, @agreement, @agreement_revision], notice: t(:agreement_revision_edited)
     else
       render :new
@@ -33,17 +34,17 @@ class AgreementRevisionsController < ApplicationController
     if @agreement_revision.nil?
       flash.now[:error] = t(:agreement_wrongly_sent)
     else
-      generate_pdf(@agreement, @agreement_revision)
+      #TODO: notify here
       redirect_to [@organization, @agreement, @agreement_revision], notice: t(:agreement_correctly_sent)
     end
   end
 
   def consumer_signature
-    @agreement_revision = @agreement.sign_draft(current_user)
+    @agreement_revision = @agreement.sign_draft(current_user, otp)
     if @agreement_revision.nil?
       flash.now[:error] = t(:agreement_wrongly_signed)
     else
-      generate_pdf(@agreement, @agreement_revision)
+      #TODO: notify here
       redirect_to [@organization, @agreement, @agreement_revision], notice: t(:agreement_correctly_signed)
     end
   end
@@ -53,7 +54,6 @@ class AgreementRevisionsController < ApplicationController
     if @agreement_revision.nil?
       flash.now[:error] = t(:objection_wrongly_sent)
     else
-      generate_pdf(@agreement, @agreement_revision)
       redirect_to [@organization, @agreement, @agreement_revision], notice: t(:objection_correctly_sent)
     end
   end
@@ -68,7 +68,7 @@ class AgreementRevisionsController < ApplicationController
   end
 
   def provider_signature
-    @agreement_revision = @agreement.sign(current_user)
+    @agreement_revision = @agreement.sign(current_user, otp)
     if @agreement_revision.nil?
       flash.now[:error] = t(:agreement_wrongly_signed)
     else
@@ -81,7 +81,6 @@ class AgreementRevisionsController < ApplicationController
     if @agreement_revision.nil?
       flash.now[:error] = t(:rejection_wrongly_sent)
     else
-      generate_pdf(@agreement, @agreement_revision)
       redirect_to [@organization, @agreement, @agreement_revision], notice: t(:rejection_correctly_sent)
     end
   end

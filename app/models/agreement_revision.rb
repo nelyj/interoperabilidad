@@ -70,7 +70,7 @@ class AgreementRevision <ApplicationRecord
     new_object.content = open(file_path)
     new_object.content_type = 'application/pdf'
     new_object.save
-    self.file = file_name
+    self.update(file: file_name)
   end
 
   def request_pdf_url

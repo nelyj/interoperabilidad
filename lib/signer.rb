@@ -20,11 +20,11 @@ class SignerApi
     }
     token = SignerApi.encode_token(payload)
 
-    #pdf = File.read("#{Rails.root}/lib/content.txt")
-    pdf = File.read("#{Rails.root}/lib/api_firma_base64.txt")
+    pdf = File.read("#{Rails.root}/lib/content.txt")
+    #pdf = File.read("#{Rails.root}/lib/api_firma_base64.txt")
 
-    #a = File.read("#{Rails.root}/lib/content_checksum.txt")
-    a = File.read("#{Rails.root}/lib/api_firma_checksum.txt")
+    a = File.read("#{Rails.root}/lib/content_checksum.txt")
+    #a = File.read("#{Rails.root}/lib/api_firma_checksum.txt")
     puts a
     checksum = Digest::SHA256.hexdigest pdf
     puts checksum
