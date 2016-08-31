@@ -1,6 +1,7 @@
 require 'json/jwt'
 require 'rest-client'
 require 'digest'
+require 'base64'
 
 class SignerApi
 
@@ -8,58 +9,53 @@ class SignerApi
     JSON::JWT.new(payload).sign(ENV['SIGNER_API_SECRET'], :HS256).to_s
   end
 
-  def self.upload_file(file)
-    url = 'http://proxy-banco.modernizacion.gob.cl'
+  def self.upload_file(file, user, organization)
+    url = ENV["SIGNER_APP_HOST"]
     endpoint = '/files/tickets'
     api_token_key = ENV['SIGNER_API_TOKEN_KEY']
+
     payload = {
-      expiration: '2016-06-15T17:31:00',#"2016­06823T17:31:00",
-      rut: '22222222',
-      proposito: 'Propósito General',
-      entidad: 'Subsecretaría General de La Presidencia'
+      expiration: Time.now.utc.iso8601[0...-1], #Had to remove the Z from the UTC time, because the api does not suport it.
+      rut: user.rut_number,
+      proposito: 'Propósito General', #"Propósito General", to use OTP on file sign.
+      entidad: organization.name
     }
+
     token = SignerApi.encode_token(payload)
+    base64file = Base64.encode64(file)
+    checksum = Digest::SHA256.hexdigest base64file
 
-    pdf = File.read("#{Rails.root}/lib/content.txt")
-    #pdf = File.read("#{Rails.root}/lib/api_firma_base64.txt")
-
-    a = File.read("#{Rails.root}/lib/content_checksum.txt")
-    #a = File.read("#{Rails.root}/lib/api_firma_checksum.txt")
-    puts a
-    checksum = Digest::SHA256.hexdigest pdf
-    puts checksum
     files = [
       {
-        content: pdf,
+        content: base64file,
         checksum: checksum,
         type: 'PDF',
-        description: 'Prueba1'
+        description: 'Convenio de Interoperabilidad'
       }
     ]
 
     data = {files: files, token: token, api_token_key: api_token_key}
-    #puts '************************************************************'
-    #puts data.to_json
-    #puts File.read("#{Rails.root}/lib/api_firma_checksum.txt")
-    #puts '************************************************************'
     begin
-      RestClient.post( url + endpoint,
-        data.to_json, :content_type => :json, :accept => :json, Host: 'proxy-banco.modernizacion.gob.cl')
+      response = RestClient.post( url + endpoint,
+        data.to_json, :content_type => :json, :accept => :json, Host: URI.parse(url).host)
     rescue => e
-      Rollbar.error('Call to Role Service URL: ' + url +
-       ' path: ' + endpoint + ' returned: ' + e.response)
-      return e
+      Rollbar.error('Upload file to Signer Service URL: ' + url +
+       ' path: ' + endpoint + ' user: ' + user.name + ' organization: ' + organization.name + ' returned: ' + e.response)
+      return e.response
     end
   end
 
   def self.sign_document(sesion_token, otp)
-    url = 'http://proxy-banco.modernizacion.gob.cl'
+    url = ENV["SIGNER_APP_HOST"]
     endpoint = '/files/tickets/'
-    api_token_key = ENV['SIGNER_API_TOKEN_KEY']
 
-    #sesion_token = '57c055f63c3d230bd2e030c5'
-
-    RestClient.get(url + endpoint + sesion_token, OTP: otp)
+    begin
+      response = RestClient.get(url + endpoint + sesion_token, OTP: otp)
+    rescue => e
+      Rollbar.error('Sign document in Signer Service URL: ' + url +
+        'path: ' + endpoint + ' sesion_token: ' + sesion_token + ' returned: ' + e.response)
+      return e.response
+    end
   end
 
 end
