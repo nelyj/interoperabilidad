@@ -1,3 +1,5 @@
+require './lib/role_service.rb'
+
 class User < ApplicationRecord
   has_many :roles, dependent: :delete_all
   has_many :organizations, through: :roles
@@ -10,7 +12,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable, omniauth_providers: [:clave_unica]
 
-  GOB_DIGITAL_ID = "AB01"
+  GOB_DIGITAL_ID = ENV['MINSEGPRES_DIPRES_ID']
 
   URL = ENV['ROLE_SERVICE_URL']
   APP_ID = ENV['ROLE_APP_ID']
@@ -30,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def refresh_user_roles_and_email(raw_info)
-    response = call_roles_service(URL)
+    response = RoleService.get_user_info(rut_number)
     if response.nil?
       Rollbar.error('Call to Role Service for user: ' + name +
        ' rut: ' + rut_number + ' Returned: nil')
@@ -85,18 +87,6 @@ class User < ApplicationRecord
     second_name = 'de los Palotes' if second_name.empty?
 
     name = first_name.strip + ' ' + second_name.strip
-  end
-
-  def call_roles_service(url)
-    path = '/personas/' + rut_number +
-      '/aplicaciones/' + APP_ID.to_s
-    begin
-      RestClient.get(url + path)
-    rescue => e
-      Rollbar.error('Call to Role Service URL: ' + URL +
-       ' path: ' + path + ' returned: ' + e.response)
-       return nil
-    end
   end
 
   def rut_number

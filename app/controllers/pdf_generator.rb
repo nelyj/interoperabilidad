@@ -13,6 +13,5 @@ module PdfGenerator
             :save_to_file => file_path,
             :save_only => true
     @agreement_revision.upload_pdf(file_name, file_path)
-    @agreement_revision.save
   end
 end

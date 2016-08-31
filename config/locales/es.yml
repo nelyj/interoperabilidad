@@ -128,6 +128,7 @@ es:
   download: Descargar
   download_server: Descarga Servidor
   download_client: Descarga Cliente
+  download_pdf: Descargar PDF
 
   # Agreement Status
   draft: Borrador

@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.0'
 # Use rollbar for error traking
 gem 'rollbar'
 
+gem 'digest'
+
 gem 'rest-client'
 
 gem 'devise'
