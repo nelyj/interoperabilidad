@@ -33,20 +33,14 @@ class User < ApplicationRecord
 
   def refresh_user_roles_and_email(raw_info)
     response = RoleService.get_user_info(rut_number)
-    if response.nil?
-      Rollbar.error('Call to Role Service for user: ' + name +
-       ' rut: ' + rut_number + ' Returned: nil')
-       parse_organizations_and_roles(nil, raw_info)
+    if response.code == 200
+      response = JSON.parse(response)
+      parse_organizations_and_roles(response, raw_info)
+      save!
     else
-      if response.code == 200
-        response = JSON.parse(response)
-        parse_organizations_and_roles(response, raw_info)
-        save!
-      else
-        Rollbar.error('Call to Role Service for user: ' + name +
+      Rollbar.error('Call to Role Service for user: ' + name +
         ' rut: ' + rut_number + ' Returned: ' + response.code.to_s)
-        parse_organizations_and_roles(nil, raw_info)
-      end
+      parse_organizations_and_roles(nil, raw_info)
     end
   end
 
