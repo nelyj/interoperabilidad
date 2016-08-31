@@ -54,18 +54,24 @@ class User < ApplicationRecord
       response['instituciones'].each do |organization|
         org = organization['institucion']
         role = organization['rol']
+        address = organization['direccion']
         email = parse_email(organization['email'])
-        parse_organization_role(org, role, email)
+        parse_organization_role(org, role, email, address)
       end
     end
   end
 
-  def parse_organization_role(organization, role, email)
+  def parse_organization_role(organization, role, email, address)
     org_id = organization['id']
     self.can_create_schemas = (org_id == GOB_DIGITAL_ID)
     org = Organization.where(dipres_id: org_id ).first_or_create!(
       name: organization['nombre'],
       initials: organization['sigla'])
+    org.update(
+      name: organization['nombre'],
+      initials: organization['sigla'],
+      address: address
+      )
     self.roles.create(organization: org, name: role, email: email)
   end
 
