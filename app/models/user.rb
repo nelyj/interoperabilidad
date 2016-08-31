@@ -33,20 +33,14 @@ class User < ApplicationRecord
 
   def refresh_user_roles_and_email(raw_info)
     response = RoleService.get_user_info(rut_number)
-    if response.nil?
-      Rollbar.error('Call to Role Service for user: ' + name +
-       ' rut: ' + rut_number + ' Returned: nil')
-       parse_organizations_and_roles(nil, raw_info)
+    if response.code == 200
+      response = JSON.parse(response)
+      parse_organizations_and_roles(response, raw_info)
+      save!
     else
-      if response.code == 200
-        response = JSON.parse(response)
-        parse_organizations_and_roles(response, raw_info)
-        save!
-      else
-        Rollbar.error('Call to Role Service for user: ' + name +
+      Rollbar.error('Call to Role Service for user: ' + name +
         ' rut: ' + rut_number + ' Returned: ' + response.code.to_s)
-        parse_organizations_and_roles(nil, raw_info)
-      end
+      parse_organizations_and_roles(nil, raw_info)
     end
   end
 
@@ -72,6 +66,11 @@ class User < ApplicationRecord
     org = Organization.where(dipres_id: org_id ).first_or_create!(
       name: organization['nombre'],
       initials: organization['sigla'])
+    org.update(
+      name: organization['nombre'],
+      initials: organization['sigla'],
+      address: organization['direccion']
+      )
     self.roles.create(organization: org, name: role, email: email)
   end
 
@@ -82,10 +81,6 @@ class User < ApplicationRecord
   def refresh_name(full_name)
     first_name = full_name['nombres'].join(' ')
     second_name = full_name['apellidos'].join(' ')
-
-    first_name = 'Perico' if first_name.empty?
-    second_name = 'de los Palotes' if second_name.empty?
-
     name = first_name.strip + ' ' + second_name.strip
   end
 

@@ -14,7 +14,7 @@
     /* Especiales */
     .tab-to-new a,
     .tab-to-new a:hover,
-    .tab-to-new a:focus {
+    .tab-to-new a:focus{
         @extend .font-bold;
         background: none;
         display: block;

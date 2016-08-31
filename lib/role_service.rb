@@ -21,7 +21,7 @@ class RoleService
     rescue => e
       Rollbar.error('Call to Role Service URL: ' + url +
        ' path: ' + path + ' returned: ' + e.response)
-      return nil
+      return e.response
     end
   end
 
