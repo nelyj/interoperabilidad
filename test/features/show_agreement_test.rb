@@ -79,6 +79,34 @@ class ShowAgreementTest < Capybara::Rails::TestCase
     assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
     assert_content 'Próximo Paso Borrador enviado'
     assert_content 'Responsable: Contacto: '
-
   end
+
+  test 'History' do
+    assert_content 'Convenios Servicio de Impuestos Internos'
+    assert_link 'Crear Nuevo Convenio'
+    within '.nav.nav-tabs' do
+      find(:xpath, 'li[2]').click
+      assert_text find('li.active')[:text], 'Consumidor'
+    end
+
+    within '#consumidor' do
+      assert find(:xpath, '//table/thead/tr').text.include?('Institución proveedora Servicios involucrados Propósito Fecha ult. movimiento Estado')
+      find(:xpath, '//table/tbody/tr[1]').click
+    end
+
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+
+    assert_content 'Estado del convenio BORRADOR'
+
+    click_turbolink 'Enviar Borrador'
+
+    assert_link 'Firmar Solicitud'
+
+    assert_content 'Estado del convenio EN PROGRESO'
+    assert_content 'Historial del convenio'
+    assert_content 'Borrador enviado'
+    assert_content 'Borrador creado'
+    assert_content 'Responsable: Pedro Pica Piedra Contacto: mail@example.org'
+  end
+
 end
