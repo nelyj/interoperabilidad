@@ -60,21 +60,20 @@ module AgreementRevisionsHelper
     }[status] + ' btn-status' || ''
   end
 
-  def objection_path
-    case @agreement.state
-    when 'validated_draft' || 'signed_draft'
-      objection_request_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision)
-    when 'validated'
-      reject_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision)
-    end
+  def buttons_assets
+    {
+      'draft' => [t(:edit), 'btn btn-default', t(:send_draft), 'btn btn-primary'],
+      'objected' => [t(:edit), 'btn btn-default'],
+      'signed_draft' => [t(:send_draft), 'btn btn-primary'],
+      'validated' =>  [t(:sign_request), 'btn btn-success'],
+      'rejected_sign' => [t(:send_draft), 'btn btn-primary']
+    }[@agreement.state] || []
   end
 
-  def one_time_password_path(password)
-    case @agreement.state
-    when 'validated_draft'
-      consumer_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision, one_time_password: password)
-    when 'validated'
-      provider_signature_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision, one_time_password: password)
-    end
+  def modals_assets
+    {
+      'validated_draft' => agreement_consumer_sign_actions
+    }[@agreement.state] || ''
   end
+
 end

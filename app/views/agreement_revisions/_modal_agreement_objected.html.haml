@@ -6,7 +6,7 @@
           %span{"aria-hidden" => "true"} ×
         %h1=t(:object_agreement)
       .modal-body
-        = form_for @agreement_revision, url: url do |f|
+        = form_for @agreement, url: organization_agreement_change_state_path(@organization, @agreement, @agreement.next_step) do |f|
           %h3
             =t(:rejection_reason)
           = f.text_area :objection_message

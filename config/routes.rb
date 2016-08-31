@@ -41,21 +41,10 @@ Rails.application.routes.draw do
     end
 
     resources :agreements, only: [:index, :new, :create, :show] do
+      patch 'state/:next_step' => 'agreements#flow_actions', as: 'change_state'
       resources :agreement_revisions, only: [:show, :new, :create], param: :revision_number,
-        path: 'revisions' do
-          member do
-            patch 'state'
-            
-            get 'validation_request'
-            get 'consumer_signature'
-            patch 'objection_request'
-            get 'document_validation'
-            get 'provider_signature'
-            patch 'reject_signature'
-          end
-        end
+        path: 'revisions'
     end
-
   end
 
   resources :users, only: [:index] do

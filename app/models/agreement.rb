@@ -11,7 +11,7 @@ class Agreement <ApplicationRecord
   validates :service_provider_organization, presence: true
   validates :services, presence: true
   delegate :state, to: :last_revision
-  attr_accessor :purpose, :legal_base, :user
+  attr_accessor :purpose, :legal_base, :user, :objection_message
 
   def create_first_revision
     agreement_revisions.create!(
@@ -56,7 +56,7 @@ class Agreement <ApplicationRecord
     when 'validated'
       'signed'
     when 'rejected_sign'
-      'signed'
+      'validated'
     else
       ''
     end

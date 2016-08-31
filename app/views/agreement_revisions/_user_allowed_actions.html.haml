@@ -1,0 +1,5 @@
+= form_for @agreement, url: organization_agreement_change_state_path(@organization, @agreement, @agreement.next_step) do |f|
+  - active_buttons = buttons_assets
+  = modals_assets
+  = active_buttons.in_groups_of(2) do |button|
+    = f.button button[0], name: button[0], class: button[1]
