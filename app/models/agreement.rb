@@ -127,9 +127,13 @@ class Agreement <ApplicationRecord
   def sign_draft(user, otp)
     new_state = AgreementRevision.states['signed_draft']
     return nil unless user_can_update_agreement_status?(user) && last_revision.validated_draft?
-    new_revision(user, new_state, I18n.t(:signed_draft_log), "", last_revision.file)
-    sign_pdf(otp)
-    #last_revision.delete
+    rev = new_revision(user, new_state, I18n.t(:signed_draft_log), "", last_revision.file)
+    if sign_pdf(otp)
+      rev
+    else
+      last_revision.delete
+      return nil
+    end
   end
 
   def validate_revision(user)
@@ -141,9 +145,13 @@ class Agreement <ApplicationRecord
   def sign(user, otp)
     new_state = AgreementRevision.states['signed']
     return nil unless user_can_update_agreement_status?(user) && last_revision.validated?
-    new_revision(user, new_state, I18n.t(:signed_log), "", last_revision.file)
-    sign_pdf(otp)
-    #last_revision.delete
+    rev = new_revision(user, new_state, I18n.t(:signed_log), "", last_revision.file)
+    if sign_pdf(otp)
+      rev
+    else
+      last_revision.delete
+      return nil
+    end
   end
 
   def reject_sign(user, message)
@@ -152,8 +160,21 @@ class Agreement <ApplicationRecord
     new_revision(user, new_state, I18n.t(:rejected_sign_log), message, last_revision.file)
   end
 
+  def download_last_version_pdf (file_path)
+    url = last_revision.request_pdf_url
+    response = RestClient.get(url)
+    if response.code == 200
+      file = response.body
+      File.open(file_path, 'wb') {|f| f.write(file)}
+      return true
+    else
+      return false
+    end
+  end
+
   def sign_pdf(otp)
     file_path = "#{Rails.root}/tmp/"+ last_revision.file
+    return  false unless download_last_version_pdf(file_path)
     org = state.include?("signed_draft") ? service_consumer_organization : service_provider_organization
     file = File.read(file_path)
 
