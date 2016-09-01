@@ -8,7 +8,7 @@
           %i.material-icons
             close
 
-  - if user_signed_in? && @agreement_revision.objected?
+  - if user_signed_in? && (@agreement_revision.objected? || @agreement_revision.rejected_sign?)
     .container-fluid.panel-error.alert.fade.in{:"data-alert" => "alert"}
       .container
         .row
@@ -42,5 +42,5 @@
         .col-md-3
           = render partial: "next_step"
           = render partial: "history"
-= render partial: "modal_agreement_objected" if %w(validated validated_draft signed_draft).include?(@agreement_revision.state)
-= render partial: "modal_agreement_one_time_password" if %w(validated_draft validated).include?(@agreement_revision.state)
+= render partial: "modal_agreement_objected" if %w(validated validated_draft signed_draft rejected_sign).include?(@agreement_revision.state)
+= render partial: "modal_agreement_one_time_password" if %w(validated_draft validated rejected_sign).include?(@agreement_revision.state)

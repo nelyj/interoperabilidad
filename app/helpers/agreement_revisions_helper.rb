@@ -36,9 +36,7 @@ module AgreementRevisionsHelper
 
   def agreement_provider_validate_actions
     content_tag(:a, t(:reject), class: 'btn btn-danger',
-      "data-target" => "#modalAgreementObjected", "data-toggle" => "modal", :type => "button") +
-    content_tag(:a, t(:send_draft), class: 'btn btn-primary',
-      href: document_validation_organization_agreement_agreement_revision_path(@consumer_organization, @agreement, @agreement_revision))
+      "data-target" => "#modalAgreementObjected", "data-toggle" => "modal", :type => "button")
   end
 
   def agreement_provider_sign_actions
@@ -65,14 +63,16 @@ module AgreementRevisionsHelper
       'draft' => [t(:edit), 'btn btn-default', t(:send_draft), 'btn btn-primary'],
       'objected' => [t(:edit), 'btn btn-default'],
       'signed_draft' => [t(:send_draft), 'btn btn-primary'],
-      'validated' =>  [t(:sign_request), 'btn btn-success'],
       'rejected_sign' => [t(:send_draft), 'btn btn-primary']
     }[@agreement.state] || []
   end
 
   def modals_assets
     {
-      'validated_draft' => agreement_consumer_sign_actions
+      'validated_draft' => agreement_consumer_sign_actions,
+      'signed_draft' => agreement_provider_validate_actions,
+      'validated' => agreement_provider_sign_actions,
+      'rejected_sign' => agreement_provider_validate_actions
     }[@agreement.state] || ''
   end
 

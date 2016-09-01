@@ -26,8 +26,9 @@ class AgreementsController < ApplicationController
     end
   end
 
-  def flow_actions
+  def flow_actions_router
     @agreement = Agreement.find(params[:agreement_id])
+    step_for_message = params[:next_step]
     case params[:next_step]
     when "validated_draft"
       if params.include?(t(:send_draft))
@@ -45,15 +46,20 @@ class AgreementsController < ApplicationController
       return redirect_to new_organization_agreement_agreement_revision_path
     when "validated"
       @agreement_revision = @agreement.validate_revision(current_user)
-    when "signed"
-      @agreement_revision = @agreement.sign(current_user, agreement_params[:one_time_password])
     when "reject_signature"
-      @agreement_revision = @agreement.reject_sign(current_user, agreement_params[:objection_message])
+      @agreement_revision = @agreement.validate_revision(current_user)
+    when "signed"
+      if params.include?(t(:sign_request))
+        @agreement_revision = @agreement.sign(current_user, params[:one_time_password])
+      else
+        @agreement_revision = @agreement.reject_sign(current_user, agreement_params[:objection_message])
+        step_for_message = 'reject_signature'
+      end
     end
     if @agreement_revision.nil?
-      redirect_to [@organization, @agreement, @agreement.last_revision], notice: messages_for(params[:next_step], :error_message)
+      redirect_to [@organization, @agreement, @agreement.last_revision], notice: messages_for(step_for_message, :error_message)
     else
-      redirect_to [@organization, @agreement, @agreement_revision], notice: messages_for(params[:next_step], :success_message)
+      redirect_to [@organization, @agreement, @agreement_revision], notice: messages_for(step_for_message, :success_message)
     end
   end
 

@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     end
 
     resources :agreements, only: [:index, :new, :create, :show] do
-      patch 'state/:next_step' => 'agreements#flow_actions', as: 'change_state'
+      patch 'state/:next_step' => 'agreements#flow_actions_router', as: 'change_state'
       resources :agreement_revisions, only: [:show, :new, :create], param: :revision_number,
         path: 'revisions'
     end

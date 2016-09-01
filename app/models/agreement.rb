@@ -138,7 +138,7 @@ class Agreement <ApplicationRecord
 
   def validate_revision(user)
     new_state = AgreementRevision.states['validated']
-    return nil unless user_can_update_agreement_status?(user) && last_revision.signed_draft?
+    return nil unless user_can_update_agreement_status?(user) && (last_revision.signed_draft? || last_revision.rejected_sign?)
     new_revision(user, new_state, I18n.t(:validated_log), "", last_revision.file)
   end
 

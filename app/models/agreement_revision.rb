@@ -75,7 +75,7 @@ class AgreementRevision <ApplicationRecord
 
   def request_pdf_url
     object = codegen_bucket.objects.find(self.file)
-    object.temporary_url
+    object.temporary_url || ''
   end
 
   def create_new_notification
