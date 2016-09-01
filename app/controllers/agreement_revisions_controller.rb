@@ -40,7 +40,7 @@ class AgreementRevisionsController < ApplicationController
   end
 
   def consumer_signature
-    @agreement_revision = @agreement.sign_draft(current_user, otp)
+    @agreement_revision = @agreement.sign_draft(current_user, 0)
     if @agreement_revision.nil?
       flash.now[:error] = t(:agreement_wrongly_signed)
     else
@@ -68,7 +68,7 @@ class AgreementRevisionsController < ApplicationController
   end
 
   def provider_signature
-    @agreement_revision = @agreement.sign(current_user, otp)
+    @agreement_revision = @agreement.sign(current_user, 0)
     if @agreement_revision.nil?
       flash.now[:error] = t(:agreement_wrongly_signed)
     else
