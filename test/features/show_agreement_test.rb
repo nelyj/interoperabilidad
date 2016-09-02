@@ -124,8 +124,7 @@ class ShowAgreementTest < Capybara::Rails::TestCase
     assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
     assert_content 'Estado del convenio BORRADOR'
 
-    assert_link 'Enviar Borrador'
-    button = find_button('Firmar Solicitud')
+    button = find_button('Enviar Borrador')
     button.turboclick
 
     assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
