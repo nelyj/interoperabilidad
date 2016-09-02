@@ -62,7 +62,7 @@ module AgreementRevisionsHelper
     {
       'draft' => [t(:edit), 'btn btn-default', t(:send_draft), 'btn btn-primary'],
       'objected' => [t(:edit), 'btn btn-default'],
-      'signed_draft' => [t(:send_draft), 'btn btn-primary'],
+      'signed_draft' => [t(:request_signature), 'btn btn-primary'],
       'rejected_sign' => [t(:send_draft), 'btn btn-primary']
     }[@agreement.state] || []
   end

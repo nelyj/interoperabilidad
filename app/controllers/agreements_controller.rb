@@ -81,7 +81,7 @@ private
 
   def messages_for(state, type)
     {
-      "validated_draft" => { 
+      "validated_draft" => {
         error_message: t(:agreement_wrongly_sent),
         success_message: t(:agreement_correctly_sent)
       },
