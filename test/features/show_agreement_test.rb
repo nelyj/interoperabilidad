@@ -98,14 +98,14 @@ class ShowAgreementTest < Capybara::Rails::TestCase
 
     assert_content 'Estado del convenio BORRADOR'
 
-    click_turbolink 'Enviar Borrador'
+    find_button('Enviar Borrador').turboclick
 
     assert_content 'Estado del convenio EN PROGRESO'
     assert_content 'Historial del convenio'
     assert_content 'Borrador enviado'
     assert_content 'Borrador creado'
     assert_content 'Responsable: Pedro Pica Piedra Contacto: mail@example.org'
-    assert_link 'Firmar Solicitud'
+    has_button? 'Firmar Solicitud'
   end
 
 end
