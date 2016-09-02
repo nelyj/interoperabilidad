@@ -108,4 +108,29 @@ class ShowAgreementTest < Capybara::Rails::TestCase
     has_button? 'Firmar Solicitud'
   end
 
+  test 'Agreement state' do
+    assert_content 'Convenios Servicio de Impuestos Internos'
+    assert_link 'Crear Nuevo Convenio'
+    within '.nav.nav-tabs' do
+      find(:xpath, 'li[2]').click
+      assert_text find('li.active')[:text], 'Consumidor'
+    end
+
+    within '#consumidor' do
+      assert find(:xpath, '//table/thead/tr').text.include?('Institución proveedora Servicios involucrados Propósito Fecha ult. movimiento Estado')
+      find(:xpath, '//table/tbody/tr[1]').click
+    end
+
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    assert_content 'Estado del convenio BORRADOR'
+
+    assert_link 'Enviar Borrador'
+    button = find_button('Firmar Solicitud')
+    button.turboclick
+
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    assert_content 'Estado del convenio EN PROGRESO'
+
+  end
+
 end
