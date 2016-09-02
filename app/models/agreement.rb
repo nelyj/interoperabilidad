@@ -179,14 +179,14 @@ class Agreement <ApplicationRecord
     file = File.read(file_path)
 
     result = SignerApi.upload_file(file, last_revision.user, org)
+    puts result.body
     if result.code == 200
       jresult = JSON.parse(result)
       result = SignerApi.sign_document(jresult["session_token"], otp)
-
+      puts result.body
       if result.code == 200
         jresult = JSON.parse(result)
         return false unless jresult["files"].first["status"] == "OK"
-
         encodedfile = jresult["files"].first["content"]
         rchecksum = jresult["files"].first["checksum"]
         checksum = Digest::SHA256.hexdigest encodedfile
