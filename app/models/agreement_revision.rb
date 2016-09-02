@@ -74,8 +74,14 @@ class AgreementRevision <ApplicationRecord
   end
 
   def request_pdf_url
-    object = codegen_bucket.objects.find(self.file)
-    object.temporary_url || ''
+    begin
+      object = codegen_bucket.objects.find(self.file)
+      object.temporary_url
+    rescue => e
+      Rollbar.error('For Agreement id:' + self.agreement.id.to_s + ' revision: ' +
+        self.revision_number.to_s + ' error whas: ' + e.to_s)
+      return ''
+    end
   end
 
   def create_new_notification
