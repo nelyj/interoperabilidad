@@ -1,5 +1,6 @@
 class AgreementRevision <ApplicationRecord
   include S3Configuration
+  include Rails.application.routes.url_helpers
   belongs_to :agreement
   belongs_to :user
   before_create :set_revision_number
@@ -84,21 +85,38 @@ class AgreementRevision <ApplicationRecord
     end
   end
 
-  def create_new_notification
-    org = Organization.where(dipres_id: "AB01")
-    Role.where(name: "Service Provider", organization: org).each do |role|
-      role.user.notifications.create(subject: self,
-        message: log, email: role.email
-      )
+  def send_notifications
+    notify_responsable
+    notify_next_step_responables
+  end
+
+  def create_notification_for_user(notify_user, email)
+    notify_user.notifications.create(
+      subject: self,
+      message: I18n.t(:agreement_next_step_responsable_message,
+                        id: agreement.id.to_s,
+                        log: log,
+                        responsable: user.name),
+      email: email)
+  end
+
+  def notify_responsable
+    if self.revision_number > 1
+      previous_revision = agreement.agreement_revisions.where(revision_number: self.revision_number-1).first
+      create_notification_for_user(previous_revision.user, previous_revision.responsable_email)
     end
   end
 
-  def create_state_change_notification(status)
-    email = user.roles.where(organization: organization, name: "Service Provider").first.email
-    user.notifications.create(subject: self,
-      message: I18n.t(:create_state_change_notification, name: name,
-        version: self.version_number.to_s, status: status), email: email
-    )
+  def notify_next_step_responables
+    next_step_users = agreement.next_step_responsables
+    if !next_step_users.nil?
+      next_step_users.each do |responsable|
+        responsable[:email].each do |email|
+          notify_user = User.where(name: responsable[:name]).first
+          create_notification_for_user(notify_user, email) unless notify_user.nil?
+        end
+      end
+    end
   end
 
   def responsable_email
@@ -116,6 +134,10 @@ class AgreementRevision <ApplicationRecord
       end
       return ''
     end
+  end
+
+  def url
+    organization_agreement_agreement_revision_path(self.agreement.service_consumer_organization, self.agreement, self)
   end
 
   def self.state_to_role(state)

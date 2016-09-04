@@ -15,7 +15,8 @@ class AgreementsController < ApplicationController
   def create
     @agreement = Agreement.new(agreement_params.merge(user: current_user))
     if @agreement.save
-      generate_pdf(@agreement, @agreement.agreement_revisions.first)
+      generate_pdf(@agreement, @agreement.last_revision)
+      @agreement.last_revision.send_notifications
       redirect_to(
         organization_agreement_agreement_revision_path(@organization, @agreement,  @agreement.agreement_revisions.last.revision_number),
         notice: t(:new_agreement_created)
@@ -59,6 +60,7 @@ class AgreementsController < ApplicationController
     if @agreement_revision.nil?
       redirect_to [@organization, @agreement, @agreement.last_revision], notice: messages_for(step_for_message, :error_message)
     else
+      @agreement_revision.send_notifications
       redirect_to [@organization, @agreement, @agreement_revision], notice: messages_for(step_for_message, :success_message)
     end
   end
