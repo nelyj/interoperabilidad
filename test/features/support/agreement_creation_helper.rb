@@ -1,5 +1,5 @@
 module AgreementCreationHelper
-  
+
   def generate_pdf(agreement, agreement_revision)
     provider_organization = Organization.find(agreement.service_provider_organization_id)
     consumer_organization = Organization.find(agreement.service_consumer_organization_id)
@@ -12,7 +12,7 @@ module AgreementCreationHelper
   def create_valid_service!
     service = Service.create!(
       organization: organizations(:sii),
-      name: 'test-service',
+      name: 'test-service'+SecureRandom.uuid,
       spec_file: StringIO.new(VALID_SPEC),
       backwards_compatible: true
     )
