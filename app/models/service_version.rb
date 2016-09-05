@@ -236,6 +236,7 @@ class ServiceVersion < ApplicationRecord
       Open3.capture2e(
         "java", "-jar", Rails.root.join("vendor/swagger-codegen-cli.jar").to_s,
         "generate",
+          "--api-package", name,
           "-i", spec_file_path,
           "-l", lang,
           "-o", output_dir_path,
