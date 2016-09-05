@@ -82,4 +82,37 @@ class AgreementFlowTest < Capybara::Rails::TestCase
     assert agreement.last_revision.state.include?("validated")
   end
 
+  test 'Edit Agreement and save' do
+    agreement = create_valid_agreement!(organizations(:segpres), organizations(:sii))
+    visit_created_agreement(users(:pedro), 'Consumidor')
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    button = find_button('Editar')
+    button.turboclick
+
+    fill_in "agreement_revision_purpose", with: "Nuevo Propósito"
+    button = find_button('Guardar')
+    button.turboclick
+
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    assert_content "Propósito: Nuevo Propósito"
+
+  end
+
+  test 'Edit Agreement and cancel' do
+    agreement = create_valid_agreement!(organizations(:segpres), organizations(:sii))
+    visit_created_agreement(users(:pedro), 'Consumidor')
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    button = find_button('Editar')
+    button.turboclick
+
+    fill_in "agreement_revision_purpose", with: "Nuevo Propósito"
+
+    within '.actions' do
+      click_turbolink('Cancelar')
+    end
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    assert_content "Propósito: test only"
+
+  end
+
 end

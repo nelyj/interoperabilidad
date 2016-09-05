@@ -26,6 +26,7 @@ module AgreementCreationHelper
       service_provider_organization: orgp,
       service_consumer_organization: orgc,
       user: users(:pedro),
+      purpose: "test only",
       services: [service])
     generate_pdf(agreement, agreement.agreement_revisions.first)
     agreement
