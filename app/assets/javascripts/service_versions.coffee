@@ -235,6 +235,11 @@ $(document).on 'submit', '#consoleForm', (e) ->
       contentType: 'application/json'
       data: JSON.stringify(paramsFromEditors()),
     ).done( (data, status, jqxhr) ->
+      try
+        parsedData = JSON.parse(data)
+        data = JSON.stringify(parsedData, null, "  ")
+      catch
+        # Pass through with the raw data
       $('#response').fadeTo(200, 0.1).text(data).fadeTo(200, 1.0)
     ).fail( (jqxhr, status, error) ->
       $('#response').fadeTo(200, 0.1).text("Error: " + status + " " + error).fadeTo(200, 1.0)
@@ -254,6 +259,3 @@ $(document).on 'focus', 'form input[type=number]', (e) ->
 
 $(document).on 'blur', 'form input[type=number]', (e) ->
   $(this).off('mousewheel.disableScroll')
-
-
-
