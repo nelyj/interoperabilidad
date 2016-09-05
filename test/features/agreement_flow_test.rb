@@ -30,6 +30,7 @@ class AgreementFlowTest < Capybara::Rails::TestCase
       service_provider_organization: orgp,
       service_consumer_organization: orgc,
       user: users(:pedro),
+      purpose: 'test only',
       services: [service])
     generate_pdf(agreement, agreement.agreement_revisions.first)
     agreement
@@ -63,6 +64,29 @@ class AgreementFlowTest < Capybara::Rails::TestCase
         find(:xpath, '//table/tbody/tr[1]').click
       end
     end
+  end
+
+  test 'displayed content of an Agreement' do
+    agreement = create_valid_agreement!(organizations(:segpres), organizations(:sii))
+    visit_created_agreement(users(:pedro), 'Consumidor')
+    # participants
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    assert_content 'Solicitante: Servicio de Impuestos Internos'
+    assert_content 'Proveedor: Secretaría General de la Presidencia'
+    # request date
+    assert_content "Fecha de solicitud: #{agreement.created_at.strftime("%d/%m/%Y")}"
+    # involved services
+    agreement.services.each do |service|
+      assert_content "#{service.name}"
+    end
+    # purpose
+    assert_content 'Propósito: test only'
+    # agreement current state
+    assert_content 'BORRADOR'
+    # next step
+    assert_content 'Borrador enviado'
+    # history
+    assert_content 'Borrador creado'
   end
 
   test 'Validate Draft' do
