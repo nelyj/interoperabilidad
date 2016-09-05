@@ -8,6 +8,7 @@ class Agreement <ApplicationRecord
   has_many :agreement_revisions, -> { order('revision_number DESC') }
   has_and_belongs_to_many :services
   after_create :create_first_revision
+  after_create :generate_client_credentials!
   validates :service_provider_organization, presence: true
   validates :services, presence: true
   delegate :state, to: :last_revision
@@ -20,11 +21,12 @@ class Agreement <ApplicationRecord
       legal_base: self.legal_base,
       revision_number: 1,
       log: I18n.t(:draft_log)
-      )
+    )
   end
 
-  def generate_client_credentials
-    self.client_secret = SecureRandom.urlsafe_base64
+  def generate_client_credentials!
+    self.client_secret ||= SecureRandom.urlsafe_base64
+    save!
   end
 
   def generate_client_token(service)
@@ -150,8 +152,6 @@ class Agreement <ApplicationRecord
   def sign_draft(user, otp)
     new_state = AgreementRevision.states['signed_draft']
     return nil unless user_can_update_agreement_status?(user) && last_revision.validated_draft?
-    generate_client_credentials
-    save!
     rev = new_revision(user, new_state, I18n.t(:signed_draft_log), "", last_revision.file)
     if sign_pdf(otp)
       rev

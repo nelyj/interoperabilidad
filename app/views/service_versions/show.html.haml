@@ -50,10 +50,9 @@
           %span{class: css_class_for_status(@service_version.status)}
             = t(@service_version.status)
         .description
-          //= t(:description) + ': '
           - if @service_version.description.present?
             = markdown.render(@service_version.description).html_safe
-          -else
+          - else
             = t(:description_not_found)
       .col-md-4.text-right
         =link_to @service_version.has_previous_version? ? organization_service_service_version_path(@organization, @service, @service_version.previous_version) : '' , class: "detail-action #{'deactivate' unless @service_version.has_previous_version? }" do
@@ -68,7 +67,11 @@
           %i.material-icons list
           = t(:history)
         %br
-
+        - if user_signed_in? && (current_user.can_see_client_token_for_service?(@service) || current_user.can_see_provider_secret_for_service?(@service))
+          =link_to '#modalTokens', class: "detail-action", data: {target: '#modalTokens', toggle: 'modal'} do
+            %i.material-icons lock
+            = t(:tokens)
+          %br
     .row
       .col-md-12.principal-actions{:class => "#{'button-disabled' unless user_signed_in? && (@service.can_be_updated_by?(current_user) && (@service.needs_agreement_to_be_used_by?(current_user) && @organization.can_create_agreements_with_this_organization?(current_user))) }"}
         - if @organization.can_create_agreements_with_this_organization?(current_user)
@@ -203,6 +206,43 @@
               .console-response-group
                 %h3=t(:response)
                 %pre.code#response
+
+#modalTokens.modal.fade{:role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h1
+          =t(:tokens)
+      .modal-body
+        - if user_signed_in? && current_user.can_see_provider_secret_for_service?(@service)
+          .row
+            .col-md-3
+              %h4 Provider ID:
+            .col-md-9
+              %pre= @service.provider_id
+          .row
+            .col-md-3
+              %h4 Provider Secret:
+            .col-md-9
+              %pre= @service.provider_secret
+
+        - if user_signed_in? && current_user.can_see_client_token_for_service?(@service)
+          .row
+            .col-md-3
+              %h4 Client Token:
+            .col-md-9
+              %pre= @service.generate_client_token
+          .row
+            .col-md-3
+            .col-md-9
+              %small= t(:for_testing_purposes)
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+          =t(:close)
+
+
 #modalDownloadCode.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content

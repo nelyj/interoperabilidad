@@ -2,9 +2,9 @@
   %p
     %strong= history_event.log
   %p
-    = t(:responsable) + ': ' + history_event.user.name
+    #{t(:responsable)}: #{history_event.user.name}
     %br
-    = t(:contact) + ': ' +  history_event.responsable_email
+    #{t(:contact)}: #{history_event.responsable_email}
     %br
     %small
       = history_event.created_at.strftime("%d/%m/%Y")

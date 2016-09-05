@@ -134,6 +134,10 @@ es:
   download_server: Descarga Servidor
   download_client: Descarga Cliente
   download_pdf: Descargar PDF
+  close: Cerrar
+  for_testing_purposes:
+    Client Token para pruebas directas del servicio.
+    En producción se debe obtener un token dinámicamente, usando las credenciales generadas después de la firma de un convenio.
 
   # Agreement Status
   draft: Borrador

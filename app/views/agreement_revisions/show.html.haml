@@ -45,9 +45,37 @@
                 %i.material-icons
                   get_app
                 %span= t(:download_pdf)
+              - if current_user.can_see_credentials_for_agreement?(@agreement)
+                = link_to '#modalTokens', class: "to-link", data: {target: '#modalTokens', toggle: 'modal'} do
+                  %i.material-icons lock
+                  = t(:tokens)
 
           .col-md-3
             = render partial: "next_step"
             = render partial: "history"
   = render partial: "modal_agreement_objected" if %w(validated validated_draft signed_draft rejected_sign).include?(@agreement_revision.state)
   = render partial: "modal_agreement_one_time_password" if %w(validated_draft validated rejected_sign).include?(@agreement_revision.state)
+
+#modalTokens.modal.fade{:role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h1
+          =t(:tokens)
+      .modal-body
+        - if current_user.can_see_credentials_for_agreement?(@agreement)
+          .row
+            .col-md-3
+              %h4 Client ID:
+            .col-md-9
+              %pre= @agreement.id
+          .row
+            .col-md-3
+              %h4 Client Secret:
+            .col-md-9
+              %pre= @agreement.client_secret
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+          =t(:close)

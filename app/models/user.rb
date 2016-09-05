@@ -136,4 +136,29 @@ class User < ApplicationRecord
     roles.where(organization: org, name: "Create Agreement").exists?
   end
 
+  def can_see_client_token_for_service?(service)
+    !service.public && self.organizations.include?(service.organization)
+  end
+
+  def can_see_provider_secret_for_service?(service)
+    return false if service.public # No secrets there
+    return true if service.service_versions.where(version_number: 1).first.user == self # Original creator can see the secret
+    # And validators and signers of agreements can also see secrets
+    org = service.organization
+    return (
+      self.roles.where(organization: org, name: "Validate Agreement").exists? ||
+      self.roles.where(organization: org, name: "Sign Agreement").exists?
+    )
+  end
+
+  def can_see_credentials_for_agreement?(agreement)
+    return false unless agreement.state == 'signed'
+    return true if agreement.agreement_revisions.where(revision_number: 1).first.user == self  # The person who started the agreement can see the secret
+    # And validators and signers of agreements can also see secrets
+    org = agreement.consumer_organization
+    return (
+      self.roles.where(organization: org, name: "Validate Agreement").exists? ||
+      self.roles.where(organization: org, name: "Sign Agreement").exists?
+    )
+  end
 end

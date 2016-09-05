@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :organizations, only: [:index], param: :name do
+  resources :organizations, only: [:index, :show], param: :name do
     resources :services, only: [:index, :new, :create, :show], param: :name do
       resources :service_versions,
         only: [:index, :new, :create, :show], param: :version_number,
