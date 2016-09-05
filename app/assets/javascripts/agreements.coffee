@@ -4,6 +4,15 @@ document.addEventListener 'turbolinks:load', ->
   if providerOrg && serviceId
     setOptionsOnInit(providerOrg, serviceId)
 
+  $('#sign_request').on 'click', ->
+    $this = $(this)
+    $this.button 'loading'
+    setTimeout (->
+      $this.button 'reset'
+      return
+    ), 25000
+    return
+
 $(document).on 'keyup change', '.list-filter', ->
   $target = $($(this).data('target'))
   filter = $(this).val()
@@ -58,4 +67,3 @@ setOptionsOnInit = (providerOrg, serviceId) =>
     if $(element).val() == serviceId
       $(element).prop('checked', true)
       $('.services-list').append '<li data-list="' + $(element).val() + '">' + $(element).parent().text() + '</li>'
-
