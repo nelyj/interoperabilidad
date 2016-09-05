@@ -37,6 +37,15 @@ class AgreementsController < ApplicationController
     end
   end
 
+  # this method is the first stop when some flow action of the agreement is triggered
+  # based on the 'next_step' parameter and the current state of the agreement.
+  # Considering that the next_step parameter (a state of the agreement) is the action that needs to occur,
+  # this method call the associated flow action method on the agreement model,
+  # this means that if the next step of the agreement is for example 'validated_draft'
+  # the action called should be 'validate_draft'.
+  # If for one action there are more than one possible interaction (for example: signed_draft -> sign_draft and object_draft)
+  # the triggered action is determined by the submit button pressed on the view, which is included in the
+  # params under the name of the clicked button
   def flow_actions_router
     @agreement = Agreement.find(params[:agreement_id])
     step_for_message = params[:next_step]
