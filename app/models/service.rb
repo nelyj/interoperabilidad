@@ -30,6 +30,7 @@ class Service < ApplicationRecord
   end
 
   def generate_client_token
+    return nil if provider_secret.nil?
     claims = {
       iss: self.url,
       sub: self.organization.url,
