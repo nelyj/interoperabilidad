@@ -14,7 +14,7 @@ class FilterAgreementsTest < Capybara::Rails::TestCase
   end
 
   test "Filter/Search on the table with services of my organization" do
-    login_as users(:pedro)
+    login_as users(:pedro), scope: :user
     visit root_path
     find('#user-menu').click
     within('#user-menu') { click_link 'Convenios' }
