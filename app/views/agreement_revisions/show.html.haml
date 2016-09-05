@@ -1,46 +1,53 @@
-.show-agreement.main-container
-  .container-fluid.main-title
+- if !user_signed_in?
+  .alert.info
     .container
-      .col-md-12
-        %h1= t(:agreement_between, consumer: @agreement.service_consumer_organization.name, provider: @agreement.service_provider_organization.name)
-        %a{:href => 'index', :title => 'Cancelar'}
-        = link_to organization_agreements_path(@consumer_organization) do
-          %i.material-icons
-            close
+      %p
+        #{t(:to_review_agreements_please)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  .show-agreement.main-container
+    .container-fluid.main-title
+      .container
+        .col-md-12
+          %h1= t(:agreement_between, consumer: @agreement.service_consumer_organization.name, provider: @agreement.service_provider_organization.name)
+          %a{:href => 'index', :title => 'Cancelar'}
+          = link_to organization_agreements_path(@consumer_organization) do
+            %i.material-icons
+              close
 
-  - if user_signed_in? && (@agreement_revision.objected? || @agreement_revision.rejected_sign?)
-    .container-fluid.panel-error.alert.fade.in{:"data-alert" => "alert"}
+    - if user_signed_in? && (@agreement_revision.objected? || @agreement_revision.rejected_sign?)
+      .container-fluid.panel-error.alert.fade.in{:"data-alert" => "alert"}
+        .container
+          .row
+            .col-md-12
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+              %h1= t(:objected_log)
+              %p= @agreement_revision.objection_message
+
+    .container-fluid.show-agreement-content
       .container
         .row
-          .col-md-12
-            %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
-            %h1= t(:objected_log)
-            %p= @agreement_revision.objection_message
+          .col-md-9
+            .description
+              = render partial: "description_agreement"
+              %br
+              %p
+                %strong= t(:purpose)+':'
+                = @agreement_revision.purpose
+            .visor
+              .preview
+                %embed{:src => @agreement_revision.request_pdf_url, :width => '100%', :height => '493'}
 
-  .container-fluid.show-agreement-content
-    .container
-      .row
-        .col-md-9
-          .description
-            = render partial: "description_agreement"
-            %br
-            %p
-              %strong= t(:purpose)+':'
-              = @agreement_revision.purpose
-          .visor
-            .preview
-              %embed{:src => @agreement_revision.request_pdf_url, :width => '100%', :height => '493'}
+            .actions
+              = render partial: 'user_allowed_actions' if @agreement.user_can_update_agreement_status?(current_user)
 
-          .actions
-            = render partial: 'user_allowed_actions' if @agreement.user_can_update_agreement_status?(current_user)
+              = link_to @agreement_revision.request_pdf_url, download: '', :title => t(:download_pdf), :class => 'to-link' do
+                %i.material-icons
+                  get_app
+                %span= t(:download_pdf)
 
-            = link_to @agreement_revision.request_pdf_url, download: '', :title => t(:download_pdf), :class => 'to-link' do
-              %i.material-icons
-                get_app
-              %span= t(:download_pdf)
-
-        .col-md-3
-          = render partial: "next_step"
-          = render partial: "history"
-= render partial: "modal_agreement_objected" if %w(validated validated_draft signed_draft rejected_sign).include?(@agreement_revision.state)
-= render partial: "modal_agreement_one_time_password" if %w(validated_draft validated rejected_sign).include?(@agreement_revision.state)
+          .col-md-3
+            = render partial: "next_step"
+            = render partial: "history"
+  = render partial: "modal_agreement_objected" if %w(validated validated_draft signed_draft rejected_sign).include?(@agreement_revision.state)
+  = render partial: "modal_agreement_one_time_password" if %w(validated_draft validated rejected_sign).include?(@agreement_revision.state)

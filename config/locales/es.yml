@@ -52,6 +52,8 @@ es:
   to_upload_a_service_please: Para subir un esquema por favor
   to_review_services_please: Para revisar servicios por favor
   identify_with_clave_unica: identifíquese con su clave única
+  to_review_agreements_please: Para revisar convenios por favor
+  to_create_agreements_please: Para crear convenios por favor
   create_schema: Crear Esquema
   choose_file: Seleccionar Archivo
   public: Público (no requiere convenio)
