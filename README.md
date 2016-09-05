@@ -87,6 +87,10 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `SIGNER_API_SECRET`: Symmetric key to sign the JWT of the SIGNER API.
 
+- `PROVIDER_CLIENT_TOKEN_EXPIRATION_IN_SECONDS`: Time to live for auth client tokens given to providers to use their own protected services.
+
+- `AGREEMENT_CLIENT_TOKEN_EXPIRATION_IN_SECONDS`: Time to live for auth client tokens given to consumers after an agreement is signed to use protected services.
+
 You can also set the `PORT` environment variable to change the port where the web server will listen (defaults to 80). See `config/puma.rb` for more options you can tune/override via environment variables.
 
 Putting it all together, after building the image you can run it like this:

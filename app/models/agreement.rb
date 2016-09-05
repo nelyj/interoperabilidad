@@ -23,6 +23,29 @@ class Agreement <ApplicationRecord
       )
   end
 
+  def generate_client_credentials
+    self.client_secret = SecureRandom.urlsafe_base64
+  end
+
+  def generate_client_token(service)
+    return nil unless state == 'signed'
+    return nil unless services.include?(service)
+    claims = {
+      iss: self.url,
+      sub: self.service_consumer_organization.url,
+      aud: [service.provider_id],
+      exp: client_token_expiration_in_seconds.seconds.from_now
+    }
+    JSON::JWT.new(claims).sign(service.provider_secret, :HS256).to_s
+  end
+
+  def client_token_expiration_in_seconds
+    expiration = ENV['AGREEMENT_CLIENT_TOKEN_EXPIRATION_IN_SECONDS']
+    expiration = expiration.to_i unless expiration.nil?
+    expiration = 86400 if expiration.nil? || expiration == 0
+    expiration
+  end
+
   def last_revision_number
     agreement_revisions.maximum(:revision_number) || 0
   end
@@ -127,6 +150,8 @@ class Agreement <ApplicationRecord
   def sign_draft(user, otp)
     new_state = AgreementRevision.states['signed_draft']
     return nil unless user_can_update_agreement_status?(user) && last_revision.validated_draft?
+    generate_client_credentials
+    save!
     rev = new_revision(user, new_state, I18n.t(:signed_draft_log), "", last_revision.file)
     if sign_pdf(otp)
       rev
@@ -204,6 +229,10 @@ class Agreement <ApplicationRecord
       return false
     end
     return true
+  end
+
+  def url
+    Rails.application.routes.url_helpers.organization_agreement_path(self.service_consumer_organization, self)
   end
 
 end

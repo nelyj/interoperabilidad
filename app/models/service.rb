@@ -40,7 +40,7 @@ class Service < ApplicationRecord
   end
 
   def client_token_expiration_in_seconds
-    expiration = ENV['PROVIDER_CLIENT_EXPIRATION_IN_SECONDS']
+    expiration = ENV['PROVIDER_CLIENT_TOKEN_EXPIRATION_IN_SECONDS']
     expiration = expiration.to_i unless expiration.nil?
     expiration = 86400 if expiration.nil? || expiration == 0
     expiration
