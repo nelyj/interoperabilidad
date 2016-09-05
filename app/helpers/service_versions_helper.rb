@@ -193,10 +193,10 @@ module ServiceVersionsHelper
         editable_css =  %w(object array).include?(property_definition['type']) ? '' : 'editable '
         content_tag(:div, nil, class: "panel-heading #{editable_css}clearfix") do
           content_tag(:div, nil, class: "panel-title " + (required ? "required" : "")) do
-            content_tag(:div, nil, class: "col-md-4") do
+            content_tag(:div, nil, class: "col-md-6") do
               s_name_markup
             end +
-            content_tag(:div, nil, class: "col-md-8 text-right") do
+            content_tag(:div, nil, class: "col-md-6 text-right") do
               form_primitive_specifics(property_definition, field_name, required)
             end
           end
