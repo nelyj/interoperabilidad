@@ -1,31 +1,12 @@
 require "test_helper"
 require_relative 'support/ui_test_helper'
+require_relative 'support/agreement_creation_helper'
 
 class ListOrganizationAgreementsTest < Capybara::Rails::TestCase
+  include AgreementCreationHelper
   include UITestHelper
   include Warden::Test::Helpers
   after { Warden.test_reset! }
-
-  def create_valid_service!
-    service = Service.create!(
-      organization: organizations(:sii),
-      name: 'test-service',
-      spec_file: StringIO.new(VALID_SPEC),
-      backwards_compatible: true
-    )
-    service.create_first_version(users(:pedro))
-    service
-  end
-
-  def create_valid_agreement!(orgp, orgc)
-    service = create_valid_service!
-    agreement = Agreement.create!(
-      service_provider_organization: orgp,
-      service_consumer_organization: orgc,
-      user: users(:pedro),
-      services: [service])
-    agreement
-  end
 
   test "List Organization Provider Agreements" do
     login_as users(:pedro), scope: :user
