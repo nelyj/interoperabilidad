@@ -25,11 +25,13 @@ services:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
       - AWS_REGION
+      - SIGNER_API_TOKEN_KEY
+      - SIGNER_API_SECRET
       - S3_CODEGEN_BUCKET=gobdigital-plat-rest-dev
       - OP_CALLBACK_URL=http://dev.interoperabilidad.digital.gob.cl
       - ROLE_SERVICE_URL=http://thawing-shore-28727.herokuapp.com
       - ROLE_APP_ID=AB01
-      - CODECLIMATE_REPO_TOKEN
+      - CODECLIMATE_REPO_TOKEN # For CI environment. No need to set in dev.
       - APP_HOST_URL=dev.interoperabilidad.digital.gob.cl
       - SMTP_ADDRESS=smtp.localhost
       - SMTP_PORT=25
@@ -37,8 +39,6 @@ services:
       - SMTP_SECRET=secret
       - MINSEGPRES_DIPRES_ID=AB01
       - SIGNER_APP_HOST=http://proxy-banco.modernizacion.gob.cl
-      - SIGNER_API_TOKEN_KEY
-      - SIGNER_API_SECRET
   bundle_cache:
     image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
     volumes:

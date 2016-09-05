@@ -10,10 +10,21 @@
 
 Note: Only tested on Mac OS X and Linux so far.
 
-Assuming you have a functional make and docker on your system, just go to the project root and type:
+Assuming you have a functional make and docker on your system, you only need to have
+a few credentials for external dependencies:
 
-    $ export OP_CLIENT_ID=<our-clave-unica-secret-id> OP_SECRET_KEY=<our-clave-unica-secret>
-    $ export AWS_ACCESS_KEY_ID=<our-aws-access-key-id> AWS_SECRET_ACCESS_KEY=<our-aws-access-key-id>
+- OpenID client id and secrets (provided by ClaveUnica.cl for this project)
+- AWS key and secret for S3 storage (you can use your own on development)
+- Document Signer key and secret (provided by SEGPRES for document signing)
+
+Those should be set as environment variables:
+
+    $ export OP_CLIENT_ID=<our-clave-unica-client-id> OP_SECRET_KEY=<our-clave-unica-secret>
+    $ export AWS_REGION=<aws-region> AWS_ACCESS_KEY_ID=<aws-key-id> AWS_SECRET_ACCESS_KEY=<aws-secret>
+    $ export SIGNER_API_TOKEN_KEY=<our-signer-key> SIGNER_API_SECRET=<our-signer-secret>
+
+After those variables are set, you just need to run:
+
     $ make
 
 ...and go for coffee — it will take a while unless you have the right docker images cached. It will:
