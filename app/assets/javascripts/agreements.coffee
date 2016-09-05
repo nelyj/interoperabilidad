@@ -13,6 +13,10 @@ document.addEventListener 'turbolinks:load', ->
     ), 25000
     return
 
+  $('#modalAgreementOneTimePassword').on 'shown.bs.modal', ->
+    $('#one_time_password').focus()
+    return
+
 $(document).on 'keyup change', '.list-filter', ->
   $target = $($(this).data('target'))
   filter = $(this).val()

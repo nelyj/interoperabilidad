@@ -211,6 +211,10 @@ es:
       organization:
         one: Organización
         other: Organizaciones
+      agreement: Solicitud
+      agreement_revision:
+        one: Convenio
+        other: Convenios
     attributes:
       schema:
         name: Nombre
