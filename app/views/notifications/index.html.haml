@@ -4,13 +4,13 @@
       .col-md-12.head-title-table
         %h2=t(:notifications)
         .search-table
-          %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#notifications-table'}}
+          %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#notifications_table'}}
           %button.search
             %i.material-icons
               search
     .row
       .col-md-12
-        %table#notifications-table
+        %table#notifications_table
           %colgroup
             %col{:width => "10%"}
             %col{:width => "82%"}
