@@ -4,20 +4,33 @@ class AgreementRevisionsController < ApplicationController
   before_action :set_organization
 
   def show
-    @agreement_revision = @agreement.agreement_revisions.where(revision_number: params[:revision_number]).first
-    if @agreement_revision.nil? || @agreement.last_revision_number != params[:revision_number].to_i
-      redirect_to [@organization, @agreement, @agreement.last_revision]
+    return unless user_signed_in?
+    if (current_user.organizations.exists?(@agreement.service_provider_organization) ||
+        current_user.organizations.exists?(@agreement.service_consumer_organization))
+      @agreement_revision = @agreement.agreement_revisions.where(revision_number: params[:revision_number]).first
+      if @agreement_revision.nil? || @agreement.last_revision_number != params[:revision_number].to_i
+        redirect_to [@organization, @agreement, @agreement.last_revision]
+      else
+        @provider_organization = Organization.find(@agreement.service_provider_organization_id)
+        @consumer_organization = Organization.find(@agreement.service_consumer_organization_id)
+      end
     else
-      @provider_organization = Organization.find(@agreement.service_provider_organization_id)
-      @consumer_organization = Organization.find(@agreement.service_consumer_organization_id)
+      redirect_to services_path, notice: t(:not_enough_permissions)
     end
+
   end
 
   def new
-    @agreement_revision = AgreementRevision.new
-    @last_revision = @agreement.last_revision
-    @provider_organization = Organization.find(@agreement.service_provider_organization_id)
-    @consumer_organization = Organization.find(@agreement.service_consumer_organization_id)
+    return unless user_signed_in?
+    if (current_user.organizations.exists?(@agreement.service_provider_organization) ||
+        current_user.organizations.exists?(@agreement.service_consumer_organization))
+      @agreement_revision = AgreementRevision.new
+      @last_revision = @agreement.last_revision
+      @provider_organization = Organization.find(@agreement.service_provider_organization_id)
+      @consumer_organization = Organization.find(@agreement.service_consumer_organization_id)
+    else
+      redirect_to services_path, notice: t(:not_enough_permissions)
+    end
   end
 
   def create

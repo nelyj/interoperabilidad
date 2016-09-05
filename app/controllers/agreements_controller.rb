@@ -4,12 +4,22 @@ class AgreementsController < ApplicationController
   before_action :set_provider_orgs, only:[:create, :new]
 
   def index
-    @provided_agreements = Agreement.where(service_provider_organization: @organization)
-    @consumed_agreements = Agreement.where(service_consumer_organization: @organization)
+    return unless user_signed_in?
+    if @organization.is_member?(current_user)
+      @provided_agreements = Agreement.where(service_provider_organization: @organization)
+      @consumed_agreements = Agreement.where(service_consumer_organization: @organization)
+    else
+      redirect_to services_path, notice: t(:not_enough_permissions)
+    end
   end
 
   def new
-    @agreement = Agreement.new
+    return unless user_signed_in?
+    if @organization.is_member?(current_user) && current_user.can_create_agreements?(@organization)
+      @agreement = Agreement.new
+    else
+      redirect_to services_path, notice: t(:not_enough_permissions)
+    end
   end
 
   def create
