@@ -50,7 +50,6 @@ class AgreementsNotificationsTest < Capybara::Rails::TestCase
     visit root_path
     assert_content "Directorio de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
-    byebug
     within ".notifications-box" do
       assert_content 2
     end
