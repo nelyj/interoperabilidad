@@ -30,4 +30,8 @@ class Organization <ApplicationRecord
     service.agreements.exists?(service_consumer_organization: self)
   end
 
+  def url
+    Rails.application.routes.url_helpers.organization_path(self)
+  end
+
 end

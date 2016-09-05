@@ -335,6 +335,7 @@ DEPENDENCIES
   hashie
   jbuilder (~> 2.0)
   jquery-rails
+  json-jwt
   listen (~> 3.0.5)
   minitest-rails (~> 3.0.0)
   minitest-rails-capybara (~> 3.0.0)

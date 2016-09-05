@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160831151002) do
     t.integer  "service_consumer_organization_id", null: false
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.string   "client_secret"
     t.index ["service_consumer_organization_id"], name: "index_agreements_on_service_consumer_organization_id", using: :btree
     t.index ["service_provider_organization_id"], name: "index_agreements_on_service_provider_organization_id", using: :btree
   end
@@ -135,6 +136,8 @@ ActiveRecord::Schema.define(version: 20160831151002) do
     t.tsvector "lexemes"
     t.string   "humanized_name"
     t.boolean  "featured",        default: false
+    t.string   "provider_id"
+    t.string   "provider_secret"
     t.index ["lexemes"], name: "services_lexemes_idx", using: :gin
   end
 

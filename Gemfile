@@ -56,6 +56,8 @@ gem 'wkhtmltopdf-binary'
 gem 'minitest-rails', '~> 3.0.0'
 gem 'poltergeist'
 
+gem 'json-jwt'
+
 group :test do
   gem 'minitest-rails-capybara', '~> 3.0.0'
   gem 'codeclimate-test-reporter', require: nil

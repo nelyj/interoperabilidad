@@ -5,6 +5,7 @@ class Service < ApplicationRecord
   has_many :service_versions
   validates :name, uniqueness: true, presence: true
   before_save :update_humanized_name
+  before_save :generate_provider_credentials
   validates :spec, swagger_spec: true, presence: true , :on => :create
   validate :spec_file_must_be_parseable
   delegate :description, to: :current_or_last_version
@@ -19,6 +20,31 @@ class Service < ApplicationRecord
 
   scope :featured, -> { where(featured: true) }
   scope :popular, -> { last(8) } # To be replaced by actual popular services once we have agreements in place
+
+
+  def generate_provider_credentials
+    unless self.public
+      self.provider_id ||= self.url
+      self.provider_secret ||= SecureRandom.urlsafe_base64
+    end
+  end
+
+  def generate_client_token
+    claims = {
+      iss: self.url,
+      sub: self.organization.url,
+      aud: [self.provider_id],
+      exp: client_token_expiration_in_seconds.seconds.from_now
+    }
+    JSON::JWT.new(claims).sign(self.provider_secret, :HS256).to_s
+  end
+
+  def client_token_expiration_in_seconds
+    expiration = ENV['PROVIDER_CLIENT_EXPIRATION_IN_SECONDS']
+    expiration = expiration.to_i unless expiration.nil?
+    expiration = 86400 if expiration.nil? || expiration == 0
+    expiration
+  end
 
   def spec_file
     @spec_file
@@ -98,8 +124,7 @@ class Service < ApplicationRecord
     return false if self.public # Public services don't need agreements
     return true if user.nil? # Logged out users can't access non-public services
     return false if user.organizations.include?(self.organization) # Users can access services inside their own orgs
-    # TODO: return false if any of the user orgs has a current agreement with this service
-    return false if user.organizations_with_agreement?(self)
+    return false if user.organizations_with_agreement?(self) # TODO: Is it OK to return false if a not-yet-signed agreement exists?
     return true
   end
 
