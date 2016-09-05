@@ -26,6 +26,7 @@ class AgreementRevisionsController < ApplicationController
     @agreement_revision.log = t(:modified_draft_log)
     if @agreement_revision.save!
       generate_pdf(@agreement, @agreement_revision)
+      @agreement_revision.send_notifications
       redirect_to [@organization, @agreement, @agreement_revision], notice: t(:agreement_revision_edited)
     else
       render :new
