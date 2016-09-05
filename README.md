@@ -20,7 +20,7 @@ a few credentials for external dependencies:
 Those should be set as environment variables:
 
     $ export OP_CLIENT_ID=<our-clave-unica-client-id> OP_SECRET_KEY=<our-clave-unica-secret>
-    $ export AWS_REGION=<aws-region> AWS_ACCESS_KEY_ID=<aws-key-id> AWS_SECRET_ACCESS_KEY=<aws-secret>
+    $ export AWS_REGION=<aws-region> AWS_ACCESS_KEY_ID=<aws-key-id> AWS_SECRET_ACCESS_KEY=<aws-secret> S3_CODEGEN_BUCKET=<bucket-name>
     $ export SIGNER_API_TOKEN_KEY=<our-signer-key> SIGNER_API_SECRET=<our-signer-secret>
 
 After those variables are set, you just need to run:
@@ -105,6 +105,7 @@ Putting it all together, after building the image you can run it like this:
         -e AWS_ACCESS_KEY_ID=MyAWSAccessKeyId \
         -e AWS_SECRET_ACCESS_KEY=MyAWSSecretAccessKey \
         -e S3_CODEGEN_BUCKET=my-s3-bucket \
+        # Etc, etc, more env variables here \
         egob/interoperabilidad
 
 
@@ -126,6 +127,7 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -e AWS_ACCESS_KEY_ID=MyAWSAccessKeyId \
         -e AWS_SECRET_ACCESS_KEY=MyAWSSecretAccessKey \
         -e S3_CODEGEN_BUCKET=my-s3-bucket \
+        # Etc, etc, more env variables here \
         egob/interoperabilidad \
         bundle exec rake db:create db:migrate
 
