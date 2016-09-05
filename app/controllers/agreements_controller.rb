@@ -110,4 +110,38 @@ private
     }[state][type] || {}
   end
 
+  def client_token
+    if params[:grant_type] != 'client_credentials'
+      render status: 400, json: {error: 'unsupported_grant_type'}
+      return
+    end
+    match = /^Basic (.*)/.match(request.authorization)
+    if match
+      decoded = Base64.decode64(match[1])
+      client_id, client_secret = decoded.split(':')
+    else
+      client_id = params[:client_id]
+      client_secret = params[:client_secret]
+    end
+    if client_id.nil? || client_secret.nil?
+      render status: 400, json: {
+        error: 'invalid_client',
+        error_description: 'Client ID or Client Secret is missing'
+      }
+      return
+    end
+    agreement = Agreement.find(client_id.to_i)
+    if ageement.client_secret != client_secret
+      render status: 400, json: {
+        error: 'invalid_client',
+        error_description: 'Invalid Client ID or Client Secret'
+      }
+    end
+    render json: {
+      access_token: agreement.generate_client_token,
+      token_type: 'bearer'
+      expires_in: agreement.client_token_expiration_in_seconds,
+    }
+  end
+
 end

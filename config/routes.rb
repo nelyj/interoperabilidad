@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       patch 'state/:next_step' => 'agreements#flow_actions_router', as: 'change_state'
       resources :agreement_revisions, only: [:show, :new, :create], param: :revision_number,
         path: 'revisions'
+      post 'oauth/token', to: 'agreements#client_token'
     end
   end
 
