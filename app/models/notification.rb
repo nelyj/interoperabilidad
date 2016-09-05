@@ -7,7 +7,7 @@ class Notification < ApplicationRecord
   # Add on AgreementVersion: has_many :notifications, as: :subject
 
   def send_by_email
-    NotificationMailer.notify(self).deliver_now #.deliver_later
+    NotificationMailer.notify(self).deliver_now unless email.blank?
   end
 
   # Should be called by NotificationController#index
