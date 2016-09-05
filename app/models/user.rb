@@ -152,7 +152,7 @@ class User < ApplicationRecord
   end
 
   def can_see_credentials_for_agreement?(agreement)
-    return false unless agreement.state == 'signed'
+    return false unless agreement.signed?
     return true if agreement.agreement_revisions.where(revision_number: 1).first.user == self  # The person who started the agreement can see the secret
     # And validators and signers of agreements can also see secrets
     org = agreement.consumer_organization
@@ -160,5 +160,10 @@ class User < ApplicationRecord
       self.roles.where(organization: org, name: "Validate Agreement").exists? ||
       self.roles.where(organization: org, name: "Sign Agreement").exists?
     )
+  end
+
+  def can_try_protected_service?(service)
+    return true if self.organizations.include?(service.organization)
+    service.agreements.where(service_consumer_organization: self.organization_ids).any?(&:signed?)
   end
 end

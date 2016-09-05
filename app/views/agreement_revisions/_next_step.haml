@@ -3,7 +3,7 @@
     %span= t(:agreement_state)
     %span{class: css_class_for_agreement_status(@agreement_revision.state)}
       = t(@agreement_revision.state)
-  - unless @agreement.state == 'signed' || @agreement.next_step_responsables.nil?
+  - unless @agreement.signed? || @agreement.next_step_responsables.nil?
     .body-box
       .event
         %p

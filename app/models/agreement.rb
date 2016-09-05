@@ -30,7 +30,7 @@ class Agreement <ApplicationRecord
   end
 
   def generate_client_token(service)
-    return nil unless state == 'signed'
+    return nil unless signed?
     return nil unless services.include?(service)
     claims = {
       iss: self.url,
@@ -195,6 +195,10 @@ class Agreement <ApplicationRecord
     else
       return false
     end
+  end
+
+  def signed?
+    state == 'signed'
   end
 
   def sign_pdf(otp)
