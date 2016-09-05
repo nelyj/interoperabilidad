@@ -86,7 +86,7 @@ class AgreementRevision <ApplicationRecord
   end
 
   def send_notifications
-    notify_responsable
+    notify_responsables
     notify_next_step_responables
   end
 
@@ -97,13 +97,14 @@ class AgreementRevision <ApplicationRecord
                         id: agreement.id.to_s,
                         log: log,
                         responsable: user.name),
-      email: email)
+      email: email) unless notify_user.notifications.where(subject: self).exists?
   end
 
-  def notify_responsable
+  def notify_responsables
     if self.revision_number > 1
-      previous_revision = agreement.agreement_revisions.where(revision_number: self.revision_number-1).first
-      create_notification_for_user(previous_revision.user, previous_revision.responsable_email)
+      agreement.agreement_revisions.where("revision_number != ?", self.revision_number).each do |revision|
+        create_notification_for_user(revision.user, revision.responsable_email)
+      end
     end
   end
 
