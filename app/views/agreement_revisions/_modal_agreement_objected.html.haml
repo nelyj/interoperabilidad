@@ -9,7 +9,7 @@
         = form_for @agreement, url: organization_agreement_change_state_path(@organization, @agreement, @agreement.next_step) do |f|
           %h3
             =t(:rejection_reason)
-          = f.text_area :objection_message
+          = f.text_area :objection_message, value: @agreement.last_revision.objection_message
           .modal-footer
             %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
               =t(:cancel)

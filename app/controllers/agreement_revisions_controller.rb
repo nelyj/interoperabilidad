@@ -5,8 +5,8 @@ class AgreementRevisionsController < ApplicationController
 
   def show
     return unless user_signed_in?
-    if (current_user.organizations.exists?(@agreement.service_provider_organization) ||
-        current_user.organizations.exists?(@agreement.service_consumer_organization))
+    if (current_user.organizations.exists?(@agreement.service_provider_organization_id) ||
+        current_user.organizations.exists?(@agreement.service_consumer_organization_id))
       @agreement_revision = @agreement.agreement_revisions.where(revision_number: params[:revision_number]).first
       if @agreement_revision.nil? || @agreement.last_revision_number != params[:revision_number].to_i
         redirect_to [@organization, @agreement, @agreement.last_revision]
@@ -22,8 +22,8 @@ class AgreementRevisionsController < ApplicationController
 
   def new
     return unless user_signed_in?
-    if (current_user.organizations.exists?(@agreement.service_provider_organization) ||
-        current_user.organizations.exists?(@agreement.service_consumer_organization))
+    if (current_user.organizations.exists?(@agreement.service_provider_organization_id) ||
+        current_user.organizations.exists?(@agreement.service_consumer_organization_id))
       @agreement_revision = AgreementRevision.new
       @last_revision = @agreement.last_revision
       @provider_organization = Organization.find(@agreement.service_provider_organization_id)
