@@ -139,7 +139,7 @@ private
     end
     render json: {
       access_token: agreement.generate_client_token,
-      token_type: 'bearer'
+      token_type: 'bearer',
       expires_in: agreement.client_token_expiration_in_seconds,
     }
   end
