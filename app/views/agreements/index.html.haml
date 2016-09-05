@@ -27,13 +27,13 @@
           .col-md-12.head-title-table
             %h2= t(:agreements_list)
             .search-table
-              %input{:type => 'text', :placeholder => t(:name_search)}
+              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#agreements_provided_table'}}
               %button.search
                 %i.material-icons
                   search
         .row
           .col-md-12
-            %table
+            %table#agreements_provided_table
               %colgroup
                 %col{:width => "15%"}
                 %col{:width => "22%"}
@@ -55,13 +55,13 @@
           .col-md-12.head-title-table
             %h2= t(:agreements_list)
             .search-table
-              %input{:type => 'text', :placeholder => t(:name_search)}
+              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#agreements_consumed_table'}}
               %button.search
                 %i.material-icons
                   search
         .row
           .col-md-12
-            %table
+            %table#agreements_consumed_table
               %colgroup
                 %col{:width => "15%"}
                 %col{:width => "22%"}
