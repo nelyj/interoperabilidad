@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
-  before_action :set_organization, only: [:index, :new, :create, :show]
-  before_action :set_service, only: [:edit, :update, :show]
+  before_action :set_organization, only: [:index, :new, :create, :show, :client_token]
+  before_action :set_service, only: [:edit, :update, :show, :client_token]
 
   def index
     if user_signed_in? && @organization.is_member?(current_user)
@@ -59,6 +59,43 @@ class ServicesController < ApplicationController
       render :edit
     end
   end
+
+  def client_token
+    if params[:grant_type] != 'client_credentials'
+      render status: 400, json: {error: 'unsupported_grant_type'}
+      return
+    end
+    match = /^Basic (.*)/.match(request.authorization)
+    if match
+      decoded = Base64.decode64(match[1])
+      client_id, client_secret = decoded.split(':')
+    else
+      client_id = params[:client_id]
+      client_secret = params[:client_secret]
+    end
+    if client_id.nil? || client_secret.nil?
+      render status: 400, json: {
+        error: 'invalid_client',
+        error_description: 'Client ID or Client Secret is missing'
+      }
+      return
+    end
+    agreement = @service.agreements.where(id: client_id.to_i).first
+    if agreement.nil? || agreement.client_secret != client_secret
+      render status: 400, json: {
+        error: 'invalid_client',
+        error_description: 'Invalid Client ID or Client Secret'
+      }
+      return
+    end
+    render json: {
+      access_token: agreement.generate_client_token(@service),
+      token_type: 'bearer',
+      expires_in: agreement.client_token_expiration_in_seconds,
+    }
+  end
+
+
 
   private
     def service_params

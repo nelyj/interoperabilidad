@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :organizations, only: [:index, :show], param: :name do
     resources :services, only: [:index, :new, :create, :show], param: :name do
+      post 'oauth/token', to: 'services#client_token'
       resources :service_versions,
         only: [:index, :new, :create, :show], param: :version_number,
         path: 'versions' do
@@ -44,7 +45,6 @@ Rails.application.routes.draw do
       patch 'state/:next_step' => 'agreements#flow_actions_router', as: 'change_state'
       resources :agreement_revisions, only: [:show, :new, :create], param: :revision_number,
         path: 'revisions'
-      post 'oauth/token', to: 'agreements#client_token'
     end
   end
 
