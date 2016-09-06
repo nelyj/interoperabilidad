@@ -144,7 +144,7 @@ class Agreement <ApplicationRecord
 
   def object_draft(user, message)
     new_state = AgreementRevision.states['objected']
-    valid_state = last_revision.validated_draft? || last_revision.signed_draft?
+    valid_state = last_revision.validated_draft? || last_revision.signed_draft? || last_revision.rejected_sign?
     return nil unless user_can_update_agreement_status?(user) && valid_state
     new_revision(user, new_state, I18n.t(:objected_log), message, last_revision.file)
   end

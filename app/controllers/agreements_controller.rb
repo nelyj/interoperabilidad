@@ -65,7 +65,12 @@ class AgreementsController < ApplicationController
     when "draft"
       return redirect_to new_organization_agreement_agreement_revision_path
     when "validated"
-      @agreement_revision = @agreement.validate_revision(current_user)
+      if params.include?(t(:request_signature))
+        @agreement_revision = @agreement.validate_revision(current_user)
+      else
+        @agreement_revision = @agreement.object_draft(current_user, agreement_params[:objection_message])
+        step_for_message = 'draft'
+      end
     when "reject_signature"
       @agreement_revision = @agreement.validate_revision(current_user)
     when "signed"
