@@ -22,6 +22,12 @@ pablito_segpres_validate_agreement:
   name: "Validate Agreement"
   email: "mail@example.org"
 
+pablito_segpres_sign_agreement:
+  user: pablito
+  organization: segpres
+  name: "Sign Agreement"
+  email: "mail@example.org"
+
 pedro_sii_agreement_validate:
   user: pedro
   organization: sii

@@ -36,6 +36,20 @@ class AgreementFlowTest < Capybara::Rails::TestCase
     end
   end
 
+  test 'object revision' do
+    agreement = create_valid_agreement!(organizations(:segpres), organizations(:sii))
+    user = users(:pablito)
+    #This is necesary, because we can call signer on test (no way to input OTP)
+    agreement.new_revision(user,"signed_draft","Manually Sign Draft","", "file")
+    assert agreement.state.include?("signed_draft")
+    visit_created_agreement(user, 'Proveedor')
+    find('.btn-danger').trigger('click')
+    fill_in 'agreement_objection_message', :with => 'objection message for testing'
+    find_button('Rechazar').turboclick
+    assert_content 'Borrador objetado'
+    assert_content 'objection message for testing'
+  end
+
   test 'object draft' do
     agreement = create_valid_agreement!(organizations(:segpres), organizations(:sii))
     visit_created_agreement(users(:pedro), 'Consumidor')
