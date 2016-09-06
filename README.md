@@ -41,7 +41,7 @@ If you are on Mac OS X, you can now run `make mac-open` to auto-discover the IP 
 
 # Production setup
 
-Production should run the latest [`egob/interoperabilidad`](https://hub.docker.com/r/egob/interoperabilidad/) image from DockerHub. It is built as part of the continuous integration process (via `make production-build` plus some tagging). The image gives you a self-contained stateless web application that requires only some environment variables to run:
+Production should run the latest [`egob/interoperabilidad`](https://hub.docker.com/r/egob/interoperabilidad/) image from DockerHub. It is built from the master branch as part of the [continuous integration process](https://semaphoreci.com/continuum/interoperabilidad) (via `make production-build` plus some tagging). The image gives you a self-contained stateless web application that requires only some environment variables to run:
 
 - `SECRET_KEY_BASE`: A random string that can be generated via `rails secret`. It should be the *same* for *every* instance running in production.
 
