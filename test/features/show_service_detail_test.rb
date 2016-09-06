@@ -91,4 +91,71 @@ class ShowServiceDetailTest < Capybara::Rails::TestCase
     assert_content "Identifíquese con su clave única para solicitar un convenio"
   end
 
+  test "Do not show tokens for private service if the user is not logged in" do
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_no_link "Tokens"
+  end
+
+  test "Do not show tokens for private service if the user belongs to a different org, regardless of their role there" do
+    users(:pablito).roles.create(organization: organizations(:segpres), name: "Sign Agreement", email: "mail@example.org")
+    login_as(users(:pablito))
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_no_link "Tokens"
+  end
+
+  test "Show only client token for private service if the user belongs to the org but is not the creator of the service nor has any special role" do
+    users(:pablito).roles.create(organization: organizations(:sii), name: "Create Agreement", email: "mail@example.org")
+    login_as(users(:pablito))
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_link "Tokens"
+    click_link "Tokens"
+    assert_content "Client Token"
+    assert_no_content "Provider ID"
+    assert_no_content "Provider Secret"
+  end
+
+  test "Show provider and client tokens for private service if the user has the Validate Agreement role" do
+    users(:pablito).roles.create(organization: organizations(:sii), name: "Validate Agreement", email: "mail@example.org")
+    login_as(users(:pablito))
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_link "Tokens"
+    click_link "Tokens"
+    assert_content "Provider ID"
+    assert_content "Provider Secret"
+    assert_content "Client Token"
+  end
+
+  test "Show provider and client tokens for private service if the user has the Sign Agreement role" do
+    users(:pablito).roles.create(organization: organizations(:sii), name: "Sign Agreement", email: "mail@example.org")
+    login_as(users(:pablito))
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_link "Tokens"
+    click_link "Tokens"
+    assert_content "Provider ID"
+    assert_content "Provider Secret"
+    assert_content "Client Token"
+  end
+
+
+  test "Show provider and client tokens for private service if the user is the creator of the service" do
+    login_as(users(:pedro))
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    assert_link "Tokens"
+    click_link "Tokens"
+    assert_content "Provider ID"
+    assert_content "Provider Secret"
+    assert_content "Client Token"
+  end
 end
