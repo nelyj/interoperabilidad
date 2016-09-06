@@ -36,6 +36,21 @@ class AgreementFlowTest < Capybara::Rails::TestCase
     end
   end
 
+  test 'object draft' do
+    agreement = create_valid_agreement!(organizations(:segpres), organizations(:sii))
+    visit_created_agreement(users(:pedro), 'Consumidor')
+    assert_content 'Convenio entre Servicio de Impuestos Internos y Secretaría General de la Presidencia'
+    find_button('Enviar Borrador').turboclick
+    assert agreement.last_revision.state.include?("validated_draft")
+    assert_content 'Convenio enviado correctamente'
+    find('.btn-danger').trigger('click')
+    fill_in 'agreement_objection_message', :with => 'objection message for testing'
+    find_button('Rechazar').turboclick
+    assert agreement.last_revision.state.include?("objected")
+    assert_content 'Borrador objetado'
+    assert_content 'objection message for testing'
+  end
+
   test 'displayed content of an Agreement' do
     agreement = create_valid_agreement!(organizations(:segpres), organizations(:sii))
     visit_created_agreement(users(:pedro), 'Consumidor')

@@ -7,7 +7,6 @@ module AgreementRevisionsHelper
       "data-target" => "#modalAgreementOneTimePassword", "data-toggle" => "modal", :type => "button")
   end
 
-
   def agreement_provider_validate_actions
     content_tag(:a, t(:reject), class: 'btn btn-danger',
       "data-target" => "#modalAgreementObjected", "data-toggle" => "modal", :type => "button")
