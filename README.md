@@ -39,7 +39,7 @@ Note: The database migrations assumes that your postgres image have installed th
 
 If you are on Mac OS X, you can now run `make mac-open` to auto-discover the IP of your docker machine and open a browser pointing to the web server. (If it doesn't work, take a look at the output of make and if everything looks OK then check `log/development.log` and `docker-compose logs` to debug the web application itself)
 
-# Production setup
+# Production Setup
 
 Production should run the latest [`egob/interoperabilidad`](https://hub.docker.com/r/egob/interoperabilidad/) image from DockerHub. It is built from the master branch as part of the [continuous integration process](https://semaphoreci.com/continuum/interoperabilidad) (via `make production-build` plus some tagging). The image gives you a self-contained stateless web application that requires only some environment variables to run:
 
@@ -136,3 +136,54 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         bundle exec rake db:create db:migrate
 
 You can also add the `--rm` flag to this command to remove this disposable container right after it executes.
+
+### Details
+
+As mentioned before, changes on the master branch are built, tested, and pushed to DockerHub dockerhub automatically by the CI pipeline. Here are the details on how that is done, in case we change the CI platform or need to push an image manually (although this is NOT recommended because you lose traceability from the binaries you are running to the source code used to build those binaries).
+
+The building steps run by the CI pipeline (which is assumed to have a functional docker environment) are:
+
+    $ make build
+    $ make db
+    $ make test
+
+If all the above passes without errors the following steps are followed to build the docker image and push it to DockerHub:
+
+    $ make production-build
+    $ docker tag egob/interoperabilidad:latest egob/interoperabilidad:v1.$SEMAPHORE_BUILD_NUMBER
+    $ docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    $ docker push egob/interoperabilidad
+
+You have to set the `DOCKER_*` environment variables to a user with permissions to push images to the `egob/interoperabilidad` at DockerHub.
+
+Also note that the above uses the Semaphore's build number to set the version to "1.xxx" where xxx is such build number. If a new CI system is used, you should bump the major version. (ej: "2.yyy" where yyy is Jenkin's build number in a new CI setup based on Jenkins).
+
+# Managing and Upgrading Dependencies
+
+With development, CI, and production all based on Docker, you don't need anything special to run this application other than `make`, `docker` and `docker-compose` (the latest only required on dev and CI).
+
+While the dependencies are all encapsulated, it might be necessary to upgrade this dependencies in case of new features or security patches. Here is the detail of such dependencies and where they are specified (in case you want to specify a new one or upgrade an existing one).
+
+## Base Operative System & Ruby Version
+
+The base Docker image is specified on `Dockerfile.production` and `Dockerfile.development`. Both versions should be keep in sync. Also, the `bundle_cache` service on `docker-compose.yml` should use the same base image.
+
+## System packages
+
+System packages are installed via `apt-get` on the `Dockerfile.production` and `Dockerfile.development` files. Both files are mostly identical, except for the way in which the applicaton itself is built into the image (After the line that says `#Our app:`). If you need to add a new production dependency which is a system package, it should be added to both Dockerfiles.
+
+## NodeJS
+
+Node is installed from binaries fetched from the official distribution (not system packages). It is also specified on both `Dockerfile.production` and `Dockerfile.development` and should be keep in sync.
+
+## Sway
+
+A customized version of the nodejs sway packaged is used. The specific repository and commit are specified on both `Dockerfile.production` and `Dockerfile.development`. If a new version of sway should be used, both files should be changed in sync.
+
+## PostgreSQL
+
+On development, the version of the PostgreSQL docker image is specified on the `postgresql` service inside `docker-compose.yml`. If a new version is going to be run in production, the development version should also be changed there.
+
+## Ruby Gems
+
+As with any modern Ruby application, all Ruby libraries used by the application are specified in the `Gemfile` while the specific versions are automatically compiled by the `bundle` command into the `Gemfile.lock` file. If you want to upgrade a particular library while keeping the general specification in the `Gemfile`, use the `bundle update <gem-name>` command. If you want to do a major upgrade of a particular component (for example, migrating to a major version of Rails) you will need to change the `Gemfile`.
