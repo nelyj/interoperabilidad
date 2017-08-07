@@ -246,7 +246,7 @@ Devise.setup do |config|
     response_type: :code,
     discovery: true,
     send_nonce: false,
-    issuer: "https://www.claveunica.gob.cl/openid",
+    issuer: ENV["ISSUER_OIDC"],
     client_options: {
       identifier: ENV["OP_CLIENT_ID"],
       secret: ENV["OP_SECRET_KEY"],
