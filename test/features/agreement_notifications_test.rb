@@ -24,7 +24,7 @@ class AgreementsNotificationsTest < Capybara::Rails::TestCase
     agreement.last_revision.send_notifications
 
     visit root_path
-    assert_content "Directorio de Servicios"
+    assert_content "Catálogo de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
 
     within ".notifications-box" do
@@ -48,7 +48,7 @@ class AgreementsNotificationsTest < Capybara::Rails::TestCase
     assert agreement.state.include?("signed_draft")
 
     visit root_path
-    assert_content "Directorio de Servicios"
+    assert_content "Catálogo de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
     within ".notifications-box" do
       assert_content 2

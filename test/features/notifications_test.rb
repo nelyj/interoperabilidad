@@ -33,7 +33,7 @@ class NotificationsTest < Capybara::Rails::TestCase
     end
     make_service
     visit root_path
-    assert_content "Directorio de Servicios"
+    assert_content "Catálogo de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
     within ".notifications-box" do
       assert_content 1
@@ -43,7 +43,7 @@ class NotificationsTest < Capybara::Rails::TestCase
   test "GobDigital user gets notified when a new service version is created" do
     make_service
     visit root_path
-    assert_content "Directorio de Servicios"
+    assert_content "Catálogo de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
     within ".notifications-box" do
       assert_content 1
@@ -63,14 +63,14 @@ class NotificationsTest < Capybara::Rails::TestCase
   test "GobDigital user get notified of new version, then a new versions come and the old notification is mark as readed" do
     make_service
     visit root_path
-    assert_content "Directorio de Servicios"
+    assert_content "Catálogo de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
     within ".notifications-box" do
       assert_content 1
     end
     make_new_version
     visit root_path
-    assert_content "Directorio de Servicios"
+    assert_content "Catálogo de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
     within ".notifications-box" do
       assert_content 1
@@ -85,7 +85,7 @@ class NotificationsTest < Capybara::Rails::TestCase
 
     login_as(users(:pedro))
     visit root_path
-    assert_content "Directorio de Servicios"
+    assert_content "Catálogo de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
     within ".notifications-box" do
       assert_content 1
@@ -116,7 +116,7 @@ class NotificationsTest < Capybara::Rails::TestCase
 
     login_as(users(:pedro))
     visit root_path
-    assert_content "Directorio de Servicios"
+    assert_content "Catálogo de Servicios"
     assert find(".notifications-box")[:class].include?('with-notifications')
     within ".notifications-box" do
       assert_content 1

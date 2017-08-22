@@ -20,7 +20,7 @@ class GobDigitalUserCanManageSchemasTest < Capybara::Rails::TestCase
 
   test "Loged User can_create_schema can see Nueva Version button" do
     visit schemas_path
-    assert_text 'Directorio de Esquemas'
+    assert_text 'Catálogo de Esquemas'
     click_schema_category 'Zonas'
     assert_text 'Zona Norte'
     click_link 'Zona Norte'
@@ -32,7 +32,7 @@ class GobDigitalUserCanManageSchemasTest < Capybara::Rails::TestCase
 
     login_as users(:pablito), scope: :user
     visit schemas_path
-    assert_text 'Directorio de Esquemas'
+    assert_text 'Catálogo de Esquemas'
     click_schema_category "Zonas"
     assert_text 'Zona Norte'
     click_link 'Zona Norte'
