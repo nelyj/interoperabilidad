@@ -39,7 +39,7 @@ es:
   service_type_notification: Nueva notificacion de Servicios
   agreement_type_notification: Nueva notificacion de Convenios
   service_updated: Servicio actualizado correctamente
-  schema_directory: Directorio de Esquemas
+  schema_directory: Catálogo de Esquemas
   enter_schema_name: Ingresa nombre de Esquema
   enter_new_schema_name: Indica nombre para el esquema
   enter_new_service_name: Indica nombre para el servicio
@@ -65,7 +65,7 @@ es:
   create_service: Crear Servicio
   create_agreement: Crear Nuevo Convenio
   no_results_found: "No se han encontrado resultados"
-  service_directory: Directorio de Servicios
+  service_directory: Catálogo de Servicios
   enter_service_name: "Ingresa nombre de Servicio"
   institution: Institución
   services: Servicios
