@@ -14,14 +14,19 @@ Assuming you have a functional make and docker on your system, you only need to 
 a few credentials for external dependencies:
 
 - OpenID client id and secrets (provided by ClaveUnica.cl for this project)
+- OpenID [issuer](https://openid.net/specs/openid-connect-discovery-1_0.html#IssuerDiscovery) (provided by ClaveUnica.cl)
 - AWS key and secret for S3 storage (you can use your own on development)
 - Document Signer key and secret (provided by SEGPRES for document signing)
 
 Those should be set as environment variables:
 
     $ export OP_CLIENT_ID=<our-clave-unica-client-id> OP_SECRET_KEY=<our-clave-unica-secret>
+    $ export ISSUER_OIDC=https://accounts.claveunica.gob.cl/openid
     $ export AWS_REGION=<aws-region> AWS_ACCESS_KEY_ID=<aws-key-id> AWS_SECRET_ACCESS_KEY=<aws-secret> S3_CODEGEN_BUCKET=<bucket-name>
     $ export SIGNER_API_TOKEN_KEY=<our-signer-key> SIGNER_API_SECRET=<our-signer-secret>
+
+Note: Make sure that ISSUER_OIDC hasn't been changed
+Note 2: If you get `Invalid ID Token` in the call back after Clave Unica Login, this means you have to check `ISSUER_OIDC` value
 
 After those variables are set, you just need to run:
 
@@ -46,6 +51,8 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 - `SECRET_KEY_BASE`: A random string that can be generated via `rails secret`. It should be the *same* for *every* instance running in production.
 
 - `DATABASE_URL`: A pointer to the database (e.g: `postgres://myuser:mypass@localhost/somedatabase`).
+
+- `ISSUER_OIDC`: Open ID issuer resource. By default https://accounts.claveunica.gob.cl/openid. Make sure it hasn't changed
 
 - `OP_CLIENT_ID`: Client ID to authenticate with https://www.claveunica.gob.cl/
 
@@ -101,6 +108,7 @@ Putting it all together, after building the image you can run it like this:
         -e DATABASE_URL=postgres://user:password@host/database \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
+        -e ISSUER_OIDC=https://accounts.claveunica.gob.cl/openid \
         -e OP_CALLBACK_URL=https://production.base.url.com \
         -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
         -e APP_ID=MyAppIdForTheRoleService \
@@ -121,6 +129,7 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
+        -e ISSUER_OIDC=https://accounts.claveunica.gob.cl/openid \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \

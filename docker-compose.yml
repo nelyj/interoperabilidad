@@ -20,6 +20,7 @@ services:
     volumes_from:
       - bundle_cache
     environment:
+      - ISSUER_OIDC=https://accounts.claveunica.gob.cl/openid
       - OP_CLIENT_ID
       - OP_SECRET_KEY
       - AWS_ACCESS_KEY_ID
