@@ -23,9 +23,6 @@ Those should be set as environment variables:
     $ export AWS_REGION=<aws-region> AWS_ACCESS_KEY_ID=<aws-key-id> AWS_SECRET_ACCESS_KEY=<aws-secret> S3_CODEGEN_BUCKET=<bucket-name>
     $ export SIGNER_API_TOKEN_KEY=<our-signer-key> SIGNER_API_SECRET=<our-signer-secret>
 
-Note: Make sure that ISSUER_OIDC hasn't been changed
-Note 2: If you get `Invalid ID Token` in the call back after Clave Unica Login, this means you have to check `ISSUER_OIDC` value
-
 2. Set hostname alias: Must be set the alias `dev.interoperabilidad.digital.gob.cl` in the `/etc/hosts` file with the IP of docker machine. This alias 
 must match the one set in `OP_CALLBACK_URL` to make correctly the login with Clave Unica.
 
