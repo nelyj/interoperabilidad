@@ -23,6 +23,8 @@ Those should be set as environment variables:
     $ export AWS_REGION=<aws-region> AWS_ACCESS_KEY_ID=<aws-key-id> AWS_SECRET_ACCESS_KEY=<aws-secret> S3_CODEGEN_BUCKET=<bucket-name>
     $ export SIGNER_API_TOKEN_KEY=<our-signer-key> SIGNER_API_SECRET=<our-signer-secret>
 
+Note: Make sure that ISSUER_OIDC hasn't been changed
+
 After those variables are set, you just need to run:
 
     $ make
@@ -46,6 +48,8 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 - `SECRET_KEY_BASE`: A random string that can be generated via `rails secret`. It should be the *same* for *every* instance running in production.
 
 - `DATABASE_URL`: A pointer to the database (e.g: `postgres://myuser:mypass@localhost/somedatabase`).
+
+- `ISSUER_OIDC`: Open ID issuer resource. By default https://accounts.claveunica.gob.cl/openid. Make sure it hasn't changed
 
 - `OP_CLIENT_ID`: Client ID to authenticate with https://www.claveunica.gob.cl/
 
@@ -101,6 +105,7 @@ Putting it all together, after building the image you can run it like this:
         -e DATABASE_URL=postgres://user:password@host/database \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
+        -e ISSUER_OIDC=https://accounts.claveunica.gob.cl/openid \
         -e OP_CALLBACK_URL=https://production.base.url.com \
         -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
         -e APP_ID=MyAppIdForTheRoleService \
@@ -121,6 +126,7 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
+        -e ISSUER_OIDC=https://accounts.claveunica.gob.cl/openid \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -187,3 +193,10 @@ On development, the version of the PostgreSQL docker image is specified on the `
 ## Ruby Gems
 
 As with any modern Ruby application, all Ruby libraries used by the application are specified in the `Gemfile` while the specific versions are automatically compiled by the `bundle` command into the `Gemfile.lock` file. If you want to upgrade a particular library while keeping the general specification in the `Gemfile`, use the `bundle update <gem-name>` command. If you want to do a major upgrade of a particular component (for example, migrating to a major version of Rails) you will need to change the `Gemfile`.
+
+
+# Troubleshooting
+
+## Get `Invalid ID Token` in the call back after Clave Unica Login
+
+This means you have to check `ISSUER_OIDC` value, because it could have been modified
