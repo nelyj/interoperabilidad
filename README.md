@@ -10,7 +10,7 @@
 
 Note: Only tested on Mac OS X and Linux so far.
 
-Assuming you have a functional make and docker on your system, you only need to have
+1. Assuming you have a functional make and docker on your system, you only need to have
 a few credentials for external dependencies:
 
 - OpenID client id and secrets (provided by ClaveUnica.cl for this project)
@@ -23,7 +23,16 @@ Those should be set as environment variables:
     $ export AWS_REGION=<aws-region> AWS_ACCESS_KEY_ID=<aws-key-id> AWS_SECRET_ACCESS_KEY=<aws-secret> S3_CODEGEN_BUCKET=<bucket-name>
     $ export SIGNER_API_TOKEN_KEY=<our-signer-key> SIGNER_API_SECRET=<our-signer-secret>
 
-After those variables are set, you just need to run:
+Note: Make sure that ISSUER_OIDC hasn't been changed
+Note 2: If you get `Invalid ID Token` in the call back after Clave Unica Login, this means you have to check `ISSUER_OIDC` value
+
+2. Set hostname alias: Must be set the alias `dev.interoperabilidad.digital.gob.cl` in the `/etc/hosts` file with the IP of docker machine. This alias 
+must match the one set in `OP_CALLBACK_URL` to make correctly the login with Clave Unica.
+
+    $ docker-machine ls # To get the IP address of docker machine
+    $ vi /etc/hosts # To add the new alias dev.interoperabilidad.digital.gob.cl to point the docker ip address
+
+3. After those variables and host alias are set, you just need to run:
 
     $ make
 
