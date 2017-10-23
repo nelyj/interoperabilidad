@@ -23,11 +23,8 @@ Those should be set as environment variables:
     $ export AWS_REGION=<aws-region> AWS_ACCESS_KEY_ID=<aws-key-id> AWS_SECRET_ACCESS_KEY=<aws-secret> S3_CODEGEN_BUCKET=<bucket-name>
     $ export SIGNER_API_TOKEN_KEY=<our-signer-key> SIGNER_API_SECRET=<our-signer-secret>
 
-2. Set hostname alias: You must set the alias `dev.interoperabilidad.digital.gob.cl` in the `/etc/hosts` file with the IP of docker machine. By default
-this alias is config in `OP_CALLBACK_URL` to make correctly the login with Clave Unica.
-
-    $ docker-machine ls # To get the IP address of docker machine
-    $ vi /etc/hosts # To add the new alias dev.interoperabilidad.digital.gob.cl to point the docker ip address
+2. Set hostname alias: You must set the alias `dev.interoperabilidad.digital.gob.cl` in the `/etc/hosts` file with the IP address 127.0.0.1. By default
+this alias is configured in `OP_CALLBACK_URL` to login correctly with Clave Unica.
 
 3. After those variables and host alias are set, you just need to run:
 
