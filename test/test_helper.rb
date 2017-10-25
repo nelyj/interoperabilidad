@@ -15,6 +15,7 @@ Capybara.register_driver :poltergeist do |app|
 end
 Capybara.default_driver = :poltergeist
 require 'capybara-screenshot/minitest'
+Capybara.default_max_wait_time = 4
 
 VALID_SCHEMA_OBJECT = '{
   "type": "object",
