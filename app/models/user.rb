@@ -18,7 +18,7 @@ class User < ApplicationRecord
   APP_ID = ENV['ROLE_APP_ID']
 
   def self.from_omniauth(auth)
-    rut = auth.extra.raw_info.RUT
+    rut = auth.extra.raw_info.RolUnico.numero.to_s + '-' + auth.extra.raw_info.RolUnico.DV
     sub = auth.extra.raw_info.sub
     id_token = auth.credentials.id_token
     new_user = where(rut: rut).first
