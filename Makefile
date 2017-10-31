@@ -3,7 +3,9 @@ SHELL := /bin/bash
 all: build db run
 
 run: build
-	docker-compose up
+	docker-compose up -d sidekiq
+	docker-compose run --service-ports web
+	docker-compose stop sidekiq
 
 build: .built .bundled
 
