@@ -1,0 +1,2 @@
+class ServiceVersionHealthCheck < ApplicationRecord
+end

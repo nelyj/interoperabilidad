@@ -327,4 +327,8 @@ class ServiceVersion < ApplicationRecord
     end
     resolved_path
   end
+
+  def perform_health_check!
+    raise NotImplementedError # TODO
+  end
 end

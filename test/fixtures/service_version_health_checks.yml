@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_version: 
+  http_status: 1
+  status_code: 1
+  status_message: MyString
+  custom_status_message: MyString
+
+two:
+  service_version: 
+  http_status: 1
+  status_code: 1
+  status_message: MyString
+  custom_status_message: MyString
