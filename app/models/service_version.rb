@@ -13,6 +13,7 @@ class ServiceVersion < ApplicationRecord
   validate :spec_file_must_be_parseable
   attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
+  after_save :schedule_health_checks
   after_create :create_new_notification
   after_create :retract_proposed
   delegate :name, to: :service
@@ -62,7 +63,7 @@ class ServiceVersion < ApplicationRecord
   end
 
   def update_search_metadata
-    service.update_search_metadata if status == "current"
+    service.update_search_metadata if current?
   end
 
   def make_current_version
@@ -365,5 +366,34 @@ class ServiceVersion < ApplicationRecord
       status_code: -1,
       status_message: "Connection refused. Exception: #{e.inspect}"
     )
+  end
+
+  def scheduled_health_check_job_name
+    "#{organization.name} / #{name} r#{version_number}"
+  end
+
+  # Should return the health check frequency using cron syntax
+  def scheduled_health_check_frequency
+    '* * * * *' # Every minute for now. We should make it configurable later on.
+  end
+
+  def scheduled_health_check_job
+    Sidekiq::Cron::Job.find(scheduled_health_check_job_name)
+  end
+
+  def schedule_health_checks
+    if current?
+      unless scheduled_health_check_job.present?
+        created = Sidekiq::Cron::Job.create(
+          name: scheduled_health_check_job_name,
+          cron: scheduled_health_check_frequency,
+          class: 'ServiceVersionMonitorWorker',
+          args: [self.id]
+        )
+        Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}" unless created
+      end
+    else
+      scheduled_health_check_job&.destroy
+    end
   end
 end

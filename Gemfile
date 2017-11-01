@@ -58,6 +58,7 @@ gem 'poltergeist'
 
 gem 'json-jwt'
 gem 'sidekiq'
+gem "sidekiq-cron"
 
 group :test do
   gem 'minitest-rails-capybara', '~> 3.0.0'

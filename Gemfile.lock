@@ -90,6 +90,8 @@ GEM
     domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
+    et-orbi (1.0.8)
+      tzinfo
     execjs (2.7.0)
     ffi (1.9.10)
     font-awesome-rails (4.6.3.1)
@@ -247,6 +249,8 @@ GEM
     ruby_parser (3.8.2)
       sexp_processor (~> 4.1)
     rubyzip (1.2.0)
+    rufus-scheduler (3.4.2)
+      et-orbi (~> 1.0)
     s3 (0.3.24)
       proxies (~> 0.2.0)
     sass (3.4.22)
@@ -263,6 +267,9 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.4, < 5)
+    sidekiq-cron (0.6.3)
+      rufus-scheduler (>= 3.3.0)
+      sidekiq (>= 4.2.1)
     simplecov (0.12.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -366,6 +373,7 @@ DEPENDENCIES
   s3
   sass-rails (~> 5.0)
   sidekiq
+  sidekiq-cron
   spring
   spring-watcher-listen (~> 2.0.0)
   therubyracer
