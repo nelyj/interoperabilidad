@@ -17,6 +17,7 @@ class ServiceVersion < ApplicationRecord
   after_create :retract_proposed
   delegate :name, to: :service
   delegate :organization, to: :service
+  has_many :service_version_health_checks
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   #
@@ -328,7 +329,41 @@ class ServiceVersion < ApplicationRecord
     resolved_path
   end
 
+  def monitor_url
+    base_url + '/monitor'
+  end
+
+  def health_check_response
+    RestClient.get(monitor_url)
+  rescue RestClient::Exception => e
+    e.response
+  end
+
   def perform_health_check!
-    raise NotImplementedError # TODO
+    response = health_check_response
+    plain_body = response.body
+    json_body = JSON.parse(plain_body) rescue nil
+    if json_body
+      service_version_health_checks.create!(
+        http_status: response.code,
+        http_response: plain_body,
+        status_code: json_body['codigo_estado'],
+        status_message: json_body['msj_estado'],
+        custom_status_message: json_body['desc_personalizada_estado'],
+      )
+    else
+      service_version_health_checks.create!(
+        http_status: response.code,
+        http_response: plain_body,
+        status_code: -1,
+        status_message: "Not a JSON response: #{plain_body.inspect}"
+      )
+    end
+  rescue Errno::ECONNREFUSED => e
+    service_version_health_checks.create!(
+      http_status: -1,
+      status_code: -1,
+      status_message: "Connection refused. Exception: #{e.inspect}"
+    )
   end
 end

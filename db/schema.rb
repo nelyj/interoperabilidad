@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031192555) do
+ActiveRecord::Schema.define(version: 20171031235736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20171031192555) do
     t.string   "custom_status_message"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.text     "http_response"
     t.index ["service_version_id"], name: "index_service_version_health_checks_on_service_version_id", using: :btree
   end
 
