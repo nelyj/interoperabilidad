@@ -345,13 +345,23 @@ class ServiceVersion < ApplicationRecord
     plain_body = response.body
     json_body = JSON.parse(plain_body) rescue nil
     if json_body
-      service_version_health_checks.create!(
-        http_status: response.code,
-        http_response: plain_body,
-        status_code: json_body['codigo_estado'],
-        status_message: json_body['msj_estado'],
-        custom_status_message: json_body['desc_personalizada_estado'],
-      )
+      required_keys = %w(codigo_estado msj_estado desc_personalizada_estado)
+      if required_keys.all? { |k| json_body.has_key?(k) }
+        service_version_health_checks.create!(
+          http_status: response.code,
+          http_response: plain_body,
+          status_code: json_body['codigo_estado'],
+          status_message: json_body['msj_estado'],
+          custom_status_message: json_body['desc_personalizada_estado'],
+        )
+      else
+        service_version_health_checks.create!(
+          http_status: response.code,
+          http_response: plain_body,
+          status_code: -1,
+          status_message: "Respuesta en formato incorrecto: #{plain_body.inspect}",
+        )
+      end
     else
       service_version_health_checks.create!(
         http_status: response.code,
