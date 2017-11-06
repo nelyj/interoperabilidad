@@ -159,6 +159,83 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert !open(url).read.nil?
   end
 
+  test 'perform_health_check with a healthy response' do
+    service_version = service_versions(:servicio1_v3)
+    response_mock = Minitest::Mock.new
+    response_mock.expect :code, 200
+    response_body = {
+      codigo_estado: 200,
+      msj_estado: 'OK',
+      desc_personalizada_estado: 'Everything is just peachy'
+    }.to_json
+    response_mock.expect :body, response_body
+    service_version.stub :health_check_response, response_mock do
+      service_version.perform_health_check!
+    end
+    assert_mock response_mock
+    last_check = service_version.service_version_health_checks.last
+    assert_equal 200, last_check.http_status
+    assert_equal response_body, last_check.http_response
+    assert_equal 200, last_check.status_code
+    assert_equal 'OK', last_check.status_message
+    assert_equal 'Everything is just peachy', last_check.custom_status_message
+  end
+
+  test 'perform_health_check with a error response' do
+    service_version = service_versions(:servicio1_v3)
+    response_mock = Minitest::Mock.new
+    response_mock.expect :code, 500
+    response_body = {
+      codigo_estado: 500,
+      msj_estado: 'Server Error',
+      desc_personalizada_estado: 'Cannot connect to the database'
+    }.to_json
+    response_mock.expect :body, response_body
+    service_version.stub :health_check_response, response_mock do
+      service_version.perform_health_check!
+    end
+    assert_mock response_mock
+    last_check = service_version.service_version_health_checks.last
+    assert_equal 500, last_check.http_status
+    assert_equal response_body, last_check.http_response
+    assert_equal 500, last_check.status_code
+    assert_equal 'Server Error', last_check.status_message
+    assert_equal 'Cannot connect to the database', last_check.custom_status_message
+  end
+
+  test 'perform_health_check with response without the required json fields ' do
+    service_version = service_versions(:servicio1_v3)
+    response_mock = Minitest::Mock.new
+    response_mock.expect :code, 200
+    response_body = {
+      codigo_estado: 200,
+    }.to_json
+    response_mock.expect :body, response_body
+    service_version.stub :health_check_response, response_mock do
+      service_version.perform_health_check!
+    end
+    assert_mock response_mock
+    last_check = service_version.service_version_health_checks.last
+    assert_equal 200, last_check.http_status
+    assert_equal response_body, last_check.http_response
+    assert_equal(-1, last_check.status_code)
+    assert last_check.status_message.starts_with? "Respuesta en formato incorrecto"
+    assert_nil last_check.custom_status_message
+  end
+
+  test 'perform_health_check without a response at all' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.stub :health_check_response, -> { raise Errno::ECONNREFUSED.new } do
+      service_version.perform_health_check!
+    end
+    last_check = service_version.service_version_health_checks.last
+    assert_equal(-1, last_check.http_status)
+    assert_nil last_check.http_response
+    assert_equal(-1, last_check.status_code)
+    assert_not_nil last_check.status_message
+    assert_nil last_check.custom_status_message
+  end
+
   test ".make_current_version take a proposed version an makes it approved and send a notification" do
     #def make_current_version
     #self.current!

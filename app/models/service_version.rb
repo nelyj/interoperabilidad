@@ -13,10 +13,12 @@ class ServiceVersion < ApplicationRecord
   validate :spec_file_must_be_parseable
   attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
+  after_save :schedule_health_checks
   after_create :create_new_notification
   after_create :retract_proposed
   delegate :name, to: :service
   delegate :organization, to: :service
+  has_many :service_version_health_checks
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   #
@@ -61,7 +63,7 @@ class ServiceVersion < ApplicationRecord
   end
 
   def update_search_metadata
-    service.update_search_metadata if status == "current"
+    service.update_search_metadata if current?
   end
 
   def make_current_version
@@ -326,5 +328,82 @@ class ServiceVersion < ApplicationRecord
       resolved_path.gsub!("{#{name}}", URI.escape(value.to_s))
     end
     resolved_path
+  end
+
+  def monitor_url
+    base_url + '/monitor'
+  end
+
+  def health_check_response
+    RestClient.get(monitor_url)
+  rescue RestClient::Exception => e
+    e.response
+  end
+
+  def perform_health_check!
+    response = health_check_response
+    plain_body = response.body
+    json_body = JSON.parse(plain_body) rescue nil
+    if json_body
+      required_keys = %w(codigo_estado msj_estado desc_personalizada_estado)
+      if required_keys.all? { |k| json_body.has_key?(k) }
+        service_version_health_checks.create!(
+          http_status: response.code,
+          http_response: plain_body,
+          status_code: json_body['codigo_estado'],
+          status_message: json_body['msj_estado'],
+          custom_status_message: json_body['desc_personalizada_estado'],
+        )
+      else
+        service_version_health_checks.create!(
+          http_status: response.code,
+          http_response: plain_body,
+          status_code: -1,
+          status_message: "Respuesta en formato incorrecto: #{plain_body.inspect}",
+        )
+      end
+    else
+      service_version_health_checks.create!(
+        http_status: response.code,
+        http_response: plain_body,
+        status_code: -1,
+        status_message: "Not a JSON response: #{plain_body.inspect}"
+      )
+    end
+  rescue Errno::ECONNREFUSED => e
+    service_version_health_checks.create!(
+      http_status: -1,
+      status_code: -1,
+      status_message: "Connection refused. Exception: #{e.inspect}"
+    )
+  end
+
+  def scheduled_health_check_job_name
+    "#{organization.name} / #{name} r#{version_number}"
+  end
+
+  # Should return the health check frequency using cron syntax
+  def scheduled_health_check_frequency
+    '* * * * *' # Every minute for now. We should make it configurable later on.
+  end
+
+  def scheduled_health_check_job
+    Sidekiq::Cron::Job.find(scheduled_health_check_job_name)
+  end
+
+  def schedule_health_checks
+    if current?
+      unless scheduled_health_check_job.present?
+        created = Sidekiq::Cron::Job.create(
+          name: scheduled_health_check_job_name,
+          cron: scheduled_health_check_frequency,
+          class: 'ServiceVersionMonitorWorker',
+          args: [self.id]
+        )
+        Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}" unless created
+      end
+    else
+      scheduled_health_check_job&.destroy
+    end
   end
 end

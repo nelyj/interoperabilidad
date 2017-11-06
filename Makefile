@@ -3,7 +3,9 @@ SHELL := /bin/bash
 all: build db run
 
 run: build
-	docker-compose up
+	docker-compose up -d sidekiq
+	docker-compose run --service-ports web
+	docker-compose stop sidekiq
 
 build: .built .bundled
 
@@ -20,17 +22,6 @@ stop:
 
 restart: build
 	docker-compose restart web
-
-mac-open:
-	$(shell \
-				IP=`docker-machine ip default` ;\
-				PORT=`docker-compose port web 3000 | cut -d: -f2` ;\
-				if [ "$$PORT" == "" ] ;\
-				then echo "@echo 'App NOT running. Check the logs'" ;\
-				else echo "open http://$${IP}:$${PORT}" ;\
-				fi)
-
-
 
 clean: stop
 	rm -f tmp/pids/*
@@ -56,4 +47,4 @@ db: build
 production-build: Dockerfile.production
 	docker build  -f Dockerfile.production  -t egob/interoperabilidad  .
 
-.PHONY: all run build stop restart mac-open clean test ptest logs db production-build
+.PHONY: all run build stop restart clean test ptest logs db production-build

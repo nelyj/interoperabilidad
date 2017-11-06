@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831151002) do
+ActiveRecord::Schema.define(version: 20171031235736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,18 @@ ActiveRecord::Schema.define(version: 20160831151002) do
     t.string   "humanized_name"
     t.index ["lexemes"], name: "schemas_lexemes_idx", using: :gin
     t.index ["name"], name: "index_schemas_on_name", using: :btree
+  end
+
+  create_table "service_version_health_checks", force: :cascade do |t|
+    t.integer  "service_version_id"
+    t.integer  "http_status"
+    t.integer  "status_code"
+    t.string   "status_message"
+    t.string   "custom_status_message"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.text     "http_response"
+    t.index ["service_version_id"], name: "index_service_version_health_checks_on_service_version_id", using: :btree
   end
 
   create_table "service_versions", force: :cascade do |t|
