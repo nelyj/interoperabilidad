@@ -1,0 +1,66 @@
+swagger: '2.0'
+info:
+  description: |
+    Este es un ejemplo complejo para Interoperabilidad 
+  version: 0.0.1
+  title: Servicio Complejo de Referencia
+  contact:
+    email: contacto@interoperabilidad.digital.gob.cl
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+schemes:
+  - http
+host: 172.16.0.110:9494
+basePath: /complex_example
+
+paths:
+  /personas:
+    get:
+      summary: Listado de personas
+      operationId: peopleIndex
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/people'
+
+definitions:
+  nombreyapellido:
+    type: object
+    required:
+      - nombres
+      - apellidos
+    properties:
+      nombres:
+        type: string
+      apellidos:
+        type: string
+  telefono:
+    type: number
+    minimum: 111111
+  datos:
+    type: object
+    properties:
+      telefonos:
+        type: array
+        items:
+          $ref: '#/definitions/telefono'
+      email:
+        type: string
+        format: email
+  people:
+    type: object
+    required:
+      - persona
+    properties:
+      persona:
+        $ref: '#/definitions/nombreyapellido'
+      datos:
+        $ref: '#/definitions/datos'
