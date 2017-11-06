@@ -6,6 +6,7 @@ class ComplexExampleTest < Capybara::Rails::TestCase
   after { Warden.test_reset! }
 
   test "complex service" do
+    skip("Skiped because use external rest service")
     swagger = YAML.load_file("#{Rails.root}/test/files/sample-services/ComplexExample.yaml")
     url_complex_example = swagger['host']+swagger['basePath']+swagger['paths'].keys.first
     visit "#{swagger['schemes'].first}://#{url_complex_example}"
