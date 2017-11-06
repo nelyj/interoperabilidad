@@ -11,7 +11,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 schemes:
   - http
-host: 172.16.0.110:9494
+host: complex-service-interop.herokuapp.com
 basePath: /complex_example
 
 paths:
