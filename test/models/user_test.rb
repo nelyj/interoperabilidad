@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
     user = users(:perico)
     segpres = organizations(:segpres)
     auth = Hashie::Mash.new(
-      extra: {raw_info: {"RUT" => "22.222.222-2", "sub" => "8", "nombres" => "Perico", "apellidoPaterno" => "de los", "apellidoMaterno" => "Palotes"}},
+      extra: {raw_info: {RolUnico: {"numero" => 22222222, "DV" => "2", "tipo" => "RUN"}, "sub" => "8", name:{"nombres" => ["Perico"], "apellidos" => ["de", "los", "Palotes"]}}},
       credentials: {id_token: "ASDF"}
     )
     user.refresh_user_roles_and_email(auth.extra.raw_info)
@@ -17,7 +17,7 @@ class UserTest < ActiveSupport::TestCase
 
   test '.from_omniauth sets Auth params to new user' do
     auth = Hashie::Mash.new(
-      extra: {raw_info: {"RUT" => "55.555.555-5", "sub" => "8", "nombres" => "Perico", "apellidoPaterno" => "de los", "apellidoMaterno" => "Palotes"}},
+      extra: {raw_info: {RolUnico:{"numero" => 55555555, "DV" => "5", "tipo" => "RUN"}, "sub" => "8", name:{"nombres" => ["Perico"], "apellidos" => ["de", "los", "Palotes"]}}},
       credentials: {id_token: "ASDF"}
     )
     User.from_omniauth(auth)
@@ -34,7 +34,7 @@ class UserTest < ActiveSupport::TestCase
 
   test '.from_omniauth sets Auth params to existing user' do
     auth = Hashie::Mash.new(
-      extra: {raw_info: {"RUT" => "11.111.111-1", "sub" => "8", "nombres" => "Perico", "apellidoPaterno" => "de los", "apellidoMaterno" => "Palotes"}},
+      extra: {raw_info: {RolUnico:{"numero" => 11111111, "DV" => "1", "tipo" => "RUN"}, "sub" => "8", name:{"nombres" => ["Perico"], "apellidos" => ["de", "los", "Palotes"]}}},
       credentials: {id_token: "ASDF"}
     )
     user = User.where(rut: "11.111.111-1").first
