@@ -16,6 +16,10 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
   end
 
   test "complex service example" do
+
+    # TODO: Add external request mock
+    skip("Skiped because use external rest service")
+
     attach_file 'service_spec_file', Rails.root.join(
       'test', 'files', 'sample-services', 'ComplexExample.yaml')
 
