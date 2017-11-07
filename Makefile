@@ -15,7 +15,7 @@ build: .built .bundled
 	touch .built
 
 .bundled: Gemfile Gemfile.lock
-	voltos run 'docker-compose run web bundle'
+	docker-compose run web bundle
 	touch .bundled
 
 stop:
