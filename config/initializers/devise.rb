@@ -242,7 +242,7 @@ Devise.setup do |config|
   OmniAuth.config.full_host = ENV["OP_CALLBACK_URL"]
   config.omniauth :openid_connect, {
     name: :clave_unica,
-    scope: [:openid, :nombre],
+    scope: [:openid, :run, :name],
     response_type: :code,
     discovery: true,
     send_nonce: false,

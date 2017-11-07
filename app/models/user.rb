@@ -18,7 +18,7 @@ class User < ApplicationRecord
   APP_ID = ENV['ROLE_APP_ID']
 
   def self.from_omniauth(auth)
-    rut = auth.extra.raw_info.RUT
+    rut = self.rut_with_separator(auth.extra.raw_info.RolUnico)
     sub = auth.extra.raw_info.sub
     id_token = auth.credentials.id_token
     new_user = where(rut: rut).first
@@ -29,6 +29,11 @@ class User < ApplicationRecord
     end
     new_user.refresh_user_roles_and_email(auth.extra.raw_info)
     new_user
+  end
+
+  def self.rut_with_separator(rut_object)
+    rut = rut_object.numero.to_s.reverse.scan(/\d{3}|.+/).join(".").reverse
+    rut + "-" + rut_object.DV
   end
 
   def refresh_user_roles_and_email(raw_info)
@@ -48,7 +53,7 @@ class User < ApplicationRecord
     self.roles.delete_all
     self.can_create_schemas = false
     if response.nil? || response.has_key?('nada')
-      self.name = raw_info.nombres + ' ' + raw_info.apellidoPaterno + ' ' + raw_info.apellidoMaterno
+      self.name = raw_info.name.nombres.join(' ') + ' ' + raw_info.name.apellidos.join(' ')
     else
       self.name = refresh_name(response['nombre'])
       response['instituciones'].each do |organization|
