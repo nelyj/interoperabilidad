@@ -15,7 +15,7 @@ module App
     config.assets.precompile += %w( .svg .eot .woff .woff2 .ttf )
 
     config.action_mailer.default_url_options = { host: ENV['APP_HOST_URL']}
-
+    config.active_job.queue_adapter = :sidekiq
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'

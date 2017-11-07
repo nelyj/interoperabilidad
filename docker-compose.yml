@@ -4,19 +4,19 @@ services:
     image: postgres:9.5.3
     ports:
       - "5432"
-  web:
-    tty: true
-    stdin_open: true
+  redis:
+    image: redis:3.2.9
+    ports:
+      - "6379"
+  base: &base
     build:
       context: .
       dockerfile: Dockerfile.development
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - .:/app
-    ports:
-      - "80:3000"
     depends_on:
       - postgres
+      - redis
     volumes_from:
       - bundle_cache
     environment:
@@ -40,6 +40,17 @@ services:
       - SMTP_SECRET=secret
       - MINSEGPRES_DIPRES_ID=AB01
       - SIGNER_APP_HOST=http://proxy-banco.modernizacion.gob.cl
+      - REDIS_URL=redis://redis
+  web:
+    <<: *base
+    tty: true
+    stdin_open: true
+    ports:
+      - "80:3000"
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  sidekiq:
+    <<: *base
+    command: bundle exec sidekiq -C ./config/sidekiq.yml
   bundle_cache:
     image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
     volumes:

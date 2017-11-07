@@ -40,7 +40,9 @@ this alias is configured in `OP_CALLBACK_URL` to login correctly with Clave Unic
 
 Note: The database migrations assumes that your postgres image have installed the "unaccent" extension, if you don't have it, install the postgresql-contrib package.
 
-If you are on Mac OS X, you can now run `make mac-open` to auto-discover the IP of your docker machine and open a browser pointing to the web server. (If it doesn't work, take a look at the output of make and if everything looks OK then check `log/development.log` and `docker-compose logs` to debug the web application itself)
+ Open http://dev.interoperabilidad.digital.gob.cl and you should see the application.
+
+ If it doesn't work, take a look at the output of make and if everything looks OK then check `log/development.log` and `docker-compose logs` to debug the web application itself.
 
 # Production Setup
 
@@ -49,6 +51,8 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 - `SECRET_KEY_BASE`: A random string that can be generated via `rails secret`. It should be the *same* for *every* instance running in production.
 
 - `DATABASE_URL`: A pointer to the database (e.g: `postgres://myuser:mypass@localhost/somedatabase`).
+
+- `REDIS_URL`: A pointer to the Redis instance (e.g: `redis://myuser:mypass@redis-host:6379`)
 
 - `OP_CLIENT_ID`: Client ID to authenticate with https://www.claveunica.gob.cl/
 
@@ -102,6 +106,7 @@ Putting it all together, after building the image you can run it like this:
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -124,6 +129,7 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -186,6 +192,11 @@ A customized version of the nodejs sway packaged is used. The specific repositor
 ## PostgreSQL
 
 On development, the version of the PostgreSQL docker image is specified on the `postgresql` service inside `docker-compose.yml`. If a new version is going to be run in production, the development version should also be changed there.
+
+## Redis
+
+On development, the version of the Redis docker image is specified on the `redis` service inside `docker-compose.yml`. If a new version is going to be run in production, the development version should also be changed there.
+
 
 ## Ruby Gems
 
