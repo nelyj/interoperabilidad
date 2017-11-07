@@ -3,8 +3,9 @@ SHELL := /bin/bash
 all: build db run
 
 run: build
-	docker-compose up -d sidekiq
-	docker-compose run --service-ports web
+	voltos use gobdigital-interoperabilidad
+	voltos run 'docker-compose up -d sidekiq'
+	voltos run 'docker-compose run --service-ports web'
 	docker-compose stop sidekiq
 
 build: .built .bundled
@@ -14,14 +15,14 @@ build: .built .bundled
 	touch .built
 
 .bundled: Gemfile Gemfile.lock
-	docker-compose run web bundle
+	voltos run 'docker-compose run web bundle'
 	touch .bundled
 
 stop:
-	docker-compose stop
+	docker-compose stop && if [ $( ls ./tmp/pids/server.pid ) ]; then rm ./tmp/pids/server.pid; fi
 
 restart: build
-	docker-compose restart web
+	voltos run 'docker-compose restart web'
 
 clean: stop
 	rm -f tmp/pids/*
@@ -29,6 +30,9 @@ clean: stop
 	rm -f .bundled
 	docker-compose rm -f
 	rm -f .built
+
+vtest: build db
+	voltos run 'docker-compose run web rails test'
 
 test: build db
 	docker-compose run web rails test

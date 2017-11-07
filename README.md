@@ -5,13 +5,14 @@
 - Docker
 - Make
 - An [editorconfig](http://editorconfig.org) plugin for your editor of choice.
+- Voltos for the shared ENV variables.
 
 ## First run
 
 Note: Only tested on Mac OS X and Linux so far.
 
 1. Assuming you have a functional make and docker on your system, you only need to have
-a few credentials for external dependencies:
+a few credentials for external dependencies (Or use Voltos):
 
 - OpenID client id and secrets (provided by ClaveUnica.cl for this project)
 - AWS key and secret for S3 storage (you can use your own on development)
@@ -154,7 +155,7 @@ The building steps run by the CI pipeline (which is assumed to have a functional
 
     $ make build
     $ make db
-    $ make test
+    $ make test / vtest (if you are using voltos)
 
 If all the above passes without errors the following steps are followed to build the docker image and push it to DockerHub:
 
