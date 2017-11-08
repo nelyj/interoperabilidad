@@ -13,7 +13,7 @@ Note: Only tested on Mac OS X and Linux so far.
 
 1. If you are using voltos, the firs step is to run `voltos use gobdigital-interoperabilidad` inside the project root folder.
 
-- To do things more simple, you can create a function inside your `.bashrc` or `.bashrc.local`
+- To do things more simple, you can create a function inside your `.bashrc` or `.bashrc.local` and replace make with vmake in every command.
 
     function vmake(){
         voltos run make $1;
