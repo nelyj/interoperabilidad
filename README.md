@@ -106,7 +106,7 @@ Putting it all together, after building the image you can run it like this:
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -130,7 +130,7 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
     $ docker run \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -154,7 +154,7 @@ The web containers will enqueue background jobs into a queue stored in redis. In
     $ docker run \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
