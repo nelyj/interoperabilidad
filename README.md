@@ -5,13 +5,22 @@
 - Docker
 - Make
 - An [editorconfig](http://editorconfig.org) plugin for your editor of choice.
+- Voltos for the shared ENV variables.
 
 ## First run
 
 Note: Only tested on Mac OS X and Linux so far.
 
+1. If you are using voltos, the firs step is to run `voltos use gobdigital-interoperabilidad` inside the project root folder.
+
+- To do things more simple, you can create a function inside your `.bashrc` or `.bashrc.local` and replace make with vmake in every command.
+
+    function vmake(){
+        voltos run make $1;
+    }
+
 1. Assuming you have a functional make and docker on your system, you only need to have
-a few credentials for external dependencies:
+a few credentials for external dependencies (Or use Voltos):
 
 - OpenID client id and secrets (provided by ClaveUnica.cl for this project)
 - AWS key and secret for S3 storage (you can use your own on development)
@@ -106,7 +115,7 @@ Putting it all together, after building the image you can run it like this:
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -123,13 +132,14 @@ Putting it all together, after building the image you can run it like this:
 
 ## Deployment
 
+### Run database migrations as first step
+
 In addition to pulling the latest `egob/interoperabilidad` image from dockerhub and pointing the web load balancer to containers running the new image (as described above), a new release might include database changes. Those changes must be executed **before** spinning the new containers, and you can do that using the same new image but with a explicit `bundle exec rake db:create db:migrate` command. Here is a full command line example:
 
     $ docker run \
-        -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -145,6 +155,32 @@ In addition to pulling the latest `egob/interoperabilidad` image from dockerhub 
         bundle exec rake db:create db:migrate
 
 You can also add the `--rm` flag to this command to remove this disposable container right after it executes.
+
+### Run workers separate from the web containers
+
+The web containers will enqueue background jobs into a queue stored in redis. In order to process this queue, one or more worker processes must be run. The worker processes can be run using the same docker image but with a explicit `bundle exec sidekiq` command. Here is a full command line example:
+
+    $ docker run \
+        -e SECRET_KEY_BASE=myprecioussecret \
+        -e DATABASE_URL=postgres://user:password@host/database \
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
+        -e OP_CLIENT_ID=MyClaveUnicaClientId \
+        -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
+        -e OP_CALLBACK_URL=https://production.base.url.com \
+        -e ROLE_SERVICE_URL=https://base.url.for.the.role.service.com \
+        -e APP_ID=MyAppIdForTheRoleService \
+        -e ROLLBAR_ACCESS_TOKEN=MyAccessTokenForRollbar \
+        -e AWS_REGION=my-default-aws-region-for-s3 \
+        -e AWS_ACCESS_KEY_ID=MyAWSAccessKeyId \
+        -e AWS_SECRET_ACCESS_KEY=MyAWSSecretAccessKey \
+        -e S3_CODEGEN_BUCKET=my-s3-bucket \
+        # Etc, etc, more env variables here \
+        egob/interoperabilidad \
+        bundle exec sidekiq
+
+### Run the web containers
+
+Don't forget to run the docker image with all the env variablaes and without special command in one or more machines and point a load balancer to it :).
 
 ### Details
 
