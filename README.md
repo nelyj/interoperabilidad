@@ -115,7 +115,7 @@ Putting it all together, after building the image you can run it like this:
         -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -137,10 +137,9 @@ Putting it all together, after building the image you can run it like this:
 In addition to pulling the latest `egob/interoperabilidad` image from dockerhub and pointing the web load balancer to containers running the new image (as described above), a new release might include database changes. Those changes must be executed **before** spinning the new containers, and you can do that using the same new image but with a explicit `bundle exec rake db:create db:migrate` command. Here is a full command line example:
 
     $ docker run \
-        -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -159,13 +158,12 @@ You can also add the `--rm` flag to this command to remove this disposable conta
 
 ### Run workers separate from the web containers
 
-The web containers will enqueue background jobs into a queue stored in redis. In order to process this queue, one or more worker processes must be run. The worker processes can be run using the same docker image but with a explicit `bundle exec sidekiq -C ./config/sidekiq.yml` command. Here is a full command line example:
+The web containers will enqueue background jobs into a queue stored in redis. In order to process this queue, one or more worker processes must be run. The worker processes can be run using the same docker image but with a explicit `bundle exec sidekiq` command. Here is a full command line example:
 
     $ docker run \
-        -p 8888:80 \
         -e SECRET_KEY_BASE=myprecioussecret \
         -e DATABASE_URL=postgres://user:password@host/database \
-        -e REDIS_URL=redis://myuser:mypass@redis-host:6379
+        -e REDIS_URL=redis://myuser:mypass@redis-host:6379 \
         -e OP_CLIENT_ID=MyClaveUnicaClientId \
         -e OP_SECRET_KEY=MyClaveUnicaSecretKey \
         -e OP_CALLBACK_URL=https://production.base.url.com \
@@ -178,7 +176,7 @@ The web containers will enqueue background jobs into a queue stored in redis. In
         -e S3_CODEGEN_BUCKET=my-s3-bucket \
         # Etc, etc, more env variables here \
         egob/interoperabilidad \
-        bundle exec sidekiq -C ./config/sidekiq.yml
+        bundle exec sidekiq
 
 ### Run the web containers
 
