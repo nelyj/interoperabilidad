@@ -11,6 +11,14 @@
 
 Note: Only tested on Mac OS X and Linux so far.
 
+1. If you are using voltos, the firs step is to run `voltos use gobdigital-interoperabilidad` inside the project root folder.
+
+- To do things more simple, you can create a function inside your `.bashrc` or `.bashrc.local`
+
+    function vmake(){
+        voltos run make $1;
+    }
+
 1. Assuming you have a functional make and docker on your system, you only need to have
 a few credentials for external dependencies (Or use Voltos):
 

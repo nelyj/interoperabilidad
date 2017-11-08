@@ -3,9 +3,8 @@ SHELL := /bin/bash
 all: build db run
 
 run: build
-	voltos use gobdigital-interoperabilidad
-	voltos run 'docker-compose up -d sidekiq'
-	voltos run 'docker-compose run --service-ports web'
+	docker-compose up -d sidekiq
+	docker-compose run --service-ports web
 	docker-compose stop sidekiq
 
 build: .built .bundled
@@ -22,7 +21,7 @@ stop:
 	docker-compose stop && if [ $( ls ./tmp/pids/server.pid ) ]; then rm ./tmp/pids/server.pid; fi
 
 restart: build
-	voltos run 'docker-compose restart web'
+    docker-compose restart web
 
 clean: stop
 	rm -f tmp/pids/*
@@ -32,7 +31,7 @@ clean: stop
 	rm -f .built
 
 vtest: build db
-	voltos run 'docker-compose run web rails test'
+	docker-compose run web rails test
 
 test: build db
 	docker-compose run web rails test
