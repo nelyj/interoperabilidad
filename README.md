@@ -149,7 +149,7 @@ You can also add the `--rm` flag to this command to remove this disposable conta
 
 ### Run workers separate from the web containers
 
-The web containers will enqueue background jobs into a queue stored in redis. In order to process this queue, one or more worker processes must be run. The worker processes can be run using the same docker image but with a explicit `bundle exec sidekiq -C ./config/sidekiq.yml` command. Here is a full command line example:
+The web containers will enqueue background jobs into a queue stored in redis. In order to process this queue, one or more worker processes must be run. The worker processes can be run using the same docker image but with a explicit `bundle exec sidekiq` command. Here is a full command line example:
 
     $ docker run \
         -e SECRET_KEY_BASE=myprecioussecret \
