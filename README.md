@@ -163,7 +163,7 @@ The building steps run by the CI pipeline (which is assumed to have a functional
 
     $ make build
     $ make db
-    $ make test / vtest (if you are using voltos)
+    $ make test
 
 If all the above passes without errors the following steps are followed to build the docker image and push it to DockerHub:
 

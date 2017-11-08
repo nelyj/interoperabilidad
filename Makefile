@@ -30,9 +30,6 @@ clean: stop
 	docker-compose rm -f
 	rm -f .built
 
-vtest: build db
-	docker-compose run web rails test
-
 test: build db
 	docker-compose run web rails test
 
