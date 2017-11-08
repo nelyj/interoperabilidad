@@ -21,7 +21,7 @@ stop:
 	docker-compose stop && if [ $( ls ./tmp/pids/server.pid ) ]; then rm ./tmp/pids/server.pid; fi
 
 restart: build
-    docker-compose restart web
+	docker-compose restart web
 
 clean: stop
 	rm -f tmp/pids/*
