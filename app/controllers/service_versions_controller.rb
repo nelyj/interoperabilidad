@@ -89,7 +89,7 @@ class ServiceVersionsController < ApplicationController
       params[:path_params].try(:to_unsafe_h) || {},
       params[:query_params].try(:to_unsafe_h) || {},
       (params[:header_params].try(:to_unsafe_h) || {}).merge!(additional_headers),
-      params[:body_params].try(:to_unsafe_h).to_json
+      params[:body_params].try(:to_unsafe_h)
     ).to_s
   rescue Exception => e
     render plain: (t(:error_while_invoking_service) + ":\n\t" +  e.to_s)

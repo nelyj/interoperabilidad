@@ -17,9 +17,6 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
 
   test "complex service example" do
 
-    # TODO: Add external request mock
-    skip("Skiped because use external rest service")
-
     attach_file 'service_spec_file', Rails.root.join(
       'test', 'files', 'sample-services', 'ComplexExample.yaml')
 
@@ -35,5 +32,42 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
     end
 
   end
+
+  test "complex service post example" do
+
+    attach_file 'service_spec_file', Rails.root.join(
+      'test', 'files', 'sample-services', 'ComplexExample.yaml')
+
+    click_button "Crear Servicio"
+    assert_content page, "Servicio creado correctamente"
+
+    find('a .btn-status.full.success').click
+
+    assert_content page, "Crear persona"
+
+    click_button "Probar Servicio"
+
+    within ".console" do  
+
+      page.execute_script('$("#consoleForm a[data-toggle=\"collapse-next\"]").click()')
+
+      fill_in 'nombres', :with => "Jose"
+      fill_in 'apellidos', :with => "Altuve"
+      fill_in 'email', :with => "jaltuve@dominio.com"
+
+      find('.add-element').click
+
+      fill_in 'numero', :with => "77777777"
+
+      click_button "Enviar"
+
+      assert_content 'Respuesta'
+      assert_content 'Jose'
+      assert_content 'Altuve'
+      assert_content '77777777'
+    end
+
+  end
+
 
 end
