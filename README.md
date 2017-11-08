@@ -169,7 +169,7 @@ The web containers will enqueue background jobs into a queue stored in redis. In
         -e S3_CODEGEN_BUCKET=my-s3-bucket \
         # Etc, etc, more env variables here \
         egob/interoperabilidad \
-        bundle exec sidekiq -C ./config/sidekiq.yml
+        bundle exec sidekiq
 
 ### Run the web containers
 
