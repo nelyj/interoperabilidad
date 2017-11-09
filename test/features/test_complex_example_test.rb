@@ -1,7 +1,9 @@
 require "test_helper"
 require 'yaml'
+require_relative 'support/ui_test_helper'
 
 class TestSimpleExampleTest < Capybara::Rails::TestCase
+  include UITestHelper
   include Warden::Test::Helpers
   after { Warden.test_reset! }
 
@@ -49,7 +51,7 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
 
     within ".console" do  
 
-      page.execute_script('$("#consoleForm a[data-toggle=\"collapse-next\"]").click()')
+      expand_console_form(page)
 
       fill_in 'nombres', :with => "Jose"
       fill_in 'apellidos', :with => "Altuve"
