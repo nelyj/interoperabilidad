@@ -20,9 +20,9 @@ paths:
       summary: Listado de personas
       operationId: peopleIndex
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: successful operation
@@ -30,14 +30,61 @@ paths:
             type: array
             items:
               $ref: '#/definitions/people'
+    post:
+      summary: Crear persona
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/newpeople'
+      responses:
+        "201":
+          description: created
+          schema:
+            $ref: '#/definitions/people'
+        "422":
+          description: unprocessable entity
 
 definitions:
+  newpeople:
+    type: object
+    properties:
+      persona:
+        $ref: '#/definitions/formpeople'
+  formpeople:
+    type: object
+    required:
+      - nombres
+      - apellidos
+    properties:
+      nombres:
+        type: string
+      apellidos:
+        type: string
+      telefonos_attributes:
+        type: array
+        items:
+          $ref: '#/definitions/telefonoarray'
+      email:
+        type: string
+        format: email        
+  telefonoarray:
+    type: object
+    properties:
+      numero:
+        type: string
   nombreyapellido:
     type: object
     required:
       - nombres
       - apellidos
     properties:
+      id:
+        type: integer
       nombres:
         type: string
       apellidos:
