@@ -48,6 +48,20 @@ paths:
             $ref: '#/definitions/people'
         "422":
           description: unprocessable entity
+  /personas/{id}:
+    delete:
+      summary: Eliminando Personas
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Id de la persona a ser eliminada
+      responses:
+        "200":
+          description: successful operation with no return
 
 definitions:
   newpeople:
