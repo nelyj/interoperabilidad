@@ -207,7 +207,7 @@ module SpecRenderHelper
       content_tag :li, (
         "enum: ".html_safe +
         join_markup(property_definition['enum'].map do |element|
-          s(element) + '<br>'.html_safe
+          s(element.to_s) + '<br>'.html_safe
         end)
       )
     else
