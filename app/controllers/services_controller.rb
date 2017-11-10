@@ -32,8 +32,12 @@ class ServicesController < ApplicationController
 
   def create
     @service = Service.new(service_params)
-    if @service.save
-      @service.create_first_version(current_user)
+    service_saved = false
+    ActiveRecord::Base.transaction do
+      service_saved = @service.save
+      @service.create_first_version(current_user) if service_saved
+    end
+    if service_saved
       redirect_to(
         [@organization, @service, @service.service_versions.first],
         notice: t(:new_service_created)
