@@ -35,7 +35,7 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
 
   end
 
-  test "complex service post and delete example" do
+  test "complex service post example" do
 
     attach_file 'service_spec_file', Rails.root.join(
       'test', 'files', 'sample-services', 'ComplexExample.yaml')
