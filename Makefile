@@ -33,6 +33,10 @@ clean: stop
 test: build db
 	docker-compose run web rails test
 
+# Fail fast when testing
+fftest:
+	docker-compose run web rails test -f
+
 ptest: build db
 	docker-compose run -e RAILS_ENV=test web parallel_test -e "rake db:create && bin/rails db:environment:set RAILS_ENV=test"
 	docker-compose run web rake parallel:prepare
