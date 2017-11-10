@@ -72,4 +72,39 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
   end
 
 
+  test "complex service delete example" do
+
+    attach_file 'service_spec_file', Rails.root.join(
+      'test', 'files', 'sample-services', 'ComplexExample.yaml')
+
+
+    swagger = YAML.load_file("#{Rails.root}/test/files/sample-services/ComplexExample.yaml")
+    url_post_persona_example = swagger['host']+swagger['basePath']+swagger['paths'].keys.first
+
+    response = RestClient::Request.execute(
+        method: :post,
+        url: "#{swagger['schemes'].first}://#{url_post_persona_example}",
+        payload: {persona: {nombres: "Jose", apellidos: "Altuve"}}
+      )
+    json_response = JSON.parse(response.body)
+
+    click_button "Crear Servicio"
+    assert_content page, "Servicio creado correctamente"
+
+    find('a .btn-status.danger.full').click
+
+    assert_content page, "Eliminando Personas"
+
+    click_button "Probar Servicio"
+
+    within ".console" do  
+      fill_in 'id', :with => json_response["persona"]["id"]
+      click_button "Enviar"
+      assert_content 'Respuesta'
+      assert_content 'Persona eliminada correctamente.'
+    end
+
+  end
+
+
 end
