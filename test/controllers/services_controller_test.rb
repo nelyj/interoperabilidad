@@ -90,5 +90,27 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'invalid_client', json_response['error']
   end
 
+  test "rollback service create on version error" do
+
+    file = Rack::Test::UploadedFile.new("#{Rails.root}/test/files/sample-services/hello.yaml")
+
+    # mock = MiniTest::Mock.new
+    raises_exception = -> { raise Exeption.new }
+    # mock.expect :create_first_version, raises_exception
+
+    Service.stub_any_instance :create_first_version, raises_exception do
+      post(
+        organization_services_path(organizations(:sii)), 
+        params: {
+          service: {
+            name: 'test-service'+SecureRandom.uuid,
+            spec_file: file,
+            backwards_compatible: true
+          }
+        })
+      assert_response 500
+    end
+
+  end
 
 end

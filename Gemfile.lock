@@ -164,6 +164,7 @@ GEM
       minitest-capybara (~> 0.8)
       minitest-metadata (~> 0.6)
       minitest-rails (~> 3.0)
+    minitest-stub_any_instance (1.0.1)
     multi_json (1.12.1)
     netrc (0.11.0)
     nio4r (2.1.0)
@@ -360,6 +361,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   minitest-rails (~> 3.0.0)
   minitest-rails-capybara (~> 3.0.0)
+  minitest-stub_any_instance
   omniauth
   omniauth-openid-connect
   parallel_tests

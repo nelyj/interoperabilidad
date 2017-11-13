@@ -90,3 +90,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'active_link_to'
 
 gem "font-awesome-rails"
+
+gem 'minitest-stub_any_instance'
