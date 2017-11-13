@@ -20,7 +20,11 @@ class Service < ApplicationRecord
 
   scope :featured, -> { where(featured: true) }
   scope :popular, -> { last(8) } # To be replaced by actual popular services once we have agreements in place
-
+  scope :unavailable, -> { first(0) } # To be replaced by services which are experiencing downtime now
+  scope :without_monitoring, -> { first(0) } # To be replaced by services which have monitoring disabled
+  scope :without_approved_versions, -> {
+    where.not(id: ServiceVersion.current.select(:service_id))
+  }
 
   def generate_provider_credentials
     unless self.public

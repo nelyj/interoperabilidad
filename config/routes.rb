@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :monitoring, only: [:show], controller: 'monitoring' do
+
+  end
+
   resources :organizations, only: [:index, :show], param: :name do
     resources :services, only: [:index, :new, :create, :show], param: :name do
       post 'oauth/token', to: 'services#client_token'

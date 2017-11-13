@@ -4,6 +4,8 @@ class Organization <ApplicationRecord
   has_many :services
   has_many :agreements
 
+  scope :with_services, -> { where(id: Service.all.select(:organization_id))}
+
   def to_param
     name
   end

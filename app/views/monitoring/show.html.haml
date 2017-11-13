@@ -1,0 +1,33 @@
+.content-pages.content-tabs
+  .container
+    .tab-content
+      #monitoring.tab-pane.active{:role => "tabpanel"}
+        .row
+          .col-md-12.head-title-table
+            %h2=t(:monitoring)
+            .search-table
+              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#services_table'}}
+              %button.search
+                %i.material-icons
+                  search
+        .row
+          .col-md-12
+            %table#monitoring-table
+              %colgroup
+                %col
+                %col{:width => "15%"}
+                %col{:width => "15%"}
+                %col{:width => "15%"}
+              %thead
+                %tr
+                  %th= t(:institution)
+                  %th= t(:total_services)
+                  %th= t(:unavailable_services)
+                  %th= t(:unmonitored_services)
+              %tbody
+                - @organizations.each do |organization|
+                  %tr{data: {'organization-id' => organization.id}}
+                    %td= organization.name
+                    %td= organization.services.count
+                    %td= organization.services.unavailable.count
+                    %td{title: "#{organization.services.without_monitoring.count} con monitoreo desactivado; #{organization.services.without_approved_versions.count} sin versiones aprobadas"}= organization.services.without_approved_versions.count + organization.services.without_monitoring.count
