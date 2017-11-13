@@ -40,6 +40,8 @@
                       =active_link_to t(:services), services_path, :active => [['home','services', 'service_versions'], []]
                     %li{:role => "presentation"}
                       =active_link_to t(:schemas), schemas_path, :active => [['schemas', 'schema_versions'],[]]
+                    %li{:role => "presentation"}
+                      =active_link_to t(:monitoring), monitoring_path
                   .nav.navbar-nav.navbar-right
                     =render 'layouts/menu'
 

@@ -204,6 +204,10 @@ es:
   responsable: Responsable
   contact: Contacto
   agreement_history: Historial del convenio
+  monitoring: Monitoreo
+  total_services: Total Servicios
+  unavailable_services: Servicios no disponibles
+  unmonitored_services: Servicios sin monitoreo
   error:
     one: 1 error
     other: "%{count} errores"
