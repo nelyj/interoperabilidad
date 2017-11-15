@@ -3,6 +3,7 @@ require_relative '../features/support/agreement_creation_helper'
 
 class ServicesControllerTest < ActionDispatch::IntegrationTest
   include AgreementCreationHelper
+  include Warden::Test::Helpers
 
   test "exchange client id+secret for a client token using params" do
     agreement = create_valid_agreement!(organizations(:sii), organizations(:segpres))
@@ -91,24 +92,30 @@ class ServicesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "rollback service create on version error" do
+    pedro = users(:pedro)
+    login_as pedro
+    organization = pedro.organizations.first
 
     file = Rack::Test::UploadedFile.new("#{Rails.root}/test/files/sample-services/hello.yaml")
 
     # mock = MiniTest::Mock.new
-    raises_exception = -> { raise Exeption.new }
+    raises_exception = -> { raise "exception test" }
     # mock.expect :create_first_version, raises_exception
 
     Service.stub_any_instance :create_first_version, raises_exception do
       post(
-        organization_services_path(organizations(:sii)), 
+        organization_services_path(organization), 
         params: {
           service: {
             name: 'test-service'+SecureRandom.uuid,
             spec_file: file,
-            backwards_compatible: true
+            backwards_compatible: true,
+            organization_id: organization.id
           }
         })
-      assert_response 500
+      assert_response 302
+      assert_equal Service.count, 2
+
     end
 
   end
