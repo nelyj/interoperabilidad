@@ -426,7 +426,7 @@ class ServiceVersion < ApplicationRecord
   end
 
   def recalculate_availability_status
-    last_healthy_check = service_version_health_checks.where(healhty: true).last
+    last_healthy_check = service_version_health_checks.where(healthy: true).last
     last_check = service_version_health_checks.last
     checks_in_range = last_check < unavailable_threshold.ago
     healthy_checks_in_range = last_healthy_check < unavailable_threshold.ago
