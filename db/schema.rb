@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031235736) do
+ActiveRecord::Schema.define(version: 20171115021756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20171031235736) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.text     "http_response"
+    t.boolean  "healthy"
     t.index ["service_version_id"], name: "index_service_version_health_checks_on_service_version_id", using: :btree
   end
 
@@ -137,19 +138,21 @@ ActiveRecord::Schema.define(version: 20171031235736) do
     t.boolean  "backwards_compatible",    default: false, null: false
     t.jsonb    "spec_with_resolved_refs"
     t.text     "reject_message"
+    t.integer  "availability_status",     default: 0
   end
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",                            null: false
-    t.integer  "organization_id",                 null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.boolean  "public",          default: false
+    t.string   "name",                               null: false
+    t.integer  "organization_id",                    null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "public",             default: false
     t.tsvector "lexemes"
     t.string   "humanized_name"
-    t.boolean  "featured",        default: false
+    t.boolean  "featured",           default: false
     t.string   "provider_id"
     t.string   "provider_secret"
+    t.boolean  "monitoring_enabled", default: true
     t.index ["lexemes"], name: "services_lexemes_idx", using: :gin
   end
 

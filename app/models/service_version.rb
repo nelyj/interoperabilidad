@@ -36,6 +36,8 @@ class ServiceVersion < ApplicationRecord
   # ALWAYS add new states at the end.
   enum status: [:proposed, :current, :rejected, :retracted, :outdated, :retired]
 
+  enum availability_status: [:unknown, :unavailable, :available]
+
   def spec_file
     @spec_file
   end
@@ -387,12 +389,22 @@ class ServiceVersion < ApplicationRecord
     '* * * * *' # Every minute for now. We should make it configurable later on.
   end
 
+  # After How much time *without* a positive health check we mark the service
+  # version as unavailable
+  def unavailable_threshold
+    5.minutes # Fixed for now. We'll make it configurable later on.
+  end
+
   def scheduled_health_check_job
     Sidekiq::Cron::Job.find(scheduled_health_check_job_name)
   end
 
+  def monitoring_enabled?
+    service.monitoring_enabled?
+  end
+
   def schedule_health_checks
-    if current?
+    if current? && monitoring_enabled?
       unless scheduled_health_check_job.present?
         created = Sidekiq::Cron::Job.create(
           name: scheduled_health_check_job_name,
@@ -400,10 +412,28 @@ class ServiceVersion < ApplicationRecord
           class: 'ServiceVersionMonitorWorker',
           args: [self.id]
         )
-        Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}" unless created
+        unless created
+          Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}"
+        end
       end
     else
       scheduled_health_check_job&.destroy
+    end
+  end
+
+  def update_availability_status
+    update_attribute(:availability_status, recalculate_availability_status)
+  end
+
+  def recalculate_availability_status
+    last_healthy_check = service_version_health_checks.where(healhty: true).last
+    last_check = service_version_health_checks.last
+    checks_in_range = last_check < unavailable_threshold.ago
+    healthy_checks_in_range = last_healthy_check < unavailable_threshold.ago
+    if monitoring_enabled? && checks_in_range
+      healthy_checks_in_range ? :available : :unavailable
+    else
+      :unknown
     end
   end
 end
