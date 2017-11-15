@@ -20,8 +20,10 @@ class Service < ApplicationRecord
 
   scope :featured, -> { where(featured: true) }
   scope :popular, -> { last(8) } # To be replaced by actual popular services once we have agreements in place
-  scope :unavailable, -> { first(0) } # To be replaced by services which are experiencing downtime now
-  scope :without_monitoring, -> { first(0) } # To be replaced by services which have monitoring disabled
+  scope :unavailable, -> {
+    where(id: ServiceVersion.current.unavailable.select(:service_id))
+  }
+  scope :without_monitoring, -> { where(monitoring_enabled: false) }
   scope :without_approved_versions, -> {
     where.not(id: ServiceVersion.current.select(:service_id))
   }
