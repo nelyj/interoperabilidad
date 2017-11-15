@@ -30,4 +30,4 @@
                     %td= organization.name
                     %td= organization.services.count
                     %td= organization.services.unavailable.count
-                    %td= organization.services.without_approved_versions.count + organization.services.without_monitoring.count
+                    %td{title: "#{organization.services.without_monitoring.count} con monitoreo desactivado; #{organization.services.without_approved_versions.count} sin versiones aprobadas"}= organization.services.without_approved_versions.count + organization.services.without_monitoring.count
