@@ -428,8 +428,8 @@ class ServiceVersion < ApplicationRecord
   def recalculate_availability_status
     last_healthy_check = service_version_health_checks.where(healthy: true).last
     last_check = service_version_health_checks.last
-    checks_in_range = last_check < unavailable_threshold.ago
-    healthy_checks_in_range = last_healthy_check < unavailable_threshold.ago
+    checks_in_range = last_check.created_at < unavailable_threshold.ago
+    healthy_checks_in_range = last_healthy_check.created_at < unavailable_threshold.ago
     if monitoring_enabled? && checks_in_range
       healthy_checks_in_range ? :available : :unavailable
     else
