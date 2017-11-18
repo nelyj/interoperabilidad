@@ -9,7 +9,7 @@ run: build
 
 build: .built .bundled
 
-.built: Dockerfile.development
+.built: Dockerfile.development docker-compose.yml
 	docker-compose build
 	touch .built
 
