@@ -42,6 +42,14 @@ ptest: build db
 	docker-compose run web rake parallel:prepare
 	docker-compose run -e RECORD_RUNTIME=true web rake parallel:test
 
+# Run under knapsack using Semaphoreapp's env variables
+ktest: build db
+	docker-compose run \
+	  -e ENABLE_KNAPSACK=true \
+	  -e SEMAPHORE_THREAD_COUNT=${SEMAPHORE_JOB_COUNT} \
+	  -e SEMAPHORE_CURRENT_THREAD=${SEMAPHORE_CURRENT_JOB} \
+	  web rake knapsack:minitest
+
 # Create/Update the knapsack report to balance tests in CI
 knapsack: build db
 	docker-compose run web rake test KNAPSACK_GENERATE_REPORT=true

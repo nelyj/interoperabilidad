@@ -18,9 +18,10 @@ require 'capybara-screenshot/minitest'
 Capybara.default_max_wait_time = 4
 
 require 'knapsack'
-knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
-knapsack_adapter.set_test_helper_path(__FILE__)
-
+if ENV['ENABLE_KNAPSACK']
+  knapsack_adapter = Knapsack::Adapters::MinitestAdapter.bind
+  knapsack_adapter.set_test_helper_path(__FILE__)
+end
 
 VALID_SCHEMA_OBJECT = '{
   "type": "object",
