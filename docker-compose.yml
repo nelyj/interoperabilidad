@@ -44,8 +44,6 @@ services:
       - MINSEGPRES_DIPRES_ID=AB01
       - SIGNER_APP_HOST=http://proxy-banco.modernizacion.gob.cl
       - REDIS_URL=redis://redis
-      - SEMAPHORE_THREAD_COUNT
-      - SEMAPHORE_CURRENT_THREAD
   web:
     <<: *base
     tty: true
