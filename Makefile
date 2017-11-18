@@ -42,6 +42,10 @@ ptest: build db
 	docker-compose run web rake parallel:prepare
 	docker-compose run -e RECORD_RUNTIME=true web rake parallel:test
 
+# Create/Update the knapsack report to balance tests in CI
+knapsack: build db
+	docker-compose run web rake test KNAPSACK_GENERATE_REPORT=true
+
 logs:
 	docker-compose logs
 
@@ -51,4 +55,4 @@ db: build
 production-build: Dockerfile.production
 	docker build  -f Dockerfile.production  -t egob/interoperabilidad  .
 
-.PHONY: all run build stop restart clean test ptest logs db production-build
+.PHONY: all run build stop restart clean test ptest fftest knapsack logs db production-build

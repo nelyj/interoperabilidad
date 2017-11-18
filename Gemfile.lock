@@ -132,6 +132,8 @@ GEM
       multi_json (>= 1.3)
       securecompare
       url_safe_base64
+    knapsack (1.15.0)
+      rake
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.15)
@@ -357,6 +359,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   json-jwt
+  knapsack
   listen (~> 3.0.5)
   minitest-rails (~> 3.0.0)
   minitest-rails-capybara (~> 3.0.0)
