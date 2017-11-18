@@ -9,7 +9,7 @@ services:
     ports:
       - "6379"
   base: &base
-    image: interoperabilidad-dev
+    image: ${CACHE_IMAGE:-interoperabilidad-dev:latest}
     build:
       context: .
       dockerfile: Dockerfile.development
