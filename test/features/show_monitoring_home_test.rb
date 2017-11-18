@@ -6,10 +6,6 @@ class ShowMonitoringHomeTest < Capybara::Rails::TestCase
   include Warden::Test::Helpers
   after { Warden.test_reset! }
 
-  before do
-
-  end
-
   test "Show organization with services right after they are uploaded " do
     visit root_path
     click_link "Monitoreo"

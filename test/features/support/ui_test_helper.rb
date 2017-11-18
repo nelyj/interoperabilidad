@@ -34,4 +34,9 @@ module UITestHelper
   def find_service_row(service_name)
     find(:css, "tr[data-name=#{service_name}]")
   end
+
+  def expand_console_form(page)
+    page.execute_script('$("#consoleForm a[data-toggle=\"collapse-next\"]").click()')
+  end 
+
 end

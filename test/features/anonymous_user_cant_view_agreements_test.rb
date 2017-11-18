@@ -1,5 +1,6 @@
 require "test_helper"
 require_relative 'support/ui_test_helper'
+require_relative "support/agreement_creation_helper"
 
 class AnonymousUserCantViewAgreementsTest < Capybara::Rails::TestCase
   include AgreementCreationHelper

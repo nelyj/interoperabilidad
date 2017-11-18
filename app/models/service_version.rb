@@ -311,6 +311,7 @@ class ServiceVersion < ApplicationRecord
         "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
     end
     begin
+      
       RestClient::Request.execute(
         method: verb,
         url: base_url + _resolve_path(path, path_params),
