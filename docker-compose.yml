@@ -44,6 +44,7 @@ services:
       - MINSEGPRES_DIPRES_ID=AB01
       - SIGNER_APP_HOST=http://proxy-banco.modernizacion.gob.cl
       - REDIS_URL=redis://redis
+      - BUNDLE_PATH=${BUNDLE_PATH-/usr/local/bundle/}
   web:
     <<: *base
     tty: true
