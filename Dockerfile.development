@@ -52,5 +52,3 @@ WORKDIR /app
 # Our Makefile drives the (re)bundling when necessary. We do not bust Bundler's
 # cache (thanks to the bundle_cache container defined on docker-compose.yml)
 # and therefore only download new gems.
-#
-ADD . /app

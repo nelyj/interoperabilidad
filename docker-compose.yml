@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 services:
   postgres:
     image: postgres:9.5.3
@@ -9,9 +9,12 @@ services:
     ports:
       - "6379"
   base: &base
+    image: ${CACHE_IMAGE:-interoperabilidad-dev:latest}
     build:
       context: .
       dockerfile: Dockerfile.development
+      cache_from:
+        - ${CACHE_IMAGE:-interoperabilidad-dev:latest}
     volumes:
       - .:/app
     depends_on:
