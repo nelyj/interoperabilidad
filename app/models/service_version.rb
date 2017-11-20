@@ -36,6 +36,8 @@ class ServiceVersion < ApplicationRecord
   # ALWAYS add new states at the end.
   enum status: [:proposed, :current, :rejected, :retracted, :outdated, :retired]
 
+  enum availability_status: [:unknown, :unavailable, :available]
+
   def spec_file
     @spec_file
   end
@@ -388,12 +390,22 @@ class ServiceVersion < ApplicationRecord
     '* * * * *' # Every minute for now. We should make it configurable later on.
   end
 
+  # After How much time *without* a positive health check we mark the service
+  # version as unavailable
+  def unavailable_threshold
+    5.minutes # Fixed for now. We'll make it configurable later on.
+  end
+
   def scheduled_health_check_job
     Sidekiq::Cron::Job.find(scheduled_health_check_job_name)
   end
 
+  def monitoring_enabled?
+    service.monitoring_enabled?
+  end
+
   def schedule_health_checks
-    if current?
+    if current? && monitoring_enabled?
       unless scheduled_health_check_job.present?
         created = Sidekiq::Cron::Job.create(
           name: scheduled_health_check_job_name,
@@ -401,10 +413,30 @@ class ServiceVersion < ApplicationRecord
           class: 'ServiceVersionMonitorWorker',
           args: [self.id]
         )
-        Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}" unless created
+        unless created
+          Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}"
+        end
       end
     else
       scheduled_health_check_job&.destroy
     end
+  end
+
+  def update_availability_status
+    update_attribute(:availability_status, recalculate_availability_status)
+  end
+
+  def recalculate_availability_status
+    return :unknown unless monitoring_enabled?
+    last_check = service_version_health_checks.last
+    return :unknown unless last_check
+    threshold_time = unavailable_threshold.ago
+    checks_in_range = last_check.created_at < threshold_time
+    return :unknown unless checks_in_range
+    last_healthy_check = service_version_health_checks.where(healthy: true).last
+    return :unavailable unless last_healthy_check
+    healthy_checks_in_range = last_healthy_check.created_at < threshold_time
+    return :unavailable unless healthy_checks_in_range
+    return :available
   end
 end
