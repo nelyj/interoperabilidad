@@ -1,17 +1,25 @@
-%p#notice= notice
+-if !user_signed_in?
+  .alert.info
+    .container
+      %p
+        #{t(:to_manage_monitor_params_please)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+-else
+  -if !current_user.is_service_admin?
+    .alert.info
+      .container
+        %p
+          #{t(:cant_manage_monitor_params)}
+  -else
+    %p#notice= notice
 
-%p
-  %b @monitor_param.organization
-  = @monitor_param.organization.name
-
-%p
-  %b t(:health_check_frequency)
-  = @monitor_param.health_check_frequency
-
-%p
-  %b t(:unavailable_threshold)
-  = @monitor_param.unavailable_threshold
-
-= link_to 'Edit', edit_monitor_param_path(@monitor_param)
-\|
-= link_to 'Back', monitor_params_path
+    %p
+      %b= MonitorParam.human_attribute_name(:organization)
+      = @monitor_param.organization.name
+    %p
+      %b= t(:health_check_frequency)
+      = @monitor_param.health_check_frequency
+    %p
+      %b= t(:unavailable_threshold)
+      = @monitor_param.unavailable_threshold
+    = link_to 'Back', monitor_params_path

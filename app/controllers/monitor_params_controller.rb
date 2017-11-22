@@ -26,29 +26,20 @@ class MonitorParamsController < ApplicationController
   # POST /monitor_params.json
   def create
     @monitor_param = MonitorParam.new(monitor_param_params)
-
-    respond_to do |format|
-      if @monitor_param.save
-        format.html { redirect_to @monitor_param, notice: 'Monitor param was successfully created.' }
-        format.json { render :show, status: :created, location: @monitor_param }
-      else
-        format.html { render :new }
-        format.json { render json: @monitor_param.errors, status: :unprocessable_entity }
-      end
+    if @monitor_param.save
+      redirect_to monitor_params_path, notice: t(:new_monitor_param_created)
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /monitor_params/1
   # PATCH/PUT /monitor_params/1.json
   def update
-    respond_to do |format|
-      if @monitor_param.update(monitor_param_params)
-        format.html { redirect_to @monitor_param, notice: 'Monitor param was successfully updated.' }
-        format.json { render :show, status: :ok, location: @monitor_param }
-      else
-        format.html { render :edit }
-        format.json { render json: @monitor_param.errors, status: :unprocessable_entity }
-      end
+    if @monitor_param.update(monitor_param_params)
+      redirect_to monitor_params_path, notice: t(:monitor_param_updated)
+    else
+      render :edit
     end
   end
 
@@ -56,10 +47,7 @@ class MonitorParamsController < ApplicationController
   # DELETE /monitor_params/1.json
   def destroy
     @monitor_param.destroy
-    respond_to do |format|
-      format.html { redirect_to monitor_params_url, notice: 'Monitor param was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to monitor_params_url, notice: t(:monitor_param_deleted)
   end
 
   private
