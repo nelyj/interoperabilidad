@@ -1,5 +1,6 @@
 class MonitorParamsController < ApplicationController
   before_action :set_monitor_param, only: [:show, :edit, :update, :destroy]
+  before_action :set_organizations, only: [:new, :create, :edit]
 
   # GET /monitor_params
   # GET /monitor_params.json
@@ -69,6 +70,10 @@ class MonitorParamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def monitor_param_params
-      params.require(:monitor_param).permit(:min, :hour, :dayOfMonth, :month, :dayOfWeek, :unavailable_threshold, :belongs_to)
+      params.require(:monitor_param).permit(:health_check_frequency, :unavailable_threshold, :organization_id)
+    end
+
+    def set_organizations
+      @organizations = Organization.all
     end
 end
