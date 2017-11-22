@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115021756) do
+ActiveRecord::Schema.define(version: 20171120183907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 20171115021756) do
     t.integer "service_id",   null: false
     t.index ["agreement_id"], name: "index_agreements_services_on_agreement_id", using: :btree
     t.index ["service_id"], name: "index_agreements_services_on_service_id", using: :btree
+  end
+
+  create_table "monitor_params", force: :cascade do |t|
+    t.integer  "organization_id",                    null: false
+    t.integer  "health_check_frequency", default: 1, null: false
+    t.integer  "unavailable_threshold",  default: 5, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["organization_id"], name: "index_monitor_params_on_organization_id", using: :btree
   end
 
   create_table "notifications", force: :cascade do |t|

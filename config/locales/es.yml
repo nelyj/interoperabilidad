@@ -225,6 +225,7 @@ es:
       agreement_revision:
         one: Convenio
         other: Convenios
+      monitor_param: "Parametros de Monitoreo"
     attributes:
       schema:
         name: Nombre
@@ -239,6 +240,10 @@ es:
         name: Nombre
       service_version:
         version_number: Revisión
+      monitor_param:
+        health_check_frequency: "Frecuencia de monitoreo"
+        unavailable_threshold: "Umbral de espera"
+        organization: "Organización"
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
@@ -457,3 +462,7 @@ es:
     omniauth_callbacks:
       user:
         success: Autenticación exitosa
+  new_monitor_param: "Nuevo parametro de monitoreo"
+  search: Buscar
+  destroy: Eliminar
+  confirm: "Esta seguro?"
