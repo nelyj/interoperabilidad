@@ -36,6 +36,11 @@
             %i.material-icons
               check
             %span= t(:services_pending_approval)
+        %li.monitor-params
+          =link_to monitor_params_path, id: "menu-monitor-params" do
+            %i.material-icons
+              alarm
+            %span= MonitorParam.model_name.human
       %li.logout
         =link_to destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: :delete, id: 'btn-logout' do
           %i.material-icons
