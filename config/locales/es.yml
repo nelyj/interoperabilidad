@@ -26,6 +26,9 @@ es:
   cant_save_agreement_error:
     one: No se pudo guardar el convenio debido a 1 error
     other: No se pudo guardar el convenio debido a %{count} errores
+  cant_save_monitor_param_error:
+    one: No se pudo guardar el parámetro debido a 1 error
+    other: No se pudo guardar el parámetro debido a %{count} errores
   not_enough_permissions: No tiene permisos suficientes
   notyamlenorjson: Archivo no está en formato JSON o YAML
   new_schema_created: Nuevo Esquema creado correctamente
