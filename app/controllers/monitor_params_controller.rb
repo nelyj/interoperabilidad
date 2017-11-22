@@ -1,12 +1,9 @@
 class MonitorParamsController < ApplicationController
-  before_action :set_monitor_param, only: [:show, :edit, :update, :destroy]
+  before_action :set_monitor_param, only: [:edit, :update, :destroy]
   before_action :set_organizations, only: [:new, :create, :edit]
 
   def index
     @monitor_params = MonitorParam.all
-  end
-
-  def show
   end
 
   def new
