@@ -387,13 +387,19 @@ class ServiceVersion < ApplicationRecord
 
   # Should return the health check frequency using cron syntax
   def scheduled_health_check_frequency
-    '* * * * *' # Every minute for now. We should make it configurable later on.
+    frecuency = 1
+    frecuency = organization.monitor_param.health_check_frequency unless !organization.has_monitor_params?
+    "*/#{frecuency} * * * *"
   end
 
   # After How much time *without* a positive health check we mark the service
   # version as unavailable
   def unavailable_threshold
-    5.minutes # Fixed for now. We'll make it configurable later on.
+    if organization.has_monitor_params?
+      organization.monitor_param.unavailable_threshold.minutes
+    else
+      5.minutes
+    end
   end
 
   def scheduled_health_check_job
