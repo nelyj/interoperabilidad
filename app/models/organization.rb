@@ -3,6 +3,7 @@ class Organization <ApplicationRecord
   has_many :users, through: :roles
   has_many :services
   has_many :agreements
+  has_one  :monitor_param
 
   scope :with_services, -> { where(id: Service.all.select(:organization_id))}
 
