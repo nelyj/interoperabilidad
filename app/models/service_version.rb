@@ -428,6 +428,11 @@ class ServiceVersion < ApplicationRecord
     end
   end
 
+  def reschedule_health_checks
+    scheduled_health_check_job&.destroy
+    schedule_health_checks
+  end
+
   def update_availability_status
     update_attribute(:availability_status, recalculate_availability_status)
   end
