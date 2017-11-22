@@ -1,0 +1,20 @@
+= form_for @monitor_param do |f|
+  - if @monitor_param.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@monitor_param.errors.count, "error")} prohibited this monitor_param from being saved:"
+      %ul
+        - @monitor_param.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label t(:organization)
+    = f.text_field :organization
+  .field
+    = f.label :health_check_frequency
+    = f.text_field :health_check_frequency
+  .field
+    = f.label :unavailable_threshold
+    = f.number_field :unavailable_threshold
+
+  .actions
+    = f.submit t(:save)

@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b @monitor_param.organization
+  = @monitor_param.organization.name
+
+%p
+  %b t(:health_check_frequency)
+  = @monitor_param.health_check_frequency
+
+%p
+  %b t(:unavailable_threshold)
+  = @monitor_param.unavailable_threshold
+
+= link_to 'Edit', edit_monitor_param_path(@monitor_param)
+\|
+= link_to 'Back', monitor_params_path

@@ -1,0 +1,42 @@
+.content-pages.container-fluid
+  .container
+    .row
+      .col-md-12.head-title-table
+        %h2= MonitorParam.model_name.human
+        .search-table
+          %input.search-filter{:type => 'text', :placeholder => t(:search), data: {target: '#monitor_params_table'}}
+          %button.search
+            %i.material-icons
+              search
+    .row
+      .col-md-12
+        %ul.nav.nav-tabs{:role => "tablist"}
+          %li{:role => "presentation", :class => "tab-to-new"}
+            =link_to new_monitor_param_path do
+              %i.material-icons
+                alarm_add
+              %span=t(:new_monitor_param)
+    .row
+      .col-md-12
+        %table#monitor_params_table
+          %colgroup
+            %col{:width => "48%"}
+            %col{:width => "20%"}
+            %col{:width => "20%"}
+            %col{:width => "6%"}
+            %col{:width => "6%"}
+          %thead
+            %th= MonitorParam.human_attribute_name(:organization)
+            %th= MonitorParam.human_attribute_name(:health_check_frequency)
+            %th= MonitorParam.human_attribute_name(:unavailable_threshold)
+            %th
+            %th
+            %th
+          %tbody
+            - @monitor_params.each do |monitor_param|
+              %tr{"data-link" => monitor_params_path(monitor_param) }
+                %td= monitor_param.organization.name
+                %td= monitor_param.health_check_frequency
+                %td= monitor_param.unavailable_threshold
+                %td= link_to t(:edit), edit_monitor_param_path(monitor_param), class: "btn.btn-primary"
+                %td= link_to t(:destroy), monitor_param, class:"btn.btn-danger", :method => :delete, :data => { :confirm => t(:confirm) }
