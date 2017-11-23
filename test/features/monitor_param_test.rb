@@ -78,14 +78,14 @@ class MonitorParamTest < Capybara::Rails::TestCase
     visit root_path
     visit new_monitor_param_path
 
-    assert_content page, 'Para administrar los parámetros de monitoreo por favor identifíquese con su clave única'
+    assert_content page, 'No tiene permisos para editar estos parámetros'
   end
 
   test 'not loged user can not edit monitor parameter' do
     visit root_path
     visit edit_monitor_param_path(monitor_params(:one))
 
-    assert_content page, 'Para administrar los parámetros de monitoreo por favor identifíquese con su clave única'
+    assert_content page, 'No tiene permisos para editar estos parámetros'
   end
 
   test 'non GobDigital user can not create new monitor parameter' do
