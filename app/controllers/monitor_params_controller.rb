@@ -1,4 +1,5 @@
 class MonitorParamsController < ApplicationController
+  before_action :check_service_admin
   before_action :set_monitor_param, only: [:edit, :update, :destroy]
   before_action :set_organizations, only: [:new, :create, :edit]
 
@@ -51,5 +52,11 @@ class MonitorParamsController < ApplicationController
 
     def set_organizations
       @organizations = Organization.all
+    end
+
+    def check_service_admin
+      if user_signed_in? && !current_user.is_service_admin?
+        redirect_to services_path, notice: t(:cant_manage_monitor_params)
+      end
     end
 end
