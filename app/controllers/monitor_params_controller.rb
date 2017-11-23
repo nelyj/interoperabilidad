@@ -16,7 +16,7 @@ class MonitorParamsController < ApplicationController
   def create
     @monitor_param = MonitorParam.new(monitor_param_params_new)
     if @monitor_param.save
-      ServiceVersion.joins(:service).where(services: {organization_id: @monitor_param.organization_id}).current.each(&:reschedule_health_checks)
+
       redirect_to monitor_params_path, notice: t(:new_monitor_param_created)
     else
       render :new
@@ -25,7 +25,7 @@ class MonitorParamsController < ApplicationController
 
   def update
     if @monitor_param.update(monitor_param_params)
-      ServiceVersion.joins(:service).where(services: {organization_id: @monitor_param.organization_id}).current.each(&:reschedule_health_checks)
+      callReschedule(@monitor_param.organization_id)
       redirect_to monitor_params_path, notice: t(:monitor_param_updated)
     else
       render :edit
@@ -54,5 +54,9 @@ class MonitorParamsController < ApplicationController
 
     def set_organizations
       @organizations = Organization.all
+    end
+
+    def callReschedule (organization_id)
+      ServiceVersion.joins(:service).where(services: {organization_id: organization_id}).current.each(&:reschedule_health_checks)
     end
 end
