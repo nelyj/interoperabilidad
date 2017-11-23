@@ -4,7 +4,7 @@ class MonitorParam < ApplicationRecord
   after_save :callReschedule
   after_destroy :callReschedule
 
-  def callReschedule (organization_id)
+  def callReschedule
     ServiceVersion.joins(:service).where(services: {organization_id: organization_id}).current.each(&:reschedule_health_checks)
   end
 
