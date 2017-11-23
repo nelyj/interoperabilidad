@@ -388,7 +388,8 @@ class ServiceVersion < ApplicationRecord
   # Should return the health check frequency using cron syntax
   def scheduled_health_check_frequency
     frecuency = 1
-    frecuency = organization.monitor_param.health_check_frequency unless !organization.has_monitor_params?
+    frecuency = organization.monitor_param.health_check_frequency if
+      organization.has_monitor_params?
     "*/#{frecuency} * * * *"
   end
 
