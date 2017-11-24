@@ -1,11 +1,13 @@
 class MonitorParam < ApplicationRecord
   belongs_to :organization
   validates :organization, uniqueness: true
-  after_save :callReschedule
-  after_destroy :callReschedule
+  after_save :reschedule_monitoring_for_all_organization_services
+  after_destroy :reschedule_monitoring_for_all_organization_services
 
-  def callReschedule
-    ServiceVersion.joins(:service).where(services: {organization_id: organization_id}).current.each(&:reschedule_health_checks)
+  def reschedule_monitoring_for_all_organization_services
+    ServiceVersion.current.joins(:services).where(
+      services: {organization_id: organization_id})
+    ).each(&:reschedule_health_checks)
   end
 
 end
