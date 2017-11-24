@@ -5,8 +5,8 @@ class MonitorParam < ApplicationRecord
   after_destroy :reschedule_monitoring_for_all_organization_services
 
   def reschedule_monitoring_for_all_organization_services
-    ServiceVersion.current.joins(:services).where(
-      services: {organization_id: organization_id})
+    ServiceVersion.current.joins(:service).where(
+      services: {organization_id: organization_id}
     ).each(&:reschedule_health_checks)
   end
 
