@@ -23,9 +23,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :monitoring, only: [:show], controller: 'monitoring' do
-
+  namespace :monitoring do
+    resources :organizations, only: [:index] do
+      resources :services, only: [:index, :show]
+    end
   end
+
+  resources :monitor_params
 
   resources :organizations, only: [:index, :show], param: :name do
     resources :services, only: [:index, :new, :create, :show], param: :name do

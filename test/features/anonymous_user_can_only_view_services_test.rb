@@ -15,7 +15,7 @@ class AnonymousUserCanOnlyViewServicesTest < Capybara::Rails::TestCase
   test "anonymous user can't upload new service version" do
     service_version = service_versions(:servicio1_v3)
     visit new_organization_service_service_version_path(service_version.organization, service_version.service)
-    assert page.has_content?("Para subir un esquema por favor identifíquese con su clave única")
+    assert page.has_content?("Para subir un servicio por favor identifíquese con su clave única")
     assert page.has_no_content?("Nueva Versión")
     assert page.has_no_content?("Nuevo Esquema")
   end
@@ -23,7 +23,7 @@ class AnonymousUserCanOnlyViewServicesTest < Capybara::Rails::TestCase
   test "anonymous user can't create new services" do
     service_version = service_versions(:servicio1_v3)
     visit new_organization_service_path(service_version.organization)
-    assert page.has_content?("Para subir un esquema por favor identifíquese con su clave única")
+    assert page.has_content?("Para subir un servicio por favor identifíquese con su clave única")
     assert page.has_no_content?("Nueva Versión")
     assert page.has_no_content?("Nuevo Esquema")
   end

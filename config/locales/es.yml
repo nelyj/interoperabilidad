@@ -26,6 +26,9 @@ es:
   cant_save_agreement_error:
     one: No se pudo guardar el convenio debido a 1 error
     other: No se pudo guardar el convenio debido a %{count} errores
+  cant_save_monitor_param_error:
+    one: No se pudo guardar el parámetro debido a 1 error
+    other: No se pudo guardar el parámetro debido a %{count} errores
   not_enough_permissions: No tiene permisos suficientes
   notyamlenorjson: Archivo no está en formato JSON o YAML
   new_schema_created: Nuevo Esquema creado correctamente
@@ -49,7 +52,8 @@ es:
   description_not_found: Descripción no disponible
   name_search: Buscar por nombre
   to_upload_a_schema_please: Para subir un esquema por favor
-  to_upload_a_service_please: Para subir un esquema por favor
+  to_upload_a_service_please: Para subir un servicio por favor
+  to_manage_monitor_params_please: Para administrar los parámetros de monitoreo por favor
   to_review_services_please: Para revisar servicios por favor
   identify_with_clave_unica: identifíquese con su clave única
   to_review_agreements_please: Para revisar convenios por favor
@@ -225,6 +229,7 @@ es:
       agreement_revision:
         one: Convenio
         other: Convenios
+      monitor_param: "Parámetros de Monitoreo"
     attributes:
       schema:
         name: Nombre
@@ -239,6 +244,10 @@ es:
         name: Nombre
       service_version:
         version_number: Revisión
+      monitor_param:
+        health_check_frequency: "Frecuencia de monitoreo"
+        unavailable_threshold: "Umbral de espera"
+        organization: "Organización"
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
@@ -457,3 +466,14 @@ es:
     omniauth_callbacks:
       user:
         success: Autenticación exitosa
+  new_monitor_param: "Nuevo parámetro de monitoreo"
+  edit_monitor_param: "Editar parámetro de monitoreo"
+  search: Buscar
+  destroy: Eliminar
+  confirm: "Esta seguro?"
+  back: "Atrás"
+  cant_manage_monitor_params: "No tiene permisos para editar estos parámetros"
+  organizations: "Organizaciónes"
+  new_monitor_param_created: Nuevo parametro de monitoreo creado correctamente.
+  monitor_param_deleted: Parametro de monitoreo eliminado correctamente.
+  monitor_param_updated: Parametro de monitoreo actualizado correctamente.

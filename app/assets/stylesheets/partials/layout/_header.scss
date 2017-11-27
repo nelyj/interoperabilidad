@@ -198,6 +198,7 @@ header {
             }
             &.new-schema,
             &.pending-services,
+            &.monitor-params,
             &.logout {
                 a {
                     overflow: hidden;
@@ -224,6 +225,11 @@ header {
             &.pending-services{
               a{
                 color: $official-green;
+              }
+            }
+            &.monitor-params{
+              a{
+                color: $official-lightblue
               }
             }
             }

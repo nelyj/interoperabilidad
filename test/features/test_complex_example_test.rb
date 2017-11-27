@@ -26,12 +26,14 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
     assert_content page, "Servicio creado correctamente"
 
     click_button "Probar Servicio"
-    within ".console" do
-      click_button "Enviar"
-      assert_content 'pedro@dominio.com'
-      assert_content 'Juan Andres'
-      assert_content 'Perez Cortez'
-    end
+
+    find("#try-service").click
+
+    page.must_have_content('Respuesta')
+    assert_content 'pedro@dominio.com'
+    assert_content 'Juan Andres'
+    assert_content 'Perez Cortez'
+
 
   end
 
@@ -49,7 +51,7 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
 
     click_button "Probar Servicio"
 
-    within ".console" do  
+    within ".console" do
 
       expand_console_form(page)
 
@@ -61,7 +63,9 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
 
       fill_in 'numero', :with => "77777777"
 
-      click_button "Enviar"
+      find("#try-service").click
+
+      page.must_have_content('Respuesta')
 
       assert_content 'Respuesta'
       assert_content 'Jose'
@@ -97,7 +101,7 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
 
     click_button "Probar Servicio"
 
-    within ".console" do  
+    within ".console" do
       fill_in 'id', :with => json_response["persona"]["id"]
       click_button "Enviar"
       assert_content 'Respuesta'

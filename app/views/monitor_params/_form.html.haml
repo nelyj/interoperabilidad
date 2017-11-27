@@ -1,0 +1,32 @@
+= form_for @monitor_param do |f|
+  - if @monitor_param.errors.any?
+    .container-fluid.no-gutter{:class => "alert warning alert-dismissable fade in", :"data-alert" => "alert"}
+      .row
+        .container
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+          %p= t(:cant_save_monitor_param_error, count: @monitor_param.errors.count)
+          %ul
+            - @monitor_param.errors.full_messages.each do |msg|
+              %li= msg
+  .container-fluid
+    .container
+      -if @monitor_param.new_record?
+        .row.new-service-container
+          .col-md-6
+            .field
+              %h4= f.label MonitorParam.human_attribute_name(:organization)
+              = f.select "organization_id", options_from_collection_for_select(@organizations, "id", "name"), class: "form-control input-lg"
+      .row
+        .col-md-6
+          .field
+            %h4= f.label :health_check_frequency
+            = f.number_field :health_check_frequency, min: 1, class: "form-control input-lg"
+        .col-md-6
+          .field
+            %h4= f.label :unavailable_threshold
+            = f.number_field :unavailable_threshold, min: 1, class: "form-control input-lg"
+      .row
+        .col-md-12
+          .text-right
+            .actions
+              = f.submit t(:save), class: "btn btn-primary btn-lg", id: "save-parameter"

@@ -4,9 +4,9 @@
       #monitoring.tab-pane.active{:role => "tabpanel"}
         .row
           .col-md-12.head-title-table
-            %h2=t(:monitoring)
+            %h2=t(:monitoring) > @organization.name
             .search-table
-              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#services_table'}}
+              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#monitoring_table'}}
               %button.search
                 %i.material-icons
                   search
