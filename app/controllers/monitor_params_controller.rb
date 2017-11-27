@@ -55,8 +55,8 @@ class MonitorParamsController < ApplicationController
     end
 
     def check_service_admin
-      if user_signed_in? && !current_user.is_service_admin?
-        redirect_to services_path, notice: t(:cant_manage_monitor_params)
-      end
+      redirect_to services_path, notice: t(:cant_manage_monitor_params) unless
+        user_signed_in? && current_user.is_service_admin?
     end
+
 end
