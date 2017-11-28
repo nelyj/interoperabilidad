@@ -1,0 +1,32 @@
+.content-pages.content-tabs
+  .container
+    .tab-content
+      #monitoring.tab-pane.active{:role => "tabpanel"}
+        .row
+          .col-md-12.head-title-table
+            %h2 #{t(:monitoring)} > #{@organization.name}
+            .search-table
+              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#monitoring_table'}}
+              %button.search
+                %i.material-icons
+                  search
+        .row
+          .col-md-12
+            %table#monitoring-table
+              %colgroup
+                %col
+                %col{:width => "25%"}
+                %col{:width => "25%"}
+              %thead
+                %tr
+                  %th= t(:service_name)
+                  %th= t(:last_time_checked)
+                  %th= t(:service_status)
+              %tbody
+                - @organization.services.each do |service|
+                  %tr{data: {'service-id' => service.id}}
+                    %td= service.name
+                    %td= service.current_or_last_version.last_check&.created_at&.strftime("%d/%m/%Y %H:%M:%S %Z") || t(:never)
+                    %td
+                      %span{class: css_class_for_availability_status(service.current_or_last_version.availability_status)}
+                        =t(service.current_or_last_version.availability_status)

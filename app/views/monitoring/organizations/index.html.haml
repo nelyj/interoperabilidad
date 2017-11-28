@@ -27,7 +27,7 @@
               %tbody
                 - @organizations.each do |organization|
                   %tr{data: {'organization-id' => organization.id}}
-                    %td= organization.name
+                    %td=link_to organization.name, monitoring_organization_services_path(organization)
                     %td= organization.services.count
                     %td= organization.services.unavailable.count
                     %td{title: "#{organization.services.without_monitoring.count} con monitoreo desactivado; #{organization.services.without_approved_versions.count} sin versiones aprobadas"}= organization.services.without_approved_versions.count + organization.services.without_monitoring.count

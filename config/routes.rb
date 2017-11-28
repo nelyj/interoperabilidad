@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
   get 'static_pages/visual_components'
 
@@ -24,7 +27,7 @@ Rails.application.routes.draw do
   end
 
   namespace :monitoring do
-    resources :organizations, only: [:index] do
+    resources :organizations, only: [:index], param: :name do
       resources :services, only: [:index, :show]
     end
   end
@@ -60,4 +63,7 @@ Rails.application.routes.draw do
     resources :notifications, only:[:index, :show]
   end
 
+  if Rails.env.development?
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

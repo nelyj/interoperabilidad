@@ -212,6 +212,12 @@ es:
   total_services: Total Servicios
   unavailable_services: Servicios no disponibles
   unmonitored_services: Servicios sin monitoreo
+  last_time_checked: Última vez consultado
+  service_status: Estado del servicio
+  never: Nunca
+  unknown: Desconocido
+  available: Activo
+  unavailable: Inactivo
   error:
     one: 1 error
     other: "%{count} errores"

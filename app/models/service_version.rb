@@ -446,15 +446,18 @@ class ServiceVersion < ApplicationRecord
 
   def recalculate_availability_status
     return :unknown unless monitoring_enabled?
-    last_check = service_version_health_checks.last
     return :unknown unless last_check
     threshold_time = unavailable_threshold.ago
-    checks_in_range = last_check.created_at < threshold_time
+    checks_in_range = last_check.created_at > threshold_time
     return :unknown unless checks_in_range
     last_healthy_check = service_version_health_checks.where(healthy: true).last
     return :unavailable unless last_healthy_check
-    healthy_checks_in_range = last_healthy_check.created_at < threshold_time
+    healthy_checks_in_range = last_healthy_check.created_at > threshold_time
     return :unavailable unless healthy_checks_in_range
     return :available
+  end
+
+  def last_check
+    service_version_health_checks.last
   end
 end
