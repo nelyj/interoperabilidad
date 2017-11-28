@@ -1,0 +1,41 @@
+.content-pages.content-tabs
+  .container
+    .tab-content
+      #monitoring.tab-pane.active{:role => "tabpanel"}
+        .row
+          .col-md-12.head-title-table
+            %h2 #{@organization.name} > #{@service.name}
+            .search-table
+              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#monitoring_table'}}
+              %button.search
+                %i.material-icons
+                  search
+        .row
+          .col-md-12
+            %table#monitoring-table
+              %colgroup
+                %col{:width => "15%"}
+                %col{:width => "15%"}
+                %col{:width => "15%"}
+                %col{:width => "15%"}
+                %col
+                %col{:width => "15%"}
+              %thead
+                %tr
+                  %th= ServiceVersionHealthCheck.human_attribute_name(:created_at)
+                  %th= ServiceVersionHealthCheck.human_attribute_name(:http_status)
+                  %th= ServiceVersionHealthCheck.human_attribute_name(:status_code)
+                  %th= ServiceVersionHealthCheck.human_attribute_name(:status_message)
+                  %th= ServiceVersionHealthCheck.human_attribute_name(:custom_status_message)
+                  %th= ServiceVersionHealthCheck.human_attribute_name(:healthy)
+              %tbody
+                - @service.current_or_last_version.service_version_health_checks.last(10).reverse.each do |check|
+                  %tr{data: {'health-check-id' => check.id}}
+                    %td= check.created_at.strftime("%d/%m/%Y %H:%M:%S %Z")
+                    %td= check.http_status
+                    %td= check.status_code
+                    %td= check.status_message
+                    %td= check.custom_status_message
+                    %td
+                      %span{class: 'btn-status ' + (check.healthy ? 'success' : 'warning')}
+                        = t(check.healthy ? 'available' : 'unavailable')
