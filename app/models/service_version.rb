@@ -379,6 +379,12 @@ class ServiceVersion < ApplicationRecord
       status_code: -1,
       status_message: "Connection refused. Exception: #{e.inspect}"
     )
+  rescue SocketError => e
+    service_version_health_checks.create!(
+      http_status: -1,
+      status_code: -1,
+      status_message: "Socket Error. Exception: #{e.inspect}"
+    )
   end
 
   def scheduled_health_check_job_name
