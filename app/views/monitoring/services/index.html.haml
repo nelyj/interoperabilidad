@@ -26,7 +26,7 @@
                 - @organization.services.each do |service|
                   %tr{data: {'service-id' => service.id}}
                     %td= service.name
-                    %td= service.current_or_last_version.last_check&.created_at.strftime("%d/%m/%Y %H:%M:%S %Z") || t(:never)
+                    %td= service.current_or_last_version.last_check&.created_at.&.strftime("%d/%m/%Y %H:%M:%S %Z") || t(:never)
                     %td
                       %span{class: css_class_for_availability_status(service.current_or_last_version.availability_status)}
                         =t(service.current_or_last_version.availability_status)
