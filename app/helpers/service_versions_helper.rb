@@ -56,6 +56,14 @@ module ServiceVersionsHelper
     }[verb] || ''
   end
 
+  def css_class_for_availability_status(status)
+    'btn-status ' + ({
+      'unknown' => 'info',
+      'unavailable' => 'warning',
+      'available' => 'success'
+    }[status] || '')
+  end
+
   def service_operation_responses_content_markup(responses, json_pointer, references)
     join_markup(responses.map do |name, response|
       content_tag(:h3, name) +
