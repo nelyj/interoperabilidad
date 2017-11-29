@@ -235,4 +235,113 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_not_nil last_check.status_message
     assert_nil last_check.custom_status_message
   end
+
+  test '#perform_health_check with a socket error' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.stub :health_check_response, -> { raise SocketError.new } do
+      service_version.perform_health_check!
+    end
+    last_check = service_version.service_version_health_checks.last
+    assert_equal(-1, last_check.http_status)
+    assert_nil last_check.http_response
+    assert_equal(-1, last_check.status_code)
+    assert_not_nil last_check.status_message
+    assert_nil last_check.custom_status_message
+  end
+
+  test '#schedule_health_checks does not schedule if version not current' do
+    old_service_version = service_versions(:servicio1_v2)
+    old_service_version.schedule_health_checks
+    assert_nil old_service_version.scheduled_health_check_job
+  end
+
+  test '#schedule_health_checks disables schedule if monitoring is disabled for the service' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.make_current_version
+    service_version.scheduled_health_check_job&.destroy # in case it exists
+    service_version.service.update_attributes(monitoring_enabled: false)
+    assert_nil service_version.scheduled_health_check_job
+    service_version.schedule_health_checks
+    assert_nil service_version.scheduled_health_check_job
+  end
+
+  test '#schedule_health_checks schedules otherwise' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.make_current_version
+    service_version.scheduled_health_check_job&.destroy # in case it exists
+    assert_nil service_version.scheduled_health_check_job
+    service_version.schedule_health_checks
+    assert_not_nil service_version.scheduled_health_check_job
+  end
+
+  test '#recalculate_availability_status returns unknown if not monitoring' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: false)
+    assert_equal :unknown, service_version.recalculate_availability_status
+  end
+
+  test '#recalculate_availability_status returns unknown if no check has been performed at all' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    assert_equal :unknown, service_version.recalculate_availability_status
+  end
+
+  test '#recalculate_availability_status returns unknown if no check has been ' \
+       'performed in range' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    service_version.service_version_health_checks.create(
+      http_status: 500, status_code:500, created_at: 1.hour.ago
+    )
+    service_version.stub :unavailable_threshold, 5.minutes do
+      assert_equal :unknown, service_version.recalculate_availability_status
+    end
+  end
+
+  test '#recalculate_availability_status returns unavailable if there is no ' \
+       'last healthy check but there are unhealthy checks in range' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    service_version.service_version_health_checks.create(
+      http_status: 500, status_code:500, created_at: 1.minute.ago
+    )
+    service_version.stub :unavailable_threshold, 5.minutes do
+      assert_equal :unavailable, service_version.recalculate_availability_status
+    end
+  end
+
+  test '#recalculate_availability_status returns unavailable if the last '\
+       'healthy check was too long ago (i.e, out of range)' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    service_version.service_version_health_checks.create(
+      http_status: 500, status_code:500, created_at: 1.minute.ago
+    )
+    service_version.service_version_health_checks.create(
+      http_status: 200, status_code:200, created_at: 6.minutes.ago
+    )
+    service_version.stub :unavailable_threshold, 5.minutes do
+      assert_equal :unavailable, service_version.recalculate_availability_status
+    end
+  end
+
+  test '#recalculate_availability_status returns available if the last ' \
+       'healthy check is in range' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    service_version.service_version_health_checks.create(
+      http_status: 200, status_code:200, created_at: 1.minute.ago
+    )
+    service_version.service_version_health_checks.create(
+      http_status: 200, status_code:200, created_at: 3.minutes.ago
+    )
+    service_version.stub :unavailable_threshold, 5.minutes do
+      assert_equal :available, service_version.recalculate_availability_status
+    end
+  end
 end
