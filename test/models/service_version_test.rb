@@ -147,7 +147,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 3, service.service_versions.rejected.length
   end
 
-  test "generate_zipped_code returns an URL where the code can be downloaded" do
+  test "#generate_zipped_code returns an URL where the code can be downloaded" do
     service = services(:servicio_1)
     service_version = service.service_versions.create!(
       spec_file: StringIO.new(VALID_SPEC),
@@ -159,7 +159,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert !open(url).read.nil?
   end
 
-  test 'perform_health_check with a healthy response' do
+  test '#perform_health_check with a healthy response' do
     service_version = service_versions(:servicio1_v3)
     response_mock = Minitest::Mock.new
     response_mock.expect :code, 200
@@ -181,7 +181,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 'Everything is just peachy', last_check.custom_status_message
   end
 
-  test 'perform_health_check with a error response' do
+  test '#perform_health_check with a error response' do
     service_version = service_versions(:servicio1_v3)
     response_mock = Minitest::Mock.new
     response_mock.expect :code, 500
@@ -203,7 +203,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 'Cannot connect to the database', last_check.custom_status_message
   end
 
-  test 'perform_health_check with response without the required json fields ' do
+  test '#perform_health_check with response without the required json fields ' do
     service_version = service_versions(:servicio1_v3)
     response_mock = Minitest::Mock.new
     response_mock.expect :code, 200
@@ -223,7 +223,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_nil last_check.custom_status_message
   end
 
-  test 'perform_health_check without a response at all' do
+  test '#perform_health_check without a response at all' do
     service_version = service_versions(:servicio1_v3)
     service_version.stub :health_check_response, -> { raise Errno::ECONNREFUSED.new } do
       service_version.perform_health_check!
