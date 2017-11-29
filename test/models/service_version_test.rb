@@ -319,10 +319,10 @@ class ServiceVersionTest < ActiveSupport::TestCase
     service_version.service.update_attributes(monitoring_enabled: true)
     service_version.service_version_health_checks.destroy_all
     service_version.service_version_health_checks.create(
-      http_status: 500, status_code:500, created_at: 1.minute.ago
+      http_status: 200, status_code:200, created_at: 6.minutes.ago
     )
     service_version.service_version_health_checks.create(
-      http_status: 200, status_code:200, created_at: 6.minutes.ago
+      http_status: 500, status_code:500, created_at: 1.minute.ago
     )
     service_version.stub :unavailable_threshold, 5.minutes do
       assert_equal :unavailable, service_version.recalculate_availability_status
