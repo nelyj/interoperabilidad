@@ -147,7 +147,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 3, service.service_versions.rejected.length
   end
 
-  test "generate_zipped_code returns an URL where the code can be downloaded" do
+  test "#generate_zipped_code returns an URL where the code can be downloaded" do
     service = services(:servicio_1)
     service_version = service.service_versions.create!(
       spec_file: StringIO.new(VALID_SPEC),
@@ -159,7 +159,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert !open(url).read.nil?
   end
 
-  test 'perform_health_check with a healthy response' do
+  test '#perform_health_check with a healthy response' do
     service_version = service_versions(:servicio1_v3)
     response_mock = Minitest::Mock.new
     response_mock.expect :code, 200
@@ -181,7 +181,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 'Everything is just peachy', last_check.custom_status_message
   end
 
-  test 'perform_health_check with a error response' do
+  test '#perform_health_check with a error response' do
     service_version = service_versions(:servicio1_v3)
     response_mock = Minitest::Mock.new
     response_mock.expect :code, 500
@@ -203,7 +203,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_equal 'Cannot connect to the database', last_check.custom_status_message
   end
 
-  test 'perform_health_check with response without the required json fields ' do
+  test '#perform_health_check with response without the required json fields ' do
     service_version = service_versions(:servicio1_v3)
     response_mock = Minitest::Mock.new
     response_mock.expect :code, 200
@@ -223,7 +223,7 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_nil last_check.custom_status_message
   end
 
-  test 'perform_health_check without a response at all' do
+  test '#perform_health_check without a response at all' do
     service_version = service_versions(:servicio1_v3)
     service_version.stub :health_check_response, -> { raise Errno::ECONNREFUSED.new } do
       service_version.perform_health_check!
@@ -236,52 +236,112 @@ class ServiceVersionTest < ActiveSupport::TestCase
     assert_nil last_check.custom_status_message
   end
 
-  test ".make_current_version take a proposed version an makes it approved and send a notification" do
-    #def make_current_version
-    #self.current!
-    #update_old_versions_statuses
-    #create_state_change_notification(I18n.t(:approved))
-
+  test '#perform_health_check with a socket error' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.stub :health_check_response, -> { raise SocketError.new } do
+      service_version.perform_health_check!
+    end
+    last_check = service_version.service_version_health_checks.last
+    assert_equal(-1, last_check.http_status)
+    assert_nil last_check.http_response
+    assert_equal(-1, last_check.status_code)
+    assert_not_nil last_check.status_message
+    assert_nil last_check.custom_status_message
   end
 
-  test ".reject_version take a proposed version an makes it rejected and send a notification" do
-    #def reject_version
-    #self.rejected!
-    #create_state_change_notification(I18n.t(:rejected))
+  test '#schedule_health_checks does not schedule if version not current' do
+    old_service_version = service_versions(:servicio1_v2)
+    old_service_version.schedule_health_checks
+    assert_nil old_service_version.scheduled_health_check_job
   end
 
-  test ".create_new_notification generates a new notification about the service_version" do
-    #def create_new_notification
-    #org = Organization.where(dipres_id: "AB01")
-    #if version_number == 1
-    #  message = I18n.t(:create_new_service_notification, name: name)
-    #else
-    #  message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s)
-    #end
-    #Role.where(name: "Service Provider", organization: org).each do |role|
-    #  role.user.notifications.create(subject: self,
-    #    message: message
-    #  )
-    #end
+  test '#schedule_health_checks disables schedule if monitoring is disabled for the service' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.make_current_version
+    service_version.scheduled_health_check_job&.destroy # in case it exists
+    service_version.service.update_attributes(monitoring_enabled: false)
+    assert_nil service_version.scheduled_health_check_job
+    service_version.schedule_health_checks
+    assert_nil service_version.scheduled_health_check_job
   end
 
-  test ".create_state_change_notification create a state change notification about to the service_version" do
-    #def create_state_change_notification(status)
-    #org = Organization.where(dipres_id: "AB01")
-    #user.notifications.create(subject: self,
-    #  message: I18n.t(:create_state_change_notification, name: name,
-    #    version: self.version_number.to_s, status: status)
-    #)
+  test '#schedule_health_checks schedules otherwise' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.make_current_version
+    service_version.scheduled_health_check_job&.destroy # in case it exists
+    assert_nil service_version.scheduled_health_check_job
+    service_version.schedule_health_checks
+    assert_not_nil service_version.scheduled_health_check_job
   end
 
-  test ".retract_proposed mark al notification of older proposed versions as readed" do
-    #def retract_proposed
-    #service.service_versions.proposed.where(
-    #  "version_number != ?", self.version_number).each do |version|
-    #
-    #    version.update(status: ServiceVersion.statuses[:retracted])
-    #    version.notifications.update_all(read: true)
-    #end
+  test '#recalculate_availability_status returns unknown if not monitoring' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: false)
+    assert_equal :unknown, service_version.recalculate_availability_status
   end
 
+  test '#recalculate_availability_status returns unknown if no check has been performed at all' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    assert_equal :unknown, service_version.recalculate_availability_status
+  end
+
+  test '#recalculate_availability_status returns unknown if no check has been ' \
+       'performed in range' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    service_version.service_version_health_checks.create(
+      http_status: 500, status_code:500, created_at: 1.hour.ago
+    )
+    service_version.stub :unavailable_threshold, 5.minutes do
+      assert_equal :unknown, service_version.recalculate_availability_status
+    end
+  end
+
+  test '#recalculate_availability_status returns unavailable if there is no ' \
+       'last healthy check but there are unhealthy checks in range' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    service_version.service_version_health_checks.create(
+      http_status: 500, status_code:500, created_at: 1.minute.ago
+    )
+    service_version.stub :unavailable_threshold, 5.minutes do
+      assert_equal :unavailable, service_version.recalculate_availability_status
+    end
+  end
+
+  test '#recalculate_availability_status returns unavailable if the last '\
+       'healthy check was too long ago (i.e, out of range)' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    service_version.service_version_health_checks.create(
+      http_status: 200, status_code:200, created_at: 6.minutes.ago
+    )
+    service_version.service_version_health_checks.create(
+      http_status: 500, status_code:500, created_at: 1.minute.ago
+    )
+    service_version.stub :unavailable_threshold, 5.minutes do
+      assert_equal :unavailable, service_version.recalculate_availability_status
+    end
+  end
+
+  test '#recalculate_availability_status returns available if the last ' \
+       'healthy check is in range' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    service_version.service_version_health_checks.destroy_all
+    service_version.service_version_health_checks.create(
+      http_status: 200, status_code:200, created_at: 3.minutes.ago
+    )
+    service_version.service_version_health_checks.create(
+      http_status: 200, status_code:200, created_at: 1.minute.ago
+    )
+    service_version.stub :unavailable_threshold, 5.minutes do
+      assert_equal :available, service_version.recalculate_availability_status
+    end
+  end
 end

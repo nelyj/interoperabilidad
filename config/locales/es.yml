@@ -254,6 +254,13 @@ es:
         health_check_frequency: "Frecuencia de monitoreo"
         unavailable_threshold: "Umbral de espera"
         organization: "Organización"
+      service_version_health_check:
+        created_at: Fecha / Hora de Monitoreo
+        http_status: Código HTTP
+        status_code: Código Respuesta Endpoint de Monitoreo
+        status_message: Mensaje de Estado
+        custom_status_message: Descripción del Mensaje de Estado
+        healthy: Estado
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

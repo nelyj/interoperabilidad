@@ -23,6 +23,8 @@ if ENV['ENABLE_KNAPSACK']
   knapsack_adapter.set_test_helper_path(__FILE__)
 end
 
+require 'sidekiq/testing'
+
 VALID_SCHEMA_OBJECT = '{
   "type": "object",
   "title": "Valid",

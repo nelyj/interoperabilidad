@@ -25,7 +25,7 @@
               %tbody
                 - @organization.services.each do |service|
                   %tr{data: {'service-id' => service.id}}
-                    %td= service.name
+                    %td= link_to(service.name, monitoring_organization_service_path(@organization, service))
                     %td= service.current_or_last_version.last_check&.created_at&.strftime("%d/%m/%Y %H:%M:%S %Z") || t(:never)
                     %td
                       %span{class: css_class_for_availability_status(service.current_or_last_version.availability_status)}
