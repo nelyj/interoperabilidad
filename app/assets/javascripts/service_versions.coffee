@@ -64,16 +64,7 @@ paramsFromEditors = ->
   params = {}
   for loc, editor of editors
     params["#{loc}_params"] = JSON.parse(editor.getValue())
-  return params
-
-resizeEditors = ->
-  for location, editor of editors
-    editor.resize()
-
-paramsFromEditors = ->
-  params = {}
-  for loc, editor of editors
-    params["#{loc}_params"] = JSON.parse(editor.getValue())
+  params["type_test_service"] = $("#test_type_service").val()
   return params
 
 $(window).resize ->
@@ -252,6 +243,9 @@ $(document).on 'change', '#switch_service_select', ->
   targetURL = $(this).val()
   if targetURL
     location.href = targetURL
+
+$(document).on 'click', '.type-test-service', ->
+  $("#test_type_service").val($(this).data().typeService)
 
 $(document).on 'focus', 'form input[type=number]', (e) ->
   $(this).on 'mousewheel.disableScroll', (e) ->
