@@ -297,7 +297,7 @@ class ServiceVersion < ApplicationRecord
   end
 
   def base_path_mock
-    URI.escape("#{self.organization.name}/#{self.service.name}/#{self.version_number.to_s}#{self.spec_with_resolved_refs['definition']['basePath'] || ''}")
+    URI.escape("#{self.organization.name}/#{self.service.name}/#{self.version_number}#{self.spec_with_resolved_refs['definition']['basePath'] || ''}")
   end
 
   def schemes
@@ -312,7 +312,7 @@ class ServiceVersion < ApplicationRecord
     self.spec_with_resolved_refs['definition']['basePath'] || ''
   end
 
-  def invoke(verb, path, path_params, query_params, header_params, raw_body, destination="real")
+  def invoke(verb:, path:, path_params:, query_params:, header_params:, raw_body:, destination:)
     operation = self.operation(verb, path)
     if operation.nil?
       raise ArgumentError,
