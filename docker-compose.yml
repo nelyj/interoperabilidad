@@ -33,7 +33,9 @@ services:
       - SIGNER_API_SECRET
       - S3_CODEGEN_BUCKET=gobdigital-plat-rest-dev
       - OP_CALLBACK_URL=http://dev.interoperabilidad.digital.gob.cl
-      - ROLE_SERVICE_URL=http://thawing-shore-28727.herokuapp.com
+      - ROLE_SERVICE_URL=https://apis.digital.gob.cl/consola
+      - ROLE_CONSOLE_SCOPE=roles
+      - ROLE_CONSOLE_GRANT_TYPE=client_credentials
       - ROLE_APP_ID=AB01
       - CODECLIMATE_REPO_TOKEN # For CI environment. No need to set in dev.
       - APP_HOST_URL=dev.interoperabilidad.digital.gob.cl
