@@ -51,6 +51,8 @@ class TestComplexExampleTest < Capybara::Rails::TestCase
 
     click_button "Probar Servicio"
 
+    assert_content page, "Parámetros"
+
     within ".console" do
 
       expand_console_form(page)

@@ -83,7 +83,7 @@ class ServiceVersionsController < ApplicationController
         additional_headers['Autentication'] = "Bearer #{@service_version.service.generate_client_token}"
       end
     end
-    render plain: @service_version.invoke(
+    render plain: @service_version.invoke({
       verb: params[:verb],
       path: params[:path] || '/',
       path_params: params[:path_params].try(:to_unsafe_h) || {},
@@ -91,7 +91,7 @@ class ServiceVersionsController < ApplicationController
       header_params: (params[:header_params].try(:to_unsafe_h) || {}).merge!(additional_headers),
       raw_body: params[:body_params].try(:to_unsafe_h),
       destination: params[:type_test_service]
-    ).to_s
+    }).to_s
   rescue Exception => e
     render plain: (t(:error_while_invoking_service) + ":\n\t" +  e.to_s)
   end

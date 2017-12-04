@@ -312,7 +312,16 @@ class ServiceVersion < ApplicationRecord
     self.spec_with_resolved_refs['definition']['basePath'] || ''
   end
 
-  def invoke(verb:, path:, path_params:, query_params:, header_params:, raw_body:, destination:)
+  def invoke(options = {})
+    verb = options.fetch(:verb)
+    path = options.fetch(:path)
+    path_params = options.fetch(:path_params)
+    query_params = options.fetch(:query_params)
+    header_params = options.fetch(:header_params)
+    raw_body = options.fetch(:raw_body)
+    destination = options.fetch(:destination, 'real')
+
+    dest = destination || 'real'
     operation = self.operation(verb, path)
     if operation.nil?
       raise ArgumentError,
