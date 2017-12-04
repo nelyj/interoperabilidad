@@ -59,7 +59,7 @@ module ServiceVersionsHelper
   def css_class_for_availability_status(status)
     'btn-status ' + ({
       'unknown' => 'info',
-      'unavailable' => 'warning',
+      'unavailable' => 'danger',
       'available' => 'success'
     }[status] || '')
   end
