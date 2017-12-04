@@ -292,12 +292,16 @@ class ServiceVersion < ApplicationRecord
     schemes.first + '://' + host + base_path
   end
 
+  def url_mock
+    ENV['URL_MOCK_SERVICE']
+  end
+
   def base_url_mock
-    ENV['URL_MOCK_SERVICE'] + base_path_mock
+    url_mock + base_path_mock + base_path
   end
 
   def base_path_mock
-    URI.escape("#{self.organization.name}/#{self.service.name}/#{self.version_number}#{self.spec_with_resolved_refs['definition']['basePath'] || ''}")
+    URI.escape(self.organization.name) + '/' + self.service.name + '/' + self.version_number.to_s + '/'
   end
 
   def schemes
@@ -327,14 +331,14 @@ class ServiceVersion < ApplicationRecord
         "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
     end
     begin
-        RestClient::Request.execute(
-          method: verb,
-          url: (destination=='real' ? base_url : base_url_mock)  + _resolve_path(path, path_params),
-          # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
-          #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
-          headers: header_params.merge(params: query_params),
-          payload: raw_body
-        )
+      RestClient::Request.execute(
+        method: verb,
+        url: (destination=='real' ? base_url : base_url_mock)  + _resolve_path(path, path_params),
+        # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
+        #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
+        headers: header_params.merge(params: query_params),
+        payload: raw_body
+      )
     rescue RestClient::Exception => e
       e.response
     end
