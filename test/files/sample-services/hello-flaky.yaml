@@ -1,0 +1,22 @@
+---
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Hello
+  description: |
+    Servicio Simple de Referencia
+schemes:
+  - https
+host: simple-service-interop-flaky.herokuapp.com
+basePath: /simple_example
+paths:
+  /hello:
+    get:
+      responses:
+        200:
+          description: Hello GET
+      parameters:
+        - name: name
+          in: query
+          description: Nombre
+          type: string
