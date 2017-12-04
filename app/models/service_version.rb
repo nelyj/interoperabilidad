@@ -321,7 +321,6 @@ class ServiceVersion < ApplicationRecord
     raw_body = options.fetch(:raw_body)
     destination = options.fetch(:destination, 'real')
 
-    dest = destination || 'real'
     operation = self.operation(verb, path)
     if operation.nil?
       raise ArgumentError,
