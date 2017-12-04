@@ -15,7 +15,7 @@ class RoleService
   end
 
   def self.get_data(path)
-    url = ENV['ROLE_SERVICE_URL']
+    url = 'http://thawing-shore-28727.herokuapp.com' #ENV['ROLE_SERVICE_URL']
     begin
       RestClient.get(url + path)
     rescue => e
