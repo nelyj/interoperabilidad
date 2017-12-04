@@ -405,7 +405,7 @@ class ServiceVersion < ApplicationRecord
     if organization.has_monitor_params?
       organization.monitor_param.unavailable_threshold.minutes
     else
-      5.minutes
+      3.minutes
     end
   end
 

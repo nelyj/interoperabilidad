@@ -39,3 +39,9 @@ pedro_sii_agreement_sign:
   organization: sii
   name: "Sign Agreement"
   email: "mail@example.org"
+
+diego_minsal_provider:
+  user: diego
+  organization: minsal
+  name: "Service Provider"
+  email: "mail@example.org"
