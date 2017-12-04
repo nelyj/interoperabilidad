@@ -79,7 +79,7 @@ class ShowMonitoringHomeTest < Capybara::Rails::TestCase
       featured: true,
       public: true,
       spec_file: File.open(Rails.root / "test/files/sample-services/hello.yaml")
-    ).create_first_version(users(:pedro)).tap do |version|
+    ).create_first_version(users(:diego)).tap do |version|
       version.make_current_version
       version.update_attributes!(availability_status: :unavailable)
     end

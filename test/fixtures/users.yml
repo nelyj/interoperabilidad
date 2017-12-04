@@ -17,3 +17,10 @@ pedro:
     sub: "4"
     id_token: "another-some-other-token"
     can_create_schemas: "false"
+
+diego:
+  name: 'Diego'
+  rut: "55.555.555-5"
+  sub: "6"
+  id_token: "yet-another-token"
+  can_create_schemas: "false"

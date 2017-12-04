@@ -40,8 +40,8 @@ pedro_sii_agreement_sign:
   name: "Sign Agreement"
   email: "mail@example.org"
 
-pedro_minsal_provider:
-  user: pedro
+diego_minsal_provider:
+  user: diego
   organization: minsal
   name: "Service Provider"
   email: "mail@example.org"
