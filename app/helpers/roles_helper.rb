@@ -32,7 +32,7 @@ module RolesHelper
     rescue => e
       Rollbar.error('Call to Role Service URL: ' + CONSOLE_URL +
        ' path: ' + path + ' returned: ' + e.to_s)
-      return 'Error' #e.response
+      return e.to_s
     end
   end
 
@@ -44,38 +44,7 @@ module RolesHelper
 
     puts uri.to_s
     request = Net::HTTP.get_response(uri)
-    #request.body
     JSON.parse(request.body)
 
   end
-
-  # respuesta:
-  # {
-  #   "code": 200,
-  #   "data": {
-  #     "id": 3,
-  #     "rut": "10203369",
-  #     "dv": "8",
-  #     "nombres": "Rosa Amanda",
-  #     "apellido_paterno": "Ponce",
-  #     "apellido_materno": "Castillo",
-  #     "cargo": "Encargada PAC",
-  #     "email": "rponce@indap.cl",
-  #     "created_at": "2017-05-17 21:10:17",
-  #     "roles": [
-  #       {
-  #         "id": 3,
-  #         "rol_id": "3",
-  #         "usuario_id": "3",
-  #         "created_at": "2017-05-17 21:10:17",
-  #         "institucion_id": null,
-  #         "nombre": "Admin PAC",
-  #         "descripcion": "Rol Admin de PAC.",
-  #         "tipo": "Negocio",
-  #         "related_app_id": "1"
-  #       }
-  #     ]
-  #   }
-  # }
-
 end
