@@ -83,14 +83,15 @@ class ServiceVersionsController < ApplicationController
         additional_headers['Autentication'] = "Bearer #{@service_version.service.generate_client_token}"
       end
     end
-    render plain: @service_version.invoke(
-      params[:verb],
-      params[:path] || '/',
-      params[:path_params].try(:to_unsafe_h) || {},
-      params[:query_params].try(:to_unsafe_h) || {},
-      (params[:header_params].try(:to_unsafe_h) || {}).merge!(additional_headers),
-      params[:body_params].try(:to_unsafe_h)
-    ).to_s
+    render plain: @service_version.invoke({
+      verb: params[:verb],
+      path: params[:path] || '/',
+      path_params: params[:path_params].try(:to_unsafe_h) || {},
+      query_params: params[:query_params].try(:to_unsafe_h) || {},
+      header_params: (params[:header_params].try(:to_unsafe_h) || {}).merge!(additional_headers),
+      raw_body: params[:body_params].try(:to_unsafe_h),
+      destination: params[:type_test_service]
+    }).to_s
   rescue Exception => e
     render plain: (t(:error_while_invoking_service) + ":\n\t" +  e.to_s)
   end

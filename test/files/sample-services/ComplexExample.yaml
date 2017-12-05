@@ -61,7 +61,13 @@ paths:
           description: Id de la persona a ser eliminada
       responses:
         "200":
-          description: successful operation with no return
+          description: successful operation
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+                description: Respuesta.
 
 definitions:
   newpeople:
