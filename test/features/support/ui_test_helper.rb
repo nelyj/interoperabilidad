@@ -39,10 +39,10 @@ module UITestHelper
     page.execute_script('$("#consoleForm a[data-toggle=\"collapse-next\"]").click()')
   end 
 
-  def select_test_with_mock_service
+  def select_test_with_mock_service(custom_mock=false)
     find(:css, ".console .btn.btn-primary.dropdown-toggle").click
 
-    find(:css, "#btns-service-console > li:nth-child(2)").click
+    find(:css, "#btns-service-console > li:nth-child(#{custom_mock ? '3' : '2'})").click
   end
 
 end

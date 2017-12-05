@@ -204,6 +204,9 @@
                       %a= t(:real_service)
                     %li.type-test-service{"data-type-service" => "mock"}
                       %a= t(:mock_service)
+                    - unless @service_version.custom_mock_service.blank?
+                      %li.type-test-service{"data-type-service" => "mock"}
+                        %a= t(:mock_custom_service)
                 %button#try-service.btn.btn-primary{type: 'submit'}
                   = t(:send)
               .console-response-group
