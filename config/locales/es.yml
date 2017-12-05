@@ -490,3 +490,4 @@ es:
   new_monitor_param_created: Nuevo parametro de monitoreo creado correctamente.
   monitor_param_deleted: Parametro de monitoreo eliminado correctamente.
   monitor_param_updated: Parametro de monitoreo actualizado correctamente.
+  service_name_cant_contain_dots: no puede contener puntos
