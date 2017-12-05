@@ -50,6 +50,11 @@
                   = image_tag 'open-data.png', size: '16x16', style: "display: inline;"
                   = t(:public)
               = f.hidden_field 'organization_id', value: @organization.id
+          .row.new-service-container.row-two
+            .col-md-6
+              %h4= t(:enter_custom_mock_server)
+              = f.text_field :custom_mock_service, { :class => "form-control input-lg", :placeholder => t(:custom_mock_service_example)}
+
           .row
             .col-md-12
               .text-right

@@ -61,6 +61,8 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
 
       find('.add-element').click
 
+      page.must_have_content('numero')
+
       fill_in 'numero', :with => "77777777"
 
       find("#try-service").click

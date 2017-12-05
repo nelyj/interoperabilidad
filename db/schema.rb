@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120183907) do
+ActiveRecord::Schema.define(version: 20171204184648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20171120183907) do
     t.jsonb    "spec_with_resolved_refs"
     t.text     "reject_message"
     t.integer  "availability_status",     default: 0
+    t.string   "custom_mock_service"
   end
 
   create_table "services", force: :cascade do |t|
