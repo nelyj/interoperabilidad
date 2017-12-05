@@ -45,7 +45,7 @@ services:
       - SIGNER_APP_HOST=http://proxy-banco.modernizacion.gob.cl
       - REDIS_URL=redis://redis
       - BUNDLE_PATH=${BUNDLE_PATH-/usr/local/bundle/}
-      - URL_MOCK_SERVICE=https://swagger-mocks.herokuapp.com/
+      - URL_MOCK_SERVICE=https://swagger-mocks.herokuapp.com
   web:
     <<: *base
     tty: true
