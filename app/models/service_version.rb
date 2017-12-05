@@ -297,11 +297,7 @@ class ServiceVersion < ApplicationRecord
   end
 
   def base_url_mock
-    url_mock + base_path_mock + base_path
-  end
-
-  def base_path_mock
-    URI.escape(self.organization.name) + '/' + self.service.name + '/' + self.version_number.to_s + '/'
+    url_mock + url + base_path
   end
 
   def schemes
