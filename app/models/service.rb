@@ -10,8 +10,9 @@ class Service < ApplicationRecord
   validate :spec_file_must_be_parseable
   validate :name_has_no_dots
   delegate :description, to: :current_or_last_version
-  attr_accessor :spec, :backwards_compatible
+  attr_accessor :spec, :backwards_compatible, :custom_mock_service
   attr_accessor :spec_file_parse_exception
+  validates :custom_mock_service, :url => {:allow_blank => true}
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception
@@ -72,7 +73,7 @@ class Service < ApplicationRecord
 
   def create_first_version(user)
     service_versions.create(
-      spec: self.spec, user: user, backwards_compatible: true
+      spec: self.spec, user: user, backwards_compatible: true, custom_mock_service: custom_mock_service
     )
   end
 

@@ -47,6 +47,7 @@ es:
   enter_new_schema_name: Indica nombre para el esquema
   enter_new_service_name: Indica nombre para el servicio
   enter_new_service_file: Selecciona un Archivo
+  enter_custom_mock_server: Indicar Host Alterno de Simulador de Servicio (Mock)
   remove_file: Remover archivo
   description: Descripción
   description_not_found: Descripción no disponible
@@ -63,8 +64,10 @@ es:
   public: Público (no requiere convenio)
   schema_name_example: "Ej: PatenteComercial"
   service_name_example: "Ej: Obtención de patente comercial"
+  custom_mock_service_example: "Ej: http://mi.simulador.de.servicio/"
   real_service: Servicio Real
   mock_service: Servicio Simulado
+  mock_custom_service: Servicio Simulado Externo
   enter_new_schema_category: Indica Categoría
   create_schema: Crear Esquema
   create_service: Crear Servicio
@@ -249,8 +252,10 @@ es:
         spec_file: Archivo de Especificación
       service:
         name: Nombre
+        custom_mock_service: Simulador de Servicio
       service_version:
         version_number: Revisión
+        custom_mock_service: Simulador de Servicio
       monitor_param:
         health_check_frequency: "Frecuencia de monitoreo"
         unavailable_threshold: "Umbral de espera"
@@ -263,6 +268,15 @@ es:
         custom_status_message: Descripción del Mensaje de Estado
         healthy: Estado
     errors:
+      models:
+        service:
+          attributes:
+            custom_mock_service:
+              url: Dirección Inválida
+        service_version:
+          attributes:
+            custom_mock_service:
+              url: Dirección Inválida
       messages:
         record_invalid: "La validación falló: %{errors}"
         restrict_dependent_destroy:

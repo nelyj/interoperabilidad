@@ -11,6 +11,7 @@ class ServiceVersion < ApplicationRecord
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
   validate :spec_file_must_be_parseable
+  validates :custom_mock_service, :url => {:allow_blank => true}
   attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
   after_save :schedule_health_checks
