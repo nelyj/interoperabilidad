@@ -301,6 +301,10 @@ class ServiceVersion < ApplicationRecord
     url_mock + url + base_path
   end
 
+  def base_url_mock_custom
+    custom_mock_service + base_path
+  end
+
   def schemes
     self.spec_with_resolved_refs['definition']['schemes'] || ['http']
   end
@@ -311,6 +315,24 @@ class ServiceVersion < ApplicationRecord
 
   def base_path
     self.spec_with_resolved_refs['definition']['basePath'] || ''
+  end
+
+  def url_destination(destination)
+    case destination
+    when "real"
+      final_url = base_url
+    when "mock"
+      final_url = base_url_mock
+    when "mock_custom"
+      unless custom_mock_service.blank?
+        final_url = base_url_mock_custom
+      else
+        final_url = base_url
+      end
+    else
+      final_url = base_url
+    end
+    final_url
   end
 
   def invoke(options = {})
@@ -330,7 +352,7 @@ class ServiceVersion < ApplicationRecord
     begin
       RestClient::Request.execute(
         method: verb,
-        url: (destination=='real' ? base_url : base_url_mock)  + _resolve_path(path, path_params),
+        url: url_destination(destination)  + _resolve_path(path, path_params),
         # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
         #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
         headers: header_params.merge(params: query_params),
