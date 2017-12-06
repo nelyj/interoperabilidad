@@ -31,8 +31,6 @@ class TestWithMockOptionTest < Capybara::Rails::TestCase
 
     assert_content 'Servicio Simulado'
 
-    # TODO: Test Mock from here
-
   end
 
 end
