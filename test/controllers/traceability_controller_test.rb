@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StaticPagesControllerTest < ActionDispatch::IntegrationTest
+class TraceabilityControllerTest < ActionDispatch::IntegrationTest
   
   before :each do
     @originaL_trazabilidad_secret = ENV['TRAZABILIDAD_SECRET']
