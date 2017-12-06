@@ -16,25 +16,28 @@ class SignerApi
 
     payload = {
       expiration: Time.now.utc.iso8601[0...-1], #Had to remove the Z from the UTC time, because the api does not suport it.
-      rut: user.rut_number,
-      proposito: 'Propósito General', #"Propósito General", to use OTP on file sign.
-      entidad: organization.name
+      run: "11111111",#user.rut_number,
+      purpose: 'Propósito General', #"Propósito General", to use OTP on file sign.
+      entity: "Subsecretaría General de La Presidencia" #organization.name
     }
 
     token = SignerApi.encode_token(payload)
-    base64file = Base64.encode64(file)
+    base64file = Base64.strict_encode64(file)
     checksum = Digest::SHA256.hexdigest base64file
 
     files = [
       {
         content: base64file,
         checksum: checksum,
-        type: 'PDF',
+        "content-type".to_sym => 'application/pdf',
         description: 'Convenio de Interoperabilidad'
       }
     ]
 
     data = {files: files, token: token, api_token_key: api_token_key}
+
+    puts data.to_json
+
     begin
       response = RestClient.post( url + endpoint,
         data.to_json, :content_type => :json, :accept => :json, Host: URI.parse(url).host)

@@ -42,7 +42,7 @@ services:
       - SMTP_USER=user
       - SMTP_SECRET=secret
       - MINSEGPRES_DIPRES_ID=AB01
-      - SIGNER_APP_HOST=http://proxy-banco.modernizacion.gob.cl
+      - SIGNER_APP_HOST=https://apis.digital.gob.cl/firma/v1  #http://proxy-banco.modernizacion.gob.cl
       - REDIS_URL=redis://redis
       - BUNDLE_PATH=${BUNDLE_PATH-/usr/local/bundle/}
   web:
