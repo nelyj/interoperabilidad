@@ -36,7 +36,7 @@ class ShowMonitoringOrganizationDetailTest < Capybara::Rails::TestCase
     assert_content "SimpleService"
   end
 
-  test "Filter/search on the table with" do
+  test "Filter/search on the table" do
     visit root_path
     click_link "Monitoreo"
     find('[placeholder="Buscar por nombre"]').set('general')

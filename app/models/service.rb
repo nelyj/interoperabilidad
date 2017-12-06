@@ -8,6 +8,7 @@ class Service < ApplicationRecord
   before_save :generate_provider_credentials
   validates :spec, swagger_spec: true, presence: true , :on => :create
   validate :spec_file_must_be_parseable
+  validate :name_has_no_dots
   delegate :description, to: :current_or_last_version
   attr_accessor :spec, :backwards_compatible, :custom_mock_service
   attr_accessor :spec_file_parse_exception
@@ -139,5 +140,9 @@ class Service < ApplicationRecord
 
   def url
     Rails.application.routes.url_helpers.organization_service_path(self.organization, self)
+  end
+
+  def name_has_no_dots
+    errors.add(:name, I18n.t(:service_name_cant_contain_dots)) unless name['.'].nil?
   end
 end
