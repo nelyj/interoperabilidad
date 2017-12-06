@@ -1,0 +1,2 @@
+#!/bin/bash
+voltos run docker-compose run web rails test test/features/$1_test.rb
