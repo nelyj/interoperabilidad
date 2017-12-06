@@ -47,7 +47,7 @@ class CreateNewServiceVersionTest < Capybara::Rails::TestCase
     click_button "Probar Servicio"
     assert_content "Parámetros"
 
-    select_test_with_mock_service(true)
+    select_test_with_mock_service('custom')
 
     assert_content 'Servicio Simulado Externo'
   end
