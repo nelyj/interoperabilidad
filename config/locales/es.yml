@@ -64,6 +64,7 @@ es:
   schema_name_example: "Ej: PatenteComercial"
   service_name_example: "Ej: Obtención de patente comercial"
   real_service: Servicio Real
+  mock_service: Servicio Simulado
   enter_new_schema_category: Indica Categoría
   create_schema: Crear Esquema
   create_service: Crear Servicio
