@@ -6,8 +6,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root to: 'home#root'
-
-  post 'trazabilidad/token', to: 'traceability#get_token'
+  
   get 'trazabilidad', to: 'traceability#endpoints_info'
 
   devise_scope :user do

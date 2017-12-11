@@ -3,7 +3,7 @@ require 'test_helper'
 class TraceabilityControllerTest < ActionDispatch::IntegrationTest
   
   before :each do
-    @originaL_trazabilidad_secret = ENV['TRAZABILIDAD_SECRET']
+    @original_trazabilidad_secret = ENV['TRAZABILIDAD_SECRET']
     ENV['TRAZABILIDAD_SECRET'] = 'somesecret'
     Service.create!(
       name: "SimpleService2",
@@ -18,24 +18,15 @@ class TraceabilityControllerTest < ActionDispatch::IntegrationTest
   end
 
   def teardown
-    ENV['TRAZABILIDAD_SECRET'] = @originaL_trazabilidad_secret
-  end
-
-  test 'should get a new token' do
-    post trazabilidad_token_path, params: { secret: ENV['TRAZABILIDAD_SECRET'] }
-    assert_equal response.status, 200
-    body =  JSON.parse(response.body)
-    assert body.has_key? "token"
-    assert body["token"].is_a? String
+    ENV['TRAZABILIDAD_SECRET'] = @original_trazabilidad_secret
   end
 
   test 'should get a list of services and urls' do
-    post trazabilidad_token_path, params: { secret: ENV['TRAZABILIDAD_SECRET'] }
-    token = JSON.parse(response.body)['token']
-    get trazabilidad_path, params: { token: token }
+    get trazabilidad_path, params: { secret: ENV['TRAZABILIDAD_SECRET'] }
     body = JSON.parse(response.body)
     assert body.has_key? 'services'
     assert body['services'].is_a? Array
-    assert body['services'].map {|info| info['url'] }.include? "https://simple-service-interop.herokuapp.com/simple_example"
+    test_url = "https://simple-service-interop.herokuapp.com/simple_example"
+    assert body['services'].map {|info| info['url'] }.include? test_url
   end
 end
