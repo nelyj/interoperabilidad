@@ -10,7 +10,7 @@ class TraceabilityController < ApplicationController
   def payload_for_service(service)
     hsh = { url: service&.service_versions&.current&.first&.base_url }
     return hsh if service.public?
-    hsh[:token] = service.generate_client_token
+    hsh[:token] = service.generate_client_token 'trazabilidad'
     hsh
   end
 end

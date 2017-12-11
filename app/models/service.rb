@@ -36,11 +36,11 @@ class Service < ApplicationRecord
     end
   end
 
-  def generate_client_token
+  def generate_client_token(subject = nil)
     return nil if provider_secret.nil?
     claims = {
       iss: self.url,
-      sub: self.organization.url,
+      sub: subject || self.organization.url,
       aud: [self.provider_id],
       exp: client_token_expiration_in_seconds.seconds.from_now
     }
