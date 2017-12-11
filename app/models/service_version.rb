@@ -11,6 +11,7 @@ class ServiceVersion < ApplicationRecord
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
   validate :spec_file_must_be_parseable
+  validates :custom_mock_service, :url => {:allow_blank => true}
   attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
   after_save :schedule_health_checks
@@ -292,6 +293,18 @@ class ServiceVersion < ApplicationRecord
     schemes.first + '://' + host + base_path
   end
 
+  def url_mock
+    ENV['URL_MOCK_SERVICE']
+  end
+
+  def base_url_mock
+    url_mock + url + base_path
+  end
+
+  def base_url_mock_custom
+    custom_mock_service + base_path
+  end
+
   def schemes
     self.spec_with_resolved_refs['definition']['schemes'] || ['http']
   end
@@ -304,17 +317,42 @@ class ServiceVersion < ApplicationRecord
     self.spec_with_resolved_refs['definition']['basePath'] || ''
   end
 
-  def invoke(verb, path, path_params, query_params, header_params, raw_body)
+  def url_destination(destination)
+    case destination
+    when "real"
+      final_url = base_url
+    when "mock"
+      final_url = base_url_mock
+    when "mock_custom"
+      unless custom_mock_service.blank?
+        final_url = base_url_mock_custom
+      else
+        final_url = base_url
+      end
+    else
+      final_url = base_url
+    end
+    final_url
+  end
+
+  def invoke(options = {})
+    verb = options.fetch(:verb)
+    path = options.fetch(:path)
+    path_params = options.fetch(:path_params)
+    query_params = options.fetch(:query_params)
+    header_params = options.fetch(:header_params)
+    raw_body = options.fetch(:raw_body)
+    destination = options.fetch(:destination, 'real')
+
     operation = self.operation(verb, path)
     if operation.nil?
       raise ArgumentError,
         "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
     end
     begin
-
       RestClient::Request.execute(
         method: verb,
-        url: base_url + _resolve_path(path, path_params),
+        url: url_destination(destination)  + _resolve_path(path, path_params),
         # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
         #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
         headers: header_params.merge(params: query_params),

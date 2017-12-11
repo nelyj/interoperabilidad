@@ -196,11 +196,17 @@
                 - else
                   %p= t(:operation_without_parameters)
                 .btn-group
+                  = hidden_field_tag :test_type_service, "real"
                   %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
                     %span.caret
                   %ul#btns-service-console.dropdown-menu
-                    %li
+                    %li.type-test-service{"data-type-service" => "real"}
                       %a= t(:real_service)
+                    %li.type-test-service{"data-type-service" => "mock"}
+                      %a= t(:mock_service)
+                    - unless @service_version.custom_mock_service.blank?
+                      %li.type-test-service{"data-type-service" => "mock_custom"}
+                        %a= t(:mock_custom_service)
                 %button#try-service.btn.btn-primary{type: 'submit'}
                   = t(:send)
               .console-response-group
