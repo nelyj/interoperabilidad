@@ -23,7 +23,7 @@ class TestWithMockOptionTest < Capybara::Rails::TestCase
       'test', 'files', 'sample-services', 'hello.yaml')
 
     click_button "Crear Servicio"
-    assert_content page, "Servicio creado correctamente"
+    assert_content "Servicio creado correctamente"
 
     click_button "Probar Servicio"
 

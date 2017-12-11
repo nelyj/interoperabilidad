@@ -28,10 +28,12 @@ class TestSimpleExampleWithCustomMockTest < Capybara::Rails::TestCase
     fill_in "service_custom_mock_service", with: url_simple_example_host
 
     click_button "Crear Servicio"
-    assert_content page, "Servicio creado correctamente"
+    assert_content "Servicio creado correctamente"
 
-    click_button "Probar Servicio"
-    
+    assert_content "CON SIMULADOR"
+
+    click_button "Probar Servicio"    
+
     within ".console" do
       fill_in 'name', :with => "Mundo"
 
