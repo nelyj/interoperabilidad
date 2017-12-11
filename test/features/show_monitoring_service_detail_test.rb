@@ -40,9 +40,7 @@ class ShowMonitoringServiceDetailTest < Capybara::Rails::TestCase
     assert_content "Total Servicios"
     assert_content "Servicios no disponibles"
     assert_content "Servicios sin monitoreo"
-    find('a', text: 'Servicio de Impuestos Internos')
     click_link "Servicio de Impuestos Internos"
-    find('h2', text: 'Monitoreo > Servicio de Impuestos Internos')
     find('[placeholder="Buscar por nombre"]').set('simple')
     assert_content "SimpleService"
     find('[placeholder="Buscar por nombre"]').set('ahoranodeberiasalirnada')
