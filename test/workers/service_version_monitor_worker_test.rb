@@ -12,4 +12,9 @@ class ServiceVersionMonitorWorkerTest < Minitest::Test
     end
     assert_mock service_version_mock
   end
+
+  def test_monitor_non_existing_service_version
+    ServiceVersionMonitorWorker.new.perform(-1)
+    assert true # Nothing raised
+  end
 end
