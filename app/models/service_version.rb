@@ -20,6 +20,7 @@ class ServiceVersion < ApplicationRecord
   delegate :name, to: :service
   delegate :organization, to: :service
   has_many :service_version_health_checks
+  after_save :send_monitor_notification, if: :availability_status_changed?
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   #
@@ -498,4 +499,34 @@ class ServiceVersion < ApplicationRecord
   def last_check
     service_version_health_checks.last
   end
+
+  def send_owner_monitor_notifications(message)
+    owner_role = user.roles.where(organization: organization, name: "Monitor").first
+    if owner_role.present?
+      email = owner_role.email
+      user.notifications.create(subject: self,
+        message: message,
+          email: email
+      )
+    end
+  end
+
+  def send_gobdigital_monitor_notifications(message)
+    org = Organization.where(dipres_id: ENV['MINSEGPRES_DIPRES_ID'])
+
+    Role.where(name: "Monitor", organization: org).each do |role|
+      role.user.notifications.create(subject: self,
+        message: message, email: role.email
+      )
+    end
+  end
+
+  def send_monitor_notifications
+    message = I18n.t(:create_service_status_notification, name: name, old: availability_status_was, new: availability_status)
+
+
+    send_owner_monitor_notifications(message)
+    send_gobdigital_monitor_notification(message)
+  end
+
 end
