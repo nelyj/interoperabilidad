@@ -298,7 +298,11 @@ class ServiceVersion < ApplicationRecord
   end
 
   def base_url_mock
-    url_mock + url + base_path
+    url_mock + mock_auth_type + url + base_path
+  end
+
+  def mock_auth_type
+    "/"+(service.public? ? 'public' : 'private' )
   end
 
   def base_url_mock_custom
