@@ -522,7 +522,7 @@ class ServiceVersion < ApplicationRecord
   end
 
   def send_monitor_notifications
-    message = I18n.t(:create_service_status_notification, name: name, old: availability_status_was, new: availability_status)
+    message = I18n.t(:create_service_status_notification, name: name, old: I18n.t(availability_status_was.to_sym), new: I18n.t(availability_status.to_sym))
     send_owner_monitor_notifications(message)
     send_gobdigital_monitor_notifications(message)
   end
