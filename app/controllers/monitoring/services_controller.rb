@@ -1,5 +1,5 @@
 class Monitoring::ServicesController < ApplicationController
-  before_action :check_service_admin, except: [:index, :Show]
+  before_action :check_service_admin, except: [:index, :show]
 
   def index
     organization
