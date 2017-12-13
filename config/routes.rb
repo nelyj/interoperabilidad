@@ -31,7 +31,10 @@ Rails.application.routes.draw do
   namespace :monitoring do
     resources :organizations, only: [:index], param: :name do
       resources :services, only: [:index, :show], param: :name do
-
+        member do
+          post 'enable'
+          post 'disable'
+        end
       end
     end
   end

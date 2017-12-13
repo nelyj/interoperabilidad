@@ -469,12 +469,16 @@ class ServiceVersion < ApplicationRecord
         end
       end
     else
-      scheduled_health_check_job&.destroy
+      stop_health_checks
     end
   end
 
-  def reschedule_health_checks
+  def stop_health_checks
     scheduled_health_check_job&.destroy
+  end
+
+  def reschedule_health_checks
+    stop_health_checks
     schedule_health_checks
   end
 

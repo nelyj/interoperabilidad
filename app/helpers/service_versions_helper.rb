@@ -56,11 +56,17 @@ module ServiceVersionsHelper
     }[verb] || ''
   end
 
-  def css_class_for_availability_status(status)
+  def css_class_for_availability_status(service)
+    status = if service.monitoring_enabled
+      service.current_or_last_version.availability_status
+    else
+      'monitoring_disabled'
+    end
     'btn-status ' + ({
       'unknown' => 'info',
       'unavailable' => 'danger',
-      'available' => 'success'
+      'available' => 'success',
+      'monitoring_disabled' => 'default'
     }[status] || '')
   end
 

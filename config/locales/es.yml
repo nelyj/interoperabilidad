@@ -223,6 +223,7 @@ es:
   unknown: Desconocido
   available: Activo
   unavailable: Inactivo
+  monitoring_disabled: Sin monitoreo
   error:
     one: 1 error
     other: "%{count} errores"

@@ -46,4 +46,40 @@ class ShowMonitoringOrganizationDetailTest < Capybara::Rails::TestCase
     assert_content 'Servicio de Impuestos Internos'
     assert_no_content 'Secretaría General de la Presidencia'
   end
+
+  test "Disable/Enable monitoring if the user belongs to segpres" do
+    login_as users(:pablito), scope: :user
+    visit root_path
+    click_link "Monitoreo"
+    assert_content "Institución"
+    assert_content "Total Servicios"
+    assert_content "Servicios no disponibles"
+    assert_content "Servicios sin monitoreo"
+    assert_match(
+      /Servicio de Impuestos Internos 1 0 1/,
+      page.first(:css, "tr[data-organization-id='#{organizations(:sii).id}']").text
+    )
+    click_link "Servicio de Impuestos Internos"
+    click_link "SimpleService"
+    click_link "Desactivar Monitoreo"
+    assert_content "Activar Monitoreo"
+    click_link "Activar Monitoreo"
+    assert_content "Desactivar Monitoreo"
+  end
+
+  test "Don't show buttons for enabling or disabling monitoring for other users" do
+    login_as users(:pablito), scope: :user
+    visit root_path
+    click_link "Monitoreo"
+    assert_content "Institución"
+    assert_content "Total Servicios"
+    assert_content "Servicios no disponibles"
+    assert_content "Servicios sin monitoreo"
+    assert_match(
+      /Servicio de Impuestos Internos 1 0 1/,
+      page.first(:css, "tr[data-organization-id='#{organizations(:sii).id}']").text
+    )
+    click_link "Servicio de Impuestos Internos"
+    assert_no_content "Desactivar Monitoreo"
+  end
 end

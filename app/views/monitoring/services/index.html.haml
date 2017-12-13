@@ -15,18 +15,37 @@
             %table#monitoring_table
               %colgroup
                 %col
-                %col{:width => "25%"}
-                %col{:width => "25%"}
+                %col{:width => "20%"}
+                %col{:width => "20%"}
+                - if current_user&.is_service_admin?
+                  %col{:width => "20%"}
               %thead
                 %tr
                   %th= t(:service_name)
                   %th= t(:last_time_checked)
                   %th= t(:service_status)
+                  - if current_user&.is_service_admin?
+                    %th
               %tbody
-                - @organization.services.each do |service|
+                - @organization.services.order(:name).each do |service|
                   %tr{data: {'service-id' => service.id}}
                     %td= link_to(service.name, monitoring_organization_service_path(@organization, service))
                     %td= service.current_or_last_version.last_check&.created_at&.strftime("%d/%m/%Y %H:%M:%S %Z") || t(:never)
                     %td
-                      %span{class: css_class_for_availability_status(service.current_or_last_version.availability_status)}
-                        =t(service.current_or_last_version.availability_status)
+                      %span{class: css_class_for_availability_status(service)}
+                        - if service.monitoring_enabled
+                          = t(service.current_or_last_version.availability_status)
+                        - else
+                          = t(:monitoring_disabled)
+                    - if current_user&.is_service_admin?
+                      %td
+                        - if service.monitoring_enabled
+                          = link_to 'Desactivar Monitoreo', |
+                            disable_monitoring_organization_service_path(@organization, service), |
+                            data: {method: 'post'}, |
+                            class: 'btn btn-default'
+                        - else
+                          = link_to 'Activar Monitoreo', |
+                            enable_monitoring_organization_service_path(@organization, service), |
+                            data: {method: 'post'}, |
+                            class: 'btn btn-default'

@@ -4,7 +4,11 @@ class ServiceVersionMonitorWorker
   def perform(service_version_id)
     service_version = ServiceVersion.find(service_version_id)
     if service_version.current?
-      service_version.perform_health_check!
+      if service_version.monitoring_enabled?
+        service_version.perform_health_check!
+      else
+        Rails.logger.warn("ServiceVersionMonitorWorker: Service version #{service_version_id}} has monitoring disabled")
+      end
     else
       Rails.logger.warn("ServiceVersionMonitorWorker: Service version #{service_version_id} not current and shouldn't be monitored")
     end
