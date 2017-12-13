@@ -1,6 +1,4 @@
 module ServiceVersionsHelper
-
-
   def service_operation_responses_markup(service_version, verb, path)
     service_operation_responses_content_markup(
       service_version.operation(verb, path)['responses'],
