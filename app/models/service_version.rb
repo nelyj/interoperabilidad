@@ -14,7 +14,7 @@ class ServiceVersion < ApplicationRecord
   validates :custom_mock_service, :url => {:allow_blank => true}
   attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
-  after_save :schedule_health_checks
+  after_commit :schedule_health_checks
   after_create :create_new_notification
   after_create :retract_proposed
   delegate :name, to: :service
