@@ -125,6 +125,10 @@
                 %div= markdown.render(@operation['description']).html_safe
             %button.btn.btn-success.collapseConsole
               =t(:test_service)
+            - unless @service_version.custom_mock_service.blank?
+              %span.btn-status.info.with-mock
+                = t(:with_custom_mock_service)
+
             .parameters
               %h2.subtitle= t(:parameters)
               - if @service_version.has_parameters?(@verb, @path)

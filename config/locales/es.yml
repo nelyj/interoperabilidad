@@ -170,6 +170,7 @@ es:
   send_draft: Enviar Borrador
 
   test_service: Probar Servicio
+  with_custom_mock_service: Con Simulador
   send: Enviar
   cancel: Cancelar
   edit: Editar
