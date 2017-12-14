@@ -33,7 +33,10 @@ class Monitoring::ServicesController < ApplicationController
 
   def check_service_admin
     unless current_user&.is_service_admin?
-      redirect_to monitoring_organization_services_path(organization)
+      redirect_to(
+        monitoring_organization_services_path(organization),
+        notice: t(:not_enough_permissions)
+      )
     end
   end
 
