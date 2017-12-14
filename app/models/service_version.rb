@@ -501,6 +501,8 @@ class ServiceVersion < ApplicationRecord
   end
 
   def send_owner_monitor_notifications(message)
+    return if organization == Organization.where(dipres_id: ENV['MINSEGPRES_DIPRES_ID']).first
+
     owner_role = user.roles.where(organization: organization, name: "Monitor").first
     if owner_role.present?
       email = owner_role.email
