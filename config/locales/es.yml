@@ -507,3 +507,4 @@ es:
   monitor_param_deleted: Parametro de monitoreo eliminado correctamente.
   monitor_param_updated: Parametro de monitoreo actualizado correctamente.
   service_name_cant_contain_dots: no puede contener puntos
+  create_service_status_notification: "El estado del servicio %{name} cambió de %{old} a %{new}"
