@@ -60,11 +60,10 @@ class ShowMonitoringOrganizationDetailTest < Capybara::Rails::TestCase
       page.first(:css, "tr[data-organization-id='#{organizations(:sii).id}']").text
     )
     click_link "Servicio de Impuestos Internos"
-    click_link "SimpleService"
-    click_link "Desactivar Monitoreo"
-    assert_content "Activar Monitoreo"
-    click_link "Activar Monitoreo"
-    assert_content "Desactivar Monitoreo"
+    click_link "Desactivar monitoreo"
+    assert_content "Activar monitoreo"
+    click_link "Activar monitoreo"
+    assert_content "Desactivar monitoreo"
   end
 
   test "Don't show buttons for enabling or disabling monitoring for other users" do
