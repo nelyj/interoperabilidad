@@ -40,12 +40,12 @@
                     - if current_user&.is_service_admin?
                       %td
                         - if service.monitoring_enabled
-                          = link_to 'Desactivar Monitoreo', |
+                          = link_to t(:disable_monitoring), |
                             disable_monitoring_organization_service_path(@organization, service), |
                             data: {method: 'post'}, |
                             class: 'btn btn-default'
                         - else
-                          = link_to 'Activar Monitoreo', |
+                          = link_to t(:enable_monitoring), |
                             enable_monitoring_organization_service_path(@organization, service), |
                             data: {method: 'post'}, |
                             class: 'btn btn-default'
