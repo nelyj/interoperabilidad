@@ -49,6 +49,9 @@
               = image_tag('open-data.png', size: '16x16', alt: t(:public_service), title: t(:public_service))
           %span{class: css_class_for_status(@service_version.status)}
             = t(@service_version.status)
+          - if @service_version.service.support_xml
+            %span{class: 'btn-status success'}
+              = t(:xml)
         .description
           - if @service_version.description.present?
             = markdown.render(@service_version.description).html_safe
