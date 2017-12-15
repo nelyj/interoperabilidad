@@ -10,6 +10,12 @@ pedro_sii_agreement_create:
   name: "Create Agreement"
   email: "mail@example.org"
 
+pedro_sii_monitor_notification:
+  user: pedro
+  organization: sii
+  name: "Monitor"
+  email: "mail@example.org"
+
 pablito_segpres:
   user: pablito
   organization: segpres
@@ -26,6 +32,12 @@ pablito_segpres_sign_agreement:
   user: pablito
   organization: segpres
   name: "Sign Agreement"
+  email: "mail@example.org"
+
+pablito_segpres_monitor_notification:
+  user: pablito
+  organization: segpres
+  name: "Monitor"
   email: "mail@example.org"
 
 pedro_sii_agreement_validate:

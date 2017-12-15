@@ -31,7 +31,7 @@
       .container-fluid
         .container
           .row.new-service-container
-            .col-md-12
+            .col-md-6
               %h4= t(:enter_new_service_file)
               .input-group.box-input-file
                 .field
@@ -42,6 +42,10 @@
               %span#remove-file
                 %i.material-icons close
                 %span=t(:remove_file)
+            .col-md-6
+              %h4= t(:enter_custom_mock_server)
+              = f.text_field :custom_mock_service, { :class => "form-control input-lg", :placeholder => t(:custom_mock_service_example)}
+
           .row
             .col-md-12
               .text-right

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root to: 'home#root'
+  
+  get 'trazabilidad', to: 'traceability#endpoints_info'
 
   devise_scope :user do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
@@ -29,7 +31,10 @@ Rails.application.routes.draw do
   namespace :monitoring do
     resources :organizations, only: [:index], param: :name do
       resources :services, only: [:index, :show], param: :name do
-
+        member do
+          post 'enable'
+          post 'disable'
+        end
       end
     end
   end

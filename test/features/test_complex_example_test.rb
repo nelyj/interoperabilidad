@@ -2,7 +2,7 @@ require "test_helper"
 require 'yaml'
 require_relative 'support/ui_test_helper'
 
-class TestSimpleExampleTest < Capybara::Rails::TestCase
+class TestComplexExampleTest < Capybara::Rails::TestCase
   include UITestHelper
   include Warden::Test::Helpers
   after { Warden.test_reset! }
@@ -51,6 +51,8 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
 
     click_button "Probar Servicio"
 
+    assert_content page, "Parámetros"
+
     within ".console" do
 
       expand_console_form(page)
@@ -60,6 +62,8 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
       fill_in 'email', :with => "jaltuve@dominio.com"
 
       find('.add-element').click
+
+      page.must_have_content('numero')
 
       fill_in 'numero', :with => "77777777"
 

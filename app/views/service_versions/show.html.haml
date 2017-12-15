@@ -49,6 +49,9 @@
               = image_tag('open-data.png', size: '16x16', alt: t(:public_service), title: t(:public_service))
           %span{class: css_class_for_status(@service_version.status)}
             = t(@service_version.status)
+          - if @service_version.service.support_xml
+            %span{class: 'btn-status success'}
+              = t(:xml)
         .description
           - if @service_version.description.present?
             = markdown.render(@service_version.description).html_safe
@@ -125,6 +128,10 @@
                 %div= markdown.render(@operation['description']).html_safe
             %button.btn.btn-success.collapseConsole
               =t(:test_service)
+            - unless @service_version.custom_mock_service.blank?
+              %span.btn-status.info.with-mock
+                = t(:with_custom_mock_service)
+
             .parameters
               %h2.subtitle= t(:parameters)
               - if @service_version.has_parameters?(@verb, @path)
@@ -196,11 +203,17 @@
                 - else
                   %p= t(:operation_without_parameters)
                 .btn-group
+                  = hidden_field_tag :test_type_service, "real"
                   %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
                     %span.caret
                   %ul#btns-service-console.dropdown-menu
-                    %li
+                    %li.type-test-service{"data-type-service" => "real"}
                       %a= t(:real_service)
+                    %li.type-test-service{"data-type-service" => "mock"}
+                      %a= t(:mock_service)
+                    - unless @service_version.custom_mock_service.blank?
+                      %li.type-test-service{"data-type-service" => "mock_custom"}
+                        %a= t(:mock_custom_service)
                 %button#try-service.btn.btn-primary{type: 'submit'}
                   = t(:send)
               .console-response-group

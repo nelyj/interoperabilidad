@@ -45,6 +45,7 @@ services:
       - SIGNER_APP_HOST=https://apis.digital.gob.cl/firma/v1  #http://proxy-banco.modernizacion.gob.cl
       - REDIS_URL=redis://redis
       - BUNDLE_PATH=${BUNDLE_PATH-/usr/local/bundle/}
+      - URL_MOCK_SERVICE=https://swagger-mocks.herokuapp.com
   web:
     <<: *base
     tty: true
@@ -54,7 +55,7 @@ services:
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
   sidekiq:
     <<: *base
-    command: bundle exec sidekiq -C ./config/sidekiq.yml
+    command: bundle exec sidekiq
   bundle_cache:
     image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
     volumes:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120183907) do
+ActiveRecord::Schema.define(version: 20171215111619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20171120183907) do
     t.jsonb    "spec_with_resolved_refs"
     t.text     "reject_message"
     t.integer  "availability_status",     default: 0
+    t.string   "custom_mock_service"
   end
 
   create_table "services", force: :cascade do |t|
@@ -162,6 +163,7 @@ ActiveRecord::Schema.define(version: 20171120183907) do
     t.string   "provider_id"
     t.string   "provider_secret"
     t.boolean  "monitoring_enabled", default: true
+    t.boolean  "support_xml",        default: false
     t.index ["lexemes"], name: "services_lexemes_idx", using: :gin
   end
 

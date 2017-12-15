@@ -36,9 +36,11 @@ class ShowMonitoringServiceDetailTest < Capybara::Rails::TestCase
   test "Filter/Search on the table " do
     visit root_path
     click_link "Monitoreo"
-    find('a', text: 'Servicio de Impuestos Internos')
+    assert_content "Institución"
+    assert_content "Total Servicios"
+    assert_content "Servicios no disponibles"
+    assert_content "Servicios sin monitoreo"
     click_link "Servicio de Impuestos Internos"
-    find('h2', text: 'Monitoreo > Servicio de Impuestos Internos')
     find('[placeholder="Buscar por nombre"]').set('simple')
     assert_content "SimpleService"
     find('[placeholder="Buscar por nombre"]').set('ahoranodeberiasalirnada')

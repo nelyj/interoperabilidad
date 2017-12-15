@@ -11,14 +11,16 @@ class ServiceVersion < ApplicationRecord
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
   validate :spec_file_must_be_parseable
+  validates :custom_mock_service, :url => {:allow_blank => true}
   attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
-  after_save :schedule_health_checks
+  after_commit :schedule_health_checks
   after_create :create_new_notification
   after_create :retract_proposed
   delegate :name, to: :service
   delegate :organization, to: :service
   has_many :service_version_health_checks
+  after_save :send_monitor_notifications, if: :availability_status_changed?
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   #
@@ -292,6 +294,22 @@ class ServiceVersion < ApplicationRecord
     schemes.first + '://' + host + base_path
   end
 
+  def url_mock
+    ENV['URL_MOCK_SERVICE']
+  end
+
+  def base_url_mock
+    url_mock + mock_auth_type + url + base_path
+  end
+
+  def mock_auth_type
+    "/"+(service.public? ? 'public' : 'private' )
+  end
+
+  def base_url_mock_custom
+    custom_mock_service + base_path
+  end
+
   def schemes
     self.spec_with_resolved_refs['definition']['schemes'] || ['http']
   end
@@ -304,17 +322,42 @@ class ServiceVersion < ApplicationRecord
     self.spec_with_resolved_refs['definition']['basePath'] || ''
   end
 
-  def invoke(verb, path, path_params, query_params, header_params, raw_body)
+  def url_destination(destination)
+    case destination
+    when "real"
+      final_url = base_url
+    when "mock"
+      final_url = base_url_mock
+    when "mock_custom"
+      unless custom_mock_service.blank?
+        final_url = base_url_mock_custom
+      else
+        final_url = base_url
+      end
+    else
+      final_url = base_url
+    end
+    final_url
+  end
+
+  def invoke(options = {})
+    verb = options.fetch(:verb)
+    path = options.fetch(:path)
+    path_params = options.fetch(:path_params)
+    query_params = options.fetch(:query_params)
+    header_params = options.fetch(:header_params)
+    raw_body = options.fetch(:raw_body)
+    destination = options.fetch(:destination, 'real')
+
     operation = self.operation(verb, path)
     if operation.nil?
       raise ArgumentError,
         "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
     end
     begin
-
       RestClient::Request.execute(
         method: verb,
-        url: base_url + _resolve_path(path, path_params),
+        url: url_destination(destination)  + _resolve_path(path, path_params),
         # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
         #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
         headers: header_params.merge(params: query_params),
@@ -431,12 +474,16 @@ class ServiceVersion < ApplicationRecord
         end
       end
     else
-      scheduled_health_check_job&.destroy
+      stop_health_checks
     end
   end
 
-  def reschedule_health_checks
+  def stop_health_checks
     scheduled_health_check_job&.destroy
+  end
+
+  def reschedule_health_checks
+    stop_health_checks
     schedule_health_checks
   end
 
@@ -460,4 +507,34 @@ class ServiceVersion < ApplicationRecord
   def last_check
     service_version_health_checks.last
   end
+
+  def send_owner_monitor_notifications(message)
+    return if organization == Organization.where(dipres_id: ENV['MINSEGPRES_DIPRES_ID']).first
+
+    owner_role = user.roles.where(organization: organization, name: "Monitor").first
+    if owner_role.present?
+      email = owner_role.email
+      user.notifications.create(subject: self,
+        message: message,
+          email: email
+      )
+    end
+  end
+
+  def send_gobdigital_monitor_notifications(message)
+    org = Organization.where(dipres_id: ENV['MINSEGPRES_DIPRES_ID'])
+
+    Role.where(name: "Monitor", organization: org).each do |role|
+      role.user.notifications.create(subject: self,
+        message: message, email: role.email
+      )
+    end
+  end
+
+  def send_monitor_notifications
+    message = I18n.t(:create_service_status_notification, name: name, old: I18n.t(availability_status_was.to_sym), new: I18n.t(availability_status.to_sym))
+    send_owner_monitor_notifications(message)
+    send_gobdigital_monitor_notifications(message)
+  end
+
 end

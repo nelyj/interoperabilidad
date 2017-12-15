@@ -5,8 +5,8 @@ require 'base64'
 
 class SignerApi
 
-  def self.encode_token(payload)
-    JSON::JWT.new(payload).sign(ENV['SIGNER_API_SECRET'], :HS256).to_s
+  def self.encode_token(payload, sign_secret = ENV['SIGNER_API_SECRET'] )
+    JSON::JWT.new(payload).sign(sign_secret, :HS256).to_s
   end
 
   def self.upload_file(file, user, organization)
