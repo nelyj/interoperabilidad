@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204184648) do
+ActiveRecord::Schema.define(version: 20171215111619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20171204184648) do
     t.string   "provider_id"
     t.string   "provider_secret"
     t.boolean  "monitoring_enabled", default: true
+    t.boolean  "support_xml",        default: false
     t.index ["lexemes"], name: "services_lexemes_idx", using: :gin
   end
 
