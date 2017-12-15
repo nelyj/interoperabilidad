@@ -14,12 +14,13 @@ class ServiceVersion < ApplicationRecord
   validates :custom_mock_service, :url => {:allow_blank => true}
   attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
-  after_save :schedule_health_checks
+  after_commit :schedule_health_checks
   after_create :create_new_notification
   after_create :retract_proposed
   delegate :name, to: :service
   delegate :organization, to: :service
   has_many :service_version_health_checks
+  after_save :send_monitor_notifications, if: :availability_status_changed?
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   #
@@ -502,4 +503,34 @@ class ServiceVersion < ApplicationRecord
   def last_check
     service_version_health_checks.last
   end
+
+  def send_owner_monitor_notifications(message)
+    return if organization == Organization.where(dipres_id: ENV['MINSEGPRES_DIPRES_ID']).first
+
+    owner_role = user.roles.where(organization: organization, name: "Monitor").first
+    if owner_role.present?
+      email = owner_role.email
+      user.notifications.create(subject: self,
+        message: message,
+          email: email
+      )
+    end
+  end
+
+  def send_gobdigital_monitor_notifications(message)
+    org = Organization.where(dipres_id: ENV['MINSEGPRES_DIPRES_ID'])
+
+    Role.where(name: "Monitor", organization: org).each do |role|
+      role.user.notifications.create(subject: self,
+        message: message, email: role.email
+      )
+    end
+  end
+
+  def send_monitor_notifications
+    message = I18n.t(:create_service_status_notification, name: name, old: I18n.t(availability_status_was.to_sym), new: I18n.t(availability_status.to_sym))
+    send_owner_monitor_notifications(message)
+    send_gobdigital_monitor_notifications(message)
+  end
+
 end
