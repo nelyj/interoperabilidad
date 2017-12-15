@@ -50,7 +50,7 @@
           %span{class: css_class_for_status(@service_version.status)}
             = t(@service_version.status)
           - if @service_version.service.support_xml
-            %span{class: css_class_for_xml_support(@service_version.service.support_xml)}
+            %span{class: 'btn-status success'}
               = t(:xml)
         .description
           - if @service_version.description.present?

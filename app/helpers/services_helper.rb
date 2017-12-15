@@ -10,11 +10,4 @@ module ServicesHelper
       'rejected' => 'danger'
     }[status] || '')
   end
-
-  def css_class_for_xml_support(status)
-    'btn-status ' + ({
-      true => 'success',
-      false => 'danger'
-    }[status] || '')
-  end
 end
