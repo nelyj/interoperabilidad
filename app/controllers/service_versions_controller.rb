@@ -2,6 +2,7 @@ class ServiceVersionsController < ApplicationController
   before_action :set_organization
   before_action :set_service
   before_action :set_service_version, only: [:show, :source_code, :state, :reject, :try]
+  before_action :set_xml_support, only: :create
 
   def show
     respond_to do |format|
@@ -148,6 +149,11 @@ class ServiceVersionsController < ApplicationController
 
   def service_version_params
     params.require(:service_version).permit(:spec_file, :backwards_compatible, :custom_mock_service)
+  end
+
+  def set_xml_support
+    support = params[:service_version][:support_xml] == '1' ? true : false
+    @service.update!(support_xml: support)
   end
 
   def set_service

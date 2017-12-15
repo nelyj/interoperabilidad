@@ -19,6 +19,7 @@ class ServiceVersion < ApplicationRecord
   after_create :retract_proposed
   delegate :name, to: :service
   delegate :organization, to: :service
+  delegate :support_xml, to: :service, allow_nil: true
   has_many :service_version_health_checks
   after_save :send_monitor_notifications, if: :availability_status_changed?
 
