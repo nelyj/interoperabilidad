@@ -515,3 +515,4 @@ es:
   service_versions_changelog_placeholder: "Registro de cambios realizados en esta versión"
   service_versions_changelog: Descripción de Cambios
   service_version_proposed_changes: Cambios
+  supports_xml: Soporta XML

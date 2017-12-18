@@ -48,7 +48,17 @@
           .row
             .col-md-6
               %h4= t(:service_versions_changelog)
-              = f.text_area :changelog, { class: 'form-control', placeholder: t(:service_versions_changelog_placeholder), rows: 5}
+              = f.text_area :changelog, { class: 'form-control', placeholder: t(:service_versions_changelog_placeholder), rows: 2, maxlength: 250}
+
+
+          .row
+            .col-md-6
+              .text-left
+                #check_box_xml
+                = f.check_box :support_xml, style: "display: inline;", id: "input-checkbox-supports-xml"
+                %label{for: "input-checkbox-supports-xml"}
+                  =t(:supports_xml)
+
           .row
             .col-md-12
               .text-right
