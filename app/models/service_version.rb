@@ -86,7 +86,7 @@ class ServiceVersion < ApplicationRecord
     if version_number == 1
       message = I18n.t(:create_new_service_notification, name: name)
     else
-      message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s)
+      message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s, changes: changelog)
     end
     Role.where(name: "Service Provider", organization: org).each do |role|
       role.user.notifications.create(subject: self,
