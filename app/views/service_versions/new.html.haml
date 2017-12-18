@@ -45,6 +45,10 @@
             .col-md-6
               %h4= t(:enter_custom_mock_server)
               = f.text_field :custom_mock_service, { :class => "form-control input-lg", :placeholder => t(:custom_mock_service_example)}
+          .row
+            .col-md-6
+              %h4= t(:service_versions_changelog)
+              = f.text_area :changelog, { class: 'form-control', placeholder: t(:service_versions_changelog_placeholder), rows: 2, maxlength: 250}
 
 
           .row

@@ -148,7 +148,7 @@ class ServiceVersionsController < ApplicationController
   private
 
   def service_version_params
-    params.require(:service_version).permit(:spec_file, :backwards_compatible, :custom_mock_service)
+    params.require(:service_version).permit(:spec_file, :backwards_compatible, :custom_mock_service, :changelog)
   end
 
   def set_xml_support

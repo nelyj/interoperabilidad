@@ -111,7 +111,7 @@ es:
   save: Guardar
   shownotifications: Ver Notificaciones
   create_new_service_notification: "Nuevo Servicio: %{name} creado."
-  create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación."
+  create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación. Cambios: %{changes}"
   create_state_change_notification: "Servicio %{name}, versión %{version} ha sido %{status}."
   agreement_next_step_responsable_message: "Convenio %{id}: %{log} por: %{responsable}"
   agreement_between: "Convenio entre %{consumer} y %{provider}"
@@ -512,4 +512,7 @@ es:
   service_name_cant_contain_dots: no puede contener puntos
   xml: XML
   create_service_status_notification: "El estado del servicio %{name} cambió de %{old} a %{new}"
+  service_versions_changelog_placeholder: "Registro de cambios realizados en esta versión"
+  service_versions_changelog: Descripción de Cambios
+  service_version_proposed_changes: Cambios
   supports_xml: Soporta XML

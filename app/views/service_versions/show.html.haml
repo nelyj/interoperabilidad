@@ -23,6 +23,10 @@
         .col-md-12
           %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
           %h1= display_service_alert_msg(@service_version.status)['title']
+          %h2.service_version_proposed_changelog_title
+            = t(:service_version_proposed_changes) + ":"
+          %h3.service_version_proposed_changelog
+            = @service_version.changelog
           .actions
             = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put, class: "btn btn-success"
             %button.btn.btn-danger{"data-target" => "#modalServiceRejected", "data-toggle" => "modal", :type => "button"}
