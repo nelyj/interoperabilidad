@@ -23,7 +23,7 @@
         .col-md-12
           %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
           %h1= display_service_alert_msg(@service_version.status)['title']
-          %h2
+          %h2.service_version_proposed_changelog_title
             = t(:service_version_proposed_changes) + ":"
           %h3.service_version_proposed_changelog
             = @service_version.changelog
