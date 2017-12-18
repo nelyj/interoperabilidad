@@ -46,6 +46,15 @@
               %h4= t(:enter_custom_mock_server)
               = f.text_field :custom_mock_service, { :class => "form-control input-lg", :placeholder => t(:custom_mock_service_example)}
 
+
+          .row
+            .col-md-6
+              .text-left
+                #check_box_xml
+                = f.check_box :support_xml, style: "display: inline;", id: "input-checkbox-supports-xml"
+                %label{for: "input-checkbox-supports-xml"}
+                  =t(:supports_xml)
+
           .row
             .col-md-12
               .text-right
