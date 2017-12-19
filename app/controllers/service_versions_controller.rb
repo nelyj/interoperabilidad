@@ -116,7 +116,9 @@ class ServiceVersionsController < ApplicationController
       new_state = params[:service][:state]
       case new_state
       when 'current'
-        return
+        # debugger
+        # p 'hola'
+        # return
         make_current_version
       when 'rejected'
         reject_version
@@ -137,6 +139,7 @@ class ServiceVersionsController < ApplicationController
   def make_current_version
     set_service_version
     @service_version.make_current_version
+    @service_version.service.set_data_categories(params[:service][:data_categories])
     redirect_to pending_approval_services_path
   end
 
