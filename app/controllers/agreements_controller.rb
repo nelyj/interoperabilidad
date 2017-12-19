@@ -98,7 +98,7 @@ class AgreementsController < ApplicationController
     end
   end
 
-  def inyect
+  def inject
     return true
   end
 
