@@ -42,6 +42,8 @@
                       =active_link_to t(:schemas), schemas_path, :active => [['schemas', 'schema_versions'],[]]
                     %li{:role => "presentation"}
                       =active_link_to t(:monitoring), monitoring_organizations_path
+                    %li{role: "presentation"}
+                      =link_to t(:traceability), controller.traceability_endpoint
                   .nav.navbar-nav.navbar-right
                     =render 'layouts/menu'
 

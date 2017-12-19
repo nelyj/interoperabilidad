@@ -46,6 +46,7 @@ services:
       - REDIS_URL=redis://redis
       - BUNDLE_PATH=${BUNDLE_PATH-/usr/local/bundle/}
       - URL_MOCK_SERVICE=https://swagger-mocks.herokuapp.com
+      - TRACEABILITY_ENDPOINT=http://dashboard.digital.gob.cl/
   web:
     <<: *base
     tty: true
