@@ -113,9 +113,10 @@ class ServiceVersionsController < ApplicationController
 
   def state
     if user_signed_in? && current_user.is_service_admin?
-      new_state = params[:state]
+      new_state = params[:service][:state]
       case new_state
       when 'current'
+        return
         make_current_version
       when 'rejected'
         reject_version
