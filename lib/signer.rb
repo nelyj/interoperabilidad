@@ -16,14 +16,14 @@ class SignerApi
 
     payload = {
       expiration: Time.now.utc.iso8601[0...-1], #Had to remove the Z from the UTC time, because the api does not suport it.
-      run: "11111111",#user.rut_number,
+      run: "1111111",#user.rut_number,
       purpose: 'Propósito General', #"Propósito General", to use OTP on file sign.
       entity: "Subsecretaría General de La Presidencia" #organization.name
     }
 
     token = SignerApi.encode_token(payload)
     base64file = Base64.strict_encode64(file)
-    checksum = Digest::SHA256.hexdigest base64file
+    checksum = Digest::SHA256.hexdigest file
 
     files = [
       {
