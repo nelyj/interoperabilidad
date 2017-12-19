@@ -1,7 +1,7 @@
 - services.each do |s|
   .box-service
     %h2.title{class: ('opendata' if s.public)}
-      = link_to organization_service_service_version_path(s.organization, s, s.last_version) do
+      = link_to operation_organization_service_service_version_path(organization_name: s.organization.name, version_number: s.last_version.version_number, service_name: s.name, verb: s.last_version.operations.first.first.first, path: s.last_version.operations.first.first.last, anchor: 'operation') do
         = truncate(s.name, :length => 50)
     .body
       - if s.description.blank?
