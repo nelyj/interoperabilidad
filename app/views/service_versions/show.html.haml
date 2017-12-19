@@ -23,6 +23,10 @@
         .col-md-12
           %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
           %h1= display_service_alert_msg(@service_version.status)['title']
+          %h2.service_version_proposed_changelog_title
+            = t(:service_version_proposed_changes) + ":"
+          %h3.service_version_proposed_changelog
+            = @service_version.changelog
           .actions
             = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put, class: "btn btn-success"
             %button.btn.btn-danger{"data-target" => "#modalServiceRejected", "data-toggle" => "modal", :type => "button"}
@@ -92,7 +96,7 @@
               = link_to t(:new_agreement), new_organization_agreement_path(current_user.agreement_creation_organization(@service), provider_org: @service.organization_id, service_id: @service.id), class: "btn btn-primary"
         - if @service.can_be_updated_by?(current_user)
           =link_to t(:new_version), new_organization_service_service_version_path, class: "btn btn-primary"
-        =link_to t(:view_oas), organization_service_service_version_url(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
+        =link_to t(:view_oas), organization_service_service_version_path(@organization, @service, @service_version, format: :json), class: 'btn btn-static'
         %button.btn.btn-static{"data-target" => "#modalDownloadCode", "data-toggle" => "modal", :type => "button"}
           = t(:generate_code)
         %p.url-canonica

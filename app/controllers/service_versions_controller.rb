@@ -63,6 +63,7 @@ class ServiceVersionsController < ApplicationController
     @service_version = @service.service_versions.build(service_version_params)
     @service_version.user = current_user
     if @service_version.save
+      set_xml_support
       redirect_to [@organization, @service, @service_version], notice: t(:new_service_version_created)
     else
       render :new
@@ -147,7 +148,12 @@ class ServiceVersionsController < ApplicationController
   private
 
   def service_version_params
-    params.require(:service_version).permit(:spec_file, :backwards_compatible, :custom_mock_service)
+    params.require(:service_version).permit(:spec_file, :backwards_compatible, :custom_mock_service, :changelog)
+  end
+
+  def set_xml_support
+    support = params[:service_version][:support_xml] == '1' ? true : false
+    @service.update!(support_xml: support)
   end
 
   def set_service

@@ -19,6 +19,7 @@ class ServiceVersion < ApplicationRecord
   after_create :retract_proposed
   delegate :name, to: :service
   delegate :organization, to: :service
+  delegate :support_xml, to: :service, allow_nil: true
   has_many :service_version_health_checks
   after_save :send_monitor_notifications, if: :availability_status_changed?
 
@@ -86,7 +87,7 @@ class ServiceVersion < ApplicationRecord
     if version_number == 1
       message = I18n.t(:create_new_service_notification, name: name)
     else
-      message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s)
+      message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s, changes: changelog)
     end
     Role.where(name: "Service Provider", organization: org).each do |role|
       role.user.notifications.create(subject: self,
