@@ -28,6 +28,11 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :agreements do
+    get 'global'
+    get 'inyect'
+  end
+
   namespace :monitoring do
     resources :organizations, only: [:index], param: :name do
       resources :services, only: [:index, :show], param: :name do

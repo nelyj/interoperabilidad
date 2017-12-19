@@ -89,6 +89,19 @@ class AgreementsController < ApplicationController
     end
   end
 
+  def global
+    return unless user_signed_in?
+    if current_user.is_service_admin?
+      @agreements = Agreement.all
+    else
+      redirect_to root_path, notice: t(:not_enough_permissions)
+    end
+  end
+
+  def inyect
+    return true
+  end
+
 private
 
   def agreement_params
