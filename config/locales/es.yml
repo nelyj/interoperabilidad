@@ -514,8 +514,13 @@ es:
   create_service_status_notification: "El estado del servicio %{name} cambió de %{old} a %{new}"
   to_view_agreements_please: Para revisar los convenios de la plataforma por favor
   no_agreements: No hay convenios
+  agreements_global_view: Vista Global de Convenios
+  inject_agreement: Subir un convenio existente
   service_versions_changelog_placeholder: "Registro de cambios realizados en esta versión"
   service_versions_changelog: Descripción de Cambios
   service_version_proposed_changes: Cambios
   supports_xml: Soporta XML
   traceability: Trazabilidad
+  creation_date: Fecha de creación
+  last_modified: Última modificación
+  next_step_responsables: Responsables

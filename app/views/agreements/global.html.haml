@@ -5,55 +5,45 @@
         #{t(:to_view_agreements_please)}
         = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
 - else
-
-  .title-panel-pages
-  .container
-    .row
-      .col-md-12
-        %h1
-          Vista Global de Convenios
-    .row
-      .col-md-12
-        %ul.nav.nav-tabs{:role => "tablist"}
-          %li{:role => "presentation", :class => "tab-to-new"}
-            =link_to agreements_inyect_path do
-              %i.material-icons
-                file_upload
-              %span=t(:create_service)
-
-  .content-pages.content-tabs
+  .content-pages.container-fluid
     .container
-      .tab-content
-        - if @agreements.empty?
-          .row
-            .col-md-12.head-title-table
-              %h2= t(:no_agreements)
-        - else
-          .row
-            .col-md-12.head-title-table
-              %h2= t(:new_requests_pending_approval, count: @agreements.count)
-              .search-table
-                %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#agreements-table'}}
-                %button.search
-                  %i.material-icons
-                    search
-          .row
-            .col-md-12
-              %table#agreements-table
-                %colgroup
-                  %col{:width => "10%"}
-                  %col
-                  %col{:width => "22%"}
-                  %col{:width => "8%"}
-                  %col{:width => "12%"}
-                  %col{:width => "8%"}
-                %thead
-                  %tr
-                    %th Fecha
-                    %th= t(:service_name)
-                    %th= t(:requesting_organization)
-                    %th= t(:version)
-                    %th= t(:requester)
-                    %th= t(:state)
-                %tbody
-                  = render partial: "agreements", collection: @agreements
+      .row
+        .col-md-12.head-title-table
+          %h2=t(:agreements_global_view)
+          .search-table
+            %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#agreements-table'}}
+              %button.search
+                %i.material-icons
+                  search
+      .row
+        .col-md-12
+          %ul.nav.nav-tabs{:role => "tablist"}
+            %li{:role => "presentation", :class => "tab-to-new"}
+              =link_to agreements_inject_path do
+                %i.material-icons
+                  file_upload
+                %span=t(:inject_agreement)
+      .row
+        .col-md-12
+          %table#agreements-table
+            %colgroup
+              %col{:width => "5%"}
+              %col{:width => "20%"}
+              %col{:width => "18%"}
+              %col{:width => "20%"}
+              %col{:width => "5%"}
+              %col{:width => "20%"}
+              %col{:width => "5%"}
+              %col{:width => "7%"}
+            %thead
+              %tr
+                %th= t(:creation_date)
+                %th= t(:provider_organization)
+                %th= t(:services)
+                %th= t(:requesting_organization)
+                %th= t(:state)
+                %th= t(:next_step_responsables)
+                %th= t(:last_modified)
+                %th= t(:sign_date)
+            %tbody
+              = render partial: "agreements", collection: @agreements
