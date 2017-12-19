@@ -199,6 +199,7 @@ header {
             &.new-schema,
             &.pending-services,
             &.monitor-params,
+            &.agreements-list,
             &.logout {
                 a {
                     overflow: hidden;
@@ -229,7 +230,12 @@ header {
             }
             &.monitor-params{
               a{
-                color: $official-lightblue
+                color: $official-blue
+              }
+            }
+            &.agreements-list{
+              a{
+                color: $official-red;
               }
             }
             }

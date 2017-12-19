@@ -41,6 +41,11 @@
             %i.material-icons
               alarm
             %span= MonitorParam.model_name.human
+        %li.agreements-list
+          =link_to agreements_global_path, id: "menu-vista-global-convenios" do
+            %i.material-icons
+              description
+            %span= "Vista global de Convenios"
       %li.logout
         =link_to destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: :delete, id: 'btn-logout' do
           %i.material-icons
