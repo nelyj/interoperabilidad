@@ -163,66 +163,62 @@
             .title
               %i#fullConsole.material-icons.pull-left zoom_out_map
               %i#closeConsole.material-icons.pull-right clear
-            - if @service.needs_agreement_to_be_used_by?(current_user)
-              -# When we implement the mock server feature we shall remove this restriction
-              .alert
-                = t(:cant_test_service_without_agreement)
-              - if @organization.can_create_agreements_with_this_organization?(current_user)
-                - if @service.needs_agreement_to_be_used_by?(current_user) || !current_user.organizations_have_agreements_for_all_orgs(@service)
-                  - if current_user.can_create_agreements_to_many_organizations?(@service)
-                    .btn-group
-                      %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-                        = t(:new_agreement)
-                        %span.caret
-                      %ul.dropdown-menu
-                        - current_user.organizations_where_can_create_agreements(@service).each do |org|
-                          %li
-                            =link_to org.name, new_organization_agreement_path(org, provider_org: @service.organization_id, service_id: @service.id)
-                  - else
-                    = link_to t(:new_agreement), new_organization_agreement_path(current_user.agreement_creation_organization(@service), provider_org: @service.organization_id, service_id: @service.id), class: "btn btn-primary"
-            - else
-              %form#consoleForm
-                %h3= t(:parameters)
-                - if @service_version.has_parameters?(@verb, @path)
-                  - @service_version.parameter_locations(@verb, @path).each do |location|
-                    .console-parameter-group{data: {location: location}}
-                      .subtitle
-                        .col-md-6.text-left
-                          %h3= parameter_section_name(location)
-                        .col-md-6.text-right
-                          %span.bullet-required
-                            =t(:property_required)
-                      %ul.nav.nav-tabs
-                        %li.display-tab.active{"data-tab": ".form-tab"}
-                          %a Form
-                        %li.display-tab{"data-tab": ".json-tab"}
-                          %a JSON
-                      .tab-content
-                        .form-tab.tab-pane.active
-                          .schema-panel-set
-                            = service_operation_parameters_form(@service_version, @verb, @path, location)
-                        .json-tab.tab-pane
-                          .raw-json
-                    %hr
+            - if @organization.can_create_agreements_with_this_organization?(current_user)
+              - if @service.needs_agreement_to_be_used_by?(current_user) || !current_user.organizations_have_agreements_for_all_orgs(@service)
+                - if current_user.can_create_agreements_to_many_organizations?(@service)
+                  .btn-group
+                    %button.btn.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                      = t(:new_agreement)
+                      %span.caret
+                    %ul.dropdown-menu
+                      - current_user.organizations_where_can_create_agreements(@service).each do |org|
+                        %li
+                          =link_to org.name, new_organization_agreement_path(org, provider_org: @service.organization_id, service_id: @service.id)
                 - else
-                  %p= t(:operation_without_parameters)
-                .btn-group
-                  = hidden_field_tag :test_type_service, "real"
-                  %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-                    %span.caret
-                  %ul#btns-service-console.dropdown-menu
+                  = link_to t(:new_agreement), new_organization_agreement_path(current_user.agreement_creation_organization(@service), provider_org: @service.organization_id, service_id: @service.id), class: "btn btn-primary"
+            %form#consoleForm
+              %h3= t(:parameters)
+              - if @service_version.has_parameters?(@verb, @path)
+                - @service_version.parameter_locations(@verb, @path).each do |location|
+                  .console-parameter-group{data: {location: location}}
+                    .subtitle
+                      .col-md-6.text-left
+                        %h3= parameter_section_name(location)
+                      .col-md-6.text-right
+                        %span.bullet-required
+                          =t(:property_required)
+                    %ul.nav.nav-tabs
+                      %li.display-tab.active{"data-tab": ".form-tab"}
+                        %a Form
+                      %li.display-tab{"data-tab": ".json-tab"}
+                        %a JSON
+                    .tab-content
+                      .form-tab.tab-pane.active
+                        .schema-panel-set
+                          = service_operation_parameters_form(@service_version, @verb, @path, location)
+                      .json-tab.tab-pane
+                        .raw-json
+                  %hr
+              - else
+                %p= t(:operation_without_parameters)
+              .btn-group
+                = hidden_field_tag :test_type_service, (@service.needs_agreement_to_be_used_by?(current_user) ? "mock" : "real")
+                %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+                  %span.caret
+                %ul#btns-service-console.dropdown-menu
+                  - unless @service.needs_agreement_to_be_used_by?(current_user)
                     %li.type-test-service{"data-type-service" => "real"}
                       %a= t(:real_service)
-                    %li.type-test-service{"data-type-service" => "mock"}
-                      %a= t(:mock_service)
-                    - unless @service_version.custom_mock_service.blank?
-                      %li.type-test-service{"data-type-service" => "mock_custom"}
-                        %a= t(:mock_custom_service)
-                %button#try-service.btn.btn-primary{type: 'submit'}
-                  = t(:send)
-              .console-response-group
-                %h3=t(:response)
-                %pre.code#response
+                  %li.type-test-service{"data-type-service" => "mock"}
+                    %a= t(:mock_service)
+                  - unless @service.needs_agreement_to_be_used_by?(current_user) && @service_version.custom_mock_service.blank?
+                    %li.type-test-service{"data-type-service" => "mock_custom"}
+                      %a= t(:mock_custom_service)
+              %button#try-service.btn.btn-primary{type: 'submit'}
+                = t(:send)
+            .console-response-group
+              %h3=t(:response)
+              %pre.code#response
 
 #modalTokens.modal.fade{:role => "dialog", :tabindex => "-1"}
   .modal-dialog
