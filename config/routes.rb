@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   end
 
   resources :monitor_params
+  resources :data_categories
 
   resources :organizations, only: [:index, :show], param: :name do
     resources :services, only: [:index, :new, :create, :show], param: :name do

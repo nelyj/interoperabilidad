@@ -1,0 +1,12 @@
+- if !user_signed_in?
+  .alert.info
+    .container
+      %p
+        #{t(:identify_with_clave_unica)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  .content-pages.container-fluid
+    .container
+      .row
+        .col-md-12.head-title-table
+          hola mundo
