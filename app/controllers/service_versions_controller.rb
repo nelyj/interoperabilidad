@@ -116,9 +116,6 @@ class ServiceVersionsController < ApplicationController
       new_state = params[:service][:state]
       case new_state
       when 'current'
-        # debugger
-        # p 'hola'
-        # return
         make_current_version
       when 'rejected'
         reject_version
