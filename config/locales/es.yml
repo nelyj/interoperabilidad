@@ -517,4 +517,14 @@ es:
   service_version_proposed_changes: Cambios
   supports_xml: Soporta XML
   traceability: Trazabilidad
-  data_categories: Categorías Dir. de Datos
+  data_categories: Categorías de Datos
+  create_data_category: Crear categoría
+  edit_data_category: Editar categoría
+  category_name: Nombre
+  send_data: Enviar datos
+  record_created: Registro creado
+  couldnt_save_record: No se pudo guardar el registro
+  data_category_update_success: Actualizado exitosamente
+  data_category_update_error: Hubo un error al actualizar
+  data_category_deletion_success: Borrado exitosamente
+  data_category_deletion_error: Lo sentimos, hubo un error
