@@ -540,4 +540,16 @@ class ServiceVersion < ApplicationRecord
     send_gobdigital_monitor_notifications(message)
   end
 
+  def get_info_from_first_service(key)
+    case key
+    when 'verb'
+      operations.first.first.first  
+    when 'path'
+      operations.first.first.last
+    else
+      ''
+    end
+    
+  end
+
 end
