@@ -8,7 +8,7 @@ class ServiceVersion < ApplicationRecord
   belongs_to :user
   has_many :notifications, as: :subject
   validates :spec, swagger_spec: true, presence: true
-  before_create :set_version_number
+  before_create :set_version_number_and_first_changelog
   before_save :update_spec_with_resolved_refs
   validate :spec_file_must_be_parseable
   validates :custom_mock_service, :url => {:allow_blank => true}
@@ -63,8 +63,10 @@ class ServiceVersion < ApplicationRecord
     version_number.to_s
   end
 
-  def set_version_number
+  def set_version_number_and_first_changelog
     self.version_number = service.last_version_number + 1
+    self.changelog = I18n.t(:first_change_log_detail) if self.version_number == 1
+    self.changelog = I18n.t(:no_change_log_reported) if self.version_number > 1 && self.changelog.to_s.blank?
   end
 
   def update_search_metadata
@@ -549,7 +551,6 @@ class ServiceVersion < ApplicationRecord
     else
       ''
     end
-    
   end
 
 end
