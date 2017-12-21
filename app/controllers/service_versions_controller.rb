@@ -79,11 +79,14 @@ class ServiceVersionsController < ApplicationController
 
   def try
     additional_headers = {}
+    custom_auth_type = nil
     if !@service_version.service.public && user_signed_in?
       if current_user.can_try_protected_service?(@service_version.service)
         additional_headers['Autentication'] = "Bearer #{@service_version.service.generate_client_token}"
       end
     end
+    custom_auth_type = 'public' if !user_signed_in? && !@service_version.service.public
+
     render plain: @service_version.invoke({
       verb: params[:verb],
       path: params[:path] || '/',
@@ -91,7 +94,8 @@ class ServiceVersionsController < ApplicationController
       query_params: params[:query_params].try(:to_unsafe_h) || {},
       header_params: (params[:header_params].try(:to_unsafe_h) || {}).merge!(additional_headers),
       raw_body: params[:body_params].try(:to_unsafe_h),
-      destination: params[:type_test_service]
+      destination: params[:type_test_service],
+      custom_auth_type: custom_auth_type
     }).to_s
   rescue Exception => e
     render plain: (t(:error_while_invoking_service) + ":\n\t" +  e.to_s)

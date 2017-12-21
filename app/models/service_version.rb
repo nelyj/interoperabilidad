@@ -300,12 +300,12 @@ class ServiceVersion < ApplicationRecord
     ENV['URL_MOCK_SERVICE']
   end
 
-  def base_url_mock
-    url_mock + mock_auth_type + url + base_path
+  def base_url_mock(custom_auth_type=nil)
+    url_mock + mock_auth_type(custom_auth_type) + url + base_path
   end
 
-  def mock_auth_type
-    "/"+(service.public? ? 'public' : 'private' )
+  def mock_auth_type(custom_auth_type=nil)
+    "/" + (custom_auth_type || (service.public? ? 'public' : 'private'))
   end
 
   def base_url_mock_custom
@@ -324,12 +324,12 @@ class ServiceVersion < ApplicationRecord
     self.spec_with_resolved_refs['definition']['basePath'] || ''
   end
 
-  def url_destination(destination)
+  def url_destination(destination, custom_auth_type)
     case destination
     when "real"
       final_url = base_url
     when "mock"
-      final_url = base_url_mock
+      final_url = base_url_mock(custom_auth_type)
     when "mock_custom"
       unless custom_mock_service.blank?
         final_url = base_url_mock_custom
@@ -350,16 +350,18 @@ class ServiceVersion < ApplicationRecord
     header_params = options.fetch(:header_params)
     raw_body = options.fetch(:raw_body)
     destination = options.fetch(:destination, 'real')
+    custom_auth_type = options.fetch(:custom_auth_type, nil)
 
     operation = self.operation(verb, path)
     if operation.nil?
       raise ArgumentError,
         "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
     end
+
     begin
       RestClient::Request.execute(
         method: verb,
-        url: url_destination(destination)  + _resolve_path(path, path_params),
+        url: url_destination(destination, custom_auth_type)  + _resolve_path(path, path_params),
         # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
         #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
         headers: header_params.merge(params: query_params),
@@ -537,6 +539,18 @@ class ServiceVersion < ApplicationRecord
     message = I18n.t(:create_service_status_notification, name: name, old: I18n.t(availability_status_was.to_sym), new: I18n.t(availability_status.to_sym))
     send_owner_monitor_notifications(message)
     send_gobdigital_monitor_notifications(message)
+  end
+
+  def get_info_from_first_service(key)
+    case key
+    when 'verb'
+      operations.first.first.first  
+    when 'path'
+      operations.first.first.last
+    else
+      ''
+    end
+    
   end
 
 end
