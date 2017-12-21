@@ -528,3 +528,4 @@ es:
   data_category_update_error: Hubo un error al actualizar
   data_category_deletion_success: Borrado exitosamente
   data_category_deletion_error: Lo sentimos, hubo un error
+  data_directories: Directorio de datos
