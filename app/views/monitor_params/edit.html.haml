@@ -1,0 +1,17 @@
+-if !user_signed_in? || !current_user.is_service_admin?
+  .alert.info
+    .container
+      %p
+        #{t(:cant_manage_monitor_params)}
+-else
+  .new-agreement.main-container
+    .container-fluid.main-title
+      .container
+        .row
+          .col-md-12
+            %h1= t(:edit_monitor_param)
+            = link_to monitor_params_path, title: t(:cancel)  do
+              %i.material-icons
+                close
+
+    = render 'form'

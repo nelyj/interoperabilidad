@@ -103,7 +103,7 @@ class ServicesController < ApplicationController
 
   private
     def service_params
-      params.require(:service).permit(:organization_id, :name, :spec_file, :public, :backwards_compatible)
+      params.require(:service).permit(:organization_id, :name, :spec_file, :public, :backwards_compatible, :custom_mock_service, :support_xml)
     end
     def set_service
       @service = @organization.services.where(name: params[:service_name] || params[:name]).first

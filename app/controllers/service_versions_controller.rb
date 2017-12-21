@@ -63,6 +63,7 @@ class ServiceVersionsController < ApplicationController
     @service_version = @service.service_versions.build(service_version_params)
     @service_version.user = current_user
     if @service_version.save
+      set_xml_support
       redirect_to [@organization, @service, @service_version], notice: t(:new_service_version_created)
     else
       render :new
@@ -78,19 +79,24 @@ class ServiceVersionsController < ApplicationController
 
   def try
     additional_headers = {}
+    custom_auth_type = nil
     if !@service_version.service.public && user_signed_in?
       if current_user.can_try_protected_service?(@service_version.service)
         additional_headers['Autentication'] = "Bearer #{@service_version.service.generate_client_token}"
       end
     end
-    render plain: @service_version.invoke(
-      params[:verb],
-      params[:path] || '/',
-      params[:path_params].try(:to_unsafe_h) || {},
-      params[:query_params].try(:to_unsafe_h) || {},
-      (params[:header_params].try(:to_unsafe_h) || {}).merge!(additional_headers),
-      params[:body_params].try(:to_unsafe_h)
-    ).to_s
+    custom_auth_type = 'public' if !user_signed_in? && !@service_version.service.public
+
+    render plain: @service_version.invoke({
+      verb: params[:verb],
+      path: params[:path] || '/',
+      path_params: params[:path_params].try(:to_unsafe_h) || {},
+      query_params: params[:query_params].try(:to_unsafe_h) || {},
+      header_params: (params[:header_params].try(:to_unsafe_h) || {}).merge!(additional_headers),
+      raw_body: params[:body_params].try(:to_unsafe_h),
+      destination: params[:type_test_service],
+      custom_auth_type: custom_auth_type
+    }).to_s
   rescue Exception => e
     render plain: (t(:error_while_invoking_service) + ":\n\t" +  e.to_s)
   end
@@ -146,7 +152,12 @@ class ServiceVersionsController < ApplicationController
   private
 
   def service_version_params
-    params.require(:service_version).permit(:spec_file, :backwards_compatible)
+    params.require(:service_version).permit(:spec_file, :backwards_compatible, :custom_mock_service, :changelog)
+  end
+
+  def set_xml_support
+    support = params[:service_version][:support_xml] == '1' ? true : false
+    @service.update!(support_xml: support)
   end
 
   def set_service

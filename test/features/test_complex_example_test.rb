@@ -26,12 +26,14 @@ class TestComplexExampleTest < Capybara::Rails::TestCase
     assert_content page, "Servicio creado correctamente"
 
     click_button "Probar Servicio"
-    within ".console" do
-      click_button "Enviar"
-      assert_content 'pedro@dominio.com'
-      assert_content 'Juan Andres'
-      assert_content 'Perez Cortez'
-    end
+
+    find("#try-service").click
+
+    page.must_have_content('Respuesta')
+    assert_content 'pedro@dominio.com'
+    assert_content 'Juan Andres'
+    assert_content 'Perez Cortez'
+
 
   end
 
@@ -49,7 +51,9 @@ class TestComplexExampleTest < Capybara::Rails::TestCase
 
     click_button "Probar Servicio"
 
-    within ".console" do  
+    assert_content page, "Parámetros"
+
+    within ".console" do
 
       expand_console_form(page)
 
@@ -59,14 +63,53 @@ class TestComplexExampleTest < Capybara::Rails::TestCase
 
       find('.add-element').click
 
+      page.must_have_content('numero')
+
       fill_in 'numero', :with => "77777777"
 
-      click_button "Enviar"
+      find("#try-service").click
+
+      page.must_have_content('Respuesta')
 
       assert_content 'Respuesta'
       assert_content 'Jose'
       assert_content 'Altuve'
       assert_content '77777777'
+    end
+
+  end
+
+
+  test "complex service delete example" do
+
+    attach_file 'service_spec_file', Rails.root.join(
+      'test', 'files', 'sample-services', 'ComplexExample.yaml')
+
+
+    swagger = YAML.load_file("#{Rails.root}/test/files/sample-services/ComplexExample.yaml")
+    url_post_persona_example = swagger['host']+swagger['basePath']+swagger['paths'].keys.first
+
+    response = RestClient::Request.execute(
+        method: :post,
+        url: "#{swagger['schemes'].first}://#{url_post_persona_example}",
+        payload: {persona: {nombres: "Jose", apellidos: "Altuve"}}
+      )
+    json_response = JSON.parse(response.body)
+
+    click_button "Crear Servicio"
+    assert_content page, "Servicio creado correctamente"
+
+    find('a .btn-status.danger.full').click
+
+    assert_content page, "Eliminando Personas"
+
+    click_button "Probar Servicio"
+
+    within ".console" do
+      fill_in 'id', :with => json_response["persona"]["id"]
+      click_button "Enviar"
+      assert_content 'Respuesta'
+      assert_content 'Persona eliminada correctamente.'
     end
 
   end

@@ -1,0 +1,51 @@
+.content-pages.content-tabs
+  .container
+    .tab-content
+      #monitoring.tab-pane.active{:role => "tabpanel"}
+        .row
+          .col-md-12.head-title-table
+            %h2 #{t(:monitoring)} > #{@organization.name}
+            .search-table
+              %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#monitoring_table'}}
+              %button.search
+                %i.material-icons
+                  search
+        .row
+          .col-md-12
+            %table#monitoring_table
+              %colgroup
+                %col
+                %col{:width => "20%"}
+                %col{:width => "20%"}
+                - if current_user&.is_service_admin?
+                  %col{:width => "20%"}
+              %thead
+                %tr
+                  %th= t(:service_name)
+                  %th= t(:last_time_checked)
+                  %th= t(:service_status)
+                  - if current_user&.is_service_admin?
+                    %th
+              %tbody
+                - @organization.services.order(:name).each do |service|
+                  %tr{data: {'service-id' => service.id}}
+                    %td= link_to(service.name, monitoring_organization_service_path(@organization, service))
+                    %td= service.current_or_last_version.last_check&.created_at&.strftime("%d/%m/%Y %H:%M:%S %Z") || t(:never)
+                    %td
+                      %span{class: css_class_for_availability_status(service)}
+                        - if service.monitoring_enabled
+                          = t(service.current_or_last_version.availability_status)
+                        - else
+                          = t(:monitoring_disabled)
+                    - if current_user&.is_service_admin?
+                      %td
+                        - if service.monitoring_enabled
+                          = link_to t(:disable_monitoring), |
+                            disable_monitoring_organization_service_path(@organization, service), |
+                            data: {method: 'post'}, |
+                            class: 'btn btn-default'
+                        - else
+                          = link_to t(:enable_monitoring), |
+                            enable_monitoring_organization_service_path(@organization, service), |
+                            data: {method: 'post'}, |
+                            class: 'btn btn-default'

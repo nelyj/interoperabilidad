@@ -1,8 +1,13 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
   get 'static_pages/visual_components'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root to: 'home#root'
+  
+  get 'trazabilidad', to: 'traceability#endpoints_info'
 
   devise_scope :user do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
@@ -22,6 +27,19 @@ Rails.application.routes.draw do
       get 'pending_approval'
     end
   end
+
+  namespace :monitoring do
+    resources :organizations, only: [:index], param: :name do
+      resources :services, only: [:index, :show], param: :name do
+        member do
+          post 'enable'
+          post 'disable'
+        end
+      end
+    end
+  end
+
+  resources :monitor_params
 
   resources :organizations, only: [:index, :show], param: :name do
     resources :services, only: [:index, :new, :create, :show], param: :name do
@@ -52,4 +70,7 @@ Rails.application.routes.draw do
     resources :notifications, only:[:index, :show]
   end
 
+  if Rails.env.development?
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

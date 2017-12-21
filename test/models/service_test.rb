@@ -13,6 +13,17 @@ class ServiceTest < ActiveSupport::TestCase
     service
   end
 
+  test 'should not create services with names that include dots' do
+    assert_raise ActiveRecord::RecordInvalid do
+      Service.create!(
+        organization: organizations(:segpres),
+        name: "nombre.servicio",
+        spec_file: StringIO.new(VALID_SPEC),
+        backwards_compatible: true
+      )
+    end
+  end
+
   test '#search returns services based on an existing text' do
     valid_service = create_valid_service!
     service = Service.create!(

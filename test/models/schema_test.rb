@@ -77,7 +77,7 @@ class SchemaTest < ActiveSupport::TestCase
     version = schema.last_version
     version.spec = version.spec.except!('description')
     version.save!
-    assert_equal nil, schema.description
+    assert_nil schema.description
   end
 
   test '#text_search_vectors returns a vector for searching on the name field' do

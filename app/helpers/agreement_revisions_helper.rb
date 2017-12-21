@@ -20,7 +20,7 @@ module AgreementRevisionsHelper
   end
 
   def css_class_for_agreement_status(status)
-    {
+    'btn-status ' + ({
       'draft' => 'static',
       'validated_draft' => 'primary',
       'objected' => 'danger',
@@ -28,7 +28,7 @@ module AgreementRevisionsHelper
       'validated' => 'primary',
       'rejected_sign' => 'danger',
       'signed' => 'success'
-    }[status] + ' btn-status' || ''
+    }[status] || '')
   end
 
   def buttons_assets

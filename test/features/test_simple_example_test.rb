@@ -24,6 +24,7 @@ class TestSimpleExampleTest < Capybara::Rails::TestCase
     assert_content page, "Servicio creado correctamente"
 
     click_button "Probar Servicio"
+    
     within ".console" do
       fill_in 'name', :with => "Mundo"
       click_button "Enviar"

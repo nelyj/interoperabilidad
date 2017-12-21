@@ -80,6 +80,7 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
     )
     find(".container-verbs a", text: "GET/test-path/{id}").trigger('click')
     click_button "Probar Servicio"
+    assert_content("Parámetros")
     within ".console" do
       fill_in 'id', with: "value-for-param-id"
       click_button "Enviar"
@@ -88,7 +89,7 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
     end
   end
 
-  test "Don't show test service form for users not allowed to use the service" do
+  test "Show only mock test service form for users not allowed to use the service" do
     login_as users(:pablito)
     visit organization_service_service_version_path(
       @service_v.organization, @service_v.service, @service_v
@@ -97,11 +98,22 @@ class ShowServiceOperationDetailTest < Capybara::Rails::TestCase
     assert_content "Logs user into the system"
     click_button "Probar Servicio"
     within ".console" do
-      assert_no_content "Parámetros"
-      assert_no_content "URL: Query"
-      assert_no_content "username"
-      assert_no_content "password"
-      assert_content "Se requiere de un convenio activo para probar este servicio"
+      assert_content "Parámetros"
+      assert_content "Servicio Simulado"
+    end
+  end
+
+
+  test "Show only mock test service form for not autenticated users" do
+    visit organization_service_service_version_path(
+      @service_v.organization, @service_v.service, @service_v
+    )
+    find(".container-verbs a", text: "GET/users/login").click
+    assert_content "Logs user into the system"
+    click_button "Probar Servicio"
+    within ".console" do
+      assert_content "Parámetros"
+      assert_content "Servicio Simulado"
     end
   end
 end

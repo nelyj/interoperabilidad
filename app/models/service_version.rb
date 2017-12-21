@@ -11,14 +11,17 @@ class ServiceVersion < ApplicationRecord
   before_create :set_version_number
   before_save :update_spec_with_resolved_refs
   validate :spec_file_must_be_parseable
+  validates :custom_mock_service, :url => {:allow_blank => true}
   attr_accessor :spec_file_parse_exception
   after_save :update_search_metadata
-  after_save :schedule_health_checks
+  after_commit :schedule_health_checks
   after_create :create_new_notification
   after_create :retract_proposed
   delegate :name, to: :service
   delegate :organization, to: :service
+  delegate :support_xml, to: :service, allow_nil: true
   has_many :service_version_health_checks
+  after_save :send_monitor_notifications, if: :availability_status_changed?
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5
   #
@@ -35,6 +38,8 @@ class ServiceVersion < ApplicationRecord
   #
   # ALWAYS add new states at the end.
   enum status: [:proposed, :current, :rejected, :retracted, :outdated, :retired]
+
+  enum availability_status: [:unknown, :unavailable, :available]
 
   def spec_file
     @spec_file
@@ -82,7 +87,7 @@ class ServiceVersion < ApplicationRecord
     if version_number == 1
       message = I18n.t(:create_new_service_notification, name: name)
     else
-      message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s)
+      message = I18n.t(:create_new_version_notification, name: name, version: version_number.to_s, changes: changelog)
     end
     Role.where(name: "Service Provider", organization: org).each do |role|
       role.user.notifications.create(subject: self,
@@ -290,6 +295,22 @@ class ServiceVersion < ApplicationRecord
     schemes.first + '://' + host + base_path
   end
 
+  def url_mock
+    ENV['URL_MOCK_SERVICE']
+  end
+
+  def base_url_mock(custom_auth_type=nil)
+    url_mock + mock_auth_type(custom_auth_type) + url + base_path
+  end
+
+  def mock_auth_type(custom_auth_type=nil)
+    "/" + (custom_auth_type || (service.public? ? 'public' : 'private'))
+  end
+
+  def base_url_mock_custom
+    custom_mock_service + base_path
+  end
+
   def schemes
     self.spec_with_resolved_refs['definition']['schemes'] || ['http']
   end
@@ -302,17 +323,44 @@ class ServiceVersion < ApplicationRecord
     self.spec_with_resolved_refs['definition']['basePath'] || ''
   end
 
-  def invoke(verb, path, path_params, query_params, header_params, raw_body)
+  def url_destination(destination, custom_auth_type)
+    case destination
+    when "real"
+      final_url = base_url
+    when "mock"
+      final_url = base_url_mock(custom_auth_type)
+    when "mock_custom"
+      unless custom_mock_service.blank?
+        final_url = base_url_mock_custom
+      else
+        final_url = base_url
+      end
+    else
+      final_url = base_url
+    end
+    final_url
+  end
+
+  def invoke(options = {})
+    verb = options.fetch(:verb)
+    path = options.fetch(:path)
+    path_params = options.fetch(:path_params)
+    query_params = options.fetch(:query_params)
+    header_params = options.fetch(:header_params)
+    raw_body = options.fetch(:raw_body)
+    destination = options.fetch(:destination, 'real')
+    custom_auth_type = options.fetch(:custom_auth_type, nil)
+
     operation = self.operation(verb, path)
     if operation.nil?
       raise ArgumentError,
         "Operation #{verb} #{path} doesn't exist for #{name} r#{version_number}"
     end
+
     begin
-      
       RestClient::Request.execute(
         method: verb,
-        url: base_url + _resolve_path(path, path_params),
+        url: url_destination(destination, custom_auth_type)  + _resolve_path(path, path_params),
         # TODO: Create RestClient::ParamsArray for arrays in query_params or they will be mangled with the [] suffix
         #       and also pre-process arrays in headers, somehow (they aren't handled by restclient)
         headers: header_params.merge(params: query_params),
@@ -377,6 +425,12 @@ class ServiceVersion < ApplicationRecord
       status_code: -1,
       status_message: "Connection refused. Exception: #{e.inspect}"
     )
+  rescue SocketError => e
+    service_version_health_checks.create!(
+      http_status: -1,
+      status_code: -1,
+      status_message: "Socket Error. Exception: #{e.inspect}"
+    )
   end
 
   def scheduled_health_check_job_name
@@ -385,15 +439,32 @@ class ServiceVersion < ApplicationRecord
 
   # Should return the health check frequency using cron syntax
   def scheduled_health_check_frequency
-    '* * * * *' # Every minute for now. We should make it configurable later on.
+    frecuency = 1
+    frecuency = organization.monitor_param.health_check_frequency if
+      organization.has_monitor_params?
+    "*/#{frecuency} * * * *"
+  end
+
+  # After How much time *without* a positive health check we mark the service
+  # version as unavailable
+  def unavailable_threshold
+    if organization.has_monitor_params?
+      organization.monitor_param.unavailable_threshold.minutes
+    else
+      3.minutes
+    end
   end
 
   def scheduled_health_check_job
     Sidekiq::Cron::Job.find(scheduled_health_check_job_name)
   end
 
+  def monitoring_enabled?
+    service.monitoring_enabled?
+  end
+
   def schedule_health_checks
-    if current?
+    if current? && monitoring_enabled?
       unless scheduled_health_check_job.present?
         created = Sidekiq::Cron::Job.create(
           name: scheduled_health_check_job_name,
@@ -401,10 +472,84 @@ class ServiceVersion < ApplicationRecord
           class: 'ServiceVersionMonitorWorker',
           args: [self.id]
         )
-        Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}" unless created
+        unless created
+          Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}"
+        end
       end
     else
-      scheduled_health_check_job&.destroy
+      stop_health_checks
     end
   end
+
+  def stop_health_checks
+    scheduled_health_check_job&.destroy
+  end
+
+  def reschedule_health_checks
+    stop_health_checks
+    schedule_health_checks
+  end
+
+  def update_availability_status
+    update_attribute(:availability_status, recalculate_availability_status)
+  end
+
+  def recalculate_availability_status
+    return :unknown unless monitoring_enabled?
+    return :unknown unless last_check
+    threshold_time = unavailable_threshold.ago
+    checks_in_range = last_check.created_at > threshold_time
+    return :unknown unless checks_in_range
+    last_healthy_check = service_version_health_checks.where(healthy: true).last
+    return :unavailable unless last_healthy_check
+    healthy_checks_in_range = last_healthy_check.created_at > threshold_time
+    return :unavailable unless healthy_checks_in_range
+    return :available
+  end
+
+  def last_check
+    service_version_health_checks.last
+  end
+
+  def send_owner_monitor_notifications(message)
+    return if organization == Organization.where(dipres_id: ENV['MINSEGPRES_DIPRES_ID']).first
+
+    owner_role = user.roles.where(organization: organization, name: "Monitor").first
+    if owner_role.present?
+      email = owner_role.email
+      user.notifications.create(subject: self,
+        message: message,
+          email: email
+      )
+    end
+  end
+
+  def send_gobdigital_monitor_notifications(message)
+    org = Organization.where(dipres_id: ENV['MINSEGPRES_DIPRES_ID'])
+
+    Role.where(name: "Monitor", organization: org).each do |role|
+      role.user.notifications.create(subject: self,
+        message: message, email: role.email
+      )
+    end
+  end
+
+  def send_monitor_notifications
+    message = I18n.t(:create_service_status_notification, name: name, old: I18n.t(availability_status_was.to_sym), new: I18n.t(availability_status.to_sym))
+    send_owner_monitor_notifications(message)
+    send_gobdigital_monitor_notifications(message)
+  end
+
+  def get_info_from_first_service(key)
+    case key
+    when 'verb'
+      operations.first.first.first  
+    when 'path'
+      operations.first.first.last
+    else
+      ''
+    end
+    
+  end
+
 end

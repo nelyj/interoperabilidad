@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 services:
   postgres:
     image: postgres:9.5.3
@@ -9,9 +9,12 @@ services:
     ports:
       - "6379"
   base: &base
+    image: ${CACHE_IMAGE:-interoperabilidad-dev:latest}
     build:
       context: .
       dockerfile: Dockerfile.development
+      cache_from:
+        - ${CACHE_IMAGE:-interoperabilidad-dev:latest}
     volumes:
       - .:/app
     depends_on:
@@ -41,6 +44,9 @@ services:
       - MINSEGPRES_DIPRES_ID=AB01
       - SIGNER_APP_HOST=http://proxy-banco.modernizacion.gob.cl
       - REDIS_URL=redis://redis
+      - BUNDLE_PATH=${BUNDLE_PATH-/usr/local/bundle/}
+      - URL_MOCK_SERVICE=https://swagger-mocks.herokuapp.com
+      - TRACEABILITY_ENDPOINT=http://dashboard.digital.gob.cl/
   web:
     <<: *base
     tty: true
@@ -50,7 +56,7 @@ services:
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
   sidekiq:
     <<: *base
-    command: bundle exec sidekiq -C ./config/sidekiq.yml
+    command: bundle exec sidekiq
   bundle_cache:
     image: ruby:2.3.1 # Should be the same as the app Dockerfile.dev base image
     volumes:

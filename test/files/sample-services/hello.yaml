@@ -15,6 +15,12 @@ paths:
       responses:
         200:
           description: Hello GET
+          schema:
+            type: object
+            properties:
+              respuesta:
+                type: string
+                description: Respuesta.
       parameters:
         - name: name
           in: query

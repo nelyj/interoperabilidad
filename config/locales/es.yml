@@ -26,6 +26,9 @@ es:
   cant_save_agreement_error:
     one: No se pudo guardar el convenio debido a 1 error
     other: No se pudo guardar el convenio debido a %{count} errores
+  cant_save_monitor_param_error:
+    one: No se pudo guardar el parámetro debido a 1 error
+    other: No se pudo guardar el parámetro debido a %{count} errores
   not_enough_permissions: No tiene permisos suficientes
   notyamlenorjson: Archivo no está en formato JSON o YAML
   new_schema_created: Nuevo Esquema creado correctamente
@@ -44,12 +47,14 @@ es:
   enter_new_schema_name: Indica nombre para el esquema
   enter_new_service_name: Indica nombre para el servicio
   enter_new_service_file: Selecciona un Archivo
+  enter_custom_mock_server: Indicar Host Alterno de Simulador de Servicio (Mock)
   remove_file: Remover archivo
   description: Descripción
   description_not_found: Descripción no disponible
   name_search: Buscar por nombre
   to_upload_a_schema_please: Para subir un esquema por favor
-  to_upload_a_service_please: Para subir un esquema por favor
+  to_upload_a_service_please: Para subir un servicio por favor
+  to_manage_monitor_params_please: Para administrar los parámetros de monitoreo por favor
   to_review_services_please: Para revisar servicios por favor
   identify_with_clave_unica: identifíquese con su clave única
   to_review_agreements_please: Para revisar convenios por favor
@@ -59,7 +64,10 @@ es:
   public: Público (no requiere convenio)
   schema_name_example: "Ej: PatenteComercial"
   service_name_example: "Ej: Obtención de patente comercial"
+  custom_mock_service_example: "Ej: http://mi.simulador.de.servicio/"
   real_service: Servicio Real
+  mock_service: Servicio Simulado
+  mock_custom_service: Servicio Simulado Externo
   enter_new_schema_category: Indica Categoría
   create_schema: Crear Esquema
   create_service: Crear Servicio
@@ -103,7 +111,7 @@ es:
   save: Guardar
   shownotifications: Ver Notificaciones
   create_new_service_notification: "Nuevo Servicio: %{name} creado."
-  create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación."
+  create_new_version_notification: "Servicio: %{name} versión: %{version} pendiente de aprobación. Cambios: %{changes}"
   create_state_change_notification: "Servicio %{name}, versión %{version} ha sido %{status}."
   agreement_next_step_responsable_message: "Convenio %{id}: %{log} por: %{responsable}"
   agreement_between: "Convenio entre %{consumer} y %{provider}"
@@ -162,6 +170,7 @@ es:
   send_draft: Enviar Borrador
 
   test_service: Probar Servicio
+  with_custom_mock_service: Con Simulador
   send: Enviar
   cancel: Cancelar
   edit: Editar
@@ -204,6 +213,19 @@ es:
   responsable: Responsable
   contact: Contacto
   agreement_history: Historial del convenio
+  monitoring: Monitoreo
+  total_services: Total Servicios
+  unavailable_services: Servicios no disponibles
+  unmonitored_services: Servicios sin monitoreo
+  last_time_checked: Última vez consultado
+  service_status: Estado del servicio
+  never: Nunca
+  unknown: Desconocido
+  available: Activo
+  unavailable: Inactivo
+  monitoring_disabled: Sin monitoreo
+  enable_monitoring: Activar monitoreo
+  disable_monitoring: Desactivar monitoreo
   error:
     one: 1 error
     other: "%{count} errores"
@@ -221,6 +243,7 @@ es:
       agreement_revision:
         one: Convenio
         other: Convenios
+      monitor_param: "Parámetros de Monitoreo"
     attributes:
       schema:
         name: Nombre
@@ -233,9 +256,31 @@ es:
         spec_file: Archivo de Especificación
       service:
         name: Nombre
+        custom_mock_service: Simulador de Servicio
       service_version:
         version_number: Revisión
+        custom_mock_service: Simulador de Servicio
+      monitor_param:
+        health_check_frequency: "Frecuencia de monitoreo"
+        unavailable_threshold: "Umbral de espera"
+        organization: "Organización"
+      service_version_health_check:
+        created_at: Fecha / Hora de Monitoreo
+        http_status: Código HTTP
+        status_code: Código Respuesta Endpoint de Monitoreo
+        status_message: Mensaje de Estado
+        custom_status_message: Descripción del Mensaje de Estado
+        healthy: Estado
     errors:
+      models:
+        service:
+          attributes:
+            custom_mock_service:
+              url: Dirección Inválida
+        service_version:
+          attributes:
+            custom_mock_service:
+              url: Dirección Inválida
       messages:
         record_invalid: "La validación falló: %{errors}"
         restrict_dependent_destroy:
@@ -453,3 +498,22 @@ es:
     omniauth_callbacks:
       user:
         success: Autenticación exitosa
+  new_monitor_param: "Nuevo parámetro de monitoreo"
+  edit_monitor_param: "Editar parámetro de monitoreo"
+  search: Buscar
+  destroy: Eliminar
+  confirm: "Esta seguro?"
+  back: "Atrás"
+  cant_manage_monitor_params: "No tiene permisos para editar estos parámetros"
+  organizations: "Organizaciónes"
+  new_monitor_param_created: Nuevo parametro de monitoreo creado correctamente.
+  monitor_param_deleted: Parametro de monitoreo eliminado correctamente.
+  monitor_param_updated: Parametro de monitoreo actualizado correctamente.
+  service_name_cant_contain_dots: no puede contener puntos
+  xml: XML
+  create_service_status_notification: "El estado del servicio %{name} cambió de %{old} a %{new}"
+  service_versions_changelog_placeholder: "Registro de cambios realizados en esta versión"
+  service_versions_changelog: Descripción de Cambios
+  service_version_proposed_changes: Cambios
+  supports_xml: Soporta XML
+  traceability: Trazabilidad

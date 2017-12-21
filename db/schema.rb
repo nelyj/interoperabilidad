@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031235736) do
+ActiveRecord::Schema.define(version: 20171218110243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 20171031235736) do
     t.integer "service_id",   null: false
     t.index ["agreement_id"], name: "index_agreements_services_on_agreement_id", using: :btree
     t.index ["service_id"], name: "index_agreements_services_on_service_id", using: :btree
+  end
+
+  create_table "monitor_params", force: :cascade do |t|
+    t.integer  "organization_id",                    null: false
+    t.integer  "health_check_frequency", default: 1, null: false
+    t.integer  "unavailable_threshold",  default: 5, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["organization_id"], name: "index_monitor_params_on_organization_id", using: :btree
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -123,6 +132,7 @@ ActiveRecord::Schema.define(version: 20171031235736) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.text     "http_response"
+    t.boolean  "healthy"
     t.index ["service_version_id"], name: "index_service_version_health_checks_on_service_version_id", using: :btree
   end
 
@@ -137,19 +147,24 @@ ActiveRecord::Schema.define(version: 20171031235736) do
     t.boolean  "backwards_compatible",    default: false, null: false
     t.jsonb    "spec_with_resolved_refs"
     t.text     "reject_message"
+    t.integer  "availability_status",     default: 0
+    t.string   "custom_mock_service"
+    t.string   "changelog"
   end
 
   create_table "services", force: :cascade do |t|
-    t.string   "name",                            null: false
-    t.integer  "organization_id",                 null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.boolean  "public",          default: false
+    t.string   "name",                               null: false
+    t.integer  "organization_id",                    null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "public",             default: false
     t.tsvector "lexemes"
     t.string   "humanized_name"
-    t.boolean  "featured",        default: false
+    t.boolean  "featured",           default: false
     t.string   "provider_id"
     t.string   "provider_secret"
+    t.boolean  "monitoring_enabled", default: true
+    t.boolean  "support_xml",        default: false
     t.index ["lexemes"], name: "services_lexemes_idx", using: :gin
   end
 

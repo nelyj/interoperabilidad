@@ -8,9 +8,11 @@ class Service < ApplicationRecord
   before_save :generate_provider_credentials
   validates :spec, swagger_spec: true, presence: true , :on => :create
   validate :spec_file_must_be_parseable
+  validate :name_has_no_dots
   delegate :description, to: :current_or_last_version
-  attr_accessor :spec, :backwards_compatible
+  attr_accessor :spec, :backwards_compatible, :custom_mock_service
   attr_accessor :spec_file_parse_exception
+  validates :custom_mock_service, :url => {:allow_blank => true}
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception
@@ -20,7 +22,13 @@ class Service < ApplicationRecord
 
   scope :featured, -> { where(featured: true) }
   scope :popular, -> { last(8) } # To be replaced by actual popular services once we have agreements in place
-
+  scope :unavailable, -> {
+    where(id: ServiceVersion.current.unavailable.select(:service_id))
+  }
+  scope :without_monitoring, -> { where(monitoring_enabled: false) }
+  scope :without_approved_versions, -> {
+    where.not(id: ServiceVersion.current.select(:service_id))
+  }
 
   def generate_provider_credentials
     unless self.public
@@ -29,11 +37,11 @@ class Service < ApplicationRecord
     end
   end
 
-  def generate_client_token
+  def generate_client_token(subject = nil)
     return nil if provider_secret.nil?
     claims = {
       iss: self.url,
-      sub: self.organization.url,
+      sub: subject || self.organization.url,
       aud: [self.provider_id],
       exp: client_token_expiration_in_seconds.seconds.from_now
     }
@@ -64,8 +72,9 @@ class Service < ApplicationRecord
   end
 
   def create_first_version(user)
-    version = service_versions.create(spec: self.spec, user: user,
-      backwards_compatible: true)
+    service_versions.create(
+      spec: self.spec, user: user, backwards_compatible: true, custom_mock_service: custom_mock_service
+    )
   end
 
   def last_version_number
@@ -131,5 +140,9 @@ class Service < ApplicationRecord
 
   def url
     Rails.application.routes.url_helpers.organization_service_path(self.organization, self)
+  end
+
+  def name_has_no_dots
+    errors.add(:name, I18n.t(:service_name_cant_contain_dots)) unless name['.'].nil?
   end
 end

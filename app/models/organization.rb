@@ -3,6 +3,9 @@ class Organization <ApplicationRecord
   has_many :users, through: :roles
   has_many :services
   has_many :agreements
+  has_one  :monitor_param
+
+  scope :with_services, -> { where(id: Service.all.select(:organization_id))}
 
   def to_param
     name
@@ -28,6 +31,10 @@ class Organization <ApplicationRecord
 
   def has_agreement_for?(service)
     service.agreements.exists?(service_consumer_organization: self)
+  end
+
+  def has_monitor_params?
+    monitor_param.present?
   end
 
   def url
