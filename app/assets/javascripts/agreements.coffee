@@ -17,6 +17,9 @@ document.addEventListener 'turbolinks:load', ->
     $('#one_time_password').focus()
     return
 
+$(window).load ->
+  showRelatedElements()
+
 $(document).on 'keyup change', '.list-filter', ->
   $target = $($(this).data('target'))
   filter = $(this).val()
