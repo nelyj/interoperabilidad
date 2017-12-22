@@ -13,11 +13,11 @@
             %thead
               %tr
                 %th
-                  Categorías
+                  = t(:category)
                 %th
-                  Esquemas
+                  = t(:schemas)
                 %th
-                  Servicio
+                  = t(:services)
             %tbody
               - DataCategory.all.each do |cat|
                 %tr
