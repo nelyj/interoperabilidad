@@ -102,6 +102,7 @@ es:
   create_request: Crear Solicitud
   request_signature: Solicitar Firma
   provider_organization: Institución proveedora
+  consumer_organization: Institución consumidora
   select_organization: Seleccione una Institución
   notifications: Notificaciones
   not_readed: No Leída
@@ -523,3 +524,6 @@ es:
   creation_date: Fecha de creación
   last_modified: Última modificación
   next_step_responsables: Responsables
+  organizations_must_be_different: Las organizaciones deben ser distintas.
+  agreement_created_from_preexisting_one: Convenio creado a partir de uno existente.
+  file_must_be_pdf: El archivo debe ser un pdf.

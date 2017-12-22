@@ -1,0 +1,71 @@
+- unless user_signed_in? && current_user.is_service_admin?
+  .alert.info
+    .container
+      %p
+        #{t(:to_view_agreements_please)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  .new-agreement.main-container
+    .container-fluid.main-title
+      .container
+        .col12
+          -#%h1= t(:create_new_agreement) + ' ' + @organization.name
+          %h1= t(:create_new_agreement)
+          = link_to agreements_global_path do
+            %i.material-icons
+              close
+    .container-fluid.new-agreement-content
+      .container
+        = form_for(agreements_global_path, :html => {class: 'form-group'}, :url => {:action => 'inject'}) do |f|
+          - if @agreement.errors.any?
+            .container-fluid.no-gutter{:class => "alert warning alert-dismissable fade in", :"data-alert" => "alert"}
+              .row
+                .container
+                  %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
+                  %p= t(:cant_save_agreement_error, count: @agreement.errors.count)
+                  %ul
+                    - @agreement.errors.full_messages.each do |message|
+                      %li= message
+          .row.new-service-container
+            .col-md-6
+              %h4= t(:select_file)
+              .input-group.box-input-file
+                .field
+                  %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
+                %label#label-file.input-group-btn
+                  %span#select-file.btn= t(:select_file)
+                  = f.file_field :file, :style => 'display: none;', readonly: 'readonly'
+              %span#remove-file
+                %i.material-icons close
+                %span=t(:remove_file)
+          .row
+            .col-md-6
+              %label= t(:consumer_organization)
+              = f.collection_select(:service_consumer_organization_id, Organization.all, :id, :name, prompt: t(:select_organization), class: 'form-control input-lg', selected: @agreement&.service_consumer_organization_id)
+
+            .col-md-6
+              %label= t(:provider_organization)
+              = f.collection_select(:service_provider_organization_id, Organization.all, :id, :name, {prompt: t(:select_organization), selected: @agreement&.service_provider_organization_id, class: 'form-control input-lg'}, {id: 'agreement_service_provider_organization_id'} )
+          .row
+            .col-md-6
+              %label= t(:services_involved_in_agreement)
+              .list-selector
+                .input-group
+                  %input.form-control.list-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#services_list'}}
+                  %span.input-group-btn
+                    %button.search
+                      %i.material-icons
+                        search
+                .content-list#services_list
+                  = f.collection_check_boxes(:service_ids, Service.all, :id, :name, checked: @cheked_services) do |s|
+                    .row-list{"data-organization" => "#{Service.find(s.value).organization.id}"}
+                      = s.label{ s.check_box + s.text}
+            .col-md-6
+              %ul.services-list
+
+          = f.hidden_field(:purpose, :value => t(:agreement_created_from_preexisting_one) )
+          = f.hidden_field(:legal_base, :value => t(:agreement_created_from_preexisting_one))
+
+          .row
+            .col-md-12
+              = f.submit class: 'btn btn-primary', value: t(:create_agreement)

@@ -98,14 +98,48 @@ class AgreementsController < ApplicationController
     end
   end
 
+  def new_injection
+    return unless user_signed_in?
+    if current_user.is_service_admin?
+      @agreement = Agreement.new
+    end
+  end
+
   def inject
-    return true
+    return unless user_signed_in?
+    if current_user.is_service_admin?
+      @agreement = Agreement.new(injection_params.merge(user: current_user))
+      file = params.require('/agreements/global').permit(:file)[:file]
+
+      if file.content_type == 'application/pdf'
+        if @agreement.save
+          @agreement.new_revision(current_user,:signed,I18n.t(:signed_log),'', file)
+          inject_pdf(@agreement, @agreement.last_revision, file)
+          @agreement.last_revision.send_notifications
+          redirect_to(agreements_global_path , notice: t(:new_agreement_created))
+        else
+          @agreement.delete
+          flash.now[:error] = t(:cant_create_agreement)
+          render action: "new_injection"
+        end
+      else
+        @agreement.delete
+        flash.now[:error] = t(:file_must_be_pdf)
+        render action: "new_injection"
+      end
+    end
   end
 
 private
 
   def agreement_params
     params.require(:agreement).permit(:service_provider_organization_id,
+      :service_consumer_organization_id, :purpose, :legal_base,
+      :objection_message, :one_time_password, :next_step, :service_ids => [])
+  end
+
+  def injection_params
+    params.require('/agreements/global').permit(:service_provider_organization_id,
       :service_consumer_organization_id, :purpose, :legal_base,
       :objection_message, :one_time_password, :next_step, :service_ids => [])
   end

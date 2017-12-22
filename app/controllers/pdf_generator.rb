@@ -13,4 +13,13 @@ module PdfGenerator
             :save_only => true
     @agreement_revision.upload_pdf(file_name, file_path)
   end
+
+  def inject_pdf(agreement, agreement_revision, file)
+    tmp = file.tempfile
+    file_name = "CID-#{agreement.id}-#{agreement_revision.revision_number}_#{agreement.service_provider_organization.initials.upcase}_#{agreement.service_consumer_organization.initials.upcase}.injected.pdf"
+    file_path = Rails.root.join('tmp', file_name)
+
+    FileUtils.move(tmp.path, file_path)
+    agreement_revision.upload_pdf(file_name, file_path)
+  end
 end

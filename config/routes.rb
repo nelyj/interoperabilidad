@@ -30,7 +30,8 @@ Rails.application.routes.draw do
 
   namespace :agreements do
     get 'global'
-    get 'inject'
+    get 'new_injection'
+    post 'inject'
   end
 
   namespace :monitoring do
