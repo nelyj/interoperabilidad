@@ -19,6 +19,7 @@ class SchemasController < ApplicationController
     @schema = Schema.new(schema_params)
     if @schema.save
       @schema.create_first_version(current_user)
+      @schema.set_data_categories(params[:schema][:data_category_ids])
       redirect_to [@schema, @schema.schema_versions.first], notice: t(:new_schema_created)
     else
       flash.now[:error] = t(:cant_create_schema)
@@ -34,7 +35,7 @@ class SchemasController < ApplicationController
   private
 
   def schema_params
-    params.require(:schema).permit(:schema_category_ids, :name, :spec_file)
+    params.require(:schema).permit(:schema_category_ids, :name, :spec_file, :data_category_ids, 'data_category_ids')
   end
 
   def set_schema

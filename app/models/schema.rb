@@ -2,6 +2,8 @@ class Schema < ApplicationRecord
   include Searchable
   has_and_belongs_to_many :schema_categories
   has_many :schema_versions
+  has_many :schema_data_categories
+  has_many :data_categories, through: :schema_data_categories
 
   validates :name, uniqueness: true, presence: true
   attr_accessor :spec
@@ -10,6 +12,7 @@ class Schema < ApplicationRecord
   delegate :description, to: :last_version
   validate :spec_file_must_be_parseable
   attr_accessor :spec_file_parse_exception
+
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception
@@ -74,5 +77,27 @@ class Schema < ApplicationRecord
                     # weight
     }
     HashSearchVectorExtractor.new(keys_to_search_for, weight_by_path_pattern)
+  end
+
+  def set_data_categories(data_categories_id_params)
+    old_category_ids = self.data_categories.pluck(:id)
+    new_category_ids = data_categories_id_params
+                        .map(&:to_i)
+                        .select { |id| id > 0 }
+
+    discarded_categories = old_category_ids - new_category_ids
+    added_categories = new_category_ids - old_category_ids
+
+    discarded_categories.each do |data_cat_id|
+      # Since each schema_id && data_category_id is unique (as enforced by the UNIQUE constraint)
+      # .first is fine
+      SchemaDataCategory.where(schema_id: self.id, data_category_id: data_cat_id)
+                         .first
+                         .destroy
+    end
+
+    added_categories.each do |data_cat_id|
+      SchemaDataCategory.create!(schema_id: self.id, data_category_id: data_cat_id)
+    end
   end
 end

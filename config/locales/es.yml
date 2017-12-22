@@ -529,3 +529,5 @@ es:
   data_category_deletion_success: Borrado exitosamente
   data_category_deletion_error: Lo sentimos, hubo un error
   data_directories: Directorio de datos
+  enter_new_schema_data_category: Ingrese categoría(s) de datos del esquema
+  add_data_categories: Añadir categorías de datos
