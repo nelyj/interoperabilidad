@@ -1,5 +1,5 @@
 class DataCategoriesController < ApplicationController
-  before_action :signed_in?
+  before_action :check_service_admin
 
   def index
   end
@@ -48,10 +48,9 @@ class DataCategoriesController < ApplicationController
     params.require(:data_category).permit(:name)
   end
 
-  def signed_in?
-    unless user_signed_in?
-      flash[:error] = I18n.t(:identify_with_clave_unica)
-      redirect_to services_path
+  def check_service_admin
+    unless user_signed_in? && current_user.is_service_admin?
+      redirect_to services_path, notice: t(:cant_manage_data_categories)
     end
   end
 
