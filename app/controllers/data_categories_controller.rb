@@ -1,5 +1,5 @@
 class DataCategoriesController < ApplicationController
-  before_action :check_services_admin
+  before_action :check_service_admin
 
   def index
   end
