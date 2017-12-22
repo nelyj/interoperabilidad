@@ -27,10 +27,19 @@
             = t(:service_version_proposed_changes) + ":"
           %h3.service_version_proposed_changelog
             = @service_version.changelog
-          .actions
-            = button_to t(:approve), state_organization_service_service_version_path(state: 'current'), method: :put, class: "btn btn-success"
-            %button.btn.btn-danger{"data-target" => "#modalServiceRejected", "data-toggle" => "modal", :type => "button"}
-              =t(:reject)
+          .row
+            .col-md-12
+              = form_for [@service_versions, @organization, @service], url: { controller: 'service_versions', action: "state" } do  |f|
+                = f.submit t(:approve), class: "btn btn-success"
+                %button.btn.btn-danger{"data-target" => "#modalServiceRejected", "data-toggle" => "modal", :type => "button"}
+                  =t(:reject)
+                = f.text_field :state, {value: 'current', type: 'hidden'}
+
+                %h4{style: "margin-top: 2em"}
+                  Añadir categorias de datos
+                = f.select :data_categories, [], {}, {multiple: "multiple", class: "form-control", id: "tagPicker"} do 
+                  - DataCategory.all.each do |cat|
+                    = content_tag(:option, cat.name, value: cat.id, selected: @service_version.service.data_categories.pluck(:id).include?(cat.id))
 - elsif @service_version.rejected?
   .container-fluid.panel-error.alert.fade.in{:"data-alert" => "alert"}
     .container

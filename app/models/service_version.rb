@@ -21,6 +21,7 @@ class ServiceVersion < ApplicationRecord
   delegate :organization, to: :service
   delegate :support_xml, to: :service, allow_nil: true
   has_many :service_version_health_checks
+  delegate :data_categories, to: :service
   after_save :send_monitor_notifications, if: :availability_status_changed?
 
   # proposed: 0, current: 1, rejected: 2, retracted:3 , outdated:4 , retired:5

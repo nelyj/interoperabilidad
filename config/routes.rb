@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   end
 
   resources :monitor_params
+  resources :data_categories
 
   resources :organizations, only: [:index, :show], param: :name do
     resources :services, only: [:index, :new, :create, :show], param: :name do
@@ -49,7 +50,7 @@ Rails.application.routes.draw do
         path: 'versions' do
           member do
             patch 'reject'
-            put 'state'
+            patch 'state'
             get 'source_code'
             get 'operations/:verb*path', to: 'service_versions#show', as: 'operation', constraints: {path: /\/.*/}
             get 'operations/:verb', to: 'service_versions#show', as: 'operation_on_root_path'
