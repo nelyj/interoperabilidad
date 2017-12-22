@@ -36,7 +36,7 @@
                 .field
                   %input#input-file.form-control{:readonly => 'readonly', :type => 'text'}
                 %label#label-file.input-group-btn
-                  %span#select-file.btn= t(:choose_file)
+                  %span#select-file.btn= t(:select_file)
                   = f.file_field :spec_file, :style => 'display: none;', readonly: 'readonly'
               %span#remove-file
                 %i.material-icons close

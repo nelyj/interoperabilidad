@@ -3,9 +3,8 @@ module PdfGenerator
 
   def generate_pdf(agreement, agreement_revision)
     @agreement_revision = agreement_revision
-    @provider_organization = Organization.find(agreement.service_provider_organization_id)
-    @consumer_organization = Organization.find(agreement.service_consumer_organization_id)
-    file_name = "CID-#{agreement.id}-#{@agreement_revision.revision_number}_#{@provider_organization.initials.upcase}_#{@consumer_organization.initials.upcase}.pdf"
+
+    file_name = "CID-#{agreement.id}-#{@agreement_revision.revision_number}_#{agreement.service_provider_organization.initials.upcase}_#{agreement.service_consumer_organization.initials.upcase}.pdf"
     file_path = Rails.root.join('tmp', file_name)
     render  :pdf => 'convenio',
             :template => 'agreement_revisions/template.html.haml',

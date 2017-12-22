@@ -60,7 +60,6 @@ es:
   to_review_agreements_please: Para revisar convenios por favor
   to_create_agreements_please: Para crear convenios por favor
   create_schema: Crear Esquema
-  choose_file: Seleccionar Archivo
   public: Público (no requiere convenio)
   schema_name_example: "Ej: PatenteComercial"
   service_name_example: "Ej: Obtención de patente comercial"
