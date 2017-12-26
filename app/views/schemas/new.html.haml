@@ -48,7 +48,7 @@
               %h4= t(:enter_new_schema_category)
               = f.collection_select 'schema_category_ids', SchemaCategory.all, :id, :name, {:include_blank => false}, {:class => 'form-control input-lg'}
               
-            .col-md-4
+            .col-md-4.col-md-pull-4
               %h4= t(:enter_new_schema_data_category)
               = f.select :data_category_ids, [], {}, {multiple: "multiple", class: "form-control", id: "tagPicker"} do 
                 - DataCategory.all.each do |cat|
