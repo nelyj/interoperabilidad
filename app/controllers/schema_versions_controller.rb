@@ -38,6 +38,7 @@ class SchemaVersionsController < ApplicationController
     end
     @schema_version.update(schema_version_params.merge(user:current_user))
     if @schema_version.save
+      @schema_version.schema.data_category_ids = params[:schema_version][:data_categories].reject(&:blank?)
       redirect_to [@schema, @schema_version], notice: t(:new_schema_version_created)
     else
       flash.now[:error] = t(:cant_create_schema_version)
