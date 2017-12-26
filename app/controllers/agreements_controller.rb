@@ -127,6 +127,8 @@ class AgreementsController < ApplicationController
         flash.now[:error] = t(:file_must_be_pdf)
         render action: "new_injection"
       end
+    else
+      redirect_to root_path, notice: t(:not_enough_permissions)
     end
   end
 
