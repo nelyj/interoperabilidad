@@ -102,6 +102,8 @@ class AgreementsController < ApplicationController
     return unless user_signed_in?
     if current_user.is_service_admin?
       @agreement = Agreement.new
+    else
+      redirect_to root_path, notice: t(:not_enough_permissions)
     end
   end
 
