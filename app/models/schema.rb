@@ -80,24 +80,8 @@ class Schema < ApplicationRecord
   end
 
   def set_data_categories(data_categories_id_params)
-    old_category_ids = self.data_categories.pluck(:id)
-    new_category_ids = data_categories_id_params
-                        .map { |id| id.to_i }
-                        .select { |id| id > 0 }
 
-    discarded_categories = old_category_ids - new_category_ids
-    added_categories = new_category_ids - old_category_ids
-
-    discarded_categories.each do |data_cat_id|
-      # Since each schema_id && data_category_id is unique (as enforced by the UNIQUE constraint)
-      # .first is fine
-      SchemaDataCategory.where(schema_id: self.id, data_category_id: data_cat_id)
-                        .first
-                        .destroy
-    end
-
-    added_categories.each do |data_cat_id|
-      SchemaDataCategory.create!(schema_id: self.id, data_category_id: data_cat_id)
-    end
+    self.data_category_ids = data_categories_id_params.map(&:to_i)
+                                                      .select {|x| x > 0}
   end
 end
