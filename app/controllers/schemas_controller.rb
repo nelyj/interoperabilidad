@@ -19,7 +19,7 @@ class SchemasController < ApplicationController
     @schema = Schema.new(schema_params)
     if @schema.save
       @schema.create_first_version(current_user)
-      @schema.set_data_categories(params[:schema][:data_category_ids])
+      @schema.data_category_ids = params[:schema][:data_category_ids].reject(&:blank?)
       redirect_to [@schema, @schema.schema_versions.first], notice: t(:new_schema_created)
     else
       flash.now[:error] = t(:cant_create_schema)

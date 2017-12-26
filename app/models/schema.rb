@@ -78,10 +78,4 @@ class Schema < ApplicationRecord
     }
     HashSearchVectorExtractor.new(keys_to_search_for, weight_by_path_pattern)
   end
-
-  def set_data_categories(data_categories_id_params)
-
-    self.data_category_ids = data_categories_id_params.map(&:to_i)
-                                                      .select {|x| x > 0}
-  end
 end

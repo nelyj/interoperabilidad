@@ -147,9 +147,4 @@ class Service < ApplicationRecord
   def name_has_no_dots
     errors.add(:name, I18n.t(:service_name_cant_contain_dots)) unless name['.'].nil?
   end
-
-  def set_data_categories(data_categories_id_params)
-    self.data_category_ids = data_categories_id_params.map(&:to_i)
-                                                      .select { |x| x > 0 }
-  end
 end

@@ -140,7 +140,7 @@ class ServiceVersionsController < ApplicationController
   def make_current_version
     set_service_version
     @service_version.make_current_version
-    @service_version.service.set_data_categories(params[:service][:data_categories])
+    @service_version.service.data_category_ids = params[:service][:data_categories].reject(&:blank?)
     redirect_to pending_approval_services_path
   end
 
