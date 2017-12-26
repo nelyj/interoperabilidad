@@ -117,7 +117,7 @@ class ServiceVersionsController < ApplicationController
 
   def state
     if user_signed_in? && current_user.is_service_admin?
-      new_state = params[:state]
+      new_state = params[:service][:state]
       case new_state
       when 'current'
         make_current_version
@@ -140,6 +140,7 @@ class ServiceVersionsController < ApplicationController
   def make_current_version
     set_service_version
     @service_version.make_current_version
+    @service_version.service.set_data_categories(params[:service][:data_categories])
     redirect_to pending_approval_services_path
   end
 
