@@ -526,6 +526,7 @@ es:
   next_step_responsables: Responsables
   organizations_must_be_different: Las organizaciones deben ser distintas.
   agreement_created_from_preexisting_one: Convenio creado a partir de uno existente.
+  sign_date: Fecha de Firma
   file_must_be_pdf: El archivo debe ser un pdf.
   first_change_log_detail: Servicio Creado
   no_change_log_reported: Sin Cambios Reportados
