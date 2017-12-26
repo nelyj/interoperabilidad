@@ -517,6 +517,8 @@ es:
   service_version_proposed_changes: Cambios
   supports_xml: Soporta XML
   traceability: Trazabilidad
+  first_change_log_detail: Servicio Creado
+  no_change_log_reported: Sin Cambios Reportados
   data_categories: Categorías de Datos
   create_data_category: Crear categoría
   edit_data_category: Editar categoría
