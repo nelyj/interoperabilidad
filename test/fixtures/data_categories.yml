@@ -10,5 +10,5 @@ one_tag:
 another_tag:
   name: value_number_two
 
-another_tag:
+some_other_tag:
   name: data_type_something

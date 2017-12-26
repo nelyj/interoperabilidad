@@ -13,17 +13,17 @@
             %thead
               %tr
                 %th
-                  Categorias
+                  = t(:category)
                 %th
-                  Schemas
+                  = t(:schemas)
                 %th
-                  Servicio
+                  = t(:services)
             %tbody
-              - Service.all.each do |svc|
+              - DataCategory.all.each do |cat|
                 %tr
                   %td
-                    = svc.data_categories.map { |cat| cat.name }.join(', ')
+                    = cat.name
                   %td
-                    TBI
+                    = cat.schemas.pluck(:humanized_name).join(' ')
                   %td
-                    = svc.name
+                    = cat.services.pluck(:humanized_name).join(' ')

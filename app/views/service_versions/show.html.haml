@@ -36,7 +36,7 @@
                 = f.text_field :state, {value: 'current', type: 'hidden'}
 
                 %h4{style: "margin-top: 2em"}
-                  Añadir categorias de datos
+                =  t(:add_data_categories)
                 = f.select :data_categories, [], {}, {multiple: "multiple", class: "form-control", id: "tagPicker"} do 
                   - DataCategory.all.each do |cat|
                     = content_tag(:option, cat.name, value: cat.id, selected: @service_version.service.data_categories.pluck(:id).include?(cat.id))
