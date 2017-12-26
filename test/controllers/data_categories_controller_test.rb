@@ -4,7 +4,7 @@ class DataCategoriesControllerTest < ActionDispatch::IntegrationTest
   include Warden::Test::Helpers
 
   before :each do
-    login_as users(:pedro), scope: :user
+    login_as users(:pablito), scope: :user
   end
 
   def teardown

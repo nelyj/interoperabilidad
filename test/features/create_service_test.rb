@@ -56,5 +56,14 @@ class CreateServiceTest < Capybara::Rails::TestCase
 
   end
 
+  test "Default change log in service" do
+    attach_file 'service_spec_file', Rails.root.join(
+      'test', 'files', 'sample-services', 'petsfull.yaml')
+    click_button "Crear Servicio"
+    assert_content page, "Servicio creado correctamente"
+    assert_content page, "Cambios"
+    assert_content page, "Servicio Creado"
+  end
+
 
 end
