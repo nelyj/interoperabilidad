@@ -46,6 +46,11 @@
             %i.material-icons
               description
             %span= "Vista global de Convenios"
+        %li.data-categories
+          =link_to data_categories_path, id: "menu-data-categories" do
+            %i.material-icons
+              local_offer
+            %span= t(:data_categories)
       %li.logout
         =link_to destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: :delete, id: 'btn-logout' do
           %i.material-icons

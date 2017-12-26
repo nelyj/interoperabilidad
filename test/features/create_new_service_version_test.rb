@@ -59,5 +59,13 @@ class CreateNewServiceVersionTest < Capybara::Rails::TestCase
     assert_content "Simulador de Servicio Dirección Inválida"
   end
 
+  test "create a valid service version with no change log value" do
+    attach_file 'service_version_spec_file', Rails.root.join(
+      'test', 'files', 'sample-services', 'petsfull.yaml')
+    click_button "Subir Nueva Revisión"
+    assert_content page, "Nueva revisión creada correctamente"
+    assert_content page, "Sin Cambios Reportados"
+  end
+
 
 end

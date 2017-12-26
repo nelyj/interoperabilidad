@@ -1,0 +1,11 @@
+= form_for @data_category do |f|
+  .col-md-3
+    %h2
+      = t(:edit_data_category)
+    .field
+      = f.label :name, "Nombre"
+    .field
+      = f.text_field :name, class: "form-control input-lg user-success"
+    = f.submit t(:send_data), class: "btn btn-action-blue btn-lg gradient"
+  
+  

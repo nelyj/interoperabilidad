@@ -13,6 +13,8 @@ class Service < ApplicationRecord
   attr_accessor :spec, :backwards_compatible, :custom_mock_service
   attr_accessor :spec_file_parse_exception
   validates :custom_mock_service, :url => {:allow_blank => true}
+  has_many :service_data_categories
+  has_many :data_categories, through: :service_data_categories
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception
@@ -144,5 +146,27 @@ class Service < ApplicationRecord
 
   def name_has_no_dots
     errors.add(:name, I18n.t(:service_name_cant_contain_dots)) unless name['.'].nil?
+  end
+
+  def set_data_categories(data_categories_id_params)
+    old_category_ids = self.data_categories.pluck(:id)
+    new_category_ids = data_categories_id_params
+                        .map(&:to_i)
+                        .select { |id| id > 0 }
+
+    discarded_categories = old_category_ids - new_category_ids
+    added_categories = new_category_ids - old_category_ids
+
+    discarded_categories.each do |data_cat_id|
+      # Since each service_id && data_category_id is unique (as enforced by the UNIQUE constraint)
+      # .first is fine
+      ServiceDataCategory.where(service_id: self.id, data_category_id: data_cat_id)
+                         .first
+                         .destroy
+    end
+
+    added_categories.each do |data_cat_id|
+      ServiceDataCategory.create!(service_id: self.id, data_category_id: data_cat_id)
+    end
   end
 end
