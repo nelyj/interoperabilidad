@@ -1,0 +1,29 @@
+- if !user_signed_in?
+  .alert.info
+    .container
+      %p
+        #{t(:identify_with_clave_unica)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  .content-pages.container-fluid
+    .container
+      .row
+        .col-md-12.head-title-table
+          %table.table#data_directories_index_table
+            %thead
+              %tr
+                %th
+                  Categorias
+                %th
+                  Schemas
+                %th
+                  Servicio
+            %tbody
+              - Service.all.each do |svc|
+                %tr
+                  %td
+                    = svc.data_categories.map { |cat| cat.name }.join(', ')
+                  %td
+                    TBI
+                  %td
+                    = svc.name
