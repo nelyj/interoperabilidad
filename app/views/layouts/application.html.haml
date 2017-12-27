@@ -44,6 +44,8 @@
                       =active_link_to t(:monitoring), monitoring_organizations_path
                     %li{role: "presentation"}
                       =link_to t(:traceability), controller.traceability_endpoint
+                    %li{role: "presentation"}
+                      =link_to t(:data_directories), data_directories_path
                   .nav.navbar-nav.navbar-right
                     =render 'layouts/menu'
 

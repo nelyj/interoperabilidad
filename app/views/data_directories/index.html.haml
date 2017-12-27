@@ -1,0 +1,29 @@
+- if !user_signed_in?
+  .alert.info
+    .container
+      %p
+        #{t(:identify_with_clave_unica)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  .content-pages.container-fluid
+    .container
+      .row
+        .col-md-12.head-title-table
+          %table.table#data_directories_index_table
+            %thead
+              %tr
+                %th
+                  = t(:category)
+                %th
+                  = t(:schemas)
+                %th
+                  = t(:services)
+            %tbody
+              - DataCategory.all.each do |cat|
+                %tr
+                  %td
+                    = cat.name
+                  %td
+                    = cat.schemas.pluck(:humanized_name).join(' ')
+                  %td
+                    = cat.services.pluck(:humanized_name).join(' ')

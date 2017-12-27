@@ -2,6 +2,8 @@ class Schema < ApplicationRecord
   include Searchable
   has_and_belongs_to_many :schema_categories
   has_many :schema_versions
+  has_many :schema_data_categories
+  has_many :data_categories, through: :schema_data_categories
 
   validates :name, uniqueness: true, presence: true
   attr_accessor :spec
@@ -10,6 +12,7 @@ class Schema < ApplicationRecord
   delegate :description, to: :last_version
   validate :spec_file_must_be_parseable
   attr_accessor :spec_file_parse_exception
+
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception
