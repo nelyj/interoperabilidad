@@ -102,6 +102,8 @@ class AgreementsController < ApplicationController
     return unless user_signed_in?
     if current_user.is_service_admin?
       @agreement = Agreement.new
+    else
+      redirect_to root_path, notice: t(:not_enough_permissions)
     end
   end
 
@@ -110,8 +112,7 @@ class AgreementsController < ApplicationController
     if current_user.is_service_admin?
       @agreement = Agreement.new(injection_params.merge(user: current_user))
       file = params.require('/agreements/global').permit(:file)[:file]
-
-      if file.content_type == 'application/pdf'
+      if file != nil && file.content_type == 'application/pdf'
         if @agreement.save
           @agreement.new_revision(current_user,:signed,I18n.t(:signed_log),'', file)
           inject_pdf(@agreement, @agreement.last_revision, file)
@@ -123,10 +124,11 @@ class AgreementsController < ApplicationController
           render action: "new_injection"
         end
       else
-        @agreement.delete
-        flash.now[:error] = t(:file_must_be_pdf)
+        @agreement.errors.add(:base, t(:file_must_be_pdf))
         render action: "new_injection"
       end
+    else
+      redirect_to root_path, notice: t(:not_enough_permissions)
     end
   end
 

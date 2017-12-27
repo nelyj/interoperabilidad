@@ -1,0 +1,32 @@
+- if !user_signed_in?
+  .alert.info
+    .container
+      %p
+        #{t(:identify_with_clave_unica)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  .content-pages.container-fluid
+    .container
+      .row
+        .col-md-12.head-title-table
+          .search-table
+            %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#data_categories_index_table'}}
+            %button.search
+              %i.material-icons
+                search
+          %table.table#data_categories_index_table
+            %thead
+              %tr
+                %th
+                  Nombre
+                %th
+                  Acciones
+            %tbody
+              - DataCategory.all.each do |cat|
+                %tr
+                  %td
+                    = cat.name
+                  %td
+                    = link_to 'Editar', edit_data_category_path(cat.id), method: :get                    
+                    = link_to 'Eliminar', data_category_path(cat.id), method: :delete
+      = button_to t(:create_data_category), new_data_category_path, method: :get, class: "btn btn-action-blue btn-lg gradient"

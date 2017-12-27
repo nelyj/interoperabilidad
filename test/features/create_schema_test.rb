@@ -30,4 +30,16 @@ class CreateSchemaTest < Capybara::Rails::TestCase
     click_button "Crear Esquema"
     assert_content page, "Nuevo Esquema creado correctamente"
   end
+
+  test "create a valid schema with tags" do
+    attach_file 'schema_spec_file', Rails.root.join(
+      'test', 'files', 'sample-schemas', 'schemaObject.json')
+    pseudo_select_element = find_all('span.selection span[role="combobox"]').last
+    pseudo_select_element.click
+    find('li', text: data_categories(:some_other_tag).name).click
+    click_button 'Crear Esquema'
+    assert_content page, "Nuevo Esquema creado correctamente"
+    schema = Schema.find_by(name: 'SchemaObject')
+    assert_equal schema.data_categories.map(&:name), [data_categories(:some_other_tag).name] 
+  end
 end

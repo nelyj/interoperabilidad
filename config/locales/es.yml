@@ -526,4 +526,22 @@ es:
   next_step_responsables: Responsables
   organizations_must_be_different: Las organizaciones deben ser distintas.
   agreement_created_from_preexisting_one: Convenio creado a partir de uno existente.
+  sign_date: Fecha de Firma
   file_must_be_pdf: El archivo debe ser un pdf.
+  first_change_log_detail: Servicio Creado
+  no_change_log_reported: Sin Cambios Reportados
+  data_categories: Categorías de Datos
+  create_data_category: Crear categoría
+  edit_data_category: Editar categoría
+  category_name: Nombre
+  send_data: Enviar datos
+  record_created: Registro creado
+  couldnt_save_record: No se pudo guardar el registro
+  data_category_update_success: Actualizado exitosamente
+  data_category_update_error: Hubo un error al actualizar
+  data_category_deletion_success: Borrado exitosamente
+  data_category_deletion_error: Lo sentimos, hubo un error
+  data_directories: Directorio de datos
+  enter_new_schema_data_category: Ingrese categoría(s) de datos del esquema
+  add_data_categories: Añadir categorías de datos
+  tokens: Tokens

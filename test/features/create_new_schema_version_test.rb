@@ -33,4 +33,15 @@ class CreateNewSchemaVersionTest < Capybara::Rails::TestCase
     click_button "Subir Nueva Revisión"
     assert_content page, "Nueva Versión creada correctamente"
   end
+
+  test "create a valid schema with tags" do
+    attach_file 'schema_version_spec_file', Rails.root.join(
+      'test', 'files', 'sample-schemas', 'schemaObject.json')
+    find_all('span[role="combobox"]').last.click
+    find('li', text: data_categories(:some_other_tag).name).click
+    click_button "Subir Nueva Revisión"
+    assert_content page, "Nueva Versión creada correctamente"
+    schema_version = Schema.find_by(name: 'AnotacionesSchema1').schema_versions.last
+    assert_equal schema_version.schema.data_categories.map(&:name), [data_categories(:some_other_tag).name] 
+  end
 end
