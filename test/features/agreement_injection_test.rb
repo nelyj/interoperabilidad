@@ -76,7 +76,7 @@ class AgreementInjectionTest < Capybara::Rails::TestCase
 
     click_button 'Crear Nuevo Convenio'
 
-    assert_content("No se pudo crear el convenio")
+    assert_content("No se pudo guardar el convenio")
     assert_content("El archivo debe ser un pdf")
   end
 
