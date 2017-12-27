@@ -114,7 +114,7 @@ class AgreementsController < ApplicationController
     @agreement = Agreement.new(injection_params.merge(user: current_user))
     file = params.require('/agreements/global').permit(:file)[:file]
 
-    if file != nil && file.content_type == 'application/pdf'
+    if file&.content_type == 'application/pdf'
       if @agreement.save
         @agreement.new_revision(current_user,:signed,I18n.t(:signed_log),'', file)
         inject_pdf(@agreement, @agreement.last_revision, file)
