@@ -1,7 +1,7 @@
 require "test_helper"
 require_relative 'support/agreement_creation_helper'
 
-class AgreementFlowTest < Capybara::Rails::TestCase
+class AgreementInjectionTest < Capybara::Rails::TestCase
   include AgreementCreationHelper
   include Warden::Test::Helpers
   after { Warden.test_reset! }
@@ -105,7 +105,7 @@ class AgreementFlowTest < Capybara::Rails::TestCase
 
     click_button 'Crear Nuevo Convenio'
 
-    assert_content("No se pudo crear el convenio")
+    assert_content("No se pudo guardar el convenio")
     assert_content("El archivo debe ser un pdf")
   end
 
