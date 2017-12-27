@@ -20,6 +20,7 @@ class ServiceVersion < ApplicationRecord
   delegate :name, to: :service
   delegate :organization, to: :service
   delegate :support_xml, to: :service, allow_nil: true
+  delegate :agreements, to: :service, allow_nil: true
   has_many :service_version_health_checks
   after_save :send_monitor_notifications, if: :availability_status_changed?
 
@@ -532,10 +533,29 @@ class ServiceVersion < ApplicationRecord
     end
   end
 
+  def send_consumer_organization_monitor_notifications(consumer_organization, message)
+
+    Role.get_organization_users(consumer_organization, "Monitor").each do |user|
+      notify_user = User.where(name: user[:name]).first
+      unless notify_user.nil?
+        notify_user.notifications.create(subject: self,
+          message: message, email: user[:email]
+        )
+      end
+    end
+
+  end
+
+
   def send_monitor_notifications
     message = I18n.t(:create_service_status_notification, name: name, old: I18n.t(availability_status_was.to_sym), new: I18n.t(availability_status.to_sym))
     send_owner_monitor_notifications(message)
     send_gobdigital_monitor_notifications(message)
+    agreements.each do |agreement|
+      if agreement.signed?
+        send_consumer_organization_monitor_notifications(agreement.service_consumer_organization, message)
+      end
+    end
   end
 
 end

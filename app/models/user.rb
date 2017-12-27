@@ -171,4 +171,5 @@ class User < ApplicationRecord
     return true if self.organizations.include?(service.organization)
     service.agreements.where(service_consumer_organization: self.organization_ids).any?(&:signed?)
   end
+
 end
