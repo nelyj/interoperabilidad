@@ -16,4 +16,5 @@
             %td{title: "Contactos: #{responsable[:email].map(&:inspect).join("\n")}"}
               %li= responsable[:name]
   %td= agreements.agreement_revisions.last.updated_at.strftime("%d/%m/%Y")
-  %td= agreements.agreement_revisions.signed.first&.updated_at.strftime("%d/%m/%Y")
+  - if agreements.signed?
+    %td= agreements.agreement_revisions.signed.first.updated_at.strftime("%d/%m/%Y")
