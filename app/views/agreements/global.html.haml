@@ -1,0 +1,49 @@
+- unless user_signed_in?
+  .alert.info
+    .container
+      %p
+        #{t(:to_view_agreements_please)}
+        = link_to t(:identify_with_clave_unica), user_clave_unica_omniauth_authorize_path
+- else
+  .content-pages.container-fluid
+    .container
+      .row
+        .col-md-12.head-title-table
+          %h2=t(:agreements_global_view)
+          .search-table
+            %input.search-filter{:type => 'text', :placeholder => t(:name_search), data: {target: '#agreements-table'}}
+              %button.search
+                %i.material-icons
+                  search
+      .row
+        .col-md-12
+          %ul.nav.nav-tabs{:role => "tablist"}
+            %li{:role => "presentation", :class => "tab-to-new"}
+              =link_to agreements_new_injection_path do
+                %i.material-icons
+                  file_upload
+                %span=t(:inject_agreement)
+      .row
+        .col-md-12
+          %table#agreements-table
+            %colgroup
+              %col{:width => "5%"}
+              %col{:width => "20%"}
+              %col{:width => "18%"}
+              %col{:width => "20%"}
+              %col{:width => "5%"}
+              %col{:width => "20%"}
+              %col{:width => "5%"}
+              %col{:width => "7%"}
+            %thead
+              %tr
+                %th= t(:creation_date)
+                %th= t(:provider_organization)
+                %th= t(:services)
+                %th= t(:requesting_organization)
+                %th= t(:state)
+                %th= t(:next_step_responsables)
+                %th= t(:last_modified)
+                %th= t(:sign_date)
+            %tbody
+              = render partial: "agreements", collection: @agreements

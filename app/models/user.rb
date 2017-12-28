@@ -160,7 +160,7 @@ class User < ApplicationRecord
     return false unless agreement.signed?
     return true if agreement.agreement_revisions.where(revision_number: 1).first.user == self  # The person who started the agreement can see the secret
     # And validators and signers of agreements can also see secrets
-    org = agreement.consumer_organization
+    org = agreement.service_consumer_organization
     return (
       self.roles.where(organization: org, name: "Validate Agreement").exists? ||
       self.roles.where(organization: org, name: "Sign Agreement").exists?
@@ -171,4 +171,5 @@ class User < ApplicationRecord
     return true if self.organizations.include?(service.organization)
     service.agreements.where(service_consumer_organization: self.organization_ids).any?(&:signed?)
   end
+
 end

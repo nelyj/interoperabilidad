@@ -1,0 +1,20 @@
+%tr
+  %td= agreements.created_at.strftime("%d/%m/%Y")
+  %td= agreements.service_provider_organization.name
+  %td
+    - agreements.services.each do |service|
+      %li= service.name
+  %td= agreements.service_consumer_organization.name
+  %td
+    %span{class: css_class_for_agreement_status(agreements.state)}
+      = t(agreements.state)
+  %td
+    %table
+      %tbody
+        - agreements.next_step_responsables.each do |responsable|
+          %tr
+            %td{title: "Contactos: #{responsable[:email].map(&:inspect).join("\n")}"}
+              %li= responsable[:name]
+  %td= agreements.agreement_revisions.last.updated_at.strftime("%d/%m/%Y")
+  - if agreements.signed?
+    %td= agreements.agreement_revisions.signed.first.updated_at.strftime("%d/%m/%Y")

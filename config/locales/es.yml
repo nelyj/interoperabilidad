@@ -60,7 +60,6 @@ es:
   to_review_agreements_please: Para revisar convenios por favor
   to_create_agreements_please: Para crear convenios por favor
   create_schema: Crear Esquema
-  choose_file: Seleccionar Archivo
   public: Público (no requiere convenio)
   schema_name_example: "Ej: PatenteComercial"
   service_name_example: "Ej: Obtención de patente comercial"
@@ -103,6 +102,7 @@ es:
   create_request: Crear Solicitud
   request_signature: Solicitar Firma
   provider_organization: Institución proveedora
+  consumer_organization: Institución consumidora
   select_organization: Seleccione una Institución
   notifications: Notificaciones
   not_readed: No Leída
@@ -512,11 +512,22 @@ es:
   service_name_cant_contain_dots: no puede contener puntos
   xml: XML
   create_service_status_notification: "El estado del servicio %{name} cambió de %{old} a %{new}"
+  to_view_agreements_please: Para revisar los convenios de la plataforma por favor
+  no_agreements: No hay convenios
+  agreements_global_view: Vista Global de Convenios
+  inject_agreement: Subir un convenio existente
   service_versions_changelog_placeholder: "Registro de cambios realizados en esta versión"
   service_versions_changelog: Descripción de Cambios
   service_version_proposed_changes: Cambios
   supports_xml: Soporta XML
   traceability: Trazabilidad
+  creation_date: Fecha de creación
+  last_modified: Última modificación
+  next_step_responsables: Responsables
+  organizations_must_be_different: Las organizaciones deben ser distintas.
+  agreement_created_from_preexisting_one: Convenio creado a partir de uno existente.
+  sign_date: Fecha de Firma
+  file_must_be_pdf: El archivo debe ser un pdf.
   first_change_log_detail: Servicio Creado
   no_change_log_reported: Sin Cambios Reportados
   data_categories: Categorías de Datos
@@ -533,3 +544,4 @@ es:
   data_directories: Directorio de datos
   enter_new_schema_data_category: Ingrese categoría(s) de datos del esquema
   add_data_categories: Añadir categorías de datos
+  tokens: Tokens
