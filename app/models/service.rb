@@ -13,6 +13,8 @@ class Service < ApplicationRecord
   attr_accessor :spec, :backwards_compatible, :custom_mock_service
   attr_accessor :spec_file_parse_exception
   validates :custom_mock_service, :url => {:allow_blank => true}
+  has_many :service_data_categories
+  has_many :data_categories, through: :service_data_categories
 
   def spec_file_must_be_parseable
     if self.spec_file_parse_exception

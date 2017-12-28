@@ -44,8 +44,12 @@
               %span#remove-file
                 %i.material-icons{":aria-hidden" => true} close
                 %span=t(:remove_file)
+            .col-md-4{style: "margin-top: 2rem"}
+              %h4= t(:enter_new_schema_data_category)
+              = f.select :data_categories, [], {}, {multiple: "multiple", class: "form-control", id: "tagPicker"} do
+                - DataCategory.all.each do |cat|
+                  = content_tag(:option, cat.name, value: cat.id, selected: @schema.data_categories.pluck(:id).include?(cat.id))
           .row
             .col-md-12
               .text-right
                 = f.submit t(:upload_new_version), class: 'btn btn-primary btn-lg'
-

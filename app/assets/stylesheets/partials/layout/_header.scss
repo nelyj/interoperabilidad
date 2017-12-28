@@ -23,8 +23,11 @@ header {
             }
         }
         .navbar-collapse {
-            .navbar-right {
-                margin: 40px 0 0 0;
+            .navbar-right {                
+                margin: 40px 0 20px 0;
+                @media only screen and (max-width: 768px) {
+                    margin-left: 40%;
+                }
             }
         }
         .nav {
@@ -75,17 +78,57 @@ header {
         margin: 0px;
         display: inline-block;
     }
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 768px) and (max-width: 989px) {
         nav {
             .principal {
-                margin-left: 0;
+                width: 48%;
+                margin-left: 0%;
                 li {
-                    height: 118px;
-                    width: 160px;
-                    text-align: center;
                     a {
                         height: 118px;
                         line-height: 100px;
+                        color: rgba(113, 123, 127, 1);
+                        font-size: $font-18;
+                        border-radius: 0px;
+                        border-top: none;
+                        &:hover {
+                            background-color: rgba(249, 249, 249, 1);
+                        }
+                        &.active {
+                            background-color: rgba(249, 249, 249, 1);
+                            border-bottom: 6px solid $official-blue;
+                            color: rgba(113, 123, 127, 1);
+                            border-radius: 0px;
+                            &:hover {
+                                background-color: rgba(249, 249, 249, 1);
+                                color: rgba(113, 123, 127, 1);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        .navbar .nav > li > a {
+            border-top: none;
+            font-size: 16px;
+            padding: 5px 10px;
+            
+        }
+    }
+        
+    @media only screen and (min-width: 990px) {
+        nav {
+            .principal {
+                width: 50%;
+                margin-left: 8%;
+                li {
+                    height: 118px;
+                    width: 20%;
+                    text-align: center;
+                    a {
+                        height: 118px;
+                        padding-top: 50px;
                         color: rgba(113, 123, 127, 1);
                         font-size: $font-18;
                         border-radius: 0px;
@@ -117,7 +160,7 @@ header {
 }
 
 #btn-login {
-    width: 224px;
+    width: 100%;
     float: right;
     font-size: 22px;
     font-family: $font-light;
@@ -132,6 +175,8 @@ header {
 
 #user-menu {
     float: left;
+    width: 60px;
+    padding-right: 100px;
     button {
         border-bottom: none;
         text-align: left;
@@ -199,6 +244,7 @@ header {
             &.new-schema,
             &.pending-services,
             &.monitor-params,
+            &.data-categories,
             &.logout {
                 a {
                     overflow: hidden;

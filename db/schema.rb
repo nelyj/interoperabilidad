@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218110243) do
+ActiveRecord::Schema.define(version: 20171222144402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,12 @@ ActiveRecord::Schema.define(version: 20171218110243) do
     t.integer "service_id",   null: false
     t.index ["agreement_id"], name: "index_agreements_services_on_agreement_id", using: :btree
     t.index ["service_id"], name: "index_agreements_services_on_service_id", using: :btree
+  end
+
+  create_table "data_categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "monitor_params", force: :cascade do |t|
@@ -103,6 +109,14 @@ ActiveRecord::Schema.define(version: 20171218110243) do
     t.integer "schema_category_id"
   end
 
+  create_table "schema_data_categories", force: :cascade do |t|
+    t.integer  "schema_id"
+    t.integer  "data_category_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["schema_id", "data_category_id"], name: "index_schema_data_categories_on_schema_id_and_data_category_id", unique: true, using: :btree
+  end
+
   create_table "schema_versions", force: :cascade do |t|
     t.integer  "schema_id",               null: false
     t.integer  "version_number",          null: false
@@ -121,6 +135,14 @@ ActiveRecord::Schema.define(version: 20171218110243) do
     t.string   "humanized_name"
     t.index ["lexemes"], name: "schemas_lexemes_idx", using: :gin
     t.index ["name"], name: "index_schemas_on_name", using: :btree
+  end
+
+  create_table "service_data_categories", force: :cascade do |t|
+    t.integer  "service_id"
+    t.integer  "data_category_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["service_id", "data_category_id"], name: "svc_data_cat_unique_svc_id_data_cat_id", unique: true, using: :btree
   end
 
   create_table "service_version_health_checks", force: :cascade do |t|
@@ -187,8 +209,12 @@ ActiveRecord::Schema.define(version: 20171218110243) do
 
   add_foreign_key "schema_categories_schemas", "schema_categories"
   add_foreign_key "schema_categories_schemas", "schemas"
+  add_foreign_key "schema_data_categories", "data_categories"
+  add_foreign_key "schema_data_categories", "schemas"
   add_foreign_key "schema_versions", "schemas"
   add_foreign_key "schema_versions", "users"
+  add_foreign_key "service_data_categories", "data_categories"
+  add_foreign_key "service_data_categories", "services"
   add_foreign_key "service_versions", "services"
   add_foreign_key "service_versions", "users"
   add_foreign_key "services", "organizations"
