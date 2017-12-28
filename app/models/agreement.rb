@@ -88,40 +88,10 @@ class Agreement <ApplicationRecord
     end
   end
 
-  def parse_persons(persons, role, org)
-    users = Array.new
-    return [{name: "", email: [""]}] if persons.nil?
-    persons.map do |p|
-      first_name = p["nombre"]["nombres"].join(' ')
-      last_name = p["nombre"]["apellidos"].join(' ')
-      name = first_name.strip + ' ' + last_name.strip
-
-      emails = Array.new
-      last_email = ""
-      p["instituciones"].map do |i|
-        if i["institucion"]["id"] == org.dipres_id && i["rol"] == role
-          emails << i["email"]
-        end
-      end
-
-      users << {name: name, email: emails}
-    end
-    users
-  end
-
   def next_step_responsables
     return [] if self.signed? #There are no responsables of next step if the agreemetn is signed
     next_role = AgreementRevision.state_to_role(next_step)
-    response = RoleService.get_organization_users(active_organization_in_flow, next_role)
-
-    if response.code == 200
-      response = JSON.parse(response)
-      parse_persons(response["personas"], next_role, active_organization_in_flow )
-    else
-      Rollbar.error('Call to Role Service for organization: ' + active_organization_in_flow.name +
-        ' role: ' + next_role + ' Returned: ' + response.code.to_s)
-      return nil
-    end
+    Role.get_organization_users(active_organization_in_flow, next_role)
   end
 
   def active_organization_in_flow

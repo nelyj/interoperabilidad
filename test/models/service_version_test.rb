@@ -344,4 +344,28 @@ class ServiceVersionTest < ActiveSupport::TestCase
       assert_equal :available, service_version.recalculate_availability_status
     end
   end
+
+
+  test '#send_monitor_notifications' do
+    service_version = service_versions(:servicio1_v3)
+    service_version.service.update_attributes(monitoring_enabled: true)
+    org = organizations(:segpres)
+
+    agreement = Minitest::Mock.new
+    agreement.expect :signed?, true
+    agreement.expect :service_consumer_organization, org
+    service_version.stub :agreements, [agreement] do 
+      service_version.service_version_health_checks.destroy_all
+      service_version.service_version_health_checks.create(
+        http_status: 200, status_code:200, created_at: 3.minutes.ago
+      )
+      service_version.service_version_health_checks.create(
+        http_status: 200, status_code:200, created_at: 1.minute.ago
+      )
+      assert_equal true, service_version.update_availability_status  
+      
+      assert_mock agreement
+    end
+        
+  end
 end
