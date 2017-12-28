@@ -11,6 +11,7 @@ class Agreement <ApplicationRecord
   after_create :generate_client_credentials!
   validates :service_provider_organization, presence: true
   validates :services, presence: true
+  validate :different_organizations
   delegate :state, to: :last_revision
   attr_accessor :purpose, :legal_base, :user, :objection_message
 
@@ -109,6 +110,7 @@ class Agreement <ApplicationRecord
   end
 
   def next_step_responsables
+    return [] if self.signed? #There are no responsables of next step if the agreemetn is signed
     next_role = AgreementRevision.state_to_role(next_step)
     response = RoleService.get_organization_users(active_organization_in_flow, next_role)
 
@@ -237,6 +239,12 @@ class Agreement <ApplicationRecord
 
   def url
     Rails.application.routes.url_helpers.organization_agreement_path(self.service_consumer_organization, self)
+  end
+
+  def different_organizations
+    if service_provider_organization_id == service_consumer_organization_id
+      errors.add(:organization, I18n.t(:organizations_must_be_different))
+    end
   end
 
 end

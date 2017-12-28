@@ -23,7 +23,7 @@ header {
             }
         }
         .navbar-collapse {
-            .navbar-right {                
+            .navbar-right {
                 margin: 40px 0 20px 0;
                 @media only screen and (max-width: 768px) {
                     margin-left: 40%;
@@ -113,10 +113,10 @@ header {
             border-top: none;
             font-size: 16px;
             padding: 5px 10px;
-            
+
         }
     }
-        
+
     @media only screen and (min-width: 990px) {
         nav {
             .principal {
@@ -244,6 +244,7 @@ header {
             &.new-schema,
             &.pending-services,
             &.monitor-params,
+            &.agreements-list,
             &.data-categories,
             &.logout {
                 a {
@@ -275,7 +276,12 @@ header {
             }
             &.monitor-params{
               a{
-                color: $official-lightblue
+                color: $official-blue
+              }
+            }
+            &.agreements-list{
+              a{
+                color: $official-red;
               }
             }
             }

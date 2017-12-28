@@ -5,6 +5,7 @@ class AgreementRevision <ApplicationRecord
   belongs_to :user
   before_create :set_revision_number
   attr_readonly :state
+
   default_scope -> { order('created_at DESC') }
 
   # draft: 0, validated_draft: 1, objected: 2, signed_draft:3 , validated:4 , rejected_sign:5, signed:6

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root to: 'home#root'
-  
+
   get 'trazabilidad', to: 'traceability#endpoints_info'
 
   devise_scope :user do
@@ -26,6 +26,12 @@ Rails.application.routes.draw do
       get 'search'
       get 'pending_approval'
     end
+  end
+
+  namespace :agreements do
+    get 'global'
+    get 'new_injection'
+    post 'inject'
   end
 
   namespace :monitoring do
