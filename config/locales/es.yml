@@ -545,3 +545,5 @@ es:
   enter_new_schema_data_category: Ingrese categoría(s) de datos del esquema
   add_data_categories: Añadir categorías de datos
   tokens: Tokens
+  delete_data_category: Eliminar categoría
+  really_delete_category?: ¿Está seguro que desea eliminar la categoría?

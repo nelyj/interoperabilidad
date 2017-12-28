@@ -36,8 +36,10 @@ class DataCategoriesTest < Capybara::Rails::TestCase
   test "Attempt to delete a data category" do
     assert_difference 'DataCategory.count', -1 do
       find_all('a', text: 'Eliminar').first.click
-      assert_content 'Borrado exitosamente'
+      assert_content '¿Está seguro que desea eliminar la categoría?'
+      click_on 'Eliminar'
     end
+    assert_content 'Borrado exitosamente'
   end
 
   test "Should redirect to services path when not logged in" do

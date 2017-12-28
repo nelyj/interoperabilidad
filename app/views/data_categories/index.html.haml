@@ -28,5 +28,25 @@
                     = cat.name
                   %td
                     = link_to 'Editar', edit_data_category_path(cat.id), method: :get                    
-                    = link_to 'Eliminar', data_category_path(cat.id), method: :delete
+                    %a{"data-target" => ".modalServiceRejected-#{cat.id}", "data-toggle" => "modal", :type => "button"}
+                      = t(:destroy)
+                    %div{class: "modalServiceRejected-#{cat.id} modal fade", :role => "dialog", :tabindex => "-1"}
+                      .modal-dialog
+                        .modal-content
+                          .modal-header
+                            %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                              %span{"aria-hidden" => "true"} ×
+                            %h1{style: 'text-align: center'}
+                              = t(:delete_data_category)
+                          = form_for cat, :url => data_category_path(cat.id), method: :delete do |f|
+                            .modal-body
+                              .col-md-12
+                                %h2{style: 'text-align: center'}
+                                  = t(:really_delete_category?)
+                              %span.row
+                                .col-md-8.col-md-offset-4
+                                  %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+                                    = t(:cancel)
+                                  %button.btn.btn-danger{:type => "submit"}
+                                    = t(:destroy)
       = button_to t(:create_data_category), new_data_category_path, method: :get, class: "btn btn-action-blue btn-lg gradient"
