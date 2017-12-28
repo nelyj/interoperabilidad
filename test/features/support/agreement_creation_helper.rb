@@ -20,6 +20,16 @@ module AgreementCreationHelper
     service
   end
 
+  def create_valid_schema!
+    schema = Schema.create!(
+      name: 'test-schema'+SecureRandom.uuid,
+      spec_file: StringIO.new(VALID_SCHEMA_OBJECT),
+      schema_categories: [schema_categories(:informacion_de_personas)]
+    )
+    schema.create_first_version(users(:pedro))
+    schema
+  end
+
   def create_valid_agreement!(orgp, orgc)
     service = create_valid_service!
     agreement = Agreement.create!(
