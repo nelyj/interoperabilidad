@@ -42,4 +42,5 @@ class CreateSchemaTest < Capybara::Rails::TestCase
     schema = Schema.find_by(name: 'SchemaObject')
     assert_equal schema.data_categories.map(&:name), [data_categories(:some_other_tag).name] 
   end
+
 end
