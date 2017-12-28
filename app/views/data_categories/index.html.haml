@@ -28,9 +28,9 @@
                     = cat.name
                   %td
                     = link_to 'Editar', edit_data_category_path(cat.id), method: :get                    
-                    %a{"data-target" => ".modalServiceRejected-#{cat.id}", "data-toggle" => "modal", :type => "button"}
+                    %a{"data-target" => ".data-category-#{cat.id}", "data-toggle" => "modal", :type => "button"}
                       = t(:destroy)
-                    %div{class: "modalServiceRejected-#{cat.id} modal fade", :role => "dialog", :tabindex => "-1"}
+                    %div{class: "data-category-#{cat.id} modal fade", :role => "dialog", :tabindex => "-1"}
                       .modal-dialog
                         .modal-content
                           .modal-header
