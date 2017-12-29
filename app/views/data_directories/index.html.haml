@@ -22,6 +22,10 @@
                 %td
                   = cat.name
                 %td
-                  = cat.schemas.pluck(:humanized_name).join(' ')
+                  - cat.schemas.pluck(:humanized_name).each do |name|
+                    %li
+                      = name
                 %td
-                  = cat.services.pluck(:humanized_name).join(' ')
+                  - cat.services.pluck(:humanized_name).each do |name|
+                    %li
+                      = name
