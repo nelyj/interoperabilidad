@@ -18,16 +18,16 @@
             %thead
               %tr
                 %th
-                  Nombre
+                  = t(:category_name)
                 %th
-                  Acciones
+                  = t(:actions)
             %tbody
               - DataCategory.all.each do |cat|
                 %tr
                   %td
                     = cat.name
                   %td
-                    = link_to 'Editar', edit_data_category_path(cat.id), method: :get                    
+                    = link_to t(:edit), edit_data_category_path(cat.id), method: :get                    
                     %a{"data-target" => ".data-category-#{cat.id}", "data-toggle" => "modal", :type => "button"}
                       = t(:destroy)
                     %div{class: "data-category-#{cat.id} modal fade", :role => "dialog", :tabindex => "-1"}
