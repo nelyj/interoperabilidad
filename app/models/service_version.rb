@@ -476,6 +476,7 @@ class ServiceVersion < ApplicationRecord
           class: 'ServiceVersionMonitorWorker',
           args: [self.id]
         )
+
         unless created
           Rails.logger.error "Can't schedule health check monitor for service version id #{self.id}"
         end
