@@ -1,7 +1,7 @@
 require "test_helper"
 require_relative 'support/ui_test_helper'
 
-class MonitorParamTest < Capybara::Rails::TestCase
+class MonitorParamFeatureTest < Capybara::Rails::TestCase
   include Warden::Test::Helpers
   after { Warden.test_reset! }
 
