@@ -1,7 +1,5 @@
 # Interoperabilidad
 
-<!-- TOC -->
-
 - [Interoperabilidad](#interoperabilidad)
   - [Development setup](#development-setup)
     - [Requirements](#requirements)
@@ -20,8 +18,6 @@
       - [PostgreSQL](#postgresql)
       - [Redis](#redis)
       - [Ruby Gems](#ruby-gems)
-
-<!-- /TOC -->
 
 ## Development setup
 
