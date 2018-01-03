@@ -34,7 +34,7 @@ Note: Only tested on Mac OS X and Linux so far.
 
 1. If you are using voltos, the firs step is to run `voltos use gobdigital-interoperabilidad` inside the project root folder.
 
-    - To do things more simple, you can create a function inside your `.bashrc` or `.bashrc.local` and replace make with vmake in every command.
+    - To do things simpler, you can create a function inside your `.bashrc` or `.bashrc.local` and replace make with vmake in every command.
 
     ```bash
     function vmake(){
@@ -94,7 +94,7 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `REDIS_URL`: A pointer to the Redis instance (e.g: `redis://myuser:mypass@redis-host:6379`).
 
-- `ISSUER_OIDC`: Is the URL for te issuer of ClaveUnica OpenID.
+- `ISSUER_OIDC`: Is the URL for the issuer of ClaveUnica OpenID.
 
 - `OP_CLIENT_ID`: Client ID to authenticate with https://www.claveunica.gob.cl/
 
@@ -142,7 +142,7 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `TRACEABILITY_ENDPOINT`: Address of the traceability dashboard.
 
-- `TRAZABILIDAD_SECRET`: This secret is shared with `Plataforma de Interacciones` to check that it can access te endpoit containing trazability info.
+- `TRAZABILIDAD_SECRET`: This secret is shared with `Plataforma de Interacciones` to check that it can access te endpoit containing traceability info.
 
 - `URL_MOCK_SERVICE`: This is the Mock Service URL.
 
@@ -218,7 +218,7 @@ The web containers will enqueue background jobs into a queue stored in redis. In
 
 #### Run the web containers
 
-Don't forget to run the docker image with all the env variablaes and without special command in one or more machines and point a load balancer to it :smiley: .
+Don't forget to run the docker image with all the env variables and without special command in one or more machines and point a load balancer to it :smiley: .
 
 ### Details
 
