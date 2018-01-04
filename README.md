@@ -34,7 +34,7 @@ Note: Only tested on Mac OS X and Linux so far.
 
 1. If you are using voltos, the firs step is to run `voltos use gobdigital-interoperabilidad` inside the project root folder.
 
-    - To do things simpler, you can create a function inside your `.bashrc` or `.bashrc.local` and replace make with vmake in every command.
+    - To make things simpler, you can create a function inside your `.bashrc` or `.bashrc.local` and replace make with vmake in every command.
 
     ```bash
     function vmake(){
@@ -142,7 +142,7 @@ Production should run the latest [`egob/interoperabilidad`](https://hub.docker.c
 
 - `TRACEABILITY_ENDPOINT`: Address of the traceability dashboard.
 
-- `TRAZABILIDAD_SECRET`: This secret is shared with `Plataforma de Interacciones` to check that it can access te endpoit containing traceability info.
+- `TRAZABILIDAD_SECRET`: This secret is shared with `Plataforma de Interacciones` to check that it can access te endpoint containing traceability info.
 
 - `URL_MOCK_SERVICE`: This is the Mock Service URL.
 
