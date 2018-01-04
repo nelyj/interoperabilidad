@@ -62,4 +62,6 @@
     :openssl_verify_mode => 'none'
   }
 
+  # default host for controllers
+  config.action_controller.default_url_options = { :host => ENV['APP_HOST_URL'] }
 end
