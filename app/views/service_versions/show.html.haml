@@ -37,7 +37,7 @@
 
                 %h4{style: "margin-top: 2em"}
                 =  t(:add_data_categories)
-                = f.select :data_categories, [], {}, {multiple: "multiple", class: "form-control", id: "tagPicker"} do 
+                = f.select :data_categories, [], {}, {multiple: "multiple", class: "form-control", id: "tagPicker"} do
                   - DataCategory.all.each do |cat|
                     = content_tag(:option, cat.name, value: cat.id, selected: @service_version.service.data_categories.pluck(:id).include?(cat.id))
 - elsif @service_version.rejected?
@@ -71,11 +71,21 @@
           - else
             = t(:description_not_found)
       .col-md-4.text-right
-        =link_to @service_version.has_previous_version? ? organization_service_service_version_path(@organization, @service, @service_version.previous_version) : '' , class: "detail-action #{'deactivate' unless @service_version.has_previous_version? }" do
+        =link_to @service_version.has_previous_version? ? operation_organization_service_service_version_path(organization_name: @organization.name,
+                                                                    version_number: @service_version.previous_version,
+                                                                    service_name: @service.name,
+                                                                    verb: @service_version.previous_version.get_info_from_first_service("verb"),
+                                                                    path: @service_version.previous_version.get_info_from_first_service("path"),
+                                                                    anchor: 'operation') : '' , class: "detail-action #{'deactivate' unless @service_version.has_previous_version? }" do
           %i.material-icons undo
           = t(:previous_version)
         %br
-        =link_to @service_version.has_next_version? ? organization_service_service_version_path(@organization, @service, @service_version.next_version) : '' , class: "detail-action #{'deactivate' unless @service_version.has_next_version? }" do
+        =link_to @service_version.has_next_version? ? operation_organization_service_service_version_path(organization_name: @organization.name,
+                                                                    version_number: @service_version.next_version,
+                                                                    service_name: @service.name,
+                                                                    verb: @service_version.next_version.get_info_from_first_service("verb"),
+                                                                    path: @service_version.next_version.get_info_from_first_service("path"),
+                                                                    anchor: 'operation') : '' , class: "detail-action #{'deactivate' unless @service_version.has_next_version? }" do
           %i.material-icons redo
           = t(:next_version)
         %br
