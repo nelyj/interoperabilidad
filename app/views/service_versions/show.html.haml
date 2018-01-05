@@ -37,7 +37,7 @@
 
                 %h4{style: "margin-top: 2em"}
                 =  t(:add_data_categories)
-                = f.select :data_categories, [], {}, {multiple: "multiple", class: "form-control", id: "tagPicker"} do 
+                = f.select :data_categories, [], {}, {multiple: "multiple", class: "form-control", id: "tagPicker"} do
                   - DataCategory.all.each do |cat|
                     = content_tag(:option, cat.name, value: cat.id, selected: @service_version.service.data_categories.pluck(:id).include?(cat.id))
 - elsif @service_version.rejected?
