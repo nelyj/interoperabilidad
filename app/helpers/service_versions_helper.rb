@@ -88,8 +88,10 @@ module ServiceVersionsHelper
   def response_example_markup(example)
     if example.present?
       content_tag(:div, class: 'box-code-example') do
-        content_tag(:code, class: 'json') do
-          preserve(JSON.pretty_generate example)
+        content_tag(:pre, class: nil) do
+          content_tag(:code, class: 'json') do
+            preserve(JSON.pretty_generate example)
+          end
         end
       end
     else
